@@ -6,3 +6,6 @@ This plugins adds usefoul commands like /sethome, /tpa, /spawn, /day ect. to the
 - [CurseForge](https://www.curseforge.com/minecraft/mc-mods/maessentials) (downloads and more information)
 - [GitHub repository](https://github.com/Maciej916/Ma-Essentials) (source code)
 - [Issue Tracker on GitHub](https://github.com/Maciej916/Ma-Essentials/issues) (bug reports and feature requests)
+
+## Installation
+Put mod in /mods directory on client and server side in order to mod work property.
