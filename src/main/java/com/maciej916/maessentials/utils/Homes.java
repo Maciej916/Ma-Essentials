@@ -6,11 +6,12 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Homes {
-    private static ArrayList<Home> userHomes = new ArrayList<Home>();
+    private ArrayList<Home> userHomes = new ArrayList<Home>();
 
-    public Homes() {}
+    public Homes() { }
 
     public Homes(ArrayList<Home> newUserHomes) {
         this.userHomes = newUserHomes;

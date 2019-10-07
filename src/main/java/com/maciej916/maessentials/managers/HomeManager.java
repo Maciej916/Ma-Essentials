@@ -57,9 +57,9 @@ public class HomeManager {
         try {
             FileInputStream fis = new FileInputStream(Config.getMainCatalog()+"/homes/"+uuidString+".dat");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            ArrayList<Home> employees = (ArrayList) ois.readObject();
+            ArrayList<Home> homeArrayList = (ArrayList) ois.readObject();
             UUID uid = UUID.fromString(uuidString);
-            Homes playerHomes = new Homes(employees);
+            Homes playerHomes = new Homes(homeArrayList);
             uuidHomeHashMap.put(uid, playerHomes);
             ois.close();
             fis.close();

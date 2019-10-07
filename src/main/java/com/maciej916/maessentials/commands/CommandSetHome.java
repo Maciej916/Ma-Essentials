@@ -30,7 +30,7 @@ public class CommandSetHome {
 
     private static int setHomeArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String args = StringArgumentType.getString(context, "HomeName").toString().toLowerCase();;
+        String args = StringArgumentType.getString(context, "HomeName").toString().toLowerCase();
         handleSetHome(player, args);
         return Command.SINGLE_SUCCESS;
     }

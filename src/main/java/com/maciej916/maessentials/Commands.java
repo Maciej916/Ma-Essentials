@@ -34,5 +34,12 @@ public class Commands {
         CommandDelWarp.register(dispatcher);
         CommandWarp.register(dispatcher);
 
+        if (event.getServer().isDedicatedServer()) {
+            CommandTpa.register(dispatcher);
+            CommandTpahere.register(dispatcher);
+            CommandTpdeny.register(dispatcher);
+            CommandTpaccept.register(dispatcher);
+        }
+
     }
 }

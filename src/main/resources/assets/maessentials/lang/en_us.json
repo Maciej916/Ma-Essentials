@@ -29,6 +29,34 @@
   "command.maessentials.warp.list": "Current warps (%s): %s.",
   "command.maessentials.warp.teleported": "Teleported to warp \"%s\"!",
 
+  "_comment": "Tpa lang",
+  "command.maessentials.player.provide": "Please provide user to request teleport!",
+  "command.maessentials.player.notfound": "Target player has not been found!.",
+  "command.maessentials.player.self": "You can not request teleport to yourself!",
+
+  "command.maessentials.tpa.norequest": "You don't have any pending teleport requests!",
+  "command.maessentials.tpa.notfound": "Requested teleport has not been found!",
+  "command.maessentials.tpa.request": "Teleport request sent to %s!",
+  "command.maessentials.tpa.target": "Player %s wants to teleport to you. Type /tpaccept to accept teleport request.",
+  "command.maessentials.tpa.exist": "You already have pending teleport request to %s!",
+
+  "command.maessentials.tpahere.request": "Teleport request sent to %s!",
+  "command.maessentials.tpahere.target": "Player %s wants to teleport you to himself. Type /tpaccept to accept teleport request.",
+  "command.maessentials.tpahere.exist": "You already have pending teleport request to %s!",
+
+  "command.maessentials.tpaccept.specifyplayer": "Please specify player to accept teleport request!",
+  "command.maessentials.tpaccept.request": "You have been teleported to %s!",
+  "command.maessentials.tpaccept.target": "Player %s has been teleported to you!",
+
+  "command.maessentials.tpdeny.specifyplayer": "Please specify player to accept deny teleport request!",
+  "command.maessentials.tpdeny.request": "Player %s cancelled your teleport request!",
+  "command.maessentials.tpdeny.target": "Teleport request cancelled from player %s!",
+
+  "command.maessentials.tpa.expired.target": "Teleport request to player %s just expired!",
+  "command.maessentials.tpa.expired.request": "Teleport request to from %s just expired!",
+
+
+
 
 
   "command.maessentials.test": "%s"

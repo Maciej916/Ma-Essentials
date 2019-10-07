@@ -23,12 +23,10 @@ public class CommandDay {
     private static int execute(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerWorld world = context.getSource().getWorld();
         ServerPlayerEntity player = context.getSource().asPlayer();
-
         WorldInfo worldData = world.getWorldInfo();
 
         world.setDayTime(2000);
         player.sendMessage(new TranslationTextComponent("command.maessentials.day.done", worldData.getWorldName(), true));
-
         return Command.SINGLE_SUCCESS;
     }
 }
