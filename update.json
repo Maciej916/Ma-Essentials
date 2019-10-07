@@ -1,0 +1,16 @@
+{
+  "homepage": "https://www.curseforge.com/minecraft/mc-mods/maessentials",
+  "changelog": "https://www.curseforge.com/minecraft/mc-mods/maessentials/files",
+  "1.14.4": {
+    "1.0.5": "https://www.curseforge.com/minecraft/mc-mods/maessentials/files/2800931",
+    "1.0.4": "https://www.curseforge.com/minecraft/mc-mods/maessentials/files/2800837",
+    "1.0.3": "https://www.curseforge.com/minecraft/mc-mods/maessentials/files/2800410",
+    "1.0.2": "https://www.curseforge.com/minecraft/mc-mods/maessentials/files/2799826",
+    "1.0.1": "https://www.curseforge.com/minecraft/mc-mods/maessentials/files/2799742",
+    "1.0.0": "https://www.curseforge.com/minecraft/mc-mods/maessentials/files/2799658"
+  },
+  "promos": {
+    "1.14.4-latest": "1.0.5",
+    "1.14.4-recommended": "1.0.5"
+  }
+}

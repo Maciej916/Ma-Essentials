@@ -1,0 +1,35 @@
+{
+  "command.maessentials.day.done": "Day set in %s!",
+  "command.maessentials.night.done": "Night set in %s!",
+  "command.maessentials.sun.done": "Sun set in %s!",
+  "command.maessentials.rain.done": "Rain set in %s!",
+  "command.maessentials.setspawn.done": "Spawn set in %s!",
+  "command.maessentials.setspawn.bad_dim": "You can only set spawn in overworld!",
+  "command.maessentials.spawn.teleport": "Teleported to spawn location!",
+  "command.maessentials.back.success": "Teleported to previous location!",
+  "command.maessentials.back.failed": "Back localisation not found!",
+  "command.maessentials.back.grave": "You died, you can use /back to teleport to your grave!",
+  "command.maessentials.kill.grave": "You killed yourself, you can use /back to teleport to your grave!",
+  "command.maessentials.heal.done": "You healed yourself!",
+
+  "_comment": "Home lang",
+  "command.maessentials.home.notexist": "Home \"%s\" not exist!",
+  "command.maessentials.sethome.set": "Home \"%s\" set!",
+  "command.maessentials.delhome.specifyname": "Please specify home name to delete!",
+  "command.maessentials.delhome.done": "Home \"%s\" deleted!",
+  "command.maessentials.home.teleported": "Teleported to home \"%s\"!",
+
+  "_comment": "Warp lang",
+  "command.maessentials.warp.notexist": "Warp \"%s\" not exist!",
+  "command.maessentials.setwarp.specifyname": "Please specify warp name to create!",
+  "command.maessentials.setwarp.set": "Warp \"%s\" set!",
+  "command.maessentials.setwarp.exist": "Warp \"%s\" already exist!",
+  "command.maessentials.delwarp.specifyname": "Please specify warp name to delete!",
+  "command.maessentials.delwarp.done": "Warp \"%s\" deleted!",
+  "command.maessentials.warp.list": "Current warps (%s): %s.",
+  "command.maessentials.warp.teleported": "Teleported to warp \"%s\"!",
+
+
+
+  "command.maessentials.test": "%s"
+}
