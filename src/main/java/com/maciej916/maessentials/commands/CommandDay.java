@@ -12,7 +12,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldInfo;
 
 public class CommandDay {
-
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher
                 .register(Commands.literal("day")
@@ -26,7 +25,7 @@ public class CommandDay {
         WorldInfo worldData = world.getWorldInfo();
 
         world.setDayTime(2000);
-        player.sendMessage(new TranslationTextComponent("command.maessentials.day.done", worldData.getWorldName(), true));
+        player.sendMessage(new TranslationTextComponent("command.maessentials.day", worldData.getWorldName(), true));
         return Command.SINGLE_SUCCESS;
     }
 }

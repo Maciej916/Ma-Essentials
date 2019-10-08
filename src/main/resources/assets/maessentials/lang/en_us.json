@@ -1,16 +1,43 @@
 {
-  "command.maessentials.day.done": "Day set in %s!",
-  "command.maessentials.night.done": "Night set in %s!",
-  "command.maessentials.sun.done": "Sun set in %s!",
-  "command.maessentials.rain.done": "Rain set in %s!",
+  "command.maessentials.player.notfound": "Target player has not been found!",
+  "command.maessentials.player.provide": "Please provide player name!",
+
+  "_comment": "World lang",
+  "command.maessentials.day": "Day set in %s!",
+  "command.maessentials.night": "Night set in %s!",
+
+  "command.maessentials.sun": "Sun set in %s!",
+  "command.maessentials.rain": "Rain set in %s!",
+  "command.maessentials.thunder": "Thunder set in %s!",
+
   "command.maessentials.setspawn.done": "Spawn set in %s!",
-  "command.maessentials.setspawn.bad_dim": "You can only set spawn in overworld!",
-  "command.maessentials.spawn.teleport": "Teleported to spawn location!",
+  "command.maessentials.setspawn.wrongdim": "You can only set spawn in overworld!",
+  "command.maessentials.spawn": "Teleported to spawn location!",
+
+
+  "_comment": "Player lang",
   "command.maessentials.back.success": "Teleported to previous location!",
-  "command.maessentials.back.failed": "Back localisation not found!",
-  "command.maessentials.back.grave": "You died, you can use /back to teleport to your grave!",
-  "command.maessentials.kill.grave": "You killed yourself, you can use /back to teleport to your grave!",
-  "command.maessentials.heal.done": "You healed yourself!",
+  "command.maessentials.back.failed": "Back location not found!",
+  "command.maessentials.back.death": "You died, you can use /back to teleport you to your death place!",
+
+  "command.maessentials.suicide.self": "You killed yourself. You can use /back to teleport to your death place!",
+  "command.maessentials.suicide.player": "You just killed %s!",
+  "command.maessentials.suicide.killed": "You have been killed by %s. You can use /back to teleport to your death place!",
+
+  "command.maessentials.heal.self": "You just healed yourself!",
+  "command.maessentials.heal.player": "You just healed %s!",
+  "command.maessentials.heal.healed": "You have been healed by %s!",
+
+  "command.maessentials.gm.invalid": "Invaild gamemode provided!",
+  "command.maessentials.gm.set.self": "Your gamemode has been changed to %s!",
+  "command.maessentials.gm.set.other": "You changed gamemode for player %s to %s!",
+
+  "command.maessentials.fly.invaildgamemode": "Invaild gamemode!",
+  "command.maessentials.fly.disabled.self": "Flying disabled!",
+  "command.maessentials.fly.disabled.other": "Flying disabled for player %s!",
+  "command.maessentials.fly.enabled.self": "You can now fly!",
+  "command.maessentials.fly.enabled.other": "Flying enabled for player %s!",
+
 
   "_comment": "Home lang",
   "command.maessentials.home.notexist": "Home \"%s\" not exist!",
@@ -18,6 +45,7 @@
   "command.maessentials.delhome.specifyname": "Please specify home name to delete!",
   "command.maessentials.delhome.done": "Home \"%s\" deleted!",
   "command.maessentials.home.teleported": "Teleported to home \"%s\"!",
+
 
   "_comment": "Warp lang",
   "command.maessentials.warp.notexist": "Warp \"%s\" not exist!",
@@ -29,9 +57,8 @@
   "command.maessentials.warp.list": "Current warps (%s): %s.",
   "command.maessentials.warp.teleported": "Teleported to warp \"%s\"!",
 
+
   "_comment": "Tpa lang",
-  "command.maessentials.player.provide": "Please provide user to request teleport!",
-  "command.maessentials.player.notfound": "Target player has not been found!.",
   "command.maessentials.player.self": "You can not request teleport to yourself!",
 
   "command.maessentials.tpa.norequest": "You don't have any pending teleport requests!",

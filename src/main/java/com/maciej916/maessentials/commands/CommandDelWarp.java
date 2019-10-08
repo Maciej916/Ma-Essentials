@@ -17,7 +17,7 @@ public class CommandDelWarp {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("delwarp").requires(source -> source.hasPermissionLevel(2));
         builder
                 .executes(context -> warp(context))
-                .then(Commands.argument("WarpName", StringArgumentType.word())
+                .then(Commands.argument("warpName", StringArgumentType.word())
                         .suggests(WarpManager.WARP_SUGGEST)
                         .executes(context -> warpArgs(context)));
         dispatcher.register(builder);
@@ -31,7 +31,7 @@ public class CommandDelWarp {
 
     private static int warpArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String args = StringArgumentType.getString(context, "WarpName").toString().toLowerCase();
+        String args = StringArgumentType.getString(context, "warpName").toString().toLowerCase();
         if (WarpManager.delWarp(args)) {
             player.sendMessage(new TranslationTextComponent("command.maessentials.delwarp.done", args, true));
         } else {

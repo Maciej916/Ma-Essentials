@@ -18,7 +18,7 @@ public class CommandDelHome {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("delhome").requires(source -> source.hasPermissionLevel(0));
         builder
                 .executes(context -> delHome(context))
-                .then(Commands.argument("HomeName", StringArgumentType.word())
+                .then(Commands.argument("homeName", StringArgumentType.word())
                         .suggests(HomeManager.HOME_SUGGEST)
                         .executes(context -> delHomeArgs(context)));
         dispatcher.register(builder);
@@ -32,7 +32,7 @@ public class CommandDelHome {
 
     private static int delHomeArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String args = StringArgumentType.getString(context, "HomeName").toString().toLowerCase();
+        String args = StringArgumentType.getString(context, "homeName").toString().toLowerCase();
         Homes playerHomes = HomeManager.getPlayerHomes(player);
         if (playerHomes.getHome(args) != null) {
             playerHomes.delHome(player, args);

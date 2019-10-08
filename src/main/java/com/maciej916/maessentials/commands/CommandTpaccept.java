@@ -60,11 +60,11 @@ public class CommandTpaccept {
     private static void handleTpa(Tpa thisTpa, ServerPlayerEntity player) {
         thisTpa.getRequestPlayer().sendMessage(new TranslationTextComponent("command.maessentials.tpaccept.request", thisTpa.getTargetPlayer().getDisplayName(), true));
         thisTpa.getTargetPlayer().sendMessage(new TranslationTextComponent("command.maessentials.tpaccept.target", thisTpa.getRequestPlayer().getDisplayName(), true));
-        if (thisTpa.getTargetPlayer() == null) {
-             player.sendMessage(new TranslationTextComponent("command.maessentials.player.notfound"));
-        } else {
+        if (thisTpa.getTargetPlayer() != null) {
             Teleport.teleportPlayer(thisTpa.getRequestPlayer(), new Location(thisTpa.getTargetPlayer()), true);
             Teleport.removeTpa(thisTpa);
+        } else {
+            player.sendMessage(new TranslationTextComponent("command.maessentials.player.notfound"));
         }
     }
 }

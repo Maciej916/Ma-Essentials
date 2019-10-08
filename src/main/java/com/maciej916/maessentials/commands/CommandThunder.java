@@ -1,6 +1,5 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.utils.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
@@ -9,21 +8,29 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.storage.WorldInfo;
 
-public class CommandKill {
-
+public class CommandThunder {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher
-                .register(Commands.literal("kill")
+                .register(Commands.literal("thunder")
                         .requires(source -> source.hasPermissionLevel(2))
                         .executes(context -> execute(context)));
     }
 
     private static int execute(CommandContext<CommandSource> context) throws CommandSyntaxException {
+        ServerWorld world = context.getSource().getWorld();
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.setHealth(0);
-        player.sendMessage(new TranslationTextComponent("command.maessentials.kill.grave"));
-        Teleport.setPlayerLastLoc(player);
+
+        WorldInfo worldData = world.getWorldInfo();
+
+        worldData.setRaining(true);
+        worldData.setThundering(true);
+        worldData.setClearWeatherTime(0);
+        worldData.setRainTime(6000);
+
+        player.sendMessage(new TranslationTextComponent("command.maessentials.thunder", worldData.getWorldName(), true));
         return Command.SINGLE_SUCCESS;
     }
 }

@@ -31,7 +31,7 @@ public class CommandSpawn {
         Location spawnLocation = new Location(worldData.getSpawnX(), worldData.getSpawnY(), worldData.getSpawnZ(), 0);
         Teleport.teleportPlayer(player, spawnLocation, false);
 
-        player.sendMessage(new TranslationTextComponent("command.maessentials.spawn.teleport"));
+        player.sendMessage(new TranslationTextComponent("command.maessentials.spawn"));
         return Command.SINGLE_SUCCESS;
     }
 }

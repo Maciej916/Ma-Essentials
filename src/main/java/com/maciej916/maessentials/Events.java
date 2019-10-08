@@ -17,7 +17,7 @@ public class Events {
     public void onDeath(LivingDeathEvent event) {
         if (event.getEntity() instanceof PlayerEntity) {
             ServerPlayerEntity player = (ServerPlayerEntity) event.getEntity();
-            player.sendMessage(new TranslationTextComponent("command.maessentials.back.grave"));
+            player.sendMessage(new TranslationTextComponent("command.maessentials.back.death"));
             Teleport.setPlayerLastLoc(player);
         }
     }

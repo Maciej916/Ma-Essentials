@@ -12,7 +12,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldInfo;
 
 public class CommandRain {
-
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher
                 .register(Commands.literal("rain")
@@ -31,8 +30,7 @@ public class CommandRain {
         worldData.setClearWeatherTime(0);
         worldData.setRainTime(6000);
 
-        player.sendMessage(new TranslationTextComponent("command.maessentials.rain.done", worldData.getWorldName(), true));
-
+        player.sendMessage(new TranslationTextComponent("command.maessentials.rain", worldData.getWorldName(), true));
         return Command.SINGLE_SUCCESS;
     }
 }

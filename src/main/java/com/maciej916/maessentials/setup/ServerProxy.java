@@ -1,6 +1,7 @@
 package com.maciej916.maessentials.setup;
 
 import net.minecraft.world.World;
+import net.minecraft.world.GameType;
 
 public class ServerProxy implements IProxy {
 
@@ -13,6 +14,5 @@ public class ServerProxy implements IProxy {
     public World getClientWorld() {
         throw new IllegalStateException("Only run this on the client!");
     }
-
 
 }

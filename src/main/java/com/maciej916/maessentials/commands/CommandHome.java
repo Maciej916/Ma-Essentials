@@ -20,7 +20,7 @@ public class CommandHome {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("home").requires(source -> source.hasPermissionLevel(0));
         builder
                 .executes(context -> home(context))
-                .then(Commands.argument("HomeName", StringArgumentType.word())
+                .then(Commands.argument("homeName", StringArgumentType.word())
                         .suggests(HomeManager.HOME_SUGGEST)
                         .executes(context -> homeArgs(context)));
         dispatcher.register(builder);
@@ -34,7 +34,7 @@ public class CommandHome {
 
     private static int homeArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String args = StringArgumentType.getString(context, "HomeName").toString().toLowerCase();
+        String args = StringArgumentType.getString(context, "homeName").toString().toLowerCase();
         handleHome(player, args);
         return Command.SINGLE_SUCCESS;
     }

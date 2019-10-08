@@ -17,7 +17,7 @@ public class CommandSetWarp {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("setwarp").requires(source -> source.hasPermissionLevel(2));
         builder
                 .executes(context -> warp(context))
-                .then(Commands.argument("WarpName", StringArgumentType.word())
+                .then(Commands.argument("warpName", StringArgumentType.word())
                         .executes(context -> warpArgs(context)));
         dispatcher.register(builder);
     }
@@ -30,7 +30,7 @@ public class CommandSetWarp {
 
     private static int warpArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String args = StringArgumentType.getString(context, "WarpName").toString().toLowerCase();
+        String args = StringArgumentType.getString(context, "warpName").toString().toLowerCase();
         if (WarpManager.setWarp(player, args)) {
             player.sendMessage(new TranslationTextComponent("command.maessentials.setwarp.set", args, true));
         } else {

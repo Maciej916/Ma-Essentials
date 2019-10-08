@@ -29,9 +29,8 @@ public class CommandSetSpawn {
             world.setSpawnPoint(player.getPosition().up());
             player.sendMessage(new TranslationTextComponent("command.maessentials.setspawn.done", worldData.getWorldName(), true));
         } else {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.setspawn.bad_dim"));
+            player.sendMessage(new TranslationTextComponent("command.maessentials.setspawn.wrongdim"));
         }
-
         return Command.SINGLE_SUCCESS;
     }
 }

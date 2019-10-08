@@ -11,7 +11,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class CommandBack {
-
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher
                 .register(Commands.literal("back")

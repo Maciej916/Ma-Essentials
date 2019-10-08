@@ -14,7 +14,6 @@ import net.minecraft.world.storage.WorldInfo;
 import org.apache.logging.log4j.Logger;
 
 public class CommandSun {
-
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher
                 .register(Commands.literal("sun")
@@ -33,8 +32,7 @@ public class CommandSun {
         worldData.setClearWeatherTime(10000);
         worldData.setRainTime(0);
 
-        player.sendMessage(new TranslationTextComponent("command.maessentials.sun.done", worldData.getWorldName(), true));
-
+        player.sendMessage(new TranslationTextComponent("command.maessentials.sun", worldData.getWorldName(), true));
         return Command.SINGLE_SUCCESS;
     }
 }

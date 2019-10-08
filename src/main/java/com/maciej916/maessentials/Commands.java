@@ -15,26 +15,36 @@ public class Commands {
         MaEssentials.logger.info("Registering commands.");
         CommandDispatcher<CommandSource> dispatcher = event.getCommandDispatcher();
 
+        // World commands
         CommandDay.register(dispatcher);
         CommandNight.register(dispatcher);
+
         CommandSun.register(dispatcher);
         CommandRain.register(dispatcher);
+        CommandThunder.register(dispatcher);
+
         CommandSpawn.register(dispatcher);
         CommandSetSpawn.register(dispatcher);
-        CommandBack.register(dispatcher);
-        CommandKill.register(dispatcher);
-        CommandHeal.register(dispatcher);
-        CommandHeal.register(dispatcher);
 
+        // Player commands
+        CommandBack.register(dispatcher);
+        CommandPkill.register(dispatcher);
+        CommandHeal.register(dispatcher);
+        CommandGm.register(dispatcher);
+        CommandFly.register(dispatcher);
+
+        // Home commands
         CommandSetHome.register(dispatcher);
         CommandDelHome.register(dispatcher);
         CommandHome.register(dispatcher);
 
+        // Warp commands
         CommandSetWarp.register(dispatcher);
         CommandDelWarp.register(dispatcher);
         CommandWarp.register(dispatcher);
 
         if (event.getServer().isDedicatedServer()) {
+            // Tpa commands
             CommandTpa.register(dispatcher);
             CommandTpahere.register(dispatcher);
             CommandTpdeny.register(dispatcher);
