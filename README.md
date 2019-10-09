@@ -7,5 +7,8 @@ This plugins adds usefoul commands like /sethome, /tpa, /spawn, /day ect. to the
 - [GitHub repository](https://github.com/Maciej916/Ma-Essentials) (source code)
 - [Issue Tracker on GitHub](https://github.com/Maciej916/Ma-Essentials/issues) (bug reports and feature requests)
 
+## Dependences
+- [GSON 2.6.2](https://repo1.maven.org/maven2/com/google/code/gson/gson/2.6.2/)
+
 ## Installation
 Put mod in **/mods** directory for both **client and server** side in order to mod work property.
