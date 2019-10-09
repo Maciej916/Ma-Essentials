@@ -19,8 +19,8 @@ public class MaEssentials
     public MaEssentials() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
-        MinecraftForge.EVENT_BUS.register(new Commands());
-        MinecraftForge.EVENT_BUS.register(new Events());
+        MinecraftForge.EVENT_BUS.register(Commands.class);
+        MinecraftForge.EVENT_BUS.register(Events.class);
         MinecraftForge.EVENT_BUS.register(this);
     }
 

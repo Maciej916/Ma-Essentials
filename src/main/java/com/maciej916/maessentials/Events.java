@@ -10,10 +10,10 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class Events {
-    private int tickCounter = 0;
+    private static int tickCounter = 0;
 
     @SubscribeEvent
-    public void onDeath(LivingDeathEvent event) {
+    public static void onDeath(LivingDeathEvent event) {
         if (ConfigValues.enableBack) {
             if (event.getEntity() instanceof PlayerEntity) {
                 ServerPlayerEntity player = (ServerPlayerEntity) event.getEntity();
@@ -24,7 +24,7 @@ public class Events {
     }
 
     @SubscribeEvent
-    public void worldTick(TickEvent.WorldTickEvent event) {
+    public static void worldTick(TickEvent.WorldTickEvent event) {
         if (event.phase == TickEvent.Phase.END){
             if (tickCounter == 20) {
                 if (ConfigValues.enableTpa) {
