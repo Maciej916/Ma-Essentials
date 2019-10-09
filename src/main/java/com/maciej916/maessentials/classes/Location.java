@@ -1,47 +1,45 @@
 package com.maciej916.maessentials.classes;
 
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.world.dimension.DimensionType;
 
 import java.io.Serializable;
 
 public final class Location implements Serializable {
-    public int x,y,z;
-    public double posX,posY,posZ;
+    public double x,y,z;
     public float rotationYaw,rotationPitch;
-    public int dim;
+    public int dimension;
 
-    private static int round(double pos) {
-        return (int)Math.floor(pos);
+    public Location() {}
+
+    public Location(int posX, int posY, int posZ, int dimension) {
+        this.x = posX;
+        this.y = posY;
+        this.z = posZ;
+        this.rotationYaw = 0;
+        this.rotationPitch = 0;
+        this.dimension = dimension;
     }
 
-    public Location(int newX, int newY, int newZ, int newDim) {
-        this.x = newX;
-        this.y = newY;
-        this.z = newZ;
-        this.dim = newDim;
-    }
-
-    public Location(double newPosX, double newPosY, double mewPosZ, float newRotationYaw, float newRotationPitch, int newDim) {
-        this.x = round(newPosX);
-        this.y = round(newPosY);
-        this.z = round(mewPosZ);
-        this.posX = newPosX;
-        this.posY = newPosY;
-        this.posZ = mewPosZ;
-        this.rotationYaw = newRotationYaw;
-        this.rotationPitch = newRotationPitch;
-        this.dim = newDim;
+    public Location(double posX, double posY, double posZ, float rotationYaw, float rotationPitch, int dimension) {
+        this.z = posX;
+        this.y = posY;
+        this.z = posZ;
+        this.rotationYaw = rotationYaw;
+        this.rotationPitch = rotationPitch;
+        this.dimension = dimension;
     }
 
     public Location(ServerPlayerEntity player) {
-        this.x = round(player.posX);
-        this.y = round(player.posY);
-        this.z = round(player.posZ);
-        this.posX = player.posX;
-        this.posY = player.posY;
-        this.posZ = player.posZ;
+        this.x = player.posX;
+        this.y = player.posY;
+        this.z = player.posZ;
         this.rotationYaw = player.rotationYaw;
         this.rotationPitch = player.rotationPitch;
-        this.dim = player.dimension.getId();
+        this.dimension = player.dimension.getId();
+    }
+
+    public DimensionType getDimension() {
+        return DimensionType.getById(dimension);
     }
 }

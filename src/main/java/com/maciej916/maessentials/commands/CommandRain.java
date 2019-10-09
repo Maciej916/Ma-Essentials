@@ -2,6 +2,7 @@ package com.maciej916.maessentials.commands;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
@@ -12,24 +13,21 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldInfo;
 
 public class CommandRain {
+
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
-        dispatcher
-                .register(Commands.literal("rain")
-                        .requires(source -> source.hasPermissionLevel(2))
-                        .executes(context -> execute(context)));
+        LiteralArgumentBuilder<CommandSource> builder = Commands.literal("rain").requires(source -> source.hasPermissionLevel(2));
+        builder.executes(context -> rain(context));
+        dispatcher.register(builder);
     }
 
-    private static int execute(CommandContext<CommandSource> context) throws CommandSyntaxException {
+    private static int rain(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerWorld world = context.getSource().getWorld();
         ServerPlayerEntity player = context.getSource().asPlayer();
-
         WorldInfo worldData = world.getWorldInfo();
-
         worldData.setRaining(true);
         worldData.setThundering(false);
         worldData.setClearWeatherTime(0);
         worldData.setRainTime(6000);
-
         player.sendMessage(new TranslationTextComponent("command.maessentials.rain", worldData.getWorldName(), true));
         return Command.SINGLE_SUCCESS;
     }

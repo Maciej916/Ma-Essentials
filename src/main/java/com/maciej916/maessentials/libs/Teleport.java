@@ -1,39 +1,36 @@
-package com.maciej916.maessentials.utils;
+package com.maciej916.maessentials.libs;
 
 import com.maciej916.maessentials.classes.Location;
-import com.maciej916.maessentials.classes.Tpa;
+import com.maciej916.maessentials.classes.TeleportRequest;
+import com.maciej916.maessentials.config.ConfigValues;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Teleport {
-    private static HashMap<ServerPlayerEntity, Location> playerLastLoc = new HashMap<ServerPlayerEntity, Location>();
-    private static ArrayList<Tpa> tpaArrayList = new ArrayList<Tpa>();
+    private static HashMap<ServerPlayerEntity, Location> playerLastLoc = new HashMap<>();
+    private static ArrayList<TeleportRequest> teleportRequests = new ArrayList<TeleportRequest>();
 
     public static void teleportPlayer(ServerPlayerEntity player, Location loc, boolean exact) {
         setPlayerLastLoc(player);
 
-        if (player.dimension.getId() != loc.dim) {
-            player.changeDimension(DimensionType.getById(loc.dim));
+        if (player.dimension.getId() != loc.dimension) {
+            player.changeDimension(loc.getDimension());
         }
+
         ServerWorld world = player.getServerWorld();
         if (exact) {
-            player.teleport(world, loc.posX, loc.posY, loc.posZ, loc.rotationYaw, loc.rotationPitch);
+            player.teleport(world, loc.x, loc.y, loc.z, loc.rotationYaw, loc.rotationPitch);
         } else {
             player.teleport(world, loc.x + 0.5, loc.y + 0.5, loc.z, player.rotationYaw, player.rotationPitch);
         }
     }
 
-    public static boolean backPlayer(ServerPlayerEntity player) {
-        if (playerLastLoc.containsKey(player)){
-            teleportPlayer(player, playerLastLoc.get(player), true);
-            return true;
-        }
-        return false;
+    public static Location getPlayerLastLoc(ServerPlayerEntity player) {
+        return playerLastLoc.get(player);
     }
 
     public static void setPlayerLastLoc(ServerPlayerEntity player) {
@@ -43,9 +40,9 @@ public class Teleport {
         playerLastLoc.put(player, new Location(player));
     }
 
-    public static ArrayList<Tpa> getTpaRequests(ServerPlayerEntity player) {
-        ArrayList<Tpa> userTpaRequests = new ArrayList<>();
-        for (Tpa thisTpa : tpaArrayList) {
+    public static ArrayList<TeleportRequest> getTeleportRequests(ServerPlayerEntity player) {
+        ArrayList<TeleportRequest> userTpaRequests = new ArrayList<>();
+        for (TeleportRequest thisTpa : teleportRequests) {
             if (thisTpa.getRequestPlayer() == player || thisTpa.getTargetPlayer() == player) {
                 userTpaRequests.add(thisTpa);
             }
@@ -53,8 +50,8 @@ public class Teleport {
         return userTpaRequests;
     }
     
-    public static Tpa findTpa(ServerPlayerEntity player, ServerPlayerEntity requestPlayer, ServerPlayerEntity targetPlayer) {
-        for (Tpa thisTpa : tpaArrayList) {
+    public static TeleportRequest findTeleportRequest(ServerPlayerEntity player, ServerPlayerEntity requestPlayer, ServerPlayerEntity targetPlayer) {
+        for (TeleportRequest thisTpa : teleportRequests) {
             if (thisTpa.getPlayer() == player && thisTpa.getRequestPlayer() == requestPlayer && thisTpa.getTargetPlayer() == targetPlayer) {
                 return thisTpa;
             }
@@ -62,19 +59,19 @@ public class Teleport {
         return null;
     }
 
-    public static boolean requestTpa(ServerPlayerEntity player, ServerPlayerEntity requestPlayer, ServerPlayerEntity targetPlayer) {
-        if (findTpa(player, requestPlayer, targetPlayer) == null) {
-            Tpa newTpa = new Tpa(player, requestPlayer, targetPlayer);
-            tpaArrayList.add(newTpa);
+    public static boolean requestTeleportRequest(ServerPlayerEntity player, ServerPlayerEntity requestPlayer, ServerPlayerEntity targetPlayer) {
+        if (findTeleportRequest(player, requestPlayer, targetPlayer) == null) {
+            TeleportRequest newTpa = new TeleportRequest(player, requestPlayer, targetPlayer, ConfigValues.tpaRequestTimeout);
+            teleportRequests.add(newTpa);
             return true;
         } else {
             return false;
         }
     }
 
-    public static void checkTpa() {
-        ArrayList<Tpa> found = new ArrayList<>();
-        for (Tpa thisTpa : tpaArrayList) {
+    public static void checkTeleportRequests() {
+        ArrayList<TeleportRequest> found = new ArrayList<>();
+        for (TeleportRequest thisTpa : teleportRequests) {
             int tpaTime = thisTpa.countDown();
             if (tpaTime == 0) {
                 ServerPlayerEntity request = thisTpa.getRequestPlayer();
@@ -86,11 +83,11 @@ public class Teleport {
                 found.add(thisTpa);
             }
         }
-        tpaArrayList.removeAll(found);
+        teleportRequests.removeAll(found);
     }
 
-    public static void removeTpa(Tpa thisTpa) {
-        tpaArrayList.remove(thisTpa);
+    public static void removeTeleportRequest(TeleportRequest thisTpa) {
+        teleportRequests.remove(thisTpa);
     }
 
 }

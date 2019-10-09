@@ -2,17 +2,17 @@ package com.maciej916.maessentials.classes;
 
 import net.minecraft.entity.player.ServerPlayerEntity;
 
-public final class Tpa {
+public final class TeleportRequest {
     private ServerPlayerEntity player;
     private ServerPlayerEntity requestPlayer;
     private ServerPlayerEntity targetPlayer;
     private int timer;
 
-    public Tpa(ServerPlayerEntity newPlayer, ServerPlayerEntity newRequestPlayer, ServerPlayerEntity newTargetPlayer) {
-        this.player = newPlayer;
-        this.requestPlayer = newRequestPlayer;
-        this.targetPlayer = newTargetPlayer;
-        this.timer = 20;
+    public TeleportRequest(ServerPlayerEntity player, ServerPlayerEntity requestPlayer, ServerPlayerEntity targetPlayer, int timer) {
+        this.player = player;
+        this.requestPlayer = requestPlayer;
+        this.targetPlayer = targetPlayer;
+        this.timer = timer;
     }
 
     public ServerPlayerEntity getPlayer() {

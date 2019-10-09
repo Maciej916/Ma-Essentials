@@ -15,9 +15,9 @@ public class CommandHeal {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("heal").requires(source -> source.hasPermissionLevel(2));
         builder
-                .executes(context -> heal(context))
-                .then(Commands.argument("targetPlayer", EntityArgument.players())
-                        .executes(context -> healArgs(context)));
+            .executes(context -> heal(context))
+            .then(Commands.argument("targetPlayer", EntityArgument.players())
+                .executes(context -> healArgs(context)));
         dispatcher.register(builder);
     }
 

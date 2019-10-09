@@ -1,6 +1,6 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.utils.Teleport;
+import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -16,9 +16,9 @@ public class CommandTpa{
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("tpa").requires(source -> source.hasPermissionLevel(0));
         builder
-                .executes(context -> tpa(context))
-                .then(Commands.argument("targetPlayer", EntityArgument.players())
-                        .executes(context -> tpaArgs(context)));
+            .executes(context -> tpa(context))
+            .then(Commands.argument("targetPlayer", EntityArgument.players())
+                    .executes(context -> tpaArgs(context)));
         dispatcher.register(builder);
     }
 
@@ -32,7 +32,7 @@ public class CommandTpa{
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
         if (requestedPlayer.getUniqueID() != player.getUniqueID()) {
-            if (Teleport.requestTpa(player, player, requestedPlayer)) {
+            if (Teleport.requestTeleportRequest(player, player, requestedPlayer)) {
                 player.sendMessage(new TranslationTextComponent("command.maessentials.tpa.request",requestedPlayer.getDisplayName(), true));
                 requestedPlayer.sendMessage(new TranslationTextComponent("command.maessentials.tpa.target", player.getDisplayName(), true));
             } else {

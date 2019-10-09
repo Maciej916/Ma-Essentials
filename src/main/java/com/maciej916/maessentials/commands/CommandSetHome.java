@@ -1,13 +1,14 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.utils.Homes;
+import com.maciej916.maessentials.config.ConfigValues;
+import com.maciej916.maessentials.data.HomeData;
+import com.maciej916.maessentials.libs.PlayerHomes;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.maciej916.maessentials.managers.HomeManager;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -17,8 +18,8 @@ public class CommandSetHome {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("sethome").requires(source -> source.hasPermissionLevel(0));
         builder
-                .executes(context -> setHome(context))
-                .then(Commands.argument("homeName", StringArgumentType.word()).executes(context -> setHomeArgs(context)));
+            .executes(context -> setHome(context))
+            .then(Commands.argument("homeName", StringArgumentType.string()).executes(context -> setHomeArgs(context)));
         dispatcher.register(builder);
     }
 
@@ -35,9 +36,16 @@ public class CommandSetHome {
         return Command.SINGLE_SUCCESS;
     }
 
-    private static void handleSetHome(ServerPlayerEntity player, String newHomeName) {
-        Homes playerHomes = HomeManager.getPlayerHomes(player);
-        playerHomes.setHome(player, newHomeName);
-        player.sendMessage(new TranslationTextComponent("command.maessentials.sethome.set", newHomeName, true));
+    private static void handleSetHome(ServerPlayerEntity player, String homeName) {
+        PlayerHomes playerHome = HomeData.getPlayerHomes(player);
+        if (playerHome.getHomes().size() < ConfigValues.maxHomes) {
+           if (playerHome.setHome(player, homeName)) {
+               player.sendMessage(new TranslationTextComponent("command.maessentials.sethome.set", homeName, true));
+           } else {
+               player.sendMessage(new TranslationTextComponent("command.maessentials.sethome.exist", homeName, true));
+           }
+       } else {
+           player.sendMessage(new TranslationTextComponent("command.maessentials.sethome.max"));
+       }
     }
 }

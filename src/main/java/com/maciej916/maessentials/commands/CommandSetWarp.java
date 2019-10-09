@@ -1,12 +1,12 @@
 package com.maciej916.maessentials.commands;
 
+import com.maciej916.maessentials.data.WarpData;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.maciej916.maessentials.managers.WarpManager;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -16,9 +16,9 @@ public class CommandSetWarp {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("setwarp").requires(source -> source.hasPermissionLevel(2));
         builder
-                .executes(context -> warp(context))
-                .then(Commands.argument("warpName", StringArgumentType.word())
-                        .executes(context -> warpArgs(context)));
+            .executes(context -> warp(context))
+            .then(Commands.argument("warpName", StringArgumentType.string())
+                    .executes(context -> warpArgs(context)));
         dispatcher.register(builder);
     }
 
@@ -31,7 +31,7 @@ public class CommandSetWarp {
     private static int warpArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         String args = StringArgumentType.getString(context, "warpName").toString().toLowerCase();
-        if (WarpManager.setWarp(player, args)) {
+        if (WarpData.setWarp(player, args)) {
             player.sendMessage(new TranslationTextComponent("command.maessentials.setwarp.set", args, true));
         } else {
             player.sendMessage(new TranslationTextComponent("command.maessentials.setwarp.exist", args, true));

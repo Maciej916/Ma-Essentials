@@ -1,8 +1,8 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.Location;
-import com.maciej916.maessentials.classes.Tpa;
-import com.maciej916.maessentials.utils.Teleport;
+import com.maciej916.maessentials.classes.TeleportRequest;
+import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -20,17 +20,17 @@ public class CommandTpaccept {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("tpaccept").requires(source -> source.hasPermissionLevel(0));
         builder
-                .executes(context -> tpaccept(context))
-                .then(Commands.argument("targetPlayer", EntityArgument.players())
-                        .executes(context -> tpacceptArgs(context)));
+            .executes(context -> tpaccept(context))
+            .then(Commands.argument("targetPlayer", EntityArgument.players())
+                .executes(context -> tpacceptArgs(context)));
         dispatcher.register(builder);
     }
 
     private static int tpaccept(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        ArrayList<Tpa> tpaRequests = Teleport.getTpaRequests(player);
+        ArrayList<TeleportRequest> tpaRequests = Teleport.getTeleportRequests(player);
         if (tpaRequests.size() == 1) {
-            Tpa thisTpa = tpaRequests.get(0);
+            TeleportRequest thisTpa = tpaRequests.get(0);
             handleTpa(thisTpa, player);
         } else if (tpaRequests.size() > 1) {
             player.sendMessage(new TranslationTextComponent("command.maessentials.tpaccept.specifyplayer"));
@@ -43,9 +43,9 @@ public class CommandTpaccept {
     private static int tpacceptArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-        ArrayList<Tpa> tpaRequests = Teleport.getTpaRequests(player);
+        ArrayList<TeleportRequest> tpaRequests = Teleport.getTeleportRequests(player);
         if (tpaRequests.size() != 0) {
-            Tpa thisTpa = Teleport.findTpa(requestedPlayer, requestedPlayer, player);
+            TeleportRequest thisTpa = Teleport.findTeleportRequest(requestedPlayer, requestedPlayer, player);
             if (thisTpa != null) {
                 handleTpa(thisTpa, player);
             } else {
@@ -57,12 +57,12 @@ public class CommandTpaccept {
         return Command.SINGLE_SUCCESS;
     }
 
-    private static void handleTpa(Tpa thisTpa, ServerPlayerEntity player) {
+    private static void handleTpa(TeleportRequest thisTpa, ServerPlayerEntity player) {
         thisTpa.getRequestPlayer().sendMessage(new TranslationTextComponent("command.maessentials.tpaccept.request", thisTpa.getTargetPlayer().getDisplayName(), true));
         thisTpa.getTargetPlayer().sendMessage(new TranslationTextComponent("command.maessentials.tpaccept.target", thisTpa.getRequestPlayer().getDisplayName(), true));
         if (thisTpa.getTargetPlayer() != null) {
             Teleport.teleportPlayer(thisTpa.getRequestPlayer(), new Location(thisTpa.getTargetPlayer()), true);
-            Teleport.removeTpa(thisTpa);
+            Teleport.removeTeleportRequest(thisTpa);
         } else {
             player.sendMessage(new TranslationTextComponent("command.maessentials.player.notfound"));
         }

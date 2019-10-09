@@ -1,6 +1,6 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.utils.Teleport;
+import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -16,9 +16,9 @@ public class CommandTpahere {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("tpahere").requires(source -> source.hasPermissionLevel(0));
         builder
-                .executes(context -> tpahere(context))
-                .then(Commands.argument("targetPlayer", EntityArgument.players())
-                        .executes(context -> tpahereArgs(context)));
+            .executes(context -> tpahere(context))
+            .then(Commands.argument("targetPlayer", EntityArgument.players())
+                    .executes(context -> tpahereArgs(context)));
         dispatcher.register(builder);
     }
 
@@ -32,7 +32,7 @@ public class CommandTpahere {
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
         if (requestedPlayer.getUniqueID() != player.getUniqueID()) {
-            if (Teleport.requestTpa(player, requestedPlayer, player)) {
+            if (Teleport.requestTeleportRequest(player, requestedPlayer, player)) {
                 player.sendMessage(new TranslationTextComponent("command.maessentials.tpahere.request", requestedPlayer.getDisplayName(), true));
                 requestedPlayer.sendMessage(new TranslationTextComponent("command.maessentials.tpahere.target", player.getDisplayName(), true));
             } else {

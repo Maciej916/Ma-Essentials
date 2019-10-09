@@ -2,6 +2,7 @@
   "command.maessentials.player.notfound": "Target player has not been found!",
   "command.maessentials.player.provide": "Please provide player name!",
 
+
   "_comment": "World lang",
   "command.maessentials.day": "Day set in %s!",
   "command.maessentials.night": "Night set in %s!",
@@ -10,8 +11,7 @@
   "command.maessentials.rain": "Rain set in %s!",
   "command.maessentials.thunder": "Thunder set in %s!",
 
-  "command.maessentials.setspawn.done": "Spawn set in %s!",
-  "command.maessentials.setspawn.wrongdim": "You can only set spawn in overworld!",
+  "command.maessentials.setspawn": "Spawn set!",
   "command.maessentials.spawn": "Teleported to spawn location!",
 
 
@@ -42,6 +42,7 @@
   "_comment": "Home lang",
   "command.maessentials.home.notexist": "Home \"%s\" not exist!",
   "command.maessentials.sethome.set": "Home \"%s\" set!",
+  "command.maessentials.sethome.exist": "Home \"%s\" already exist!",
   "command.maessentials.delhome.specifyname": "Please specify home name to delete!",
   "command.maessentials.delhome.done": "Home \"%s\" deleted!",
   "command.maessentials.home.teleported": "Teleported to home \"%s\"!",

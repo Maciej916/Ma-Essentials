@@ -1,15 +1,14 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.classes.Home;
-import com.maciej916.maessentials.utils.Homes;
-import com.maciej916.maessentials.utils.Teleport;
+import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.data.HomeData;
+import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.maciej916.maessentials.managers.HomeManager;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -20,8 +19,8 @@ public class CommandHome {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("home").requires(source -> source.hasPermissionLevel(0));
         builder
                 .executes(context -> home(context))
-                .then(Commands.argument("homeName", StringArgumentType.word())
-                        .suggests(HomeManager.HOME_SUGGEST)
+                .then(Commands.argument("homeName", StringArgumentType.string())
+                        .suggests(HomeData.HOME_SUGGEST)
                         .executes(context -> homeArgs(context)));
         dispatcher.register(builder);
     }
@@ -39,11 +38,10 @@ public class CommandHome {
         return Command.SINGLE_SUCCESS;
     }
 
-    private static void handleHome( ServerPlayerEntity player, String homeName) {
-        Homes playerHomes = HomeManager.getPlayerHomes(player);
-        Home thisHome = playerHomes.getHome(homeName);
-        if (thisHome != null) {
-            Teleport.teleportPlayer(player, thisHome.getHomeLocation(), true);
+    private static void handleHome(ServerPlayerEntity player, String homeName) {
+        Location homeLocation = HomeData.getPlayerHomes(player).getHomeLocation(homeName);
+        if (homeLocation != null) {
+            Teleport.teleportPlayer(player, homeLocation, true);
             player.sendMessage(new TranslationTextComponent("command.maessentials.home.teleported", homeName, true));
         } else {
             player.sendMessage(new TranslationTextComponent("command.maessentials.home.notexist", homeName, true));
