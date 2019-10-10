@@ -1,6 +1,7 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.TeleportRequest;
+import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -27,7 +28,7 @@ public class CommandTpdeny {
 
     private static int tpdeny(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        ArrayList<TeleportRequest> tpaRequests = Teleport.getTeleportRequests(player);
+        ArrayList<TeleportRequest> tpaRequests = PlayerData.getTeleportRequests(player);
         if (tpaRequests.size() == 1) {
             TeleportRequest thisTpa = tpaRequests.get(0);
             handleTpdeny(thisTpa, player);
@@ -42,9 +43,9 @@ public class CommandTpdeny {
     private static int tpdenyArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-        ArrayList<TeleportRequest> tpaRequests = Teleport.getTeleportRequests(player);
+        ArrayList<TeleportRequest> tpaRequests = PlayerData.getTeleportRequests(player);
         if (tpaRequests.size() != 0) {
-            TeleportRequest thisTpa = Teleport.findTeleportRequest(requestedPlayer, requestedPlayer, player);
+            TeleportRequest thisTpa = PlayerData.findTeleportRequest(requestedPlayer, player);
             if (thisTpa != null) {
                 handleTpdeny(thisTpa, player);
             } else {
@@ -56,9 +57,9 @@ public class CommandTpdeny {
         return Command.SINGLE_SUCCESS;
     }
 
-    private static void handleTpdeny(TeleportRequest thisTpa, ServerPlayerEntity player) {
-        thisTpa.getRequestPlayer().sendMessage(new TranslationTextComponent("command.maessentials.tpdeny.request", thisTpa.getTargetPlayer().getDisplayName(), true));
-        thisTpa.getTargetPlayer().sendMessage(new TranslationTextComponent("command.maessentials.tpdeny.target", thisTpa.getRequestPlayer().getDisplayName(), true));
-        Teleport.removeTeleportRequest(thisTpa);
+    private static void handleTpdeny(TeleportRequest tpa, ServerPlayerEntity player) {
+        tpa.getTpPlayer().sendMessage(new TranslationTextComponent("command.maessentials.tpdeny.request", tpa.getTpPlayer().getDisplayName(), true));
+        tpa.getTpTargetPlayer().sendMessage(new TranslationTextComponent("command.maessentials.tpdeny.target", tpa.getTpTargetPlayer().getDisplayName(), true));
+        PlayerData.denyTeleportRequest(tpa);
     }
 }

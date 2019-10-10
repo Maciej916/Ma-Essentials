@@ -1,6 +1,6 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.libs.Teleport;
+import com.maciej916.maessentials.data.PlayerData;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -31,7 +31,7 @@ public class CommandSuicide {
         ServerPlayerEntity player = context.getSource().asPlayer();
         player.setHealth(0);
         player.sendMessage(new TranslationTextComponent("command.maessentials.suicide.self"));
-        Teleport.setPlayerLastLoc(player);
+        PlayerData.setPlayerLastLocation(player);
         return Command.SINGLE_SUCCESS;
     }
 
@@ -43,7 +43,7 @@ public class CommandSuicide {
         } else {
             if (requestedPlayer != null) {
                 requestedPlayer.setHealth(0);
-                Teleport.setPlayerLastLoc(requestedPlayer);
+                PlayerData.setPlayerLastLocation(requestedPlayer);
                 player.sendMessage(new TranslationTextComponent("command.maessentials.suicide.player", requestedPlayer.getDisplayName(), true));
                 requestedPlayer.sendMessage(new TranslationTextComponent("command.maessentials.suicide.killed", player.getDisplayName(), true));
             } else {

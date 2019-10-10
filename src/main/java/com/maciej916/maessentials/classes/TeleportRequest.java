@@ -3,36 +3,51 @@ package com.maciej916.maessentials.classes;
 import net.minecraft.entity.player.ServerPlayerEntity;
 
 public final class TeleportRequest {
-    private ServerPlayerEntity player;
-    private ServerPlayerEntity requestPlayer;
-    private ServerPlayerEntity targetPlayer;
-    private int timer;
+    private ServerPlayerEntity creatorPlayer;
+    private ServerPlayerEntity tpPlayer;
+    private ServerPlayerEntity tpTargetPlayer;
 
-    public TeleportRequest(ServerPlayerEntity player, ServerPlayerEntity requestPlayer, ServerPlayerEntity targetPlayer, int timer) {
-        this.player = player;
-        this.requestPlayer = requestPlayer;
-        this.targetPlayer = targetPlayer;
-        this.timer = timer;
+    private int teleportTime;
+    private int timeoutTime;
+
+    private Location acceptLocation;
+
+    public TeleportRequest(ServerPlayerEntity creatorPlayer, ServerPlayerEntity tpPlayer, ServerPlayerEntity tpTargetPlayer, int teleportTime, int timeoutTime) {
+        this.creatorPlayer = creatorPlayer;
+        this.tpPlayer = tpPlayer;
+        this.tpTargetPlayer = tpTargetPlayer;
+        this.teleportTime = teleportTime;
+        this.teleportTime = teleportTime;
+        this.timeoutTime = timeoutTime;
     }
 
-    public ServerPlayerEntity getPlayer() {
-        return player;
+    public ServerPlayerEntity getCreatorPlayer() {
+        return creatorPlayer;
     }
 
-    public ServerPlayerEntity getRequestPlayer() {
-        return requestPlayer;
+    public ServerPlayerEntity getTpPlayer() {
+        return tpPlayer;
     }
 
-    public ServerPlayerEntity getTargetPlayer() {
-        return targetPlayer;
+    public ServerPlayerEntity getTpTargetPlayer() {
+        return tpTargetPlayer;
     }
 
-    public int getTimer() {
-        return timer;
+    public void setAcceptLocation(Location location) {
+        this.acceptLocation  = location;
     }
 
-    public int countDown() {
-        timer--;
-        return  timer;
+    public Location getAcceptLocation() {
+        return acceptLocation;
+    }
+
+    public int countDownTeleport() {
+        teleportTime--;
+        return  teleportTime;
+    }
+
+    public int countdwnTimeout() {
+        timeoutTime--;
+        return  timeoutTime;
     }
 }

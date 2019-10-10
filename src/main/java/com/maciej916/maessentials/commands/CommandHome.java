@@ -1,7 +1,7 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.Location;
-import com.maciej916.maessentials.data.HomeData;
+import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -20,7 +20,7 @@ public class CommandHome {
         builder
                 .executes(context -> home(context))
                 .then(Commands.argument("homeName", StringArgumentType.string())
-                        .suggests(HomeData.HOME_SUGGEST)
+                        .suggests(PlayerData.HOME_SUGGEST)
                         .executes(context -> homeArgs(context)));
         dispatcher.register(builder);
     }
@@ -39,7 +39,7 @@ public class CommandHome {
     }
 
     private static void handleHome(ServerPlayerEntity player, String homeName) {
-        Location homeLocation = HomeData.getPlayerHomes(player).getHomeLocation(homeName);
+        Location homeLocation = PlayerData.getPlayerHomes(player).getHomeLocation(homeName);
         if (homeLocation != null) {
             Teleport.teleportPlayer(player, homeLocation, true);
             player.sendMessage(new TranslationTextComponent("command.maessentials.home.teleported", homeName, true));

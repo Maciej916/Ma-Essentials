@@ -1,5 +1,6 @@
 package com.maciej916.maessentials.commands;
 
+import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -32,7 +33,7 @@ public class CommandTpahere {
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
         if (requestedPlayer.getUniqueID() != player.getUniqueID()) {
-            if (Teleport.requestTeleportRequest(player, requestedPlayer, player)) {
+            if (PlayerData.requestTeleport(player, requestedPlayer, player)) {
                 player.sendMessage(new TranslationTextComponent("command.maessentials.tpahere.request", requestedPlayer.getDisplayName(), true));
                 requestedPlayer.sendMessage(new TranslationTextComponent("command.maessentials.tpahere.target", player.getDisplayName(), true));
             } else {

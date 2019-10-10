@@ -1,7 +1,7 @@
 package com.maciej916.maessentials;
 
 import com.maciej916.maessentials.config.ConfigValues;
-import com.maciej916.maessentials.libs.Teleport;
+import com.maciej916.maessentials.data.PlayerData;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -18,7 +18,7 @@ public class Events {
             if (event.getEntity() instanceof PlayerEntity) {
                 ServerPlayerEntity player = (ServerPlayerEntity) event.getEntity();
                 player.sendMessage(new TranslationTextComponent("command.maessentials.back.death"));
-                Teleport.setPlayerLastLoc(player);
+                PlayerData.setPlayerLastLocation(player);
             }
         }
     }
@@ -27,9 +27,7 @@ public class Events {
     public static void worldTick(TickEvent.WorldTickEvent event) {
         if (event.phase == TickEvent.Phase.END){
             if (tickCounter == 20) {
-                if (ConfigValues.enableTpa) {
-                    Teleport.checkTeleportRequests();
-                }
+                PlayerData.checkTeleportRequests();
                 tickCounter = 0;
             } else {
                 tickCounter++;

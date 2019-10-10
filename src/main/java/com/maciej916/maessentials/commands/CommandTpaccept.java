@@ -1,8 +1,7 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.classes.TeleportRequest;
-import com.maciej916.maessentials.libs.Teleport;
+import com.maciej916.maessentials.data.PlayerData;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -28,10 +27,10 @@ public class CommandTpaccept {
 
     private static int tpaccept(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        ArrayList<TeleportRequest> tpaRequests = Teleport.getTeleportRequests(player);
+        ArrayList<TeleportRequest> tpaRequests = PlayerData.getTeleportRequests(player);
         if (tpaRequests.size() == 1) {
-            TeleportRequest thisTpa = tpaRequests.get(0);
-            handleTpa(thisTpa, player);
+            TeleportRequest tpa = tpaRequests.get(0);
+            PlayerData.acceptTeleportRequest(tpa);
         } else if (tpaRequests.size() > 1) {
             player.sendMessage(new TranslationTextComponent("command.maessentials.tpaccept.specifyplayer"));
         } else {
@@ -43,11 +42,11 @@ public class CommandTpaccept {
     private static int tpacceptArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-        ArrayList<TeleportRequest> tpaRequests = Teleport.getTeleportRequests(player);
+        ArrayList<TeleportRequest> tpaRequests = PlayerData.getTeleportRequests(player);
         if (tpaRequests.size() != 0) {
-            TeleportRequest thisTpa = Teleport.findTeleportRequest(requestedPlayer, requestedPlayer, player);
-            if (thisTpa != null) {
-                handleTpa(thisTpa, player);
+            TeleportRequest tpa = PlayerData.findTeleportRequest(player, requestedPlayer);
+            if (tpa != null) {
+                PlayerData.acceptTeleportRequest(tpa);
             } else {
                 player.sendMessage(new TranslationTextComponent("command.maessentials.tpa.notfound"));
             }
@@ -55,16 +54,5 @@ public class CommandTpaccept {
             player.sendMessage(new TranslationTextComponent("command.maessentials.tpa.norequest"));
         }
         return Command.SINGLE_SUCCESS;
-    }
-
-    private static void handleTpa(TeleportRequest thisTpa, ServerPlayerEntity player) {
-        thisTpa.getRequestPlayer().sendMessage(new TranslationTextComponent("command.maessentials.tpaccept.request", thisTpa.getTargetPlayer().getDisplayName(), true));
-        thisTpa.getTargetPlayer().sendMessage(new TranslationTextComponent("command.maessentials.tpaccept.target", thisTpa.getRequestPlayer().getDisplayName(), true));
-        if (thisTpa.getTargetPlayer() != null) {
-            Teleport.teleportPlayer(thisTpa.getRequestPlayer(), new Location(thisTpa.getTargetPlayer()), true);
-            Teleport.removeTeleportRequest(thisTpa);
-        } else {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.player.notfound"));
-        }
     }
 }

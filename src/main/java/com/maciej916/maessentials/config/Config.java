@@ -28,6 +28,7 @@ public class Config {
 
 
     public static ForgeConfigSpec.IntValue maxHomes;
+    public static ForgeConfigSpec.IntValue tpaRequestTeleportTime;
     public static ForgeConfigSpec.IntValue tpaRequestTimeout;
 
     static {
@@ -84,6 +85,7 @@ public class Config {
                 .define("enableTpa", true);
 
         maxHomes = server.defineInRange("maxHomes", 5, 1 , 999);
+        tpaRequestTeleportTime = server.defineInRange("tpaRequestTeleportTime", 3, 0 , 300);
         tpaRequestTimeout = server.defineInRange("tpaRequestTimeout", 20, 0 , 300);
 
         server.pop();

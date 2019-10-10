@@ -48,7 +48,7 @@ public class LoadData {
                     UUID playerUUID = UUID.fromString(uuidString);
                     PlayerHomes homes = new PlayerHomes();
                     homes = (PlayerHomes) JsonMethods.load("homes/" + uuidString, homes);
-                    HomeData.addPlayerHomes(playerUUID, homes);
+                    PlayerData.addPlayerHomes(playerUUID, homes);
                 }
             }
         }

@@ -1,6 +1,6 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.libs.Teleport;
+import com.maciej916.maessentials.data.PlayerData;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -31,8 +31,8 @@ public class CommandTpa{
     private static int tpaArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-        if (requestedPlayer.getUniqueID() != player.getUniqueID()) {
-            if (Teleport.requestTeleportRequest(player, player, requestedPlayer)) {
+        if (requestedPlayer != player) {
+            if (PlayerData.requestTeleport(player, player, requestedPlayer)) {
                 player.sendMessage(new TranslationTextComponent("command.maessentials.tpa.request",requestedPlayer.getDisplayName(), true));
                 requestedPlayer.sendMessage(new TranslationTextComponent("command.maessentials.tpa.target", player.getDisplayName(), true));
             } else {

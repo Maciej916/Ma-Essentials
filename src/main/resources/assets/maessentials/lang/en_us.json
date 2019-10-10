@@ -75,6 +75,7 @@
   "command.maessentials.tpaccept.specifyplayer": "Please specify player to accept teleport request!",
   "command.maessentials.tpaccept.request": "You have been teleported to %s!",
   "command.maessentials.tpaccept.target": "Player %s has been teleported to you!",
+  "command.maessentials.tpaccept.wait": "Teleport accepted, please don't move for next %s seconds!",
 
   "command.maessentials.tpdeny.specifyplayer": "Please specify player to accept deny teleport request!",
   "command.maessentials.tpdeny.request": "Player %s cancelled your teleport request!",
@@ -83,7 +84,8 @@
   "command.maessentials.tpa.expired.target": "Teleport request to player %s just expired!",
   "command.maessentials.tpa.expired.request": "Teleport request to from %s just expired!",
 
-
+  "command.maessentials.tpa.moved.request": "You moved, teleport cancelled!",
+  "command.maessentials.tpa.moved.target": "Player %s just moved, teleport cancelled!",
 
 
 

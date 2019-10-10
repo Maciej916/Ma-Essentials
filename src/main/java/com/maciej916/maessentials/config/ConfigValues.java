@@ -14,8 +14,8 @@ public class ConfigValues {
     public static Boolean enableWarps;
     public static Boolean enableTpa;
 
-
     public static int maxHomes;
+    public static int tpaRequestTeleportTime;
     public static int tpaRequestTimeout;
 
     public static void init() {
@@ -32,6 +32,7 @@ public class ConfigValues {
         enableTpa = Config.enableTpa.get();
 
         maxHomes = Config.maxHomes.get();
+        tpaRequestTeleportTime = Config.tpaRequestTeleportTime.get();
         tpaRequestTimeout = Config.tpaRequestTimeout.get();
     }
 }
