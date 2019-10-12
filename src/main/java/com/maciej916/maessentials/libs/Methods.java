@@ -1,5 +1,8 @@
 package com.maciej916.maessentials.libs;
 
+import net.minecraft.util.text.TextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 
@@ -21,4 +24,12 @@ public class Methods {
         String version = getVersion();
         return version.equals("NONE");
     }
+
+    public static TextComponent formatText(String translationKey, TextFormatting color, Object... args) {
+        TextComponent msg = new TranslationTextComponent(translationKey);
+        msg.getStyle().setColor(color);
+        return msg;
+    }
+
+
 }

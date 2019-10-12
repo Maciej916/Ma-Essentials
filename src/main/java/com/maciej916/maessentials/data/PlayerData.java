@@ -28,6 +28,12 @@ public class PlayerData {
         playerHomes.put(uuid, homes);
     }
 
+    public static void cleanData() {
+        playerHomes.clear();
+        playerLastLocation.clear();
+        teleportRequests.clear();
+    }
+
     public static PlayerHomes getPlayerHomes(ServerPlayerEntity player) {
         UUID playerUUID = player.getUniqueID();
         if (playerHomes.containsKey(playerUUID)) {
@@ -50,9 +56,6 @@ public class PlayerData {
         playerLastLocation.put(player, new Location(player));
     }
 
-
-
-
     public static ArrayList<TeleportRequest> getTeleportRequests(ServerPlayerEntity player) {
         ArrayList<TeleportRequest> userTpaRequests = new ArrayList<>();
         for (TeleportRequest tpa : teleportRequests) {
@@ -62,7 +65,6 @@ public class PlayerData {
         }
         return userTpaRequests;
     }
-
 
     public static TeleportRequest findTeleportRequest(ServerPlayerEntity tpPlayer, ServerPlayerEntity tpToPlayer) {
         for (TeleportRequest tpa : teleportRequests) {

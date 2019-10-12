@@ -22,7 +22,7 @@ public final class Location implements Serializable {
     }
 
     public Location(double posX, double posY, double posZ, float rotationYaw, float rotationPitch, int dimension) {
-        this.z = posX;
+        this.x = posX;
         this.y = posY;
         this.z = posZ;
         this.rotationYaw = rotationYaw;

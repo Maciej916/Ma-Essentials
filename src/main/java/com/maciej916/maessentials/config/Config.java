@@ -23,13 +23,16 @@ public class Config {
     public static ForgeConfigSpec.BooleanValue enableHeal;
     public static ForgeConfigSpec.BooleanValue enableGm;
     public static ForgeConfigSpec.BooleanValue enableFly;
+    public static ForgeConfigSpec.BooleanValue enableGod;
     public static ForgeConfigSpec.BooleanValue enableWarps;
     public static ForgeConfigSpec.BooleanValue enableTpa;
-
+    public static ForgeConfigSpec.BooleanValue enableRndtp;
 
     public static ForgeConfigSpec.IntValue maxHomes;
     public static ForgeConfigSpec.IntValue tpaRequestTeleportTime;
     public static ForgeConfigSpec.IntValue tpaRequestTimeout;
+    public static ForgeConfigSpec.IntValue rndTpMinDistance;
+    public static ForgeConfigSpec.IntValue rndTpMaxDistance;
 
     static {
         setupConfig();
@@ -76,6 +79,10 @@ public class Config {
                 .comment("Enable: /fly")
                 .define("enableFly", true);
 
+        enableGod = server
+                .comment("Enable: /god")
+                .define("enableGod", true);
+
         enableWarps = server
                 .comment("Enable: /setwarp, /delwarp, /warp")
                 .define("enableWarps", true);
@@ -84,9 +91,17 @@ public class Config {
                 .comment("Enable: /tpa, /tpahere, /tpaccept, /tpdeny")
                 .define("enableTpa", true);
 
+        enableRndtp = server
+                .comment("Enable: /rndtp")
+                .define("enableRndtp", true);
+
+
         maxHomes = server.defineInRange("maxHomes", 5, 1 , 999);
         tpaRequestTeleportTime = server.defineInRange("tpaRequestTeleportTime", 3, 0 , 300);
         tpaRequestTimeout = server.defineInRange("tpaRequestTimeout", 20, 0 , 300);
+
+        rndTpMinDistance = server.defineInRange("rndTpMinDistance", 500, 50 , 1000);
+        rndTpMaxDistance = server.defineInRange("rndTpMaxDistance", 2000, 1000 , 99999);
 
         server.pop();
     }

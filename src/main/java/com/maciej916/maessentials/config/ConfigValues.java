@@ -11,12 +11,16 @@ public class ConfigValues {
     public static Boolean enableHeal;
     public static Boolean enableGm;
     public static Boolean enableFly;
+    public static Boolean enableGod;
     public static Boolean enableWarps;
     public static Boolean enableTpa;
+    public static Boolean enableRndtp;
 
     public static int maxHomes;
     public static int tpaRequestTeleportTime;
     public static int tpaRequestTimeout;
+    public static int rndTpMinDistance;
+    public static int rndTpMaxDistance;
 
     public static void init() {
         enableSpawn = Config.enableSpawn.get();
@@ -28,11 +32,15 @@ public class ConfigValues {
         enableHeal = Config.enableHeal.get();
         enableGm = Config.enableGm.get();
         enableFly = Config.enableFly.get();
+        enableGod = Config.enableGod.get();
         enableWarps = Config.enableWarps.get();
         enableTpa = Config.enableTpa.get();
+        enableRndtp = Config.enableRndtp.get();
 
         maxHomes = Config.maxHomes.get();
         tpaRequestTeleportTime = Config.tpaRequestTeleportTime.get();
         tpaRequestTimeout = Config.tpaRequestTimeout.get();
+        rndTpMinDistance = Config.rndTpMinDistance.get();
+        rndTpMaxDistance = Config.rndTpMaxDistance.get();
     }
 }

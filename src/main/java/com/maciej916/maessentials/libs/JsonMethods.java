@@ -20,8 +20,7 @@ public class JsonMethods {
     public static Object load(String fileName, Object object) {
         Gson gson = new Gson();
         try (Reader reader = new FileReader(Config.getMainCatalog() + fileName + ".json")) {
-            Object staff = gson.fromJson(reader, object.getClass());
-            return staff;
+            return gson.fromJson(reader, object.getClass());
         } catch (IOException e) {
             e.printStackTrace();
         }

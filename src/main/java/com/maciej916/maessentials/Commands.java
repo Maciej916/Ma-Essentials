@@ -55,6 +55,10 @@ public class Commands {
             CommandFly.register(dispatcher);
         }
 
+        if (ConfigValues.enableGod) {
+            CommandGod.register(dispatcher);
+        }
+
         if (ConfigValues.enableWarps) {
             CommandSetWarp.register(dispatcher);
             CommandDelWarp.register(dispatcher);
@@ -62,7 +66,6 @@ public class Commands {
         }
 
         // Commands on server
-
         if (event.getServer().isDedicatedServer()) {
             if (ConfigValues.enableTpa) {
                 CommandTpa.register(dispatcher);
@@ -71,5 +74,11 @@ public class Commands {
                 CommandTpaccept.register(dispatcher);
             }
         }
+
+        if (ConfigValues.enableRndtp) {
+            CommandRndtp.register(dispatcher);
+        }
+
+
     }
 }

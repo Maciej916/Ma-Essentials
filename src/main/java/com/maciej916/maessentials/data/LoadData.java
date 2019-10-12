@@ -17,6 +17,9 @@ import java.util.UUID;
 
 public class LoadData {
     public static void init(FMLServerStartingEvent event) {
+        PlayerData.cleanData();
+        WarpData.cleanData();
+
         loadModData(event);
         loadPlayerHomes();
         loadWarps();

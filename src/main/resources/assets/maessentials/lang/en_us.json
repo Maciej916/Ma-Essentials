@@ -1,7 +1,7 @@
 {
   "command.maessentials.player.notfound": "Target player has not been found!",
   "command.maessentials.player.provide": "Please provide player name!",
-
+  "command.maessentials.player.invaildgamemode": "Invaild gamemode!",
 
   "_comment": "World lang",
   "command.maessentials.day": "Day set in %s!",
@@ -32,11 +32,18 @@
   "command.maessentials.gm.set.self": "Your gamemode has been changed to %s!",
   "command.maessentials.gm.set.other": "You changed gamemode for player %s to %s!",
 
-  "command.maessentials.fly.invaildgamemode": "Invaild gamemode!",
-  "command.maessentials.fly.disabled.self": "Flying disabled!",
-  "command.maessentials.fly.disabled.other": "Flying disabled for player %s!",
+  "command.maessentials.fly.disabled.self": "Fly mode disabled!",
+  "command.maessentials.fly.disabled.other": "Fly mode disabled for player %s!",
   "command.maessentials.fly.enabled.self": "You can now fly!",
-  "command.maessentials.fly.enabled.other": "Flying enabled for player %s!",
+  "command.maessentials.fly.enabled.other": "Fly mode enabled for player %s!",
+
+  "command.maessentials.god.disabled.self": "Godmode disabled!",
+  "command.maessentials.god.disabled.other": "Godmode disabled for player %s!",
+  "command.maessentials.god.enabled.self": "Godmode enabled!",
+  "command.maessentials.god.enabled.other": "Godmode enabled for player %s!",
+
+  "command.maessentials.rndtp.teleport": "You have been teleported to random location!",
+  "command.maessentials.rndtp.nptfound": "Couldn't find a safe place to teleport!",
 
 
   "_comment": "Home lang",
@@ -65,6 +72,7 @@
   "command.maessentials.tpa.norequest": "You don't have any pending teleport requests!",
   "command.maessentials.tpa.notfound": "Requested teleport has not been found!",
   "command.maessentials.tpa.request": "Teleport request sent to %s!",
+
   "command.maessentials.tpa.target": "Player %s wants to teleport to you. Type /tpaccept to accept teleport request.",
   "command.maessentials.tpa.exist": "You already have pending teleport request to %s!",
 

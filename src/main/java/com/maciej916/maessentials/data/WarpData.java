@@ -19,6 +19,8 @@ public class WarpData {
         warps.put(warpName, location);
     }
 
+    public static void cleanData() { warps.clear(); }
+
     public static Location getWarpLocation(String warpName) {
         return warps.get(warpName);
     }
