@@ -2,6 +2,7 @@ package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.TeleportRequest;
 import com.maciej916.maessentials.data.PlayerData;
+import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -11,6 +12,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.ArrayList;
@@ -32,9 +34,9 @@ public class CommandTpaccept {
             TeleportRequest tpa = tpaRequests.get(0);
             PlayerData.acceptTeleportRequest(tpa);
         } else if (tpaRequests.size() > 1) {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.tpaccept.specifyplayer"));
+            player.sendMessage(Methods.formatText("command.maessentials.tpaccept.specifyplayer", TextFormatting.DARK_RED));
         } else {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.tpaccept.norequest"));
+            player.sendMessage(Methods.formatText("command.maessentials.tpaccept.norequest", TextFormatting.DARK_RED));
         }
         return Command.SINGLE_SUCCESS;
     }
@@ -48,10 +50,10 @@ public class CommandTpaccept {
             if (tpa != null) {
                 PlayerData.acceptTeleportRequest(tpa);
             } else {
-                player.sendMessage(new TranslationTextComponent("command.maessentials.tpa.notfound"));
+                player.sendMessage(Methods.formatText("command.maessentials.tpa.notfound", TextFormatting.DARK_RED));
             }
         } else {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.tpa.norequest"));
+            player.sendMessage(Methods.formatText("command.maessentials.tpa.norequest", TextFormatting.DARK_RED));
         }
         return Command.SINGLE_SUCCESS;
     }

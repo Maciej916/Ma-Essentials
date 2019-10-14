@@ -2,6 +2,7 @@ package com.maciej916.maessentials.config;
 
 public class ConfigValues {
 
+    public static Boolean debugMessages;
     public static Boolean enableSpawn;
     public static Boolean enableTime;
     public static Boolean enableWeather;
@@ -23,6 +24,7 @@ public class ConfigValues {
     public static int rndTpMaxDistance;
 
     public static void init() {
+        debugMessages = Config.debugMessages.get();
         enableSpawn = Config.enableSpawn.get();
         enableTime = Config.enableTime.get();
         enableWeather = Config.enableWeather.get();

@@ -1,7 +1,10 @@
 package com.maciej916.maessentials.commands;
 
+import com.maciej916.maessentials.classes.EssentialPlayer;
 import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.data.PlayerData;
+import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -12,6 +15,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class CommandHome {
@@ -20,7 +24,7 @@ public class CommandHome {
         builder
                 .executes(context -> home(context))
                 .then(Commands.argument("homeName", StringArgumentType.string())
-                        .suggests(PlayerData.HOME_SUGGEST)
+                        .suggests(Methods.HOME_SUGGEST)
                         .executes(context -> homeArgs(context)));
         dispatcher.register(builder);
     }
@@ -39,12 +43,12 @@ public class CommandHome {
     }
 
     private static void handleHome(ServerPlayerEntity player, String homeName) {
-        Location homeLocation = PlayerData.getPlayerHomes(player).getHomeLocation(homeName);
+        Location homeLocation = DataManager.getPlayerData(player).getHomes().get(homeName);
         if (homeLocation != null) {
             Teleport.teleportPlayer(player, homeLocation, true);
             player.sendMessage(new TranslationTextComponent("command.maessentials.home.teleported", homeName, true));
         } else {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.home.notexist", homeName, true));
+            player.sendMessage(Methods.formatText("command.maessentials.home.notexist", TextFormatting.DARK_RED, homeName));
         }
     }
 }

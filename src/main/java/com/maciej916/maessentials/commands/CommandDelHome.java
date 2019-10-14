@@ -1,6 +1,10 @@
 package com.maciej916.maessentials.commands;
 
+import com.maciej916.maessentials.classes.EssentialPlayer;
+import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.data.PlayerData;
+import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.PlayerHomes;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -19,7 +23,7 @@ public class CommandDelHome {
         builder
             .executes(context -> delHome(context))
             .then(Commands.argument("homeName", StringArgumentType.string())
-                .suggests(PlayerData.HOME_SUGGEST)
+                .suggests(Methods.HOME_SUGGEST)
                 .executes(context -> delHomeArgs(context)));
         dispatcher.register(builder);
     }
@@ -32,12 +36,12 @@ public class CommandDelHome {
 
     private static int delHomeArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String args = StringArgumentType.getString(context, "homeName").toString().toLowerCase();
-        PlayerHomes playerHome = PlayerData.getPlayerHomes(player);
-        if (playerHome.delHome(player, args)) {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.delhome.done", args, true));
+        String homeName = StringArgumentType.getString(context, "homeName").toString().toLowerCase();
+        EssentialPlayer playerData = DataManager.getPlayerData(player);
+        if (playerData.delHome(homeName)) {
+            player.sendMessage(new TranslationTextComponent("command.maessentials.delhome.done", homeName, true));
         } else {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.home.notexist", args, true));
+            player.sendMessage(new TranslationTextComponent("command.maessentials.home.notexist", homeName, true));
         }
         return Command.SINGLE_SUCCESS;
     }

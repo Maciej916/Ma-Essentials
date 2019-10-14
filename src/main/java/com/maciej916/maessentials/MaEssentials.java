@@ -3,6 +3,7 @@ package com.maciej916.maessentials;
 import com.maciej916.maessentials.config.Config;
 import com.maciej916.maessentials.data.LoadData;
 import com.maciej916.maessentials.data.ModData;
+import com.maciej916.maessentials.data.DataManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -26,6 +27,10 @@ public class MaEssentials
 
     private void setup(final FMLCommonSetupEvent event) {
         Config.loadConfig();
+
+
+//        DataManager test = new DataManager();
+
     }
 
     @SubscribeEvent

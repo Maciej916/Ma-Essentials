@@ -1,7 +1,10 @@
 package com.maciej916.maessentials.commands;
 
+import com.maciej916.maessentials.classes.EssentialPlayer;
 import com.maciej916.maessentials.config.ConfigValues;
+import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.data.PlayerData;
+import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.PlayerHomes;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -12,6 +15,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class CommandSetHome {
@@ -37,15 +41,15 @@ public class CommandSetHome {
     }
 
     private static void handleSetHome(ServerPlayerEntity player, String homeName) {
-        PlayerHomes playerHome = PlayerData.getPlayerHomes(player);
-        if (playerHome.getHomes().size() < ConfigValues.maxHomes) {
-           if (playerHome.setHome(player, homeName)) {
+        EssentialPlayer playerData = DataManager.getPlayerData(player);
+        if (playerData.getHomes().size() < ConfigValues.maxHomes) {
+           if (playerData.setHome(player, homeName)) {
                player.sendMessage(new TranslationTextComponent("command.maessentials.sethome.set", homeName, true));
            } else {
-               player.sendMessage(new TranslationTextComponent("command.maessentials.sethome.exist", homeName, true));
+               player.sendMessage(Methods.formatText("command.maessentials.sethome.exist", TextFormatting.DARK_RED, homeName));
            }
        } else {
-           player.sendMessage(new TranslationTextComponent("command.maessentials.sethome.max"));
+            player.sendMessage(Methods.formatText("command.maessentials.sethome.max", TextFormatting.DARK_RED));
        }
     }
 }

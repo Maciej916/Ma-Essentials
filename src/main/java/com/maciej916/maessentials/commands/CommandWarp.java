@@ -2,6 +2,7 @@ package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.data.WarpData;
+import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -12,6 +13,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Set;
@@ -55,7 +57,7 @@ public class CommandWarp {
             Teleport.teleportPlayer(player, warpLocation, true);
             player.sendMessage(new TranslationTextComponent("command.maessentials.warp.teleported", args, true));
         } else {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.warp.notexist", args, true));
+            player.sendMessage(Methods.formatText("command.maessentials.warp.notexist", TextFormatting.DARK_RED, args));
         }
         return Command.SINGLE_SUCCESS;
     }

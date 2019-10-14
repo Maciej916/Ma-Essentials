@@ -2,6 +2,7 @@ package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.TeleportRequest;
 import com.maciej916.maessentials.data.PlayerData;
+import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -12,6 +13,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.ArrayList;
@@ -33,9 +35,9 @@ public class CommandTpdeny {
             TeleportRequest thisTpa = tpaRequests.get(0);
             handleTpdeny(thisTpa, player);
         } else if (tpaRequests.size() > 1) {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.tpdeny.specifyplayer"));
+            player.sendMessage(Methods.formatText("command.maessentials.tpdeny.specifyplayer", TextFormatting.DARK_RED));
         } else {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.tpa.norequest"));
+            player.sendMessage(Methods.formatText("command.maessentials.tpa.norequest", TextFormatting.DARK_RED));
         }
         return Command.SINGLE_SUCCESS;
     }
@@ -49,10 +51,10 @@ public class CommandTpdeny {
             if (thisTpa != null) {
                 handleTpdeny(thisTpa, player);
             } else {
-                player.sendMessage(new TranslationTextComponent("command.maessentials.tpa.notfound"));
+                player.sendMessage(Methods.formatText("command.maessentials.tpa.notfound", TextFormatting.DARK_RED));
             }
         } else {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.tpa.norequest"));
+            player.sendMessage(Methods.formatText("command.maessentials.tpa.norequest", TextFormatting.DARK_RED));
         }
         return Command.SINGLE_SUCCESS;
     }

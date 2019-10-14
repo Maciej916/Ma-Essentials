@@ -1,7 +1,7 @@
 {
   "command.maessentials.player.notfound": "Target player has not been found!",
   "command.maessentials.player.provide": "Please provide player name!",
-  "command.maessentials.player.invaildgamemode": "Invaild gamemode!",
+  "command.maessentials.player.invaildgamemode": "Invaild gamemode, survival or spectator required!",
 
   "_comment": "World lang",
   "command.maessentials.day": "Day set in %s!",

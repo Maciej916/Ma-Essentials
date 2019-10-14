@@ -1,7 +1,7 @@
 package com.maciej916.maessentials.libs;
 
 import com.maciej916.maessentials.classes.Location;
-import com.maciej916.maessentials.data.PlayerData;
+import com.maciej916.maessentials.data.DataManager;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
@@ -9,7 +9,8 @@ import net.minecraft.world.server.ServerWorld;
 public class Teleport {
 
     public static void teleportPlayer(ServerPlayerEntity player, Location loc, boolean exact) {
-        PlayerData.setPlayerLastLocation(player);
+        Location currentLocation = new Location(player);
+        DataManager.getPlayerData(player).setLastLocation(currentLocation);
 
         if (player.dimension == DimensionType.THE_END && loc.getDimension() == DimensionType.OVERWORLD) {
             player.queuedEndExit = true;

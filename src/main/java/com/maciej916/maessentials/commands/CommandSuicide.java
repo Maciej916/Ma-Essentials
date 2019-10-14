@@ -41,14 +41,10 @@ public class CommandSuicide {
         if (requestedPlayer == player) {
             kill(context);
         } else {
-            if (requestedPlayer != null) {
-                requestedPlayer.setHealth(0);
-                PlayerData.setPlayerLastLocation(requestedPlayer);
-                player.sendMessage(new TranslationTextComponent("command.maessentials.suicide.player", requestedPlayer.getDisplayName(), true));
-                requestedPlayer.sendMessage(new TranslationTextComponent("command.maessentials.suicide.killed", player.getDisplayName(), true));
-            } else {
-                player.sendMessage(new TranslationTextComponent("command.maessentials.player.notfound"));
-            }
+            requestedPlayer.setHealth(0);
+            PlayerData.setPlayerLastLocation(requestedPlayer);
+            player.sendMessage(new TranslationTextComponent("command.maessentials.suicide.player", requestedPlayer.getDisplayName(), true));
+            requestedPlayer.sendMessage(new TranslationTextComponent("command.maessentials.suicide.killed", player.getDisplayName(), true));
         }
         return Command.SINGLE_SUCCESS;
     }

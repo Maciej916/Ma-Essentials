@@ -1,6 +1,7 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.data.PlayerData;
+import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -10,6 +11,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class CommandTpa{
@@ -24,7 +26,7 @@ public class CommandTpa{
 
     private static int tpa(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(new TranslationTextComponent("command.maessentials.player.provide"));
+        player.sendMessage(Methods.formatText("command.maessentials.player.provide", TextFormatting.DARK_RED));
         return Command.SINGLE_SUCCESS;
     }
 
@@ -36,10 +38,10 @@ public class CommandTpa{
                 player.sendMessage(new TranslationTextComponent("command.maessentials.tpa.request",requestedPlayer.getDisplayName(), true));
                 requestedPlayer.sendMessage(new TranslationTextComponent("command.maessentials.tpa.target", player.getDisplayName(), true));
             } else {
-                player.sendMessage(new TranslationTextComponent("command.maessentials.tpa.exist", requestedPlayer.getDisplayName(), true));
+                player.sendMessage(Methods.formatText("command.maessentials.tpa.exist", TextFormatting.DARK_RED, requestedPlayer.getDisplayName()));
             }
         } else {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.player.self"));
+            player.sendMessage(Methods.formatText("command.maessentials.player.self", TextFormatting.DARK_RED));
         }
         return Command.SINGLE_SUCCESS;
     }

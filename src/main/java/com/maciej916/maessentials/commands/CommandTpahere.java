@@ -1,6 +1,7 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.data.PlayerData;
+import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -11,6 +12,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class CommandTpahere {
@@ -25,7 +27,7 @@ public class CommandTpahere {
 
     private static int tpahere(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(new TranslationTextComponent("command.maessentials.player.provide"));
+        player.sendMessage(Methods.formatText("command.maessentials.player.provide", TextFormatting.DARK_RED));
         return Command.SINGLE_SUCCESS;
     }
 
@@ -37,10 +39,10 @@ public class CommandTpahere {
                 player.sendMessage(new TranslationTextComponent("command.maessentials.tpahere.request", requestedPlayer.getDisplayName(), true));
                 requestedPlayer.sendMessage(new TranslationTextComponent("command.maessentials.tpahere.target", player.getDisplayName(), true));
             } else {
-                player.sendMessage(new TranslationTextComponent("command.maessentials.tpahere.request.exist"));
+                player.sendMessage(Methods.formatText("command.maessentials.tpahere.request.exist", TextFormatting.DARK_RED));
             }
         } else {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.player.self"));
+            player.sendMessage(Methods.formatText("command.maessentials.player.self", TextFormatting.DARK_RED));
         }
         return Command.SINGLE_SUCCESS;
     }

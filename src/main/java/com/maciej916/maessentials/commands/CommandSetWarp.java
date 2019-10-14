@@ -1,6 +1,7 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.data.WarpData;
+import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -10,6 +11,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class CommandSetWarp {
@@ -34,7 +36,7 @@ public class CommandSetWarp {
         if (WarpData.setWarp(player, args)) {
             player.sendMessage(new TranslationTextComponent("command.maessentials.setwarp.set", args, true));
         } else {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.setwarp.exist", args, true));
+            player.sendMessage(Methods.formatText("command.maessentials.setwarp.exist", TextFormatting.DARK_RED, args));
         }
         return Command.SINGLE_SUCCESS;
     }

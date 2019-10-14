@@ -1,5 +1,6 @@
 package com.maciej916.maessentials.commands;
 
+import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -9,6 +10,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameType;
 
@@ -60,7 +62,7 @@ public class CommandGod {
             }
             targetPlayer.sendPlayerAbilities();
         } else {
-            targetPlayer.sendMessage(new TranslationTextComponent("command.maessentials.player.invaildgamemode"));
+            targetPlayer.sendMessage(Methods.formatText("command.maessentials.player.invaildgamemode", TextFormatting.DARK_RED));
         }
     }
 }
