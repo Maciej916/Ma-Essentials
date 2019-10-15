@@ -12,23 +12,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-public final class PlayerData {
+public class PlayerData {
     private transient UUID playerUUID;
     private transient Homes homes = new Homes();
     private transient ArrayList<TeleportRequest> tpRequest = new ArrayList<>();
-    private transient Location teleportLocation;
 
     @SerializedName("last_location")
     private Location lastLocation;
 
     @SerializedName("last_teleport_time")
-    private Timestamp lastTeleportTime;
+    private long lastTeleportTime;
 
     @SerializedName("randomtp_time")
-    private Timestamp rndtpTime;
-
-
-
+    private long rndtpTime;
 
     public PlayerData() { }
 
@@ -67,28 +63,17 @@ public final class PlayerData {
 
     public void setLastLocation(Location lastLocation) {
         this.lastLocation = lastLocation;
-//        DataManager.savePlayerData(playerUUID, this);
     }
 
     public Location getLastLocation() {
         return lastLocation;
     }
 
-
-    public void setLastTeleportTime(Timestamp teleportTime) {
-        this.lastTeleportTime = teleportTime;
+    public void setLastTeleportTime(long lastTeleportTime) {
+        this.lastTeleportTime = lastTeleportTime;
     }
 
-    public Timestamp getLastTeleportTime() {
+    public long getLastTeleportTime() {
         return lastTeleportTime;
     }
-
-    public void setTeleportLocation(Location teleportLocation) {
-        this.teleportLocation = teleportLocation;
-    }
-
-    public Location getTeleportLocation() {
-        return teleportLocation;
-    }
-
 }

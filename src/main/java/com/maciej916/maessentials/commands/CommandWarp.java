@@ -56,8 +56,8 @@ public class CommandWarp {
         String warpName = StringArgumentType.getString(context, "warpName").toString().toLowerCase();
         Location warpLocation = DataManager.getWarpData().getWarps().get(warpName);
         if (warpLocation != null) {
-            Teleport.teleportPlayer(player, warpLocation, true);
             player.sendMessage(new TranslationTextComponent("command.maessentials.warp.teleported", warpName, true));
+            Teleport.teleportPlayer(player, warpLocation, true);
         } else {
             player.sendMessage(Methods.formatText("command.maessentials.warp.notexist", TextFormatting.DARK_RED, warpName));
         }

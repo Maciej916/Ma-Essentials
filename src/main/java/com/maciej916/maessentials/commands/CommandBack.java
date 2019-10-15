@@ -28,7 +28,7 @@ public class CommandBack {
         Location playerData = DataManager.getPlayerData(player).getLastLocation();
         if (playerData != null) {
             Teleport.teleportPlayer(player, playerData, true);
-            player.sendMessage(new TranslationTextComponent("command.maessentials.back.success"));
+            player.sendMessage(Methods.formatText("command.maessentials.back.success", TextFormatting.DARK_GREEN));
         } else {
             player.sendMessage(Methods.formatText("command.maessentials.back.failed", TextFormatting.DARK_RED));
         }

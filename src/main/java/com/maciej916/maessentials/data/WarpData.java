@@ -6,7 +6,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class WarpData {
+public class WarpData {
     private Map<String, Location> warps = new HashMap<>();
 
     public Map<String, Location> getWarps() {

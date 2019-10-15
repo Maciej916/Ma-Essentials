@@ -42,6 +42,10 @@ public class DataManager {
         playerData.put(uuid, data);
     }
 
+    public static boolean checkPlayerData(UUID playerUUID) {
+        return playerData.containsKey(playerUUID);
+    }
+
     public static PlayerData getPlayerData(ServerPlayerEntity player) {
         UUID playerUUID = player.getUniqueID();
         return getPlayerData(playerUUID);

@@ -1,5 +1,6 @@
 package com.maciej916.maessentials.libs;
 
+import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.data.DataManager;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.minecraft.command.CommandSource;
@@ -15,6 +16,10 @@ import java.util.Optional;
 import static com.maciej916.maessentials.MaEssentials.MODID;
 
 public class Methods {
+
+    public static final SuggestionProvider<CommandSource> HOME_SUGGEST = (context, builder) -> ISuggestionProvider.suggest(DataManager.getPlayerData(context.getSource().asPlayer()).getHomes().keySet().stream().toArray(String[]::new), builder);
+
+    public static final SuggestionProvider<CommandSource> WARP_SUGGEST = (context, builder) -> ISuggestionProvider.suggest(DataManager.getWarpData().getWarps().keySet().stream().toArray(String[]::new), builder);
 
     private static String getVersion() {
         Optional<? extends ModContainer> o = ModList.get().getModContainerById(MODID);
@@ -32,7 +37,7 @@ public class Methods {
     public static TextComponent formatText(String translationKey, TextFormatting color, Object... args) {
         TextComponent msg;
         if (args != null) {
-            msg = new TranslationTextComponent(translationKey, args, true);
+            msg = new TranslationTextComponent(translationKey, args);
         } else {
             msg = new TranslationTextComponent(translationKey);
         }
@@ -40,9 +45,12 @@ public class Methods {
         return msg;
     }
 
-    public static final SuggestionProvider<CommandSource> HOME_SUGGEST = (context, builder) -> ISuggestionProvider.suggest(DataManager.getPlayerData(context.getSource().asPlayer()).getHomes().keySet().stream().toArray(String[]::new), builder);
-
-    public static final SuggestionProvider<CommandSource> WARP_SUGGEST = (context, builder) -> ISuggestionProvider.suggest(DataManager.getWarpData().getWarps().keySet().stream().toArray(String[]::new), builder);
-
+    public static boolean isLocationSame(Location fistLocation, Location secoondLocation) {
+        if (fistLocation.x == secoondLocation.x && fistLocation.y == secoondLocation.y && fistLocation.z == secoondLocation.z && fistLocation.dimension == secoondLocation.dimension ) {
+            return true;
+        }
+        return false;
+    }
 
 }
+

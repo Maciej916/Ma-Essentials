@@ -43,8 +43,8 @@ public class CommandHome {
     private static void handleHome(ServerPlayerEntity player, String homeName) {
         Location homeLocation = DataManager.getPlayerData(player).getHomes().get(homeName);
         if (homeLocation != null) {
+            player.sendMessage(Methods.formatText("command.maessentials.home.teleported", TextFormatting.WHITE, homeName));
             Teleport.teleportPlayer(player, homeLocation, true);
-            player.sendMessage(new TranslationTextComponent("command.maessentials.home.teleported", homeName, true));
         } else {
             player.sendMessage(Methods.formatText("command.maessentials.home.notexist", TextFormatting.DARK_RED, homeName));
         }

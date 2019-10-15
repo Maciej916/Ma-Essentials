@@ -17,7 +17,7 @@ public class ConfigValues {
     public static Boolean enableRndtp;
 
     public static int maxHomes;
-    public static int tpaRequestTeleportTime;
+    public static int teleportTime;
     public static int tpaRequestTimeout;
     public static int rndTpMinDistance;
     public static int rndTpMaxDistance;
@@ -38,7 +38,7 @@ public class ConfigValues {
         enableRndtp = Config.enableRndtp.get();
 
         maxHomes = Config.maxHomes.get();
-        tpaRequestTeleportTime = Config.tpaRequestTeleportTime.get();
+        teleportTime = Config.teleportTime.get();
         tpaRequestTimeout = Config.tpaRequestTimeout.get();
         rndTpMinDistance = Config.rndTpMinDistance.get();
         rndTpMaxDistance = Config.rndTpMaxDistance.get();

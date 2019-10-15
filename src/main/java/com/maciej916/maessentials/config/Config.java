@@ -29,7 +29,7 @@ public class Config {
     public static ForgeConfigSpec.BooleanValue enableRndtp;
 
     public static ForgeConfigSpec.IntValue maxHomes;
-    public static ForgeConfigSpec.IntValue tpaRequestTeleportTime;
+    public static ForgeConfigSpec.IntValue teleportTime;
     public static ForgeConfigSpec.IntValue tpaRequestTimeout;
     public static ForgeConfigSpec.IntValue rndTpMinDistance;
     public static ForgeConfigSpec.IntValue rndTpMaxDistance;
@@ -97,7 +97,7 @@ public class Config {
 
 
         maxHomes = server.defineInRange("maxHomes", 5, 1 , 999);
-        tpaRequestTeleportTime = server.defineInRange("tpaRequestTeleportTime", 3, 0 , 300);
+        teleportTime = server.defineInRange("teleportTime", 3, 0 , 300);
         tpaRequestTimeout = server.defineInRange("tpaRequestTimeout", 20, 0 , 300);
 
         rndTpMinDistance = server.defineInRange("rndTpMinDistance", 500, 50 , 1000);

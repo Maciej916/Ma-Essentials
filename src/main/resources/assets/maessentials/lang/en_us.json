@@ -12,13 +12,12 @@
   "command.maessentials.thunder": "Thunder set in %s!",
 
   "command.maessentials.setspawn": "Spawn location set!",
-  "command.maessentials.spawn": "Teleported to spawn location!",
+  "command.maessentials.spawn": "Teleporting to spawn location...",
 
 
   "_comment": "Player lang",
-  "command.maessentials.back.success": "Teleported to previous location!",
+  "command.maessentials.back.success": "Teleporting to previous location...",
   "command.maessentials.back.failed": "Back location not found!",
-  "command.maessentials.back.death": "You died, you can use /back to teleport you to your death place!",
 
   "command.maessentials.suicide.self": "You killed yourself. You can use /back to teleport to your death place!",
   "command.maessentials.suicide.player": "You just killed %s!",
@@ -52,7 +51,7 @@
   "command.maessentials.sethome.exist": "Home \"%s\" already exist!",
   "command.maessentials.delhome.specifyname": "Please specify home name to delete!",
   "command.maessentials.delhome.done": "Home \"%s\" deleted!",
-  "command.maessentials.home.teleported": "Teleported to home \"%s\"!",
+  "command.maessentials.home.teleported": "Teleporting to home %s...",
 
 
   "_comment": "Warp lang",
@@ -63,7 +62,7 @@
   "command.maessentials.delwarp.specifyname": "Please specify warp name to delete!",
   "command.maessentials.delwarp.done": "Warp \"%s\" deleted!",
   "command.maessentials.warp.list": "Current warps (%s): %s.",
-  "command.maessentials.warp.teleported": "Teleported to warp \"%s\"!",
+  "command.maessentials.warp.teleported": "Teleporting to warp %s...",
 
 
   "_comment": "Tpa lang",
@@ -96,6 +95,18 @@
   "command.maessentials.tpa.moved.target": "Player %s just moved, teleport cancelled!",
 
 
+  "_comment": "Event lang",
+  "event.maessentials.back.death": "You died, you can use /back to teleport you to your death place!",
+  "event.maessentials.player.join": "Player %s joined!",
+  "event.maessentials.newplayer.join": "New player %s joined!",
+  "event.maessentials.newplayer.leave": "Player %s leaved!",
 
-  "command.maessentials.test": "%s"
+
+  "_comment": "Teleport lang",
+  "teleport.maessentials.active": "You have active teleport!",
+  "teleport.maessentials.moved": "You moved, teleport cancelled!",
+  "teleport.maessentials.teleported": "Teleported!",
+
+
+  "test.maessentials.test": "%s"
 }
