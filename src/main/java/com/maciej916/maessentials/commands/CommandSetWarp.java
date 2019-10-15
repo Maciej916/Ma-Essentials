@@ -1,5 +1,6 @@
 package com.maciej916.maessentials.commands;
 
+import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.data.WarpData;
 import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
@@ -32,11 +33,11 @@ public class CommandSetWarp {
 
     private static int warpArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String args = StringArgumentType.getString(context, "warpName").toString().toLowerCase();
-        if (WarpData.setWarp(player, args)) {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.setwarp.set", args, true));
+        String warpName = StringArgumentType.getString(context, "warpName").toString().toLowerCase();
+        if (DataManager.getWarpData().setWarp(player, warpName)) {
+            player.sendMessage(new TranslationTextComponent("command.maessentials.setwarp.set", warpName, true));
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.setwarp.exist", TextFormatting.DARK_RED, args));
+            player.sendMessage(Methods.formatText("command.maessentials.setwarp.exist", TextFormatting.DARK_RED, warpName));
         }
         return Command.SINGLE_SUCCESS;
     }

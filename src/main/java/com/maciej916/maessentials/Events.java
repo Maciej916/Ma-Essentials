@@ -27,7 +27,7 @@ public class Events {
     public static void worldTick(TickEvent.WorldTickEvent event) {
         if (event.phase == TickEvent.Phase.END){
             if (tickCounter == 20) {
-                PlayerData.checkTeleportRequests();
+//                PlayerData.checkTeleportRequests();
                 tickCounter = 0;
             } else {
                 tickCounter++;

@@ -21,6 +21,7 @@ import java.util.UUID;
 public class LoadData {
     public static void init(FMLServerStartingEvent event) {
         DataManager.cleanPlayerData();
+        DataManager.cleanWarpData();
 
 
 

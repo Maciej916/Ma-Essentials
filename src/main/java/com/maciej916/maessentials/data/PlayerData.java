@@ -3,7 +3,6 @@ package com.maciej916.maessentials.data;
 import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.classes.TeleportRequest;
 import com.maciej916.maessentials.config.ConfigValues;
-import com.maciej916.maessentials.libs.Log;
 import com.maciej916.maessentials.libs.PlayerHomes;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
@@ -12,7 +11,9 @@ import net.minecraft.command.ISuggestionProvider;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class PlayerData {
     private static HashMap<UUID, PlayerHomes> playerHomes = new HashMap<>();

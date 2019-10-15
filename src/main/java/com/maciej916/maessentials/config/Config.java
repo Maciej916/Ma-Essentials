@@ -14,7 +14,6 @@ public class Config {
     private static final ForgeConfigSpec config;
     private static String mainCatalog;
 
-    public static ForgeConfigSpec.BooleanValue debugMessages;
     public static ForgeConfigSpec.BooleanValue enableSpawn;
     public static ForgeConfigSpec.BooleanValue enableTime;
     public static ForgeConfigSpec.BooleanValue enableWeather;
@@ -43,10 +42,6 @@ public class Config {
 
     private static void setupConfig() {
         server.comment("Command Config").push("Commands");
-
-        debugMessages = server
-                .comment("Enable debug messages in console")
-                .define("debugMessages", false);
 
         enableSpawn = server
                 .comment("Enable: /spawn, /setspawn")
@@ -135,6 +130,7 @@ public class Config {
         new File(mainCatalog).mkdirs();
         new File(mainCatalog + "homes").mkdirs();
         new File(mainCatalog + "warps").mkdirs();
+        new File(mainCatalog + "players").mkdirs();
     }
 
     public static String getMainCatalog() {

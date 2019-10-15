@@ -3,7 +3,7 @@ package com.maciej916.maessentials.classes;
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class Homes implements Serializable {
+public final class Homes implements Serializable {
     private HashMap<String, Location> homes = new HashMap<>();
 
     protected boolean addHome(Location location, String name) {

@@ -11,19 +11,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class EssentialPlayer {
+public final class EssentialPlayer {
     private transient UUID playerUUID;
     private transient Homes homes = new Homes();
     private transient ArrayList<TeleportRequest> tpRequest = new ArrayList<>();
+    private transient Location teleportLocation;
 
     @SerializedName("last_location")
     private Location lastLocation;
 
-    @SerializedName("tpa_time")
-    private Timestamp tpRequestTime;
+    @SerializedName("last_teleport_time")
+    private Timestamp lastTeleportTime;
 
     @SerializedName("randomtp_time")
     private Timestamp rndtpTime;
+
+
+
 
     public EssentialPlayer() { }
 
@@ -62,12 +66,28 @@ public class EssentialPlayer {
 
     public void setLastLocation(Location lastLocation) {
         this.lastLocation = lastLocation;
-        DataManager.savePlayerData(playerUUID, this);
+//        DataManager.savePlayerData(playerUUID, this);
     }
 
     public Location getLastLocation() {
         return lastLocation;
     }
 
+
+    public void setLastTeleportTime(Timestamp teleportTime) {
+        this.lastTeleportTime = teleportTime;
+    }
+
+    public Timestamp getLastTeleportTime() {
+        return lastTeleportTime;
+    }
+
+    public void setTeleportLocation(Location teleportLocation) {
+        this.teleportLocation = teleportLocation;
+    }
+
+    public Location getTeleportLocation() {
+        return teleportLocation;
+    }
 
 }

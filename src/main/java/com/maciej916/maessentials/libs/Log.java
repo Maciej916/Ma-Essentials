@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static com.maciej916.maessentials.MaEssentials.MODID;
+import static com.maciej916.maessentials.libs.Methods.isDev;
 
 public class Log {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -18,7 +19,7 @@ public class Log {
     }
 
     public static void debug(String text) {
-        if (ConfigValues.debugMessages) {
+        if (isDev()) {
             LOGGER.debug(MODID + " " + text);
         }
     }

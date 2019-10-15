@@ -1,6 +1,7 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.data.WarpData;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
@@ -24,14 +25,15 @@ public class CommandWarp {
         builder
             .executes(context -> warp(context))
                 .then(Commands.argument("warpName", StringArgumentType.string())
-                    .suggests(WarpData.WARP_SUGGEST)
+                    .suggests(Methods.WARP_SUGGEST)
                     .executes(context -> warpArgs(context)));
         dispatcher.register(builder);
     }
 
     private static int warp(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        Set<String> warps =  WarpData.getWarpNames();
+
+        Set<String> warps =  DataManager.getWarpData().getWarps().keySet();
         StringBuilder warpString = new StringBuilder();
         if (warps.size() != 0) {
             int i = 1;
@@ -45,19 +47,20 @@ public class CommandWarp {
         } else {
             warpString.append("-");
         }
+
         player.sendMessage(new TranslationTextComponent("command.maessentials.warp.list",warps.size(), warpString, true));
         return Command.SINGLE_SUCCESS;
     }
 
     private static int warpArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String args = StringArgumentType.getString(context, "warpName").toString().toLowerCase();
-        Location warpLocation = WarpData.getWarpLocation(args);
+        String warpName = StringArgumentType.getString(context, "warpName").toString().toLowerCase();
+        Location warpLocation = DataManager.getWarpData().getWarps().get(warpName);
         if (warpLocation != null) {
             Teleport.teleportPlayer(player, warpLocation, true);
-            player.sendMessage(new TranslationTextComponent("command.maessentials.warp.teleported", args, true));
+            player.sendMessage(new TranslationTextComponent("command.maessentials.warp.teleported", warpName, true));
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.warp.notexist", TextFormatting.DARK_RED, args));
+            player.sendMessage(Methods.formatText("command.maessentials.warp.notexist", TextFormatting.DARK_RED, warpName));
         }
         return Command.SINGLE_SUCCESS;
     }

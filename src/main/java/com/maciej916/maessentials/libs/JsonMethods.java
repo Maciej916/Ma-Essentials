@@ -10,7 +10,7 @@ public class JsonMethods {
 
     public static void save(Object saveClass, String fileName) {
         try (Writer writer = new FileWriter(Config.getMainCatalog() + fileName + ".json")) {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
             gson.toJson(saveClass, writer);
         } catch (IOException ioe) {
             ioe.printStackTrace();
