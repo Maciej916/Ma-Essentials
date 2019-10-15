@@ -1,9 +1,7 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.classes.EssentialPlayer;
 import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.data.DataManager;
-import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;

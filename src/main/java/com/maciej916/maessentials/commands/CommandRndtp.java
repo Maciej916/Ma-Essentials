@@ -3,6 +3,7 @@ package com.maciej916.maessentials.commands;
 import com.maciej916.maessentials.MaEssentials;
 import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.config.ConfigValues;
+import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.libs.Log;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
@@ -56,7 +57,7 @@ public class CommandRndtp {
         }
         count++;
 
-        Location spawnLocation = MaEssentials.modData.spawnPoint;
+        Location spawnLocation = DataManager.getModData().getSpawnPoint();
         Random rand = new Random();
 
         int min = ConfigValues.rndTpMinDistance;

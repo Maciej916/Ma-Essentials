@@ -1,6 +1,8 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.MaEssentials;
+import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.data.DataManager;
+import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -10,7 +12,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TextFormatting;
 
 public class CommandSpawn {
 
@@ -22,8 +24,9 @@ public class CommandSpawn {
 
     private static int spawn(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        Teleport.teleportPlayer(player, MaEssentials.modData.getSpawnPoint(), true);
-        player.sendMessage(new TranslationTextComponent("command.maessentials.spawn"));
+        Location spawnLocation = DataManager.getModData().getSpawnPoint();
+        Teleport.teleportPlayer(player, spawnLocation, true);
+        player.sendMessage(Methods.formatText("command.maessentials.spawn", TextFormatting.WHITE));
         return Command.SINGLE_SUCCESS;
     }
 }

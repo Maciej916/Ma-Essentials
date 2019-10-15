@@ -6,7 +6,7 @@ import com.maciej916.maessentials.config.Config;
 
 import java.io.*;
 
-public class JsonMethods {
+public class Json {
 
     public static void save(Object saveClass, String fileName) {
         try (Writer writer = new FileWriter(Config.getMainCatalog() + fileName + ".json")) {

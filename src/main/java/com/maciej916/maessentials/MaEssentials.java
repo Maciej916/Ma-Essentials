@@ -1,9 +1,7 @@
 package com.maciej916.maessentials;
 
 import com.maciej916.maessentials.config.Config;
-import com.maciej916.maessentials.data.LoadData;
-import com.maciej916.maessentials.data.ModData;
-import com.maciej916.maessentials.data.DataManager;
+import com.maciej916.maessentials.data.DataLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -15,7 +13,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class MaEssentials
 {
     public static final String MODID = "maessentials";
-    public static ModData modData = new ModData();
 
     public MaEssentials() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -27,15 +24,11 @@ public class MaEssentials
 
     private void setup(final FMLCommonSetupEvent event) {
         Config.loadConfig();
-
-
-//        DataManager test = new DataManager();
-
     }
 
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
         Config.setupMainCatalog(event);
-        LoadData.init(event);
+        DataLoader.init(event);
     }
 }

@@ -1,7 +1,9 @@
 package com.maciej916.maessentials;
 
+import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.config.ConfigValues;
-import com.maciej916.maessentials.data.PlayerData;
+import com.maciej916.maessentials.data.DataManager;
+import com.maciej916.maessentials.libs.Log;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -18,7 +20,7 @@ public class Events {
             if (event.getEntity() instanceof PlayerEntity) {
                 ServerPlayerEntity player = (ServerPlayerEntity) event.getEntity();
                 player.sendMessage(new TranslationTextComponent("command.maessentials.back.death"));
-                PlayerData.setPlayerLastLocation(player);
+                DataManager.getPlayerData(player).setLastLocation(new Location(player));
             }
         }
     }

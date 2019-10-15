@@ -30,7 +30,12 @@ public class Methods {
     }
 
     public static TextComponent formatText(String translationKey, TextFormatting color, Object... args) {
-        TextComponent msg = new TranslationTextComponent(translationKey);
+        TextComponent msg;
+        if (args != null) {
+            msg = new TranslationTextComponent(translationKey, args, true);
+        } else {
+            msg = new TranslationTextComponent(translationKey);
+        }
         msg.getStyle().setColor(color);
         return msg;
     }

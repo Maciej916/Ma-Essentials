@@ -1,11 +1,9 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.classes.EssentialPlayer;
+import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
-import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Methods;
-import com.maciej916.maessentials.libs.PlayerHomes;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -41,7 +39,7 @@ public class CommandSetHome {
     }
 
     private static void handleSetHome(ServerPlayerEntity player, String homeName) {
-        EssentialPlayer playerData = DataManager.getPlayerData(player);
+        PlayerData playerData = DataManager.getPlayerData(player);
         if (playerData.getHomes().size() < ConfigValues.maxHomes) {
            if (playerData.setHome(player, homeName)) {
                player.sendMessage(new TranslationTextComponent("command.maessentials.sethome.set", homeName, true));

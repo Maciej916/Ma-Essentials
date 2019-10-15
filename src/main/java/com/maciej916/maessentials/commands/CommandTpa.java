@@ -1,6 +1,5 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -12,7 +11,6 @@ import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 
 public class CommandTpa{
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
@@ -34,12 +32,12 @@ public class CommandTpa{
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
         if (requestedPlayer != player) {
-            if (PlayerData.requestTeleport(player, player, requestedPlayer)) {
-                player.sendMessage(new TranslationTextComponent("command.maessentials.tpa.request",requestedPlayer.getDisplayName(), true));
-                requestedPlayer.sendMessage(new TranslationTextComponent("command.maessentials.tpa.target", player.getDisplayName(), true));
-            } else {
-                player.sendMessage(Methods.formatText("command.maessentials.tpa.exist", TextFormatting.DARK_RED, requestedPlayer.getDisplayName()));
-            }
+//            if (PlayerData.requestTeleport(player, player, requestedPlayer)) {
+//                player.sendMessage(new TranslationTextComponent("command.maessentials.tpa.request",requestedPlayer.getDisplayName(), true));
+//                requestedPlayer.sendMessage(new TranslationTextComponent("command.maessentials.tpa.target", player.getDisplayName(), true));
+//            } else {
+//                player.sendMessage(Methods.formatText("command.maessentials.tpa.exist", TextFormatting.DARK_RED, requestedPlayer.getDisplayName()));
+//            }
         } else {
             player.sendMessage(Methods.formatText("command.maessentials.player.self", TextFormatting.DARK_RED));
         }

@@ -1,8 +1,6 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.data.DataManager;
-import com.maciej916.maessentials.data.WarpData;
 import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
