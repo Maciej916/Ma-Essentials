@@ -36,17 +36,17 @@ public class Events {
         UUID playerUUID = player.getUniqueID();
         Log.debug("Player " + player.getDisplayName() + " joined");
         if (DataManager.checkPlayerData(playerUUID)) {
-            if (player.world.isRemote()) {
-                player.sendMessage(new TranslationTextComponent("event.maessentials.player.join", player.getDisplayName(), true));
-            }
+//            if (player.world.isRemote()) {
+//                player.sendMessage(new TranslationTextComponent("event.maessentials.player.join", player.getDisplayName(), true));
+//            }
         } else {
             PlayerData playerData = new PlayerData();
             playerData.setLastLocation(new Location(player));
             playerData.setPlayerUUID(playerUUID);
             DataManager.savePlayerData(playerUUID, playerData);
-            if (player.world.isRemote()) {
-                player.sendMessage(new TranslationTextComponent("event.maessentials.newplayer.join", player.getDisplayName(), true));
-            }
+//            if (player.world.isRemote()) {
+//                player.sendMessage(new TranslationTextComponent("event.maessentials.newplayer.join", player.getDisplayName(), true));
+//            }
         }
     }
 
@@ -54,28 +54,22 @@ public class Events {
     public static void onPlayerLeave(PlayerEvent.PlayerLoggedOutEvent event) {
         ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
         UUID playerUUID = player.getUniqueID();
-        Log.debug("Player " + player.getDisplayName() + " leave");
-
-        if (player.world.isRemote()) {
-            player.sendMessage(new TranslationTextComponent("event.maessentials.player.leave", player.getDisplayName(), true));
-        }
+//        Log.debug("Player " + player.getDisplayName() + " leave");
+//
+//        if (player.world.isRemote()) {
+//            player.sendMessage(new TranslationTextComponent("event.maessentials.player.leave", player.getDisplayName(), true));
+//        }
     }
-
 
     @SubscribeEvent
     public static void worldTick(TickEvent.WorldTickEvent event) {
         if (event.phase == TickEvent.Phase.END){
             if (tickCounter == 20) {
                 Teleport.checkTeleports();
-//                PlayerData.checkTeleportRequests();
                 tickCounter = 0;
             } else {
                 tickCounter++;
             }
         }
     }
-
-
-
-
 }
