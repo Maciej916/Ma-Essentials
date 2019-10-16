@@ -1,6 +1,7 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
@@ -24,7 +25,11 @@ public class CommandSpawn {
 
     private static int spawn(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(Methods.formatText("command.maessentials.spawn", TextFormatting.WHITE));
+        if ( ConfigValues.teleportTime == 0) {
+            player.sendMessage(Methods.formatText("command.maessentials.spawn", TextFormatting.WHITE));
+        } else {
+            player.sendMessage(Methods.formatText("command.maessentials.spawn.wait", TextFormatting.WHITE, ConfigValues.teleportTime));
+        }
         Location spawnLocation = DataManager.getModData().getSpawnPoint();
         Teleport.teleportPlayer(player, spawnLocation, true);
         return Command.SINGLE_SUCCESS;

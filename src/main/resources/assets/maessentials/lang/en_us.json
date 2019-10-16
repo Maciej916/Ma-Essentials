@@ -14,10 +14,12 @@
 
   "command.maessentials.setspawn": "Spawn location set!",
   "command.maessentials.spawn": "Teleporting to spawn location...",
+  "command.maessentials.spawn.wait": "Teleporting to spawn location, please wait %s secoonds...",
 
 
   "_comment": "Player lang",
   "command.maessentials.back.success": "Teleporting to previous location...",
+  "command.maessentials.back.success.wait": "Teleporting to previous location, please wait %s secoonds...",
   "command.maessentials.back.failed": "Back location not found!",
 
   "command.maessentials.suicide.self": "You killed yourself. You can use /back to teleport to your death place!",
@@ -42,7 +44,8 @@
   "command.maessentials.god.enabled.self": "Godmode enabled!",
   "command.maessentials.god.enabled.other": "Godmode enabled for player %s!",
 
-  "command.maessentials.rndtp.teleport": "Teleporting you to random location plase wait %s secoonds...",
+  "command.maessentials.rndtp.teleport": "Teleporting you to random location...",
+  "command.maessentials.rndtp.teleport.wait": "Teleporting you to random location, plase wait %s secoonds...",
   "command.maessentials.rndtp.nptfound": "Couldn't find a safe place to teleport!",
 
   "_comment": "Home lang",
@@ -51,7 +54,8 @@
   "command.maessentials.sethome.exist": "Home \"%s\" already exist!",
   "command.maessentials.delhome.specifyname": "Please specify home name to delete!",
   "command.maessentials.delhome.done": "Home \"%s\" deleted!",
-  "command.maessentials.home.teleported": "Teleporting to home %s...",
+  "command.maessentials.home.teleport": "Teleporting to home %s, please wait %s secoonds...",
+  "command.maessentials.home.teleport.wait": "Teleporting to home %s, please wait %s secoonds...",
 
 
   "_comment": "Warp lang",
@@ -62,7 +66,8 @@
   "command.maessentials.delwarp.specifyname": "Please specify warp name to delete!",
   "command.maessentials.delwarp.done": "Warp \"%s\" deleted!",
   "command.maessentials.warp.list": "Current warps (%s): %s.",
-  "command.maessentials.warp.teleported": "Teleporting to warp %s...",
+  "command.maessentials.warp.teleport": "Teleporting to warp %s...",
+  "command.maessentials.warp.teleport.wait": "Teleporting to warp %s, please wait %s secoonds...",
 
   "_comment": "Event lang",
   "event.maessentials.back.death": "You died, you can use /back to teleport you to your death place!",

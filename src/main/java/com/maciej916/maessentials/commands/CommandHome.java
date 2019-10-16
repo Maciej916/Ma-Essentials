@@ -1,6 +1,7 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
@@ -43,7 +44,11 @@ public class CommandHome {
     private static void handleHome(ServerPlayerEntity player, String homeName) {
         Location homeLocation = DataManager.getPlayerData(player).getHomes().get(homeName);
         if (homeLocation != null) {
-            player.sendMessage(Methods.formatText("command.maessentials.home.teleported", TextFormatting.WHITE, homeName));
+            if ( ConfigValues.teleportTime == 0) {
+                player.sendMessage(Methods.formatText("command.maessentials.home.teleport", TextFormatting.WHITE, homeName));
+            } else {
+                player.sendMessage(Methods.formatText("command.maessentials.home.teleport.wait", TextFormatting.WHITE, homeName, ConfigValues.teleportTime));
+            }
             Teleport.teleportPlayer(player, homeLocation, true);
         } else {
             player.sendMessage(Methods.formatText("command.maessentials.home.notexist", TextFormatting.DARK_RED, homeName));

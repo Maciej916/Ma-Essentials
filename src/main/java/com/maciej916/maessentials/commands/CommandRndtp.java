@@ -36,7 +36,11 @@ public class CommandRndtp {
         ServerWorld world = context.getSource().getWorld();
         ServerPlayerEntity player = context.getSource().asPlayer();
 
-        player.sendMessage(Methods.formatText("command.maessentials.rndtp.teleport", TextFormatting.WHITE, ConfigValues.teleportTime));
+        if ( ConfigValues.teleportTime == 0) {
+            player.sendMessage(Methods.formatText("command.maessentials.rndtp.teleport", TextFormatting.WHITE));
+        } else {
+            player.sendMessage(Methods.formatText("command.maessentials.rndtp.teleport.wait", TextFormatting.WHITE, ConfigValues.teleportTime));
+        }
 
         Location randomLocation = findRandomTp(world, player, 0);
         if (randomLocation != null) {

@@ -1,6 +1,7 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
@@ -27,8 +28,12 @@ public class CommandBack {
         ServerPlayerEntity player = context.getSource().asPlayer();
         Location playerData = DataManager.getPlayerData(player).getLastLocation();
         if (playerData != null) {
+            if ( ConfigValues.teleportTime == 0) {
+                player.sendMessage(Methods.formatText("command.maessentials.back.success", TextFormatting.WHITE));
+            } else {
+                player.sendMessage(Methods.formatText("command.maessentials.back.success.wait", TextFormatting.WHITE, ConfigValues.teleportTime));
+            }
             Teleport.teleportPlayer(player, playerData, true);
-            player.sendMessage(Methods.formatText("command.maessentials.back.success", TextFormatting.WHITE));
         } else {
             player.sendMessage(Methods.formatText("command.maessentials.back.failed", TextFormatting.DARK_RED));
         }

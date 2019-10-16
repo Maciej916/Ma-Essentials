@@ -1,6 +1,7 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
@@ -55,7 +56,11 @@ public class CommandWarp {
         String warpName = StringArgumentType.getString(context, "warpName").toString().toLowerCase();
         Location warpLocation = DataManager.getWarpData().getWarps().get(warpName);
         if (warpLocation != null) {
-            player.sendMessage(Methods.formatText("command.maessentials.warp.teleported", TextFormatting.WHITE, warpName));
+            if ( ConfigValues.teleportTime == 0) {
+                player.sendMessage(Methods.formatText("command.maessentials.warp.teleport", TextFormatting.WHITE, warpName));
+            } else {
+                player.sendMessage(Methods.formatText("command.maessentials.warp.teleport.wait", TextFormatting.WHITE, warpName, ConfigValues.teleportTime));
+            }
             Teleport.teleportPlayer(player, warpLocation, true);
         } else {
             player.sendMessage(Methods.formatText("command.maessentials.warp.notexist", TextFormatting.DARK_RED, warpName));
