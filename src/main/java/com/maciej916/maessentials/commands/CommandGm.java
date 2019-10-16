@@ -1,5 +1,6 @@
 package com.maciej916.maessentials.commands;
 
+import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -12,6 +13,7 @@ import net.minecraft.command.Commands;
 import net.minecraft.command.ISuggestionProvider;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameType;
 
@@ -83,15 +85,15 @@ public class CommandGm {
                 }
                 break;
             default :
-                player.sendMessage(new TranslationTextComponent("command.maessentials.gm.invalid"));
+                player.sendMessage(Methods.formatText("command.maessentials.gm.invalid", TextFormatting.DARK_RED));
         }
 
         if (newGm != null) {
             if (player == targetPlayer) {
-                player.sendMessage(new TranslationTextComponent("command.maessentials.gm.set.self", newGm, true));
+                player.sendMessage(Methods.formatText("command.maessentials.gm.set.self", TextFormatting.DARK_RED, newGm));
             } else {
-                player.sendMessage(new TranslationTextComponent("command.maessentials.gm.set.other", targetPlayer.getDisplayName(), newGm, true));
-                targetPlayer.sendMessage(new TranslationTextComponent("command.maessentials.gm.set.self", newGm, true));
+                player.sendMessage(Methods.formatText("command.maessentials.gm.set.other", TextFormatting.WHITE, targetPlayer.getDisplayName(), newGm));
+                targetPlayer.sendMessage(Methods.formatText("command.maessentials.gm.set.self", TextFormatting.WHITE, newGm));
             }
         }
     }

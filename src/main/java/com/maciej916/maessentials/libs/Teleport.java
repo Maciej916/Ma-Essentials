@@ -60,7 +60,7 @@ public class Teleport {
             doTeleport(tpPlayer, new Location(tpTargetPlayer), true);
         } else {
             long currentTime = System.currentTimeMillis() / 1000;
-            Teleport teleport = new Teleport(creatorPlayer, tpPlayer, tpTargetPlayer , currentTime + ConfigValues.tpaRequestTimeout, exact);
+            Teleport teleport = new Teleport(creatorPlayer, tpPlayer, tpTargetPlayer , currentTime + ConfigValues.teleportRequestTimeout, exact);
             activeTeleports.add(teleport);
         }
     }

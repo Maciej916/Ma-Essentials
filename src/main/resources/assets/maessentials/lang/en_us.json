@@ -42,7 +42,7 @@
   "command.maessentials.god.enabled.self": "Godmode enabled!",
   "command.maessentials.god.enabled.other": "Godmode enabled for player %s!",
 
-  "command.maessentials.rndtp.teleport": "You have been teleported to random location!",
+  "command.maessentials.rndtp.teleport": "Teleporting you to random location plase wait %s secoonds...",
   "command.maessentials.rndtp.nptfound": "Couldn't find a safe place to teleport!",
 
   "_comment": "Home lang",

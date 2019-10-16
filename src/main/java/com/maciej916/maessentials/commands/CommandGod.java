@@ -11,7 +11,6 @@ import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameType;
 
 public class CommandGod {
@@ -43,21 +42,20 @@ public class CommandGod {
         if (targetPlayer.interactionManager.getGameType() == GameType.SURVIVAL || targetPlayer.interactionManager.getGameType() == GameType.ADVENTURE) {
             if (targetPlayer.abilities.disableDamage) {
                 targetPlayer.abilities.disableDamage = false;
-
                 if (player == targetPlayer) {
-                    player.sendMessage(new TranslationTextComponent("command.maessentials.god.disabled.self"));
+                    player.sendMessage(Methods.formatText("command.maessentials.god.disabled.self", TextFormatting.WHITE));
                 } else {
-                    player.sendMessage(new TranslationTextComponent("command.maessentials.god.disabled.other", targetPlayer.getDisplayName(), true));
-                    targetPlayer.sendMessage(new TranslationTextComponent("command.maessentials.god.disabled.self"));
+                    player.sendMessage(Methods.formatText("command.maessentials.god.disabled.other", TextFormatting.WHITE, targetPlayer.getDisplayName()));
+                    targetPlayer.sendMessage(Methods.formatText("command.maessentials.god.disabled.self", TextFormatting.WHITE));
                 }
             } else {
                 targetPlayer.abilities.disableDamage = true;
 
                 if (player == targetPlayer) {
-                    player.sendMessage(new TranslationTextComponent("command.maessentials.god.enabled.self"));
+                    player.sendMessage(Methods.formatText("command.maessentials.god.enabled.self", TextFormatting.WHITE));
                 } else {
-                    player.sendMessage(new TranslationTextComponent("command.maessentials.god.enabled.other", targetPlayer.getDisplayName(), true));
-                    targetPlayer.sendMessage(new TranslationTextComponent("command.maessentials.god.enabled.self"));
+                    player.sendMessage(Methods.formatText("command.maessentials.god.enabled.self", TextFormatting.WHITE, targetPlayer.getDisplayName()));
+                    targetPlayer.sendMessage(Methods.formatText("command.maessentials.god.enabled.self", TextFormatting.WHITE));
                 }
             }
             targetPlayer.sendPlayerAbilities();

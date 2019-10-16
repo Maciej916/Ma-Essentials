@@ -1,7 +1,7 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.data.DataManager;
+import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -12,7 +12,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TextFormatting;
 
 public class CommandDelHome {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
@@ -27,7 +27,7 @@ public class CommandDelHome {
 
     private static int delHome(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(new TranslationTextComponent("command.maessentials.delhome.specifyname"));
+        player.sendMessage(Methods.formatText("command.maessentials.delhome.specifyname", TextFormatting.DARK_RED));
         return Command.SINGLE_SUCCESS;
     }
 
@@ -36,9 +36,9 @@ public class CommandDelHome {
         String homeName = StringArgumentType.getString(context, "homeName").toString().toLowerCase();
         PlayerData playerData = DataManager.getPlayerData(player);
         if (playerData.delHome(homeName)) {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.delhome.done", homeName, true));
+            player.sendMessage(Methods.formatText("command.maessentials.delhome.done", TextFormatting.WHITE, homeName));
         } else {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.home.notexist", homeName, true));
+            player.sendMessage(Methods.formatText("command.maessentials.home.notexist", TextFormatting.DARK_RED, homeName));
         }
         return Command.SINGLE_SUCCESS;
     }

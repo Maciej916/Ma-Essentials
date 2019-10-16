@@ -44,27 +44,25 @@ public class CommandFly {
             if (targetPlayer.abilities.allowFlying) {
                 targetPlayer.abilities.allowFlying = false;
                 targetPlayer.abilities.isFlying = false;
-
                 if (player == targetPlayer) {
-//                    player.sendMessage(Methods.formatText("command.maessentials.fly.disabled.self", TextFormatting.DARK_GREEN));
-                    player.sendMessage(new TranslationTextComponent("command.maessentials.fly.disabled.self"));
+                    player.sendMessage(Methods.formatText("command.maessentials.fly.disabled.self", TextFormatting.WHITE));
                 } else {
-                    player.sendMessage(new TranslationTextComponent("command.maessentials.fly.disabled.other", targetPlayer.getDisplayName(), true));
-                    targetPlayer.sendMessage(new TranslationTextComponent("command.maessentials.fly.disabled.self"));
+                    player.sendMessage(Methods.formatText("command.maessentials.fly.disabled.self", TextFormatting.WHITE, targetPlayer.getDisplayName()));
+                    targetPlayer.sendMessage(Methods.formatText("command.maessentials.fly.disabled.self", TextFormatting.WHITE));
                 }
             } else {
                 targetPlayer.abilities.allowFlying = true;
 
                 if (player == targetPlayer) {
-                    player.sendMessage(new TranslationTextComponent("command.maessentials.fly.enabled.self"));
+                    player.sendMessage(Methods.formatText("command.maessentials.fly.enabled.self", TextFormatting.WHITE));
                 } else {
-                    player.sendMessage(new TranslationTextComponent("command.maessentials.fly.enabled.other", targetPlayer.getDisplayName(), true));
-                    targetPlayer.sendMessage(new TranslationTextComponent("command.maessentials.fly.enabled.self"));
+                    player.sendMessage(Methods.formatText("command.maessentials.fly.enabled.self", TextFormatting.WHITE, targetPlayer.getDisplayName()));
+                    targetPlayer.sendMessage(Methods.formatText("command.maessentials.fly.enabled.self", TextFormatting.WHITE));
                 }
             }
             targetPlayer.sendPlayerAbilities();
         } else {
-            targetPlayer.sendMessage(new TranslationTextComponent("command.maessentials.fly.invaildgamemode"));
+            player.sendMessage(Methods.formatText("command.maessentials.fly.invaildgamemode", TextFormatting.DARK_RED));
         }
     }
 }

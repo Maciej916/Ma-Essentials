@@ -14,7 +14,6 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.Set;
 
@@ -47,7 +46,7 @@ public class CommandWarp {
             warpString.append("-");
         }
 
-        player.sendMessage(new TranslationTextComponent("command.maessentials.warp.list",warps.size(), warpString, true));
+        player.sendMessage(Methods.formatText("command.maessentials.warp.list", TextFormatting.WHITE, warps.size(), warpString));
         return Command.SINGLE_SUCCESS;
     }
 
@@ -56,7 +55,7 @@ public class CommandWarp {
         String warpName = StringArgumentType.getString(context, "warpName").toString().toLowerCase();
         Location warpLocation = DataManager.getWarpData().getWarps().get(warpName);
         if (warpLocation != null) {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.warp.teleported", warpName, true));
+            player.sendMessage(Methods.formatText("command.maessentials.warp.teleported", TextFormatting.WHITE, warpName));
             Teleport.teleportPlayer(player, warpLocation, true);
         } else {
             player.sendMessage(Methods.formatText("command.maessentials.warp.notexist", TextFormatting.DARK_RED, warpName));

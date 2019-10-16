@@ -1,7 +1,5 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.data.DataManager;
-import com.maciej916.maessentials.data.TeleportRequestData;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;

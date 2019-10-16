@@ -1,31 +1,26 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.MaEssentials;
 import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
-import com.maciej916.maessentials.libs.Log;
+import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.client.Minecraft;
+import net.minecraft.block.material.Material;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.WorldInfo;
-import net.minecraft.block.material.Material;
 
 import java.util.Random;
 
@@ -41,12 +36,13 @@ public class CommandRndtp {
         ServerWorld world = context.getSource().getWorld();
         ServerPlayerEntity player = context.getSource().asPlayer();
 
+        player.sendMessage(Methods.formatText("command.maessentials.rndtp.teleport", TextFormatting.WHITE, ConfigValues.teleportTime));
+
         Location randomLocation = findRandomTp(world, player, 0);
         if (randomLocation != null) {
             Teleport.teleportPlayer(player, randomLocation, true);
-            player.sendMessage(new TranslationTextComponent("command.maessentials.rndtp.teleport"));
         } else {
-            player.sendMessage(new TranslationTextComponent("command.maessentials.rndtp.nptfound"));
+            player.sendMessage(Methods.formatText("command.maessentials.rndtp.nptfound", TextFormatting.DARK_RED));
         }
         return Command.SINGLE_SUCCESS;
     }

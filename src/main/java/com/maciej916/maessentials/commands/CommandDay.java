@@ -1,5 +1,6 @@
 package com.maciej916.maessentials.commands;
 
+import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -8,6 +9,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldInfo;
@@ -25,7 +27,7 @@ public class CommandDay {
         ServerPlayerEntity player = context.getSource().asPlayer();
         WorldInfo worldData = world.getWorldInfo();
         world.setDayTime(2000);
-        player.sendMessage(new TranslationTextComponent("command.maessentials.day", worldData.getWorldName(), true));
+        player.sendMessage(Methods.formatText("command.maessentials.day", TextFormatting.WHITE, worldData.getWorldName()));
         return Command.SINGLE_SUCCESS;
     }
 }
