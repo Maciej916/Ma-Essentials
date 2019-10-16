@@ -1,6 +1,8 @@
 package com.maciej916.maessentials.commands;
 
+import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.libs.Methods;
+import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -31,15 +33,17 @@ public class CommandTpahere {
     private static int tpahereArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-        if (requestedPlayer.getUniqueID() != player.getUniqueID()) {
-//            if (PlayerData.requestTeleport(player, requestedPlayer, player)) {
-//                player.sendMessage(new TranslationTextComponent("command.maessentials.tpahere.request", requestedPlayer.getDisplayName(), true));
-//                requestedPlayer.sendMessage(new TranslationTextComponent("command.maessentials.tpahere.target", player.getDisplayName(), true));
-//            } else {
-//                player.sendMessage(Methods.formatText("command.maessentials.tpahere.request.exist", TextFormatting.DARK_RED));
-//            }
+        if (requestedPlayer != player) {
+            Teleport tp = Teleport.findTeleportRequest(player, requestedPlayer, player);
+            if (tp == null) {
+                player.sendMessage(Methods.formatText("command.maessentials.tpr.request", TextFormatting.WHITE, requestedPlayer.getDisplayName()));
+                requestedPlayer.sendMessage(Methods.formatText("command.maessentials.tpr.tpahere.target", TextFormatting.WHITE, player.getDisplayName()));
+                Teleport.teleportRequest(player, requestedPlayer, player, true);
+            } else {
+                player.sendMessage(Methods.formatText("command.maessentials.tpr.exist", TextFormatting.DARK_RED, requestedPlayer.getDisplayName()));
+            }
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.player.self", TextFormatting.DARK_RED));
+            player.sendMessage(Methods.formatText("command.maessentials.tpr.self", TextFormatting.DARK_RED));
         }
         return Command.SINGLE_SUCCESS;
     }

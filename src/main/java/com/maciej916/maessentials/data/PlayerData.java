@@ -3,19 +3,15 @@ package com.maciej916.maessentials.data;
 import com.google.gson.annotations.SerializedName;
 import com.maciej916.maessentials.classes.Homes;
 import com.maciej916.maessentials.classes.Location;
-import com.maciej916.maessentials.classes.TeleportRequest;
 import com.maciej916.maessentials.libs.Log;
 import net.minecraft.entity.player.ServerPlayerEntity;
 
-import java.security.Timestamp;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
 public class PlayerData {
     private transient UUID playerUUID;
     private transient Homes homes = new Homes();
-    private transient ArrayList<TeleportRequest> tpRequest = new ArrayList<>();
 
     @SerializedName("last_location")
     private Location lastLocation;

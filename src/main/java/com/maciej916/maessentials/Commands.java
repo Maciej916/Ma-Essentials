@@ -7,6 +7,8 @@ import net.minecraft.command.CommandSource;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 
+import static com.maciej916.maessentials.libs.Methods.isDev;
+
 public class Commands {
 
     @SubscribeEvent
@@ -66,7 +68,7 @@ public class Commands {
         }
 
         // Commands on server
-        if (event.getServer().isDedicatedServer()) {
+        if (event.getServer().isDedicatedServer() || isDev()) {
             if (ConfigValues.enableTpa) {
                 CommandTpa.register(dispatcher);
                 CommandTpahere.register(dispatcher);

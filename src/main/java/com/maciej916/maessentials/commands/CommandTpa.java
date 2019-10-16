@@ -1,6 +1,8 @@
 package com.maciej916.maessentials.commands;
 
+import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.libs.Methods;
+import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -32,14 +34,17 @@ public class CommandTpa{
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
         if (requestedPlayer != player) {
-//            if (PlayerData.requestTeleport(player, player, requestedPlayer)) {
-//                player.sendMessage(new TranslationTextComponent("command.maessentials.tpa.request",requestedPlayer.getDisplayName(), true));
-//                requestedPlayer.sendMessage(new TranslationTextComponent("command.maessentials.tpa.target", player.getDisplayName(), true));
-//            } else {
-//                player.sendMessage(Methods.formatText("command.maessentials.tpa.exist", TextFormatting.DARK_RED, requestedPlayer.getDisplayName()));
-//            }
+            Teleport tp = Teleport.findTeleportRequest(player, player, requestedPlayer);
+            if (tp == null) {
+                player.sendMessage(Methods.formatText("command.maessentials.tpr.request", TextFormatting.WHITE, requestedPlayer.getDisplayName()));
+                requestedPlayer.sendMessage(Methods.formatText("command.maessentials.tpr.tpa.target", TextFormatting.WHITE, player.getDisplayName()));
+                Teleport.teleportRequest(player, player, requestedPlayer, true);
+            } else {
+
+                player.sendMessage(Methods.formatText("command.maessentials.tpr.exist", TextFormatting.DARK_RED, requestedPlayer.getDisplayName()));
+            }
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.player.self", TextFormatting.DARK_RED));
+            player.sendMessage(Methods.formatText("command.maessentials.tpr.self", TextFormatting.DARK_RED));
         }
         return Command.SINGLE_SUCCESS;
     }

@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public class DataManager {
 
-    // Mod
+    // Mod Data
 
     private static ModData modData = new ModData();
 
@@ -30,7 +30,7 @@ public class DataManager {
         Json.save(modData, "data");
     }
 
-    // Players
+    // Players Data
 
     private static HashMap<UUID, PlayerData> playerData = new HashMap<>();
 
@@ -74,7 +74,7 @@ public class DataManager {
         Json.save(homes, "homes/" + uuid);
     }
 
-    // WarpData
+    // Warp Data
 
     private static WarpData warpData = new WarpData();
 

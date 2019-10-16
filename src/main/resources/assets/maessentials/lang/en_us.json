@@ -1,6 +1,7 @@
 {
   "command.maessentials.player.notfound": "Target player has not been found!",
   "command.maessentials.player.provide": "Please provide player name!",
+  "command.maessentials.player.specify": "Please specify player name!",
   "command.maessentials.player.invaildgamemode": "Invaild gamemode, survival or spectator required!",
 
   "_comment": "World lang",
@@ -44,7 +45,6 @@
   "command.maessentials.rndtp.teleport": "You have been teleported to random location!",
   "command.maessentials.rndtp.nptfound": "Couldn't find a safe place to teleport!",
 
-
   "_comment": "Home lang",
   "command.maessentials.home.notexist": "Home \"%s\" not exist!",
   "command.maessentials.sethome.set": "Home \"%s\" set!",
@@ -64,37 +64,6 @@
   "command.maessentials.warp.list": "Current warps (%s): %s.",
   "command.maessentials.warp.teleported": "Teleporting to warp %s...",
 
-
-  "_comment": "Tpa lang",
-  "command.maessentials.player.self": "You can not request teleport to yourself!",
-
-  "command.maessentials.tpa.norequest": "You don't have any pending teleport requests!",
-  "command.maessentials.tpa.notfound": "Requested teleport has not been found!",
-  "command.maessentials.tpa.request": "Teleport request sent to %s!",
-
-  "command.maessentials.tpa.target": "Player %s wants to teleport to you. Type /tpaccept to accept teleport request.",
-  "command.maessentials.tpa.exist": "You already have pending teleport request to %s!",
-
-  "command.maessentials.tpahere.request": "Teleport request sent to %s!",
-  "command.maessentials.tpahere.target": "Player %s wants to teleport you to himself. Type /tpaccept to accept teleport request.",
-  "command.maessentials.tpahere.exist": "You already have pending teleport request to %s!",
-
-  "command.maessentials.tpaccept.specifyplayer": "Please specify player to accept teleport request!",
-  "command.maessentials.tpaccept.request": "You have been teleported to %s!",
-  "command.maessentials.tpaccept.target": "Player %s has been teleported to you!",
-  "command.maessentials.tpaccept.wait": "Teleport accepted, please don't move for next %s seconds!",
-
-  "command.maessentials.tpdeny.specifyplayer": "Please specify player to accept deny teleport request!",
-  "command.maessentials.tpdeny.request": "Player %s cancelled your teleport request!",
-  "command.maessentials.tpdeny.target": "Teleport request cancelled from player %s!",
-
-  "command.maessentials.tpa.expired.target": "Teleport request to player %s just expired!",
-  "command.maessentials.tpa.expired.request": "Teleport request to from %s just expired!",
-
-  "command.maessentials.tpa.moved.request": "You moved, teleport cancelled!",
-  "command.maessentials.tpa.moved.target": "Player %s just moved, teleport cancelled!",
-
-
   "_comment": "Event lang",
   "event.maessentials.back.death": "You died, you can use /back to teleport you to your death place!",
   "event.maessentials.player.join": "Player %s joined!",
@@ -102,10 +71,45 @@
   "event.maessentials.newplayer.leave": "Player %s leaved!",
 
 
+  "_comment": "Tpr lang",
+  "command.maessentials.tpr.not_found": "Teleport request has not been found!",
+  "command.maessentials.tpr.no_request": "You don't have any pending teleport requests!",
+  "command.maessentials.tpr.self": "You can not request teleport to yourself!",
+  "command.maessentials.tpr.exist": "You already have pending teleport request to %s!",
+
+  "command.maessentials.tpr.request": "Teleport request sent to %s!",
+  "command.maessentials.tpr.tpa.target": "Player %s wants to teleport to you. Type /tpaccept to accept teleport request.",
+  "command.maessentials.tpr.tpahere.target": "Player %s wants to teleport you to himself. Type /tpaccept to accept teleport request.",
+  "command.maessentials.tpr.tpdeny.request": "Player %s declined your teleport request!",
+  "command.maessentials.tpr.tpdeny.target": "Teleport request declined from player %s!",
+
+
   "_comment": "Teleport lang",
+
   "teleport.maessentials.active": "You have active teleport!",
   "teleport.maessentials.moved": "You moved, teleport cancelled!",
   "teleport.maessentials.teleported": "Teleported!",
+
+  "teleport.maessentials.tpaccept.request": "You have been teleported to %s!",
+  "teleport.maessentials.tpaccept.target": "Player %s has been teleported to you!",
+
+  "teleport.maessentials.tpaccept.request.wait": "Teleport accepted, please don't move for next %s seconds!",
+  "teleport.maessentials.tpaccept.target.wait": "Teleport request from %s accepted, waiting for teleportation!",
+
+  "teleport.maessentials.tpr.expired.target": "Teleport request to player %s just expired!",
+  "teleport.maessentials.tpr.expired.request": "Teleport request to from %s just expired!",
+
+  "teleport.maessentials.tpr.moved.request": "You moved, teleport cancelled!",
+  "teleport.maessentials.tpr.moved.target": "Player %s moved, teleport cancelled!",
+
+
+
+
+
+
+
+
+
 
 
   "test.maessentials.test": "%s"
