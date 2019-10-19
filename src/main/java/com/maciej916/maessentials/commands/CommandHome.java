@@ -3,6 +3,7 @@ package com.maciej916.maessentials.commands;
 import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
+import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
@@ -15,7 +16,6 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 
 public class CommandHome {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
@@ -42,14 +42,23 @@ public class CommandHome {
     }
 
     private static void handleHome(ServerPlayerEntity player, String homeName) {
-        Location homeLocation = DataManager.getPlayerData(player).getHomes().get(homeName);
+        PlayerData playerData = DataManager.getPlayerData(player);
+        Location homeLocation = playerData.getHomes().get(homeName);
         if (homeLocation != null) {
-            if ( ConfigValues.teleportTime == 0) {
-                player.sendMessage(Methods.formatText("command.maessentials.home.teleport", TextFormatting.WHITE, homeName));
+            long currentTime = System.currentTimeMillis() / 1000;
+            if (Methods.delayCommand(playerData.getHomeTime(), ConfigValues.homes_cooldown)) {
+                playerData.setHomeTime(currentTime);
+                DataManager.savePlayerData(playerData);
+                if (ConfigValues.homes_delay == 0) {
+                    player.sendMessage(Methods.formatText("command.maessentials.home.teleport", TextFormatting.WHITE, homeName));
+                } else {
+                    player.sendMessage(Methods.formatText("command.maessentials.home.teleport.wait", TextFormatting.WHITE, homeName, ConfigValues.homes_delay));
+                }
+                Teleport.teleportPlayer(player, homeLocation, true, ConfigValues.homes_delay);
             } else {
-                player.sendMessage(Methods.formatText("command.maessentials.home.teleport.wait", TextFormatting.WHITE, homeName, ConfigValues.teleportTime));
+                long timeleft = playerData.getHomeTime() + ConfigValues.homes_cooldown - currentTime;
+                player.sendMessage(Methods.formatText("command.maessentials.player.cooldown", TextFormatting.DARK_RED, timeleft));
             }
-            Teleport.teleportPlayer(player, homeLocation, true);
         } else {
             player.sendMessage(Methods.formatText("command.maessentials.home.notexist", TextFormatting.DARK_RED, homeName));
         }

@@ -16,13 +16,32 @@ public class PlayerData {
     @SerializedName("last_location")
     private Location lastLocation;
 
-    @SerializedName("last_teleport_time")
-    private long lastTeleportTime;
+    @SerializedName("spawn_time")
+    private long spawnTime;
 
-    @SerializedName("randomtp_time")
+    @SerializedName("home_time")
+    private long homeTime;
+
+    @SerializedName("warp_time")
+    private long warpTime;
+
+    @SerializedName("back_time")
+    private long backtime;
+
+    @SerializedName("teleport_request_time")
+    private long teleportRequestTime;
+
+    @SerializedName("rndtp_time")
     private long rndtpTime;
 
+    @SerializedName("suicide_time")
+    private long suicideTime;
+
     public PlayerData() { }
+
+    public UUID getPlayerUUID() {
+        return playerUUID;
+    }
 
     public void setPlayerUUID(UUID playerUUID) {
         this.playerUUID = playerUUID;
@@ -65,11 +84,60 @@ public class PlayerData {
         return lastLocation;
     }
 
-    public void setLastTeleportTime(long lastTeleportTime) {
-        this.lastTeleportTime = lastTeleportTime;
+    public void setSpawnTime(long spawnTime) {
+        this.spawnTime = spawnTime;
     }
 
-    public long getLastTeleportTime() {
-        return lastTeleportTime;
+    public long getSpawnTime() {
+        return spawnTime;
+    }
+
+    public void setHomeTime(long homeTime) {
+        this.homeTime = homeTime;
+    }
+
+    public long getHomeTime() {
+        return homeTime;
+    }
+
+    public void setWarpTime(long warpTime) {
+        this.warpTime = warpTime;
+    }
+
+    public long getWarpTime() {
+        return warpTime;
+    }
+
+    public void setBacktime(long backtime) {
+        this.backtime = backtime;
+    }
+
+    public long getBacktime() {
+        return backtime;
+    }
+
+    public void setTeleportRequestTime(long teleportRequestTime) {
+        this.teleportRequestTime = teleportRequestTime;
+    }
+
+    public long getTeleportRequestTime() {
+        return teleportRequestTime;
+    }
+
+    public void setRndtpTime(long rndtpTime) {
+        this.rndtpTime = rndtpTime;
+    }
+
+    public long getRndtpTime() {
+        return rndtpTime;
+    }
+
+    public void setSuicideTime(long suicideTime) {
+        this.suicideTime = suicideTime;
+    }
+
+    public long getSuicideTime() {
+        return suicideTime;
     }
 }
+

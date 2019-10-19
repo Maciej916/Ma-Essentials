@@ -52,5 +52,13 @@ public class Methods {
         return false;
     }
 
+    public static boolean delayCommand(long time, int cooldown) {
+        long currentTime = System.currentTimeMillis() / 1000;
+        if (cooldown == 0 || time + cooldown < currentTime) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 

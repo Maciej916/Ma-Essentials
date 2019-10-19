@@ -13,26 +13,65 @@ public class Config {
     private static final ForgeConfigSpec.Builder server = new ForgeConfigSpec.Builder();
     private static final ForgeConfigSpec config;
     private static String mainCatalog;
+    private final static int MAX = Integer.MAX_VALUE;
 
-    public static ForgeConfigSpec.BooleanValue enableSpawn;
-    public static ForgeConfigSpec.BooleanValue enableTime;
-    public static ForgeConfigSpec.BooleanValue enableWeather;
-    public static ForgeConfigSpec.BooleanValue enableHomes;
-    public static ForgeConfigSpec.BooleanValue enableBack;
-    public static ForgeConfigSpec.BooleanValue enableSuicide;
-    public static ForgeConfigSpec.BooleanValue enableHeal;
-    public static ForgeConfigSpec.BooleanValue enableGm;
-    public static ForgeConfigSpec.BooleanValue enableFly;
-    public static ForgeConfigSpec.BooleanValue enableGod;
-    public static ForgeConfigSpec.BooleanValue enableWarps;
-    public static ForgeConfigSpec.BooleanValue enableTpa;
-    public static ForgeConfigSpec.BooleanValue enableRndtp;
+    // Spawn
+    public static ForgeConfigSpec.BooleanValue spawn_enable;
+    public static ForgeConfigSpec.IntValue spawn_delay;
+    public static ForgeConfigSpec.IntValue spawn_cooldown;
 
-    public static ForgeConfigSpec.IntValue maxHomes;
-    public static ForgeConfigSpec.IntValue teleportTime;
-    public static ForgeConfigSpec.IntValue teleportRequestTimeout;
-    public static ForgeConfigSpec.IntValue rndTpMinDistance;
-    public static ForgeConfigSpec.IntValue rndTpMaxDistance;
+    // Homes
+    public static ForgeConfigSpec.BooleanValue homes_enable;
+    public static ForgeConfigSpec.IntValue homes_delay;
+    public static ForgeConfigSpec.IntValue homes_cooldown;
+    public static ForgeConfigSpec.IntValue homes_limit;
+
+    // Warps
+    public static ForgeConfigSpec.BooleanValue warps_enable;
+    public static ForgeConfigSpec.IntValue warps_delay;
+    public static ForgeConfigSpec.IntValue warps_cooldown;
+
+    // Back
+    public static ForgeConfigSpec.BooleanValue back_enable;
+    public static ForgeConfigSpec.IntValue back_delay;
+    public static ForgeConfigSpec.IntValue back_cooldown;
+    public static ForgeConfigSpec.BooleanValue back_death_enable;
+
+    // TPA
+    public static ForgeConfigSpec.BooleanValue tpa_enable;
+    public static ForgeConfigSpec.IntValue tpa_delay;
+    public static ForgeConfigSpec.IntValue tpa_cooldown;
+    public static ForgeConfigSpec.IntValue tpa_timeout;
+
+    // RNDTP
+    public static ForgeConfigSpec.BooleanValue rndtp_enable;
+    public static ForgeConfigSpec.IntValue rndtp_delay;
+    public static ForgeConfigSpec.IntValue rndtp_cooldown;
+    public static ForgeConfigSpec.IntValue rndtp_range_min;
+    public static ForgeConfigSpec.IntValue rndtp_range_max;
+
+    // Suicide
+    public static ForgeConfigSpec.BooleanValue suicide_enable;
+    public static ForgeConfigSpec.BooleanValue suicide_enable_player;
+    public static ForgeConfigSpec.IntValue suicide_player_cooldown;
+
+    // Time
+    public static ForgeConfigSpec.BooleanValue time_enable;
+
+    // Weather
+    public static ForgeConfigSpec.BooleanValue weather_enable;
+
+    // Heal
+    public static ForgeConfigSpec.BooleanValue heal_enable;
+
+    // GM
+    public static ForgeConfigSpec.BooleanValue gm_enable;
+
+    // Fly
+    public static ForgeConfigSpec.BooleanValue fly_enable;
+
+    // God
+    public static ForgeConfigSpec.BooleanValue god_enable;
 
     static {
         setupConfig();
@@ -43,66 +82,114 @@ public class Config {
     private static void setupConfig() {
         server.comment("Command Config").push("Commands");
 
-        enableSpawn = server
-                .comment("Enable: /spawn, /setspawn")
-                .define("enableSpawn", true);
+        // Spawn
+        server.push("spawn");
+            spawn_enable = server
+                .comment("Enable commands: /spawn, /setspawn")
+                .define("enable", true);
+            spawn_delay = server.defineInRange("delay", 3, 0, MAX);
+            spawn_cooldown = server.defineInRange("cooldown",	0, 0, MAX);
+        server.pop();
 
-        enableTime = server
-                .comment("Enable: /day, /night")
-                .define("enableTime", true);
+        // Homes
+        server.push("homes");
+            homes_enable = server
+                .comment("Enable commands: /sethome, /delhome, /home")
+                .define("enable", true);
+            homes_delay = server.defineInRange("delay", 3, 0, MAX);
+            homes_cooldown = server.defineInRange("cooldown",	0, 0, MAX);
+            homes_limit = server.defineInRange("limit",	3, 1, MAX);
+        server.pop();
 
-        enableWeather = server
-                .comment("Enable: /sun, /rain, /thunder")
-                .define("enableWeather", true);
+        // Warps
+        server.push("warps");
+            warps_enable = server
+                .comment("Enable commands: /setwarp, /delwarp, /warp")
+                .define("enable", true);
+            warps_delay = server.defineInRange("delay", 3, 0, MAX);
+            warps_cooldown = server.defineInRange("cooldown",	0, 0, MAX);
+        server.pop();
 
-        enableHomes = server
-                .comment("Enable: /sethome, /delhome, /home")
-                .define("enableHomes", true);
+        // Back
+        server.push("back");
+            back_enable = server
+                .comment("Enable command: /back")
+                .define("enable", true);
+            back_death_enable = server.define("enable_on_death", true);
+            back_delay = server.defineInRange("delay", 3, 0, MAX);
+            back_cooldown = server.defineInRange("cooldown",	0, 0, MAX);
+        server.pop();
 
-        enableBack = server
-                .comment("Enable: /back")
-                .define("enableBack", true);
+        // TPA
+        server.push("tpa");
+            tpa_enable = server
+                .comment("Enable commands: /tpa, /tpahere, /tpaccept, /tpdeny")
+                .define("enable", true);
+            tpa_delay = server.defineInRange("delay", 3, 0, MAX);
+            tpa_cooldown = server.defineInRange("cooldown",	0, 0, MAX);
+            tpa_timeout = server.defineInRange("timeout",	0, 0, MAX);
+        server.pop();
 
-        enableSuicide = server
-                .comment("Enable: /suicide")
-                .define("enableSuicide", true);
+        // RNDTP
+        server.push("rndtp");
+            rndtp_enable = server
+                .comment("Enable command: /rndtp")
+                .define("enable", true);
+            rndtp_delay = server.defineInRange("delay", 3, 0, MAX);
+            rndtp_cooldown = server.defineInRange("cooldown",	0, 0, MAX);
+            rndtp_range_min = server.defineInRange("range_min", 500, 50 , 999);
+            rndtp_range_max = server.defineInRange("range_max", 2000, 1000 , MAX);
+        server.pop();
 
-        enableHeal = server
-                .comment("Enable: /heal")
-                .define("enableHeal", true);
+        // Suicide
+        server.push("suicide");
+            suicide_enable = server
+                .comment("Enable command: /suicide")
+                .define("enable", true);
+            suicide_enable_player = server.define("enable_player", true);
+            suicide_player_cooldown = server.defineInRange("cooldown_player", 20, 0 , MAX);
+        server.pop();
 
-        enableGm = server
-                .comment("Enable: /gm")
-                .define("enableGm", true);
+        // Time
+        server.push("time");
+            time_enable = server
+                .comment("Enable commands: /day, /night")
+                .define("enable", true);
+        server.pop();
 
-        enableFly = server
-                .comment("Enable: /fly")
-                .define("enableFly", true);
+        // Weather
+        server.push("weather");
+            weather_enable = server
+                .comment("Enable commands: /sun, /rain, /thunder")
+                .define("enable", true);
+        server.pop();
 
-        enableGod = server
-                .comment("Enable: /god")
-                .define("enableGod", true);
+        // Heal
+        server.push("heal");
+        heal_enable = server
+            .comment("Enable command: /heal")
+            .define("enable", true);
+        server.pop();
 
-        enableWarps = server
-                .comment("Enable: /setwarp, /delwarp, /warp")
-                .define("enableWarps", true);
+        // GM
+        server.push("gm");
+            gm_enable = server
+                .comment("Enable command: /gm")
+                .define("enable", true);
+        server.pop();
 
-        enableTpa = server
-                .comment("Enable: /tpa, /tpahere, /tpaccept, /tpdeny")
-                .define("enableTpa", true);
+        // Fly
+        server.push("fly");
+            fly_enable = server
+                .comment("Enable command: /fly")
+                .define("enable", true);
+        server.pop();
 
-        enableRndtp = server
-                .comment("Enable: /rndtp")
-                .define("enableRndtp", true);
-
-
-        maxHomes = server.defineInRange("maxHomes", 5, 1 , 999);
-        teleportTime = server.defineInRange("teleportTime", 3, 0 , 300);
-        teleportRequestTimeout = server.defineInRange("teleportRequestTimeout", 20, 0 , 300);
-
-        rndTpMinDistance = server.defineInRange("rndTpMinDistance", 500, 50 , 1000);
-        rndTpMaxDistance = server.defineInRange("rndTpMaxDistance", 2000, 1000 , 99999);
-
+        // God
+        server.push("god");
+            god_enable = server
+                .comment("Enable command: /god")
+                .define("enable", true);
         server.pop();
     }
 

@@ -59,14 +59,14 @@ public class DataManager {
             essentialPlayer.setPlayerUUID(playerUUID);
             Log.debug("Creating player profile: " + playerUUID);
             playerData.put(playerUUID, essentialPlayer);
-            savePlayerData(playerUUID, essentialPlayer);
+            savePlayerData(essentialPlayer);
             return essentialPlayer;
         }
     }
 
-    public static void savePlayerData(UUID playerUUID, PlayerData essentialPlayer) {
-        Log.debug("Saving player data for player: " + playerUUID);
-        Json.save(essentialPlayer, "players/" + playerUUID);
+    public static void savePlayerData(PlayerData essentialPlayer) {
+        Log.debug("Saving player data for player: " + essentialPlayer.getPlayerUUID());
+        Json.save(essentialPlayer, "players/" + essentialPlayer.getPlayerUUID());
     }
 
     public static void savePlayerHome(UUID uuid, Homes homes) {

@@ -3,6 +3,7 @@ package com.maciej916.maessentials.commands;
 import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
+import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
@@ -35,16 +36,23 @@ public class CommandRndtp {
     private static int rndtp(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerWorld world = context.getSource().getWorld();
         ServerPlayerEntity player = context.getSource().asPlayer();
-
-        if ( ConfigValues.teleportTime == 0) {
-            player.sendMessage(Methods.formatText("command.maessentials.rndtp.teleport", TextFormatting.WHITE));
-        } else {
-            player.sendMessage(Methods.formatText("command.maessentials.rndtp.teleport.wait", TextFormatting.WHITE, ConfigValues.teleportTime));
-        }
-
+        PlayerData playerData = DataManager.getPlayerData(player);
         Location randomLocation = findRandomTp(world, player, 0);
         if (randomLocation != null) {
-            Teleport.teleportPlayer(player, randomLocation, true);
+            long currentTime = System.currentTimeMillis() / 1000;
+            if (Methods.delayCommand(playerData.getRndtpTime(), ConfigValues.rndtp_cooldown)) {
+                playerData.setRndtpTime(currentTime);
+                DataManager.savePlayerData(playerData);
+                if (ConfigValues.rndtp_delay == 0) {
+                    player.sendMessage(Methods.formatText("command.maessentials.rndtp.teleport", TextFormatting.WHITE));
+                } else {
+                    player.sendMessage(Methods.formatText("command.maessentials.rndtp.teleport.wait", TextFormatting.WHITE, ConfigValues.rndtp_delay));
+                }
+                Teleport.teleportPlayer(player, randomLocation, true, ConfigValues.rndtp_delay);
+            } else {
+                long timeleft = playerData.getRndtpTime() + ConfigValues.rndtp_cooldown - currentTime;
+                player.sendMessage(Methods.formatText("command.maessentials.player.cooldown", TextFormatting.DARK_RED, timeleft));
+            }
         } else {
             player.sendMessage(Methods.formatText("command.maessentials.rndtp.nptfound", TextFormatting.DARK_RED));
         }
@@ -60,8 +68,8 @@ public class CommandRndtp {
         Location spawnLocation = DataManager.getModData().getSpawnPoint();
         Random rand = new Random();
 
-        int min = ConfigValues.rndTpMinDistance;
-        int max = ConfigValues.rndTpMaxDistance;
+        int min = ConfigValues.rndtp_range_min;
+        int max = ConfigValues.rndtp_range_max;
 
         int x = (int) Math.round(spawnLocation.x) + rand.nextInt(max + min) - min;
         int y = world.getMaxHeight();

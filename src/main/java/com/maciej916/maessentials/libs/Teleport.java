@@ -3,6 +3,7 @@ package com.maciej916.maessentials.libs;
 import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
+import com.maciej916.maessentials.data.PlayerData;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.dimension.DimensionType;
@@ -42,25 +43,25 @@ public class Teleport {
         this.accepted = false;
     }
 
-    public static void teleportPlayer(ServerPlayerEntity player, Location loc, boolean exact) {
-        if (ConfigValues.teleportTime == 0) {
+    public static void teleportPlayer(ServerPlayerEntity player, Location loc, boolean exact, int delay) {
+        if (delay == 0) {
             player.sendMessage(Methods.formatText("teleport.maessentials.teleported", TextFormatting.WHITE));
             doTeleport(player, loc, exact);
         } else {
             long currentTime = System.currentTimeMillis() / 1000;
-            Teleport teleport = new Teleport(player, loc, currentTime + ConfigValues.teleportTime, exact);
+            Teleport teleport = new Teleport(player, loc, currentTime + delay, exact);
             activeTeleports.add(teleport);
         }
     }
 
     public static void teleportRequest(ServerPlayerEntity creatorPlayer, ServerPlayerEntity tpPlayer, ServerPlayerEntity tpTargetPlayer, boolean exact) {
-        if (ConfigValues.teleportTime == 0) {
+        if (ConfigValues.tpa_delay == 0) {
             tpPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request", TextFormatting.WHITE, tpTargetPlayer.getDisplayName()));
             tpTargetPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.target", TextFormatting.WHITE, tpPlayer.getDisplayName()));
             doTeleport(tpPlayer, new Location(tpTargetPlayer), true);
         } else {
             long currentTime = System.currentTimeMillis() / 1000;
-            Teleport teleport = new Teleport(creatorPlayer, tpPlayer, tpTargetPlayer , currentTime + ConfigValues.teleportRequestTimeout, exact);
+            Teleport teleport = new Teleport(creatorPlayer, tpPlayer, tpTargetPlayer , currentTime + ConfigValues.tpa_timeout, exact);
             activeTeleports.add(teleport);
         }
     }
@@ -105,10 +106,10 @@ public class Teleport {
 
     public static void acceptTeleport(Teleport tpr) {
         long currentTime = System.currentTimeMillis() / 1000;
-        tpr.tpPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request.wait", TextFormatting.WHITE, ConfigValues.teleportTime));
+        tpr.tpPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request.wait", TextFormatting.WHITE, ConfigValues.tpa_delay));
         tpr.tpTargetPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.target.wait", TextFormatting.WHITE, tpr.tpPlayer.getDisplayName()));
         tpr.loc = new Location(tpr.tpPlayer);
-        tpr.time = currentTime + ConfigValues.teleportTime;
+        tpr.time = currentTime + ConfigValues.tpa_delay;
         tpr.accepted = true;
     }
 
@@ -135,7 +136,7 @@ public class Teleport {
                     delTp.add(tp);
                 }
             } else {
-                if (ConfigValues.enableTpa || isDev()) {
+                if (ConfigValues.tpa_enable || isDev()) {
                     if (tp.loc != null) {
                         Location playerLocation = new Location(tp.tpPlayer);
                         if (Methods.isLocationSame(playerLocation, tp.loc)) {
@@ -163,15 +164,11 @@ public class Teleport {
         activeTeleports.removeAll(delTp);
     }
 
-    private static void doTeleport(ServerPlayerEntity player, Location loc, boolean exact) {
-        UUID playerUUID = player.getUniqueID();
+    public static void doTeleport(ServerPlayerEntity player, Location loc, boolean exact) {
         Location currentLocation = new Location(player);
-        DataManager.getPlayerData(player).setLastLocation(currentLocation);
-
-        long currentTime = System.currentTimeMillis() / 1000;
-        DataManager.getPlayerData(player).setLastTeleportTime(currentTime);
-
-        DataManager.savePlayerData(playerUUID, DataManager.getPlayerData(playerUUID));
+        PlayerData playerData = DataManager.getPlayerData(player);
+        playerData.setLastLocation(currentLocation);
+        DataManager.savePlayerData(playerData);
 
         if (player.dimension == DimensionType.THE_END && loc.getDimension() == DimensionType.OVERWORLD) {
             player.queuedEndExit = true;

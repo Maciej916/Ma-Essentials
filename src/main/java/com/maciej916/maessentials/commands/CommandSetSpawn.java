@@ -1,6 +1,5 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.MaEssentials;
 import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.libs.Methods;
@@ -13,7 +12,6 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 
 public class CommandSetSpawn {
 

@@ -27,7 +27,7 @@ public class CommandDelHome {
 
     private static int delHome(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(Methods.formatText("command.maessentials.delhome.specifyname", TextFormatting.DARK_RED));
+        player.sendMessage(Methods.formatText("command.maessentials.delhome.specify_name", TextFormatting.DARK_RED));
         return Command.SINGLE_SUCCESS;
     }
 

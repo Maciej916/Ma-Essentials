@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public class ModData implements Serializable {
     @SerializedName("spawn")
-    public Location spawnPoint;
+    private Location spawnPoint;
 
     public Location getSpawnPoint() {
         return spawnPoint;

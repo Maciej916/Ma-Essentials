@@ -3,6 +3,7 @@ package com.maciej916.maessentials.commands;
 import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
+import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
@@ -14,7 +15,6 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 
 public class CommandBack {
 
@@ -26,14 +26,23 @@ public class CommandBack {
 
     private static int back(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        Location playerData = DataManager.getPlayerData(player).getLastLocation();
-        if (playerData != null) {
-            if ( ConfigValues.teleportTime == 0) {
-                player.sendMessage(Methods.formatText("command.maessentials.back.success", TextFormatting.WHITE));
+        PlayerData playerData = DataManager.getPlayerData(player);
+        Location lastLocation = playerData.getLastLocation();
+        if (lastLocation != null) {
+            long currentTime = System.currentTimeMillis() / 1000;
+            if (Methods.delayCommand(playerData.getBacktime(), ConfigValues.back_cooldown)) {
+                playerData.setBacktime(currentTime);
+                DataManager.savePlayerData(playerData);
+                if ( ConfigValues.back_delay == 0) {
+                    player.sendMessage(Methods.formatText("command.maessentials.back.success", TextFormatting.WHITE));
+                } else {
+                    player.sendMessage(Methods.formatText("command.maessentials.back.success.wait", TextFormatting.WHITE, ConfigValues.back_delay));
+                }
+                Teleport.teleportPlayer(player, lastLocation, true, ConfigValues.back_delay);
             } else {
-                player.sendMessage(Methods.formatText("command.maessentials.back.success.wait", TextFormatting.WHITE, ConfigValues.teleportTime));
+                long timeleft = playerData.getBacktime() + ConfigValues.back_cooldown - currentTime;
+                player.sendMessage(Methods.formatText("command.maessentials.player.cooldown", TextFormatting.DARK_RED, timeleft));
             }
-            Teleport.teleportPlayer(player, playerData, true);
         } else {
             player.sendMessage(Methods.formatText("command.maessentials.back.failed", TextFormatting.DARK_RED));
         }

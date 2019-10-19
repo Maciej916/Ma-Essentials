@@ -15,61 +15,29 @@ public class Commands {
     public static void onServerStarting(FMLServerStartingEvent event) {
         CommandDispatcher<CommandSource> dispatcher = event.getCommandDispatcher();
 
-        if (ConfigValues.enableSpawn) {
+        // Spawn
+        if (ConfigValues.spawn_enable) {
             CommandSetSpawn.register(dispatcher);
             CommandSpawn.register(dispatcher);
         }
 
-        if (ConfigValues.enableTime) {
-            CommandDay.register(dispatcher);
-            CommandNight.register(dispatcher);
-        }
-
-        if (ConfigValues.enableWeather) {
-            CommandSun.register(dispatcher);
-            CommandRain.register(dispatcher);
-            CommandThunder.register(dispatcher);
-        }
-
-        if (ConfigValues.enableHomes) {
+        // Homes
+        if (ConfigValues.homes_enable) {
             CommandSetHome.register(dispatcher);
             CommandDelHome.register(dispatcher);
             CommandHome.register(dispatcher);
         }
 
-        if (ConfigValues.enableBack) {
-            CommandBack.register(dispatcher);
-        }
-
-        if (ConfigValues.enableSuicide) {
-            CommandSuicide.register(dispatcher);
-        }
-
-        if (ConfigValues.enableHeal) {
-            CommandHeal.register(dispatcher);
-        }
-
-        if (ConfigValues.enableGm) {
-            CommandGm.register(dispatcher);
-        }
-
-        if (ConfigValues.enableFly) {
-            CommandFly.register(dispatcher);
-        }
-
-        if (ConfigValues.enableGod) {
-            CommandGod.register(dispatcher);
-        }
-
-        if (ConfigValues.enableWarps) {
+        // Warps
+        if (ConfigValues.warps_enable) {
             CommandSetWarp.register(dispatcher);
             CommandDelWarp.register(dispatcher);
             CommandWarp.register(dispatcher);
         }
 
-        // Commands on server
+        // TPA
         if (event.getServer().isDedicatedServer() || isDev()) {
-            if (ConfigValues.enableTpa) {
+            if (ConfigValues.tpa_enable) {
                 CommandTpa.register(dispatcher);
                 CommandTpahere.register(dispatcher);
                 CommandTpdeny.register(dispatcher);
@@ -77,10 +45,52 @@ public class Commands {
             }
         }
 
-        if (ConfigValues.enableRndtp) {
+        // Back
+        if (ConfigValues.back_enable) {
+            CommandBack.register(dispatcher);
+        }
+
+        // RNDTP
+        if (ConfigValues.rndtp_enable) {
             CommandRndtp.register(dispatcher);
         }
 
+        // Suicide
+        if (ConfigValues.suicide_enable) {
+            CommandSuicide.register(dispatcher);
+        }
 
+        // Time
+        if (ConfigValues.time_enable) {
+            CommandDay.register(dispatcher);
+            CommandNight.register(dispatcher);
+        }
+
+        // Weather
+        if (ConfigValues.weather_enable) {
+            CommandSun.register(dispatcher);
+            CommandRain.register(dispatcher);
+            CommandThunder.register(dispatcher);
+        }
+
+        // Heal
+        if (ConfigValues.heal_enable) {
+            CommandHeal.register(dispatcher);
+        }
+
+        // GM
+        if (ConfigValues.gm_enable) {
+            CommandGm.register(dispatcher);
+        }
+
+        // Fly
+        if (ConfigValues.fly_enable) {
+            CommandFly.register(dispatcher);
+        }
+
+        // God
+        if (ConfigValues.god_enable) {
+            CommandGod.register(dispatcher);
+        }
     }
 }

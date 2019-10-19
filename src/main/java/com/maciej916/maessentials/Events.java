@@ -21,11 +21,13 @@ public class Events {
 
     @SubscribeEvent
     public static void onDeath(LivingDeathEvent event) {
-        if (ConfigValues.enableBack) {
+        if (ConfigValues.back_death_enable) {
             if (event.getEntity() instanceof PlayerEntity) {
                 ServerPlayerEntity player = (ServerPlayerEntity) event.getEntity();
                 player.sendMessage(new TranslationTextComponent("event.maessentials.back.death"));
-                DataManager.getPlayerData(player).setLastLocation(new Location(player));
+                Location deathLocation = new Location(player);
+                deathLocation.y++;
+                DataManager.getPlayerData(player).setLastLocation(deathLocation);
             }
         }
     }
@@ -34,16 +36,21 @@ public class Events {
     public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
         ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
         UUID playerUUID = player.getUniqueID();
-        Log.debug("Player " + player.getDisplayName() + " joined");
         if (DataManager.checkPlayerData(playerUUID)) {
+            Log.debug("Player " + player.getDisplayName() + " joined");
 //            if (player.world.isRemote()) {
 //                player.sendMessage(new TranslationTextComponent("event.maessentials.player.join", player.getDisplayName(), true));
 //            }
         } else {
+            Log.debug("New player " + player.getDisplayName() + " joined");
+
             PlayerData playerData = new PlayerData();
             playerData.setLastLocation(new Location(player));
             playerData.setPlayerUUID(playerUUID);
-            DataManager.savePlayerData(playerUUID, playerData);
+            DataManager.savePlayerData(playerData);
+
+            Teleport.doTeleport(player, DataManager.getModData().getSpawnPoint(), true);
+
 //            if (player.world.isRemote()) {
 //                player.sendMessage(new TranslationTextComponent("event.maessentials.newplayer.join", player.getDisplayName(), true));
 //            }
@@ -54,7 +61,7 @@ public class Events {
     public static void onPlayerLeave(PlayerEvent.PlayerLoggedOutEvent event) {
         ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
         UUID playerUUID = player.getUniqueID();
-//        Log.debug("Player " + player.getDisplayName() + " leave");
+        Log.debug("Player " + player.getDisplayName() + " leave");
 //
 //        if (player.world.isRemote()) {
 //            player.sendMessage(new TranslationTextComponent("event.maessentials.player.leave", player.getDisplayName(), true));

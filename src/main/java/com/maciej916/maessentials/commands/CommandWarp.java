@@ -3,6 +3,7 @@ package com.maciej916.maessentials.commands;
 import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
+import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
@@ -53,15 +54,26 @@ public class CommandWarp {
 
     private static int warpArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
+        PlayerData playerData = DataManager.getPlayerData(player);
+
         String warpName = StringArgumentType.getString(context, "warpName").toString().toLowerCase();
         Location warpLocation = DataManager.getWarpData().getWarps().get(warpName);
         if (warpLocation != null) {
-            if ( ConfigValues.teleportTime == 0) {
-                player.sendMessage(Methods.formatText("command.maessentials.warp.teleport", TextFormatting.WHITE, warpName));
+            long currentTime = System.currentTimeMillis() / 1000;
+            if (Methods.delayCommand(playerData.getWarpTime(), ConfigValues.warps_cooldown)) {
+                playerData.setWarpTime(currentTime);
+                DataManager.savePlayerData(playerData);
+
+                if (ConfigValues.warps_delay == 0) {
+                    player.sendMessage(Methods.formatText("command.maessentials.warp.teleport", TextFormatting.WHITE, warpName));
+                } else {
+                    player.sendMessage(Methods.formatText("command.maessentials.warp.teleport.wait", TextFormatting.WHITE, warpName, ConfigValues.warps_delay));
+                }
+                Teleport.teleportPlayer(player, warpLocation, true, ConfigValues.warps_delay);
             } else {
-                player.sendMessage(Methods.formatText("command.maessentials.warp.teleport.wait", TextFormatting.WHITE, warpName, ConfigValues.teleportTime));
+                long timeleft = playerData.getWarpTime() + ConfigValues.warps_cooldown - currentTime;
+                player.sendMessage(Methods.formatText("command.maessentials.player.cooldown", TextFormatting.DARK_RED, timeleft));
             }
-            Teleport.teleportPlayer(player, warpLocation, true);
         } else {
             player.sendMessage(Methods.formatText("command.maessentials.warp.notexist", TextFormatting.DARK_RED, warpName));
         }

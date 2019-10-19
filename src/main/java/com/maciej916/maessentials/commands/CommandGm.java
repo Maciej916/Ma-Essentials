@@ -38,7 +38,7 @@ public class CommandGm {
 
     private static int gm(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(new TranslationTextComponent("command.maessentials.player.provide"));
+        player.sendMessage(Methods.formatText("command.maessentials.player.provide", TextFormatting.DARK_RED));
         return Command.SINGLE_SUCCESS;
     }
 
@@ -90,7 +90,7 @@ public class CommandGm {
 
         if (newGm != null) {
             if (player == targetPlayer) {
-                player.sendMessage(Methods.formatText("command.maessentials.gm.set.self", TextFormatting.DARK_RED, newGm));
+                player.sendMessage(Methods.formatText("command.maessentials.gm.set.self", TextFormatting.WHITE, newGm));
             } else {
                 player.sendMessage(Methods.formatText("command.maessentials.gm.set.other", TextFormatting.WHITE, targetPlayer.getDisplayName(), newGm));
                 targetPlayer.sendMessage(Methods.formatText("command.maessentials.gm.set.self", TextFormatting.WHITE, newGm));

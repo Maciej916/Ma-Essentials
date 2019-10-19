@@ -2,7 +2,9 @@
   "command.maessentials.player.notfound": "Target player has not been found!",
   "command.maessentials.player.provide": "Please provide player name!",
   "command.maessentials.player.specify": "Please specify player name!",
-  "command.maessentials.player.invaildgamemode": "Invaild gamemode, survival or spectator required!",
+  "command.maessentials.player.invaildgamemode": "Invaild gamemode, survival or spectator is required!",
+  "command.maessentials.player.cooldown": "You can not use this command for next %s seconds!",
+
 
   "_comment": "World lang",
   "command.maessentials.day": "Day set in %s!",
@@ -13,8 +15,8 @@
   "command.maessentials.thunder": "Thunder set in %s!",
 
   "command.maessentials.setspawn": "Spawn location set!",
-  "command.maessentials.spawn": "Teleporting to spawn location...",
-  "command.maessentials.spawn.wait": "Teleporting to spawn location, please wait %s secoonds...",
+  "command.maessentials.spawn": "Teleporting to spawn...",
+  "command.maessentials.spawn.wait": "Teleporting to spawn, please wait %s secoonds...",
 
 
   "_comment": "Player lang",
@@ -49,10 +51,11 @@
   "command.maessentials.rndtp.nptfound": "Couldn't find a safe place to teleport!",
 
   "_comment": "Home lang",
-  "command.maessentials.home.notexist": "Home \"%s\" not exist!",
+  "command.maessentials.home.not_exist": "Home \"%s\" not exist!",
   "command.maessentials.sethome.set": "Home \"%s\" set!",
   "command.maessentials.sethome.exist": "Home \"%s\" already exist!",
-  "command.maessentials.delhome.specifyname": "Please specify home name to delete!",
+  "command.maessentials.sethome.max": "You cannot set more than %s homes.",
+  "command.maessentials.delhome.specify_name": "Please specify home name to delete!",
   "command.maessentials.delhome.done": "Home \"%s\" deleted!",
   "command.maessentials.home.teleport": "Teleporting to home %s, please wait %s secoonds...",
   "command.maessentials.home.teleport.wait": "Teleporting to home %s, please wait %s secoonds...",
@@ -106,7 +109,6 @@
 
   "teleport.maessentials.tpr.moved.request": "You moved, teleport cancelled!",
   "teleport.maessentials.tpr.moved.target": "Player %s moved, teleport cancelled!",
-
 
 
 

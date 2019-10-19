@@ -1,6 +1,8 @@
 package com.maciej916.maessentials.commands;
 
+import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
+import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
@@ -34,11 +36,20 @@ public class CommandTpahere {
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
         if (requestedPlayer != player) {
-            Teleport tp = Teleport.findTeleportRequest(player, requestedPlayer, player);
-            if (tp == null) {
-                player.sendMessage(Methods.formatText("command.maessentials.tpr.request", TextFormatting.WHITE, requestedPlayer.getDisplayName()));
-                requestedPlayer.sendMessage(Methods.formatText("command.maessentials.tpr.tpahere.target", TextFormatting.WHITE, player.getDisplayName()));
-                Teleport.teleportRequest(player, requestedPlayer, player, true);
+            Teleport tpr = Teleport.findTeleportRequest(player, requestedPlayer, player);
+            if (tpr == null) {
+                PlayerData playerData = DataManager.getPlayerData(player);
+                long currentTime = System.currentTimeMillis() / 1000;
+                if (Methods.delayCommand(playerData.getTeleportRequestTime(), ConfigValues.tpa_cooldown)) {
+                    playerData.setTeleportRequestTime(currentTime);
+                    DataManager.savePlayerData(playerData);
+                    player.sendMessage(Methods.formatText("command.maessentials.tpr.request", TextFormatting.WHITE, requestedPlayer.getDisplayName()));
+                    requestedPlayer.sendMessage(Methods.formatText("command.maessentials.tpr.tpa.target", TextFormatting.WHITE, player.getDisplayName()));
+                    Teleport.teleportRequest(player, requestedPlayer, player, true);
+                } else {
+                    long timeleft = playerData.getTeleportRequestTime() + ConfigValues.tpa_cooldown - currentTime;
+                    player.sendMessage(Methods.formatText("command.maessentials.player.cooldown", TextFormatting.DARK_RED, timeleft));
+                }
             } else {
                 player.sendMessage(Methods.formatText("command.maessentials.tpr.exist", TextFormatting.DARK_RED, requestedPlayer.getDisplayName()));
             }
