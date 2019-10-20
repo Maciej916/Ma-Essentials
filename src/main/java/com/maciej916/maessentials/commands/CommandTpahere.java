@@ -44,7 +44,11 @@ public class CommandTpahere {
                     playerData.setTeleportRequestTime(currentTime);
                     DataManager.savePlayerData(playerData);
                     player.sendMessage(Methods.formatText("command.maessentials.tpr.request", TextFormatting.WHITE, requestedPlayer.getDisplayName()));
-                    requestedPlayer.sendMessage(Methods.formatText("command.maessentials.tpr.tpa.target", TextFormatting.WHITE, player.getDisplayName()));
+
+                    requestedPlayer.sendMessage(Methods.formatText("command.maessentials.tpr.tpahere.target", TextFormatting.WHITE, player.getDisplayName()));
+                    requestedPlayer.sendMessage(Methods.formatText("command.maessentials.tpr.tpa.accept", TextFormatting.WHITE));
+                    requestedPlayer.sendMessage(Methods.formatText("command.maessentials.tpr.tpa.deny", TextFormatting.WHITE));
+
                     Teleport.teleportRequest(player, requestedPlayer, player, true);
                 } else {
                     long timeleft = playerData.getTeleportRequestTime() + ConfigValues.tpa_cooldown - currentTime;

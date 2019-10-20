@@ -5,10 +5,14 @@ import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Log;
+import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
+import com.maciej916.maessentials.libs.Time;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -24,7 +28,7 @@ public class Events {
         if (ConfigValues.back_death_enable) {
             if (event.getEntity() instanceof PlayerEntity) {
                 ServerPlayerEntity player = (ServerPlayerEntity) event.getEntity();
-                player.sendMessage(new TranslationTextComponent("event.maessentials.back.death"));
+                player.sendMessage(Methods.formatText("event.maessentials.back.death", TextFormatting.WHITE));
                 Location deathLocation = new Location(player);
                 deathLocation.y++;
                 DataManager.getPlayerData(player).setLastLocation(deathLocation);
@@ -38,9 +42,6 @@ public class Events {
         UUID playerUUID = player.getUniqueID();
         if (DataManager.checkPlayerData(playerUUID)) {
             Log.debug("Player " + player.getDisplayName() + " joined");
-//            if (player.world.isRemote()) {
-//                player.sendMessage(new TranslationTextComponent("event.maessentials.player.join", player.getDisplayName(), true));
-//            }
         } else {
             Log.debug("New player " + player.getDisplayName() + " joined");
 
@@ -50,10 +51,6 @@ public class Events {
             DataManager.savePlayerData(playerData);
 
             Teleport.doTeleport(player, DataManager.getModData().getSpawnPoint(), true);
-
-//            if (player.world.isRemote()) {
-//                player.sendMessage(new TranslationTextComponent("event.maessentials.newplayer.join", player.getDisplayName(), true));
-//            }
         }
     }
 
@@ -62,10 +59,12 @@ public class Events {
         ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
         UUID playerUUID = player.getUniqueID();
         Log.debug("Player " + player.getDisplayName() + " leave");
-//
-//        if (player.world.isRemote()) {
-//            player.sendMessage(new TranslationTextComponent("event.maessentials.player.leave", player.getDisplayName(), true));
-//        }
+    }
+
+    @SubscribeEvent
+    public static void opPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
+        Teleport.doTeleport(player, DataManager.getModData().getSpawnPoint(), true);
     }
 
     @SubscribeEvent
@@ -79,4 +78,21 @@ public class Events {
             }
         }
     }
+
+    @SubscribeEvent
+    public static void onPlayerChat(ServerChatEvent event) {
+        ServerPlayerEntity player = event.getPlayer();
+        PlayerData playerData = DataManager.getPlayerData(player);
+        if (playerData.isPlayerMuted()) {
+            if (playerData.getMuteTime() == -1) {
+                player.sendMessage(Methods.formatText("event.maessentials.mute.perm", TextFormatting.RED, playerData.getMuteReason()));
+            } else {
+                long currentTime = System.currentTimeMillis() / 1000;
+                String displayTime = Time.formatDate(playerData.getMuteTime() - currentTime);
+                player.sendMessage(Methods.formatText("event.maessentials.mute", TextFormatting.RED, displayTime, playerData.getMuteReason()));
+            }
+            event.setCanceled(true);
+        }
+    }
+
 }

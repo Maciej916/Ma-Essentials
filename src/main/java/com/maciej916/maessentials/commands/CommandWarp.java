@@ -75,7 +75,7 @@ public class CommandWarp {
                 player.sendMessage(Methods.formatText("command.maessentials.player.cooldown", TextFormatting.DARK_RED, timeleft));
             }
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.warp.notexist", TextFormatting.DARK_RED, warpName));
+            player.sendMessage(Methods.formatText("command.maessentials.warp.not_exist", TextFormatting.DARK_RED, warpName));
         }
         return Command.SINGLE_SUCCESS;
     }

@@ -2,6 +2,9 @@ package com.maciej916.maessentials;
 
 import com.maciej916.maessentials.config.Config;
 import com.maciej916.maessentials.data.DataLoader;
+import com.maciej916.maessentials.libs.Log;
+import com.maciej916.maessentials.libs.Methods;
+import com.maciej916.maessentials.libs.Time;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

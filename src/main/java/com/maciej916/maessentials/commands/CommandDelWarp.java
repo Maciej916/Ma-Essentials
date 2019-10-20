@@ -36,7 +36,7 @@ public class CommandDelWarp {
         if (DataManager.getWarpData().delWarp(warpName)) {
             player.sendMessage(Methods.formatText("command.maessentials.delwarp.done", TextFormatting.WHITE, warpName));
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.warp.notexist", TextFormatting.DARK_RED, warpName));
+            player.sendMessage(Methods.formatText("command.maessentials.warp.not_exist", TextFormatting.DARK_RED, warpName));
         }
         return Command.SINGLE_SUCCESS;
     }

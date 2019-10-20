@@ -60,7 +60,7 @@ public class CommandHome {
                 player.sendMessage(Methods.formatText("command.maessentials.player.cooldown", TextFormatting.DARK_RED, timeleft));
             }
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.home.notexist", TextFormatting.DARK_RED, homeName));
+            player.sendMessage(Methods.formatText("command.maessentials.home.not_exist", TextFormatting.DARK_RED, homeName));
         }
     }
 }

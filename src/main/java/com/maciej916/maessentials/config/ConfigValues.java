@@ -59,6 +59,12 @@ public class ConfigValues {
     // God
     public static Boolean god_enable;
 
+    // Top
+    public static Boolean top_enable;
+
+    // Mute
+    public static Boolean mute_enable;
+
     public static void init() {
         // Spawn
         spawn_enable = Config.spawn_enable.get();
@@ -117,5 +123,11 @@ public class ConfigValues {
 
         // God
         god_enable = Config.god_enable.get();
+
+        // Top
+        top_enable = Config.top_enable.get();
+
+        // Mute
+        mute_enable = Config.mute_enable.get();
     }
 }

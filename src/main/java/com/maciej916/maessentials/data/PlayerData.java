@@ -37,6 +37,12 @@ public class PlayerData {
     @SerializedName("suicide_time")
     private long suicideTime;
 
+    @SerializedName("mute_time")
+    private long muteTime;
+
+    @SerializedName("mute_reason")
+    private String muteReason;
+
     public PlayerData() { }
 
     public UUID getPlayerUUID() {
@@ -51,15 +57,11 @@ public class PlayerData {
         this.homes = homes;
     }
 
-    public boolean setHome(ServerPlayerEntity player, String name) {
+    public void setHome(ServerPlayerEntity player, String name) {
         Location homeLocation = new Location(player);
-        if (homes.addHome(homeLocation, name)) {
-            Log.debug("Player " + playerUUID + " created home " + name);
-            DataManager.savePlayerHome(playerUUID, homes);
-            return true;
-        } else {
-            return false;
-        }
+        homes.setHome(homeLocation, name);
+        Log.debug("Player " + playerUUID + " created home " + name);
+        DataManager.savePlayerHome(playerUUID, homes);
     }
 
     public boolean delHome(String name) {
@@ -138,6 +140,33 @@ public class PlayerData {
 
     public long getSuicideTime() {
         return suicideTime;
+    }
+
+    public void mute(long muteTime, String muteReason) {
+        this.muteTime = muteTime;
+        this.muteReason = muteReason;
+    }
+
+    public void unmute() {
+        this.muteTime = 0;
+        this.muteReason = null;
+    }
+
+    public boolean isPlayerMuted() {
+        long currentTime = System.currentTimeMillis() / 1000;
+        if (muteTime == -1 || muteTime > currentTime) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String getMuteReason() {
+        return muteReason;
+    }
+
+    public long getMuteTime() {
+        return muteTime;
     }
 }
 

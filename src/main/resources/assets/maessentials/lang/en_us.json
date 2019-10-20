@@ -2,9 +2,10 @@
   "command.maessentials.player.notfound": "Target player has not been found!",
   "command.maessentials.player.provide": "Please provide player name!",
   "command.maessentials.player.specify": "Please specify player name!",
-  "command.maessentials.player.invaildgamemode": "Invaild gamemode, survival or spectator is required!",
+  "command.maessentials.player.invaild_gamemode": "Invaild gamemode, survival or spectator is required!",
   "command.maessentials.player.cooldown": "You can not use this command for next %s seconds!",
 
+  "command.maessentials.illegal_date": "Illegal date format.",
 
   "_comment": "World lang",
   "command.maessentials.day": "Day set in %s!",
@@ -50,10 +51,21 @@
   "command.maessentials.rndtp.teleport.wait": "Teleporting you to random location, plase wait %s secoonds...",
   "command.maessentials.rndtp.nptfound": "Couldn't find a safe place to teleport!",
 
+  "command.maessentials.top": "Teleported to highest location!",
+
+  "command.maessentials.mute.already_muted": "Player %s is already muted.",
+  "command.maessentials.mute": "Player %s muted for %s. Reason: %s",
+  "command.maessentials.mute.perm": "Player %s permanently muted. Reason: %s",
+  "command.maessentials.mute.muted.target": "You have been muted for %s. Reason: %s",
+  "command.maessentials.mute.muted.target.perm": "You have been muted for %s. Reason: %s",
+
+  "command.maessentials.unmute.player": "Player %s unmuted.",
+  "command.maessentials.unmute.target": "You have been unmuted.",
+
+
   "_comment": "Home lang",
   "command.maessentials.home.not_exist": "Home \"%s\" not exist!",
   "command.maessentials.sethome.set": "Home \"%s\" set!",
-  "command.maessentials.sethome.exist": "Home \"%s\" already exist!",
   "command.maessentials.sethome.max": "You cannot set more than %s homes.",
   "command.maessentials.delhome.specify_name": "Please specify home name to delete!",
   "command.maessentials.delhome.done": "Home \"%s\" deleted!",
@@ -62,7 +74,7 @@
 
 
   "_comment": "Warp lang",
-  "command.maessentials.warp.notexist": "Warp \"%s\" not exist!",
+  "command.maessentials.warp.not_exist": "Warp \"%s\" not exist!",
   "command.maessentials.setwarp.specifyname": "Please specify warp name to create!",
   "command.maessentials.setwarp.set": "Warp \"%s\" set!",
   "command.maessentials.setwarp.exist": "Warp \"%s\" already exist!",
@@ -72,11 +84,15 @@
   "command.maessentials.warp.teleport": "Teleporting to warp %s...",
   "command.maessentials.warp.teleport.wait": "Teleporting to warp %s, please wait %s secoonds...",
 
+
   "_comment": "Event lang",
   "event.maessentials.back.death": "You died, you can use /back to teleport you to your death place!",
   "event.maessentials.player.join": "Player %s joined!",
   "event.maessentials.newplayer.join": "New player %s joined!",
   "event.maessentials.newplayer.leave": "Player %s leaved!",
+
+  "event.maessentials.mute": "You have been muted for %s. Reason: %s",
+  "event.maessentials.mute.perm": "You have been permanently muted! Reason: %s",
 
 
   "_comment": "Tpr lang",
@@ -84,10 +100,11 @@
   "command.maessentials.tpr.no_request": "You don't have any pending teleport requests!",
   "command.maessentials.tpr.self": "You can not request teleport to yourself!",
   "command.maessentials.tpr.exist": "You already have pending teleport request to %s!",
-
   "command.maessentials.tpr.request": "Teleport request sent to %s!",
-  "command.maessentials.tpr.tpa.target": "Player %s wants to teleport to you. Type /tpaccept to accept teleport request.",
-  "command.maessentials.tpr.tpahere.target": "Player %s wants to teleport you to himself. Type /tpaccept to accept teleport request.",
+  "command.maessentials.tpr.tpa.target": "Player %s wants to teleport to you.",
+  "command.maessentials.tpr.tpahere.target": "Player %s wants to teleport you to himself.",
+  "command.maessentials.tpr.tpa.accept": "To teleport, type /tpaccept",
+  "command.maessentials.tpr.tpa.deny": "To deny this request, type /tpdeny",
   "command.maessentials.tpr.tpdeny.request": "Player %s declined your teleport request!",
   "command.maessentials.tpr.tpdeny.target": "Teleport request declined from player %s!",
 

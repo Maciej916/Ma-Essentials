@@ -62,8 +62,7 @@ public class CommandFly {
             }
             targetPlayer.sendPlayerAbilities();
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.fly.invaildgamemode", TextFormatting.DARK_RED));
+            player.sendMessage(Methods.formatText("command.maessentials.player.invaild_gamemode", TextFormatting.DARK_RED));
         }
     }
 }
-

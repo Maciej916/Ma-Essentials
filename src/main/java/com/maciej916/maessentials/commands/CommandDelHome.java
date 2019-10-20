@@ -38,7 +38,7 @@ public class CommandDelHome {
         if (playerData.delHome(homeName)) {
             player.sendMessage(Methods.formatText("command.maessentials.delhome.done", TextFormatting.WHITE, homeName));
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.home.notexist", TextFormatting.DARK_RED, homeName));
+            player.sendMessage(Methods.formatText("command.maessentials.home.not_exist", TextFormatting.DARK_RED, homeName));
         }
         return Command.SINGLE_SUCCESS;
     }

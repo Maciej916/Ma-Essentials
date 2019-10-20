@@ -92,5 +92,16 @@ public class Commands {
         if (ConfigValues.god_enable) {
             CommandGod.register(dispatcher);
         }
+
+        // Top
+        if (ConfigValues.top_enable) {
+            CommandTop.register(dispatcher);
+        }
+
+        // Mute
+        if (ConfigValues.mute_enable) {
+            CommandMute.register(dispatcher);
+            CommandUnmute.register(dispatcher);
+        }
     }
 }

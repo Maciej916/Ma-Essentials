@@ -73,6 +73,13 @@ public class Config {
     // God
     public static ForgeConfigSpec.BooleanValue god_enable;
 
+    // Top
+    public static ForgeConfigSpec.BooleanValue top_enable;
+
+    // Mute
+    public static ForgeConfigSpec.BooleanValue mute_enable;
+
+
     static {
         setupConfig();
         config = server.build();
@@ -127,7 +134,7 @@ public class Config {
                 .define("enable", true);
             tpa_delay = server.defineInRange("delay", 3, 0, MAX);
             tpa_cooldown = server.defineInRange("cooldown",	0, 0, MAX);
-            tpa_timeout = server.defineInRange("timeout",	0, 0, MAX);
+            tpa_timeout = server.defineInRange("timeout",	20, 0, MAX);
         server.pop();
 
         // RNDTP
@@ -189,6 +196,20 @@ public class Config {
         server.push("god");
             god_enable = server
                 .comment("Enable command: /god")
+                .define("enable", true);
+        server.pop();
+
+        // Top
+        server.push("top");
+        top_enable = server
+                .comment("Enable command: /top")
+                .define("enable", true);
+        server.pop();
+
+        // Mute
+        server.push("mute");
+        mute_enable = server
+                .comment("Enable commands: /mute, /unmute")
                 .define("enable", true);
         server.pop();
     }

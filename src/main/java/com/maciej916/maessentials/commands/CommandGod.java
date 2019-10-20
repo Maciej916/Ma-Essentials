@@ -60,7 +60,7 @@ public class CommandGod {
             }
             targetPlayer.sendPlayerAbilities();
         } else {
-            targetPlayer.sendMessage(Methods.formatText("command.maessentials.player.invaildgamemode", TextFormatting.DARK_RED));
+            targetPlayer.sendMessage(Methods.formatText("command.maessentials.player.invaild_gamemode", TextFormatting.DARK_RED));
         }
     }
 }

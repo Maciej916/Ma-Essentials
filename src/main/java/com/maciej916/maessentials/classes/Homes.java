@@ -6,12 +6,8 @@ import java.util.HashMap;
 public final class Homes implements Serializable {
     private HashMap<String, Location> homes = new HashMap<>();
 
-    public boolean addHome(Location location, String name) {
-        if (!homes.containsKey(name)) {
-            homes.put(name, location);
-            return true;
-        }
-        return false;
+    public void setHome(Location location, String name) {
+        homes.put(name, location);
     }
 
     public boolean removeHome(String name) {
