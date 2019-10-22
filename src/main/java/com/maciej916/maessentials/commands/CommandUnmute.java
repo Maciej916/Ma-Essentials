@@ -28,21 +28,24 @@ public class CommandUnmute {
 
     private static int unmute(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(Methods.formatText("command.maessentials.player.provide", TextFormatting.DARK_RED));
+        player.sendMessage(Methods.formatText("maessentials.provide.player", TextFormatting.RED));
         return Command.SINGLE_SUCCESS;
     }
 
     private static int unmuteArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-
-        player.sendMessage(Methods.formatText("command.maessentials.unmute.player", TextFormatting.WHITE, requestedPlayer.getDisplayName()));
-        requestedPlayer.sendMessage(Methods.formatText("command.maessentials.unmute.target", TextFormatting.WHITE));
-
         PlayerData playerData = DataManager.getPlayerData(requestedPlayer);
-        playerData.unmute();
-        DataManager.savePlayerData(playerData);
 
+        long currentTime = System.currentTimeMillis() / 1000;
+        if (playerData.getMuteTime() != -1 && playerData.getMuteTime() < currentTime) {
+            player.sendMessage(Methods.formatText("unmmute.maessentials.success", TextFormatting.WHITE, requestedPlayer.getDisplayName()));
+            requestedPlayer.sendMessage(Methods.formatText("unmmute.maessentials.success.target", TextFormatting.WHITE));
+            playerData.unmute();
+            DataManager.savePlayerData(playerData);
+        } else {
+            player.sendMessage(Methods.formatText("unmmute.maessentials.not_muted", TextFormatting.RED, requestedPlayer.getDisplayName()));
+        }
         return Command.SINGLE_SUCCESS;
     }
 }

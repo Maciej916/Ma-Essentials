@@ -45,24 +45,24 @@ public class CommandFly {
                 targetPlayer.abilities.allowFlying = false;
                 targetPlayer.abilities.isFlying = false;
                 if (player == targetPlayer) {
-                    player.sendMessage(Methods.formatText("command.maessentials.fly.disabled.self", TextFormatting.WHITE));
+                    player.sendMessage(Methods.formatText("fly.maessentials.self.disabled", TextFormatting.WHITE));
                 } else {
-                    player.sendMessage(Methods.formatText("command.maessentials.fly.disabled.self", TextFormatting.WHITE, targetPlayer.getDisplayName()));
-                    targetPlayer.sendMessage(Methods.formatText("command.maessentials.fly.disabled.self", TextFormatting.WHITE));
+                    player.sendMessage(Methods.formatText("fly.maessentials.player.disabled", TextFormatting.WHITE, targetPlayer.getDisplayName()));
+                    targetPlayer.sendMessage(Methods.formatText("fly.maessentials.self.disabled", TextFormatting.WHITE));
                 }
             } else {
                 targetPlayer.abilities.allowFlying = true;
 
                 if (player == targetPlayer) {
-                    player.sendMessage(Methods.formatText("command.maessentials.fly.enabled.self", TextFormatting.WHITE));
+                    player.sendMessage(Methods.formatText("fly.maessentials.self.enabled", TextFormatting.WHITE));
                 } else {
-                    player.sendMessage(Methods.formatText("command.maessentials.fly.enabled.self", TextFormatting.WHITE, targetPlayer.getDisplayName()));
-                    targetPlayer.sendMessage(Methods.formatText("command.maessentials.fly.enabled.self", TextFormatting.WHITE));
+                    player.sendMessage(Methods.formatText("fly.maessentials.player.enabled", TextFormatting.WHITE, targetPlayer.getDisplayName()));
+                    targetPlayer.sendMessage(Methods.formatText("fly.maessentials.self.enabled", TextFormatting.WHITE));
                 }
             }
             targetPlayer.sendPlayerAbilities();
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.player.invaild_gamemode", TextFormatting.DARK_RED));
+            player.sendMessage(Methods.formatText("maessentials.invaild_gamemode", TextFormatting.RED));
         }
     }
 }

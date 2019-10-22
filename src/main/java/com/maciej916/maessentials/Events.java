@@ -11,7 +11,6 @@ import com.maciej916.maessentials.libs.Time;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -28,7 +27,7 @@ public class Events {
         if (ConfigValues.back_death_enable) {
             if (event.getEntity() instanceof PlayerEntity) {
                 ServerPlayerEntity player = (ServerPlayerEntity) event.getEntity();
-                player.sendMessage(Methods.formatText("event.maessentials.back.death", TextFormatting.WHITE));
+                player.sendMessage(Methods.formatText("back.maessentials.death", TextFormatting.WHITE));
                 Location deathLocation = new Location(player);
                 deathLocation.y++;
                 DataManager.getPlayerData(player).setLastLocation(deathLocation);
@@ -50,7 +49,10 @@ public class Events {
             playerData.setPlayerUUID(playerUUID);
             DataManager.savePlayerData(playerData);
 
-            Teleport.doTeleport(player, DataManager.getModData().getSpawnPoint(), true);
+            Location spawnLocation = DataManager.getModData().getSpawnPoint();
+            if (spawnLocation != null) {
+                Teleport.doTeleport(player, DataManager.getModData().getSpawnPoint(), true);
+            }
         }
     }
 
@@ -85,11 +87,11 @@ public class Events {
         PlayerData playerData = DataManager.getPlayerData(player);
         if (playerData.isPlayerMuted()) {
             if (playerData.getMuteTime() == -1) {
-                player.sendMessage(Methods.formatText("event.maessentials.mute.perm", TextFormatting.RED, playerData.getMuteReason()));
+                player.sendMessage(Methods.formatText("mute.maessentials.success.perm.target", TextFormatting.RED, playerData.getMuteReason()));
             } else {
                 long currentTime = System.currentTimeMillis() / 1000;
                 String displayTime = Time.formatDate(playerData.getMuteTime() - currentTime);
-                player.sendMessage(Methods.formatText("event.maessentials.mute", TextFormatting.RED, displayTime, playerData.getMuteReason()));
+                player.sendMessage(Methods.formatText("mute.maessentials.success.target", TextFormatting.RED, displayTime, playerData.getMuteReason()));
             }
             event.setCanceled(true);
         }

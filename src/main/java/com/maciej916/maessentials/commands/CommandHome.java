@@ -36,7 +36,7 @@ public class CommandHome {
 
     private static int homeArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String args = StringArgumentType.getString(context, "homeName").toString().toLowerCase();
+        String args = StringArgumentType.getString(context, "homeName").toLowerCase();
         handleHome(player, args);
         return Command.SINGLE_SUCCESS;
     }
@@ -45,22 +45,22 @@ public class CommandHome {
         PlayerData playerData = DataManager.getPlayerData(player);
         Location homeLocation = playerData.getHomes().get(homeName);
         if (homeLocation != null) {
-            long currentTime = System.currentTimeMillis() / 1000;
-            if (Methods.delayCommand(playerData.getHomeTime(), ConfigValues.homes_cooldown)) {
+            long cooldown = Methods.delayCommand(playerData.getBacktime(), ConfigValues.homes_cooldown);
+            if (cooldown == 0) {
+                long currentTime = System.currentTimeMillis() / 1000;
                 playerData.setHomeTime(currentTime);
                 DataManager.savePlayerData(playerData);
                 if (ConfigValues.homes_delay == 0) {
-                    player.sendMessage(Methods.formatText("command.maessentials.home.teleport", TextFormatting.WHITE, homeName));
+                    player.sendMessage(Methods.formatText("home.maessentials.teleport", TextFormatting.WHITE, homeName));
                 } else {
-                    player.sendMessage(Methods.formatText("command.maessentials.home.teleport.wait", TextFormatting.WHITE, homeName, ConfigValues.homes_delay));
+                    player.sendMessage(Methods.formatText("home.maessentials.teleport.wait", TextFormatting.WHITE, homeName, ConfigValues.homes_delay));
                 }
                 Teleport.teleportPlayer(player, homeLocation, true, ConfigValues.homes_delay);
             } else {
-                long timeleft = playerData.getHomeTime() + ConfigValues.homes_cooldown - currentTime;
-                player.sendMessage(Methods.formatText("command.maessentials.player.cooldown", TextFormatting.DARK_RED, timeleft));
+                player.sendMessage(Methods.formatText("maessentials.cooldown", TextFormatting.RED, cooldown));
             }
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.home.not_exist", TextFormatting.DARK_RED, homeName));
+            player.sendMessage(Methods.formatText("home.maessentials.not_exist", TextFormatting.RED, homeName));
         }
     }
 }

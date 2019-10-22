@@ -1,135 +1,152 @@
 {
-  "command.maessentials.player.notfound": "Target player has not been found!",
-  "command.maessentials.player.provide": "Please provide player name!",
-  "command.maessentials.player.specify": "Please specify player name!",
-  "command.maessentials.player.invaild_gamemode": "Invaild gamemode, survival or spectator is required!",
-  "command.maessentials.player.cooldown": "You can not use this command for next %s seconds!",
-
-  "command.maessentials.illegal_date": "Illegal date format.",
-
-  "_comment": "World lang",
-  "command.maessentials.day": "Day set in %s!",
-  "command.maessentials.night": "Night set in %s!",
-
-  "command.maessentials.sun": "Sun set in %s!",
-  "command.maessentials.rain": "Rain set in %s!",
-  "command.maessentials.thunder": "Thunder set in %s!",
-
-  "command.maessentials.setspawn": "Spawn location set!",
-  "command.maessentials.spawn": "Teleporting to spawn...",
-  "command.maessentials.spawn.wait": "Teleporting to spawn, please wait %s secoonds...",
+  "_comment": "Global",
+  "maessentials.cooldown": "You need to wait %s seconds before using this command again",
+  "maessentials.provide.player": "Please provide player name",
+  "maessentials.specify.player": "Please specify player name",
+  "maessentials.invaild_gamemode": "Invaild gamemode",
+  "maessentials.illegal_date": "Invaild gamemode",
 
 
-  "_comment": "Player lang",
-  "command.maessentials.back.success": "Teleporting to previous location...",
-  "command.maessentials.back.success.wait": "Teleporting to previous location, please wait %s secoonds...",
-  "command.maessentials.back.failed": "Back location not found!",
+  "_comment": "Back",
+  "back.maessentials.not_found": "Back location not found",
 
-  "command.maessentials.suicide.self": "You killed yourself. You can use /back to teleport to your death place!",
-  "command.maessentials.suicide.player": "You just killed %s!",
-  "command.maessentials.suicide.killed": "You have been killed by %s. You can use /back to teleport to your death place!",
+  "back.maessentials.success": "Teleporting to previous location...",
+  "back.maessentials.success.wait": "Teleporting to previous location, please wait %s seconds...",
 
-  "command.maessentials.heal.self": "You just healed yourself!",
-  "command.maessentials.heal.player": "You just healed %s!",
-  "command.maessentials.heal.healed": "You have been healed by %s!",
+  "back.maessentials.death": "You died, you can use /back to teleport you to your death place",
 
-  "command.maessentials.gm.invalid": "Invaild gamemode provided!",
-  "command.maessentials.gm.set.self": "Your gamemode has been changed to %s!",
-  "command.maessentials.gm.set.other": "You changed gamemode for player %s to %s!",
-
-  "command.maessentials.fly.disabled.self": "Fly mode disabled!",
-  "command.maessentials.fly.disabled.other": "Fly mode disabled for player %s!",
-  "command.maessentials.fly.enabled.self": "You can now fly!",
-  "command.maessentials.fly.enabled.other": "Fly mode enabled for player %s!",
-
-  "command.maessentials.god.disabled.self": "Godmode disabled!",
-  "command.maessentials.god.disabled.other": "Godmode disabled for player %s!",
-  "command.maessentials.god.enabled.self": "Godmode enabled!",
-  "command.maessentials.god.enabled.other": "Godmode enabled for player %s!",
-
-  "command.maessentials.rndtp.teleport": "Teleporting you to random location...",
-  "command.maessentials.rndtp.teleport.wait": "Teleporting you to random location, plase wait %s secoonds...",
-  "command.maessentials.rndtp.nptfound": "Couldn't find a safe place to teleport!",
-
-  "command.maessentials.top": "Teleported to highest location!",
-
-  "command.maessentials.mute.already_muted": "Player %s is already muted.",
-  "command.maessentials.mute": "Player %s muted for %s. Reason: %s",
-  "command.maessentials.mute.perm": "Player %s permanently muted. Reason: %s",
-  "command.maessentials.mute.muted.target": "You have been muted for %s. Reason: %s",
-  "command.maessentials.mute.muted.target.perm": "You have been muted for %s. Reason: %s",
-
-  "command.maessentials.unmute.player": "Player %s unmuted.",
-  "command.maessentials.unmute.target": "You have been unmuted.",
+  "_comment": "Time",
+  "day.maessentials.success": "Day set in %s",
+  "night.maessentials.success": "Night set in %s",
 
 
-  "_comment": "Home lang",
-  "command.maessentials.home.not_exist": "Home \"%s\" not exist!",
-  "command.maessentials.sethome.set": "Home \"%s\" set!",
-  "command.maessentials.sethome.max": "You cannot set more than %s homes.",
-  "command.maessentials.delhome.specify_name": "Please specify home name to delete!",
-  "command.maessentials.delhome.done": "Home \"%s\" deleted!",
-  "command.maessentials.home.teleport": "Teleporting to home %s, please wait %s secoonds...",
-  "command.maessentials.home.teleport.wait": "Teleporting to home %s, please wait %s secoonds...",
+  "_comment": "Weather",
+  "sun.maessentials.success": "Sun set in %s",
+  "rain.maessentials.success": "Rain set in %s",
+  "thunder.maessentials.success": "Thunder set in %s",
+
+  "_comment": "Spawn",
+  "spawn.maessentials.success": "Teleporting to spawn...",
+  "spawn.maessentials.success.wait": "Teleporting to spawn, please wait %s seconds...",
+
+  "setspawn.maessentials.success": "Spawn location set",
 
 
-  "_comment": "Warp lang",
-  "command.maessentials.warp.not_exist": "Warp \"%s\" not exist!",
-  "command.maessentials.setwarp.specifyname": "Please specify warp name to create!",
-  "command.maessentials.setwarp.set": "Warp \"%s\" set!",
-  "command.maessentials.setwarp.exist": "Warp \"%s\" already exist!",
-  "command.maessentials.delwarp.specifyname": "Please specify warp name to delete!",
-  "command.maessentials.delwarp.done": "Warp \"%s\" deleted!",
-  "command.maessentials.warp.list": "Current warps (%s): %s.",
-  "command.maessentials.warp.teleport": "Teleporting to warp %s...",
-  "command.maessentials.warp.teleport.wait": "Teleporting to warp %s, please wait %s secoonds...",
+  "_comment": "Home",
+  "home.maessentials.not_exist": "Home %s not exist",
+
+  "delhome.maessentials.specify_name": "Please specify home name",
+  "delhome.maessentials.done": "Home %s deleted",
+
+  "home.maessentials.teleport": "Teleporting to home %s...",
+  "home.maessentials.teleport.wait": "Teleporting to home %s, please wait %s seconds...",
+
+  "sethome.maessentials.max_homes": "You cannot set more than %s homes",
+  "sethome.maessentials.done": "Home %s set!",
 
 
-  "_comment": "Event lang",
-  "event.maessentials.back.death": "You died, you can use /back to teleport you to your death place!",
-  "event.maessentials.player.join": "Player %s joined!",
-  "event.maessentials.newplayer.join": "New player %s joined!",
-  "event.maessentials.newplayer.leave": "Player %s leaved!",
+  "_comment": "Warp",
+  "warp.maessentials.not_exist": "Warp %s not exist",
+  "warp.maessentials.specify_name": "Please specify warp name",
 
-  "event.maessentials.mute": "You have been muted for %s. Reason: %s",
-  "event.maessentials.mute.perm": "You have been permanently muted! Reason: %s",
+  "delwarp.maessentials.success": "Warp %s deleted",
 
+  "warp.maessentials.list": "Current warps (%s): %s",
+  "warp.maessentials.success": "Teleporting to warp %s...",
+  "warp.maessentials.success.wait": "Teleporting to warp %s, please wait %s seconds...",
 
-  "_comment": "Tpr lang",
-  "command.maessentials.tpr.not_found": "Teleport request has not been found!",
-  "command.maessentials.tpr.no_request": "You don't have any pending teleport requests!",
-  "command.maessentials.tpr.self": "You can not request teleport to yourself!",
-  "command.maessentials.tpr.exist": "You already have pending teleport request to %s!",
-  "command.maessentials.tpr.request": "Teleport request sent to %s!",
-  "command.maessentials.tpr.tpa.target": "Player %s wants to teleport to you.",
-  "command.maessentials.tpr.tpahere.target": "Player %s wants to teleport you to himself.",
-  "command.maessentials.tpr.tpa.accept": "To teleport, type /tpaccept",
-  "command.maessentials.tpr.tpa.deny": "To deny this request, type /tpdeny",
-  "command.maessentials.tpr.tpdeny.request": "Player %s declined your teleport request!",
-  "command.maessentials.tpr.tpdeny.target": "Teleport request declined from player %s!",
+  "setwarp.maessentials.success": "Warp %s set",
+  "setwarp.maessentials.exist": "Warp %s already exist",
 
 
-  "_comment": "Teleport lang",
+  "_comment": "Teleport request",
+  "tpa.maessentials.exist": "You already have pending teleport request to %s",
+  "tpa.maessentials.self": "You can not request teleport to yourself",
+  "tpa.maessentials.not_found": "Teleport request has not been found",
+  "tpa.maessentials.no_request": "You don't have any pending teleport requests",
 
+  "tpa.maessentials.request": "Teleport request sent to %s",
+  "tpa.maessentials.request.target": "Player %s wants to teleport to you",
+  "tpa.maessentials.request.target.accept": "To teleport, type /tpaccept",
+  "tpa.maessentials.request.target.deny": "To deny this request, type /tpdeny",
+
+  "tpahere.maessentials.request.target": "Player %s wants to teleport you to himself",
+
+
+  "_comment": "Mute",
+  "unmmute.maessentials.not_muted": "Player %s is not muted",
+  "unmmute.maessentials.success": "Player %s unmuted",
+  "unmmute.maessentials.success.target": "You have been unmuted",
+
+  "mute.maessentials.already_muted": "Player %s is already muted",
+  "mute.maessentials.provide.time": "Please provide mute time",
+  "mute.maessentials.success": "Player %s muted for %s. Reason: %s",
+  "mute.maessentials.success.target": "You have been muted for %s. Reason: %s",
+  "mute.maessentials.success.perm": "Player %s permanently muted. Reason: %s",
+  "mute.maessentials.success.perm.target": "You have been permanently muted. Reason: %s",
+
+
+  "_comment": "Suicide",
+  "suicide.maessentials.self": "You killed yourself. You can use /back to teleport to your death place!",
+  "suicide.maessentials.player": "You just killed %s",
+  "suicide.maessentials.player.target": "You have been killed by %s. You can use /back to teleport to your death place!",
+
+
+  "_comment": "Heal",
+  "heal.maessentials.self": "You just healed yourself",
+  "heal.maessentials.player": "You just healed %s",
+  "heal.maessentials.player.target": "You have been healed by %s",
+
+
+  "_comment": "GM",
+  "gm.maessentials.invalid": "Invaild gamemode provided",
+  "gm.maessentials.self": "Your gamemode has been changed to %s",
+  "gm.maessentials.player": "You changed gamemode for player %s to %s",
+
+
+  "_comment": "Fly",
+  "fly.maessentials.self.enabled": "You can now fly",
+  "fly.maessentials.self.disabled": "Fly mode disabled",
+  "fly.maessentials.player.enabled": "Fly mode enabled for player %s",
+  "fly.maessentials.player.disabled": "Fly mode disabled for player %",
+
+
+  "_comment": "God",
+  "god.maessentials.self.enabled": "God mode enabled",
+  "god.maessentials.self.disabled": "God mode disabled",
+  "god.maessentials.player.enabled": "God mode enabled for player %s",
+  "god.maessentials.player.disabled": "God mode disabled for player %",
+
+
+  "_comment": "RNDTP",
+  "rndtp.maessentials.not_found": "Couldn't find a safe place to teleport",
+  "rndtp.maessentials.teleport": "Teleporting you to random location...",
+  "rndtp.maessentials.teleport.wait": "Teleporting you to random location, plase wait %s seconds...",
+
+
+  "_comment": "Top",
+  "top.maessentials.teleported": "Teleported to highest location!",
+
+
+  "_comment": "Teleport",
   "teleport.maessentials.active": "You have active teleport!",
   "teleport.maessentials.moved": "You moved, teleport cancelled!",
   "teleport.maessentials.teleported": "Teleported!",
 
   "teleport.maessentials.tpaccept.request": "You have been teleported to %s!",
-  "teleport.maessentials.tpaccept.target": "Player %s has been teleported to you!",
-
   "teleport.maessentials.tpaccept.request.wait": "Teleport accepted, please don't move for next %s seconds!",
+
+  "teleport.maessentials.tpaccept.target": "Player %s has been teleported to you!",
   "teleport.maessentials.tpaccept.target.wait": "Teleport request from %s accepted, waiting for teleportation!",
 
-  "teleport.maessentials.tpr.expired.target": "Teleport request to player %s just expired!",
-  "teleport.maessentials.tpr.expired.request": "Teleport request to from %s just expired!",
+  "teleport.maessentials.tpdeny.request": "Player %s declined your teleport request!",
+  "teleport.maessentials.tpdeny.target": "Teleport request declined from player %s!",
 
-  "teleport.maessentials.tpr.moved.request": "You moved, teleport cancelled!",
-  "teleport.maessentials.tpr.moved.target": "Player %s moved, teleport cancelled!",
+  "teleport.maessentials.expired.target": "Teleport request to player %s just expired!",
+  "teleport.maessentials.expired.request": "Teleport request to from %s just expired!",
 
-
-
-
+  "teleport.maessentials.moved.request": "You moved, teleport cancelled!",
+  "teleport.maessentials.moved.target": "Player %s moved, teleport cancelled!",
 
 
 

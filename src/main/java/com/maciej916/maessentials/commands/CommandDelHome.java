@@ -27,18 +27,18 @@ public class CommandDelHome {
 
     private static int delHome(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(Methods.formatText("command.maessentials.delhome.specify_name", TextFormatting.DARK_RED));
+        player.sendMessage(Methods.formatText("delhome.maessentials.specify_name", TextFormatting.RED));
         return Command.SINGLE_SUCCESS;
     }
 
     private static int delHomeArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String homeName = StringArgumentType.getString(context, "homeName").toString().toLowerCase();
+        String homeName = StringArgumentType.getString(context, "homeName").toLowerCase();
         PlayerData playerData = DataManager.getPlayerData(player);
         if (playerData.delHome(homeName)) {
-            player.sendMessage(Methods.formatText("command.maessentials.delhome.done", TextFormatting.WHITE, homeName));
+            player.sendMessage(Methods.formatText("delhome.maessentials.done", TextFormatting.WHITE, homeName));
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.home.not_exist", TextFormatting.DARK_RED, homeName));
+            player.sendMessage(Methods.formatText("home.maessentials.not_exist", TextFormatting.RED, homeName));
         }
         return Command.SINGLE_SUCCESS;
     }

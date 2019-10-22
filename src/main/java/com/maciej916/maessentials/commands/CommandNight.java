@@ -27,7 +27,7 @@ public class CommandNight {
         ServerPlayerEntity player = context.getSource().asPlayer();
         WorldInfo worldData = world.getWorldInfo();
         world.setDayTime(20000);
-        player.sendMessage(Methods.formatText("command.maessentials.night", TextFormatting.WHITE, worldData.getWorldName()));
+        player.sendMessage(Methods.formatText("night.maessentials.success", TextFormatting.WHITE, worldData.getWorldName()));
         return Command.SINGLE_SUCCESS;
     }
 }

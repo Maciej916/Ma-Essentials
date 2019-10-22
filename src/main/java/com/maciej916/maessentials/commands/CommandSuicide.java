@@ -35,14 +35,14 @@ public class CommandSuicide {
     private static int suicide(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         PlayerData playerData = DataManager.getPlayerData(player);
-        long currentTime = System.currentTimeMillis() / 1000;
-        if (Methods.delayCommand(playerData.getSuicideTime(), ConfigValues.suicide_player_cooldown)) {
+        long cooldown = Methods.delayCommand(playerData.getBacktime(), ConfigValues.suicide_player_cooldown);
+        if (cooldown == 0) {
+            long currentTime = System.currentTimeMillis() / 1000;
             playerData.setSuicideTime(currentTime);
             DataManager.savePlayerData(playerData);
             doSuicide(player, player);
         } else {
-            long timeleft = playerData.getSuicideTime() + ConfigValues.suicide_player_cooldown - currentTime;
-            player.sendMessage(Methods.formatText("command.maessentials.player.cooldown", TextFormatting.DARK_RED, timeleft));
+            player.sendMessage(Methods.formatText("maessentials.cooldown", TextFormatting.RED, cooldown));
         }
         return Command.SINGLE_SUCCESS;
     }
@@ -57,13 +57,13 @@ public class CommandSuicide {
     private static void doSuicide(ServerPlayerEntity player, ServerPlayerEntity targerPlayer) {
         if (player == targerPlayer) {
             player.setHealth(0);
-            player.sendMessage(Methods.formatText("command.maessentials.suicide.self", TextFormatting.WHITE));
+            player.sendMessage(Methods.formatText("suicide.maessentials.self", TextFormatting.WHITE));
             DataManager.getPlayerData(player).setLastLocation(new Location(player));
         } else {
             targerPlayer.setHealth(0);
             DataManager.getPlayerData(player).setLastLocation(new Location(player));
-            player.sendMessage(Methods.formatText("command.maessentials.suicide.player", TextFormatting.WHITE, targerPlayer.getDisplayName()));
-            targerPlayer.sendMessage(Methods.formatText("command.maessentials.suicide.killed", TextFormatting.WHITE, player.getDisplayName()));
+            player.sendMessage(Methods.formatText("suicide.maessentials.player", TextFormatting.WHITE, targerPlayer.getDisplayName()));
+            targerPlayer.sendMessage(Methods.formatText("suicide.maessentials.player.target", TextFormatting.WHITE, player.getDisplayName()));
         }
     }
 }

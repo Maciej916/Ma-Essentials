@@ -30,7 +30,7 @@ public class CommandRain {
         worldData.setThundering(false);
         worldData.setClearWeatherTime(0);
         worldData.setRainTime(6000);
-        player.sendMessage(Methods.formatText("command.maessentials.rain", TextFormatting.WHITE, worldData.getWorldName()));
+        player.sendMessage(Methods.formatText("rain.maessentials.success", TextFormatting.WHITE, worldData.getWorldName()));
         return Command.SINGLE_SUCCESS;
     }
 }

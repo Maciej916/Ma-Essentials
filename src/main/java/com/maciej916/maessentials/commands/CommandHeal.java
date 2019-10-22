@@ -29,7 +29,7 @@ public class CommandHeal {
         player.getFoodStats().setFoodLevel(20);
         player.extinguish();
         player.clearActivePotions();
-        player.sendMessage(Methods.formatText("command.maessentials.heal.self", TextFormatting.WHITE));
+        player.sendMessage(Methods.formatText("heal.maessentials.self", TextFormatting.WHITE));
         return Command.SINGLE_SUCCESS;
     }
 
@@ -43,8 +43,8 @@ public class CommandHeal {
             requestedPlayer.getFoodStats().setFoodLevel(20);
             requestedPlayer.extinguish();
             requestedPlayer.clearActivePotions();
-            player.sendMessage(Methods.formatText("command.maessentials.heal.player", TextFormatting.WHITE, requestedPlayer.getDisplayName()));
-            requestedPlayer.sendMessage(Methods.formatText("command.maessentials.heal.healed\"", TextFormatting.WHITE, player.getDisplayName()));
+            player.sendMessage(Methods.formatText("heal.maessentials.player", TextFormatting.WHITE, requestedPlayer.getDisplayName()));
+            requestedPlayer.sendMessage(Methods.formatText("heal.maessentials.player.target", TextFormatting.WHITE, player.getDisplayName()));
         }
         return Command.SINGLE_SUCCESS;
     }

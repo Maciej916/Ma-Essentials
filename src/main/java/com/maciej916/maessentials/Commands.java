@@ -35,16 +35,6 @@ public class Commands {
             CommandWarp.register(dispatcher);
         }
 
-        // TPA
-        if (event.getServer().isDedicatedServer() || isDev()) {
-            if (ConfigValues.tpa_enable) {
-                CommandTpa.register(dispatcher);
-                CommandTpahere.register(dispatcher);
-                CommandTpdeny.register(dispatcher);
-                CommandTpaccept.register(dispatcher);
-            }
-        }
-
         // Back
         if (ConfigValues.back_enable) {
             CommandBack.register(dispatcher);
@@ -98,10 +88,21 @@ public class Commands {
             CommandTop.register(dispatcher);
         }
 
-        // Mute
-        if (ConfigValues.mute_enable) {
-            CommandMute.register(dispatcher);
-            CommandUnmute.register(dispatcher);
+        // Server
+        if (event.getServer().isDedicatedServer() || isDev()) {
+            // TPA
+            if (ConfigValues.tpa_enable) {
+                CommandTpa.register(dispatcher);
+                CommandTpahere.register(dispatcher);
+                CommandTpdeny.register(dispatcher);
+                CommandTpaccept.register(dispatcher);
+            }
+
+            // Mute
+            if (ConfigValues.mute_enable) {
+                CommandMute.register(dispatcher);
+                CommandUnmute.register(dispatcher);
+            }
         }
     }
 }

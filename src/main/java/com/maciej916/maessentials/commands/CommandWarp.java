@@ -48,34 +48,32 @@ public class CommandWarp {
             warpString.append("-");
         }
 
-        player.sendMessage(Methods.formatText("command.maessentials.warp.list", TextFormatting.WHITE, warps.size(), warpString));
+        player.sendMessage(Methods.formatText("warp.maessentials.list", TextFormatting.WHITE, warps.size(), warpString));
         return Command.SINGLE_SUCCESS;
     }
 
     private static int warpArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         PlayerData playerData = DataManager.getPlayerData(player);
-
         String warpName = StringArgumentType.getString(context, "warpName").toString().toLowerCase();
         Location warpLocation = DataManager.getWarpData().getWarps().get(warpName);
         if (warpLocation != null) {
-            long currentTime = System.currentTimeMillis() / 1000;
-            if (Methods.delayCommand(playerData.getWarpTime(), ConfigValues.warps_cooldown)) {
+            long cooldown = Methods.delayCommand(playerData.getBacktime(), ConfigValues.warps_cooldown);
+            if (cooldown == 0) {
+                long currentTime = System.currentTimeMillis() / 1000;
                 playerData.setWarpTime(currentTime);
                 DataManager.savePlayerData(playerData);
-
                 if (ConfigValues.warps_delay == 0) {
-                    player.sendMessage(Methods.formatText("command.maessentials.warp.teleport", TextFormatting.WHITE, warpName));
+                    player.sendMessage(Methods.formatText("warp.maessentials.success", TextFormatting.WHITE, warpName));
                 } else {
-                    player.sendMessage(Methods.formatText("command.maessentials.warp.teleport.wait", TextFormatting.WHITE, warpName, ConfigValues.warps_delay));
+                    player.sendMessage(Methods.formatText("warp.maessentials.success.wait", TextFormatting.WHITE, warpName, ConfigValues.warps_delay));
                 }
                 Teleport.teleportPlayer(player, warpLocation, true, ConfigValues.warps_delay);
             } else {
-                long timeleft = playerData.getWarpTime() + ConfigValues.warps_cooldown - currentTime;
-                player.sendMessage(Methods.formatText("command.maessentials.player.cooldown", TextFormatting.DARK_RED, timeleft));
+                player.sendMessage(Methods.formatText("maessentials.cooldown", TextFormatting.RED, cooldown));
             }
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.warp.not_exist", TextFormatting.DARK_RED, warpName));
+            player.sendMessage(Methods.formatText("warp.maessentials.not_exist", TextFormatting.RED, warpName));
         }
         return Command.SINGLE_SUCCESS;
     }

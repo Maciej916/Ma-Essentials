@@ -1,6 +1,7 @@
 package com.maciej916.maessentials.libs;
 
 import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.minecraft.command.CommandSource;
@@ -52,12 +53,13 @@ public class Methods {
         return false;
     }
 
-    public static boolean delayCommand(long time, int cooldown) {
+    public static long delayCommand(long time, int cooldown) {
         long currentTime = System.currentTimeMillis() / 1000;
         if (cooldown == 0 || time + cooldown < currentTime) {
-            return true;
+            return 0;
         } else {
-            return false;
+            long timeleft = time + cooldown - currentTime;
+            return timeleft;
         }
     }
 }

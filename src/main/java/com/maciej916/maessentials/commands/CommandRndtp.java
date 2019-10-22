@@ -17,7 +17,6 @@ import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
@@ -39,22 +38,22 @@ public class CommandRndtp {
         PlayerData playerData = DataManager.getPlayerData(player);
         Location randomLocation = findRandomTp(world, player, 0);
         if (randomLocation != null) {
-            long currentTime = System.currentTimeMillis() / 1000;
-            if (Methods.delayCommand(playerData.getRndtpTime(), ConfigValues.rndtp_cooldown)) {
+            long cooldown = Methods.delayCommand(playerData.getBacktime(), ConfigValues.rndtp_cooldown);
+            if (cooldown == 0) {
+                long currentTime = System.currentTimeMillis() / 1000;
                 playerData.setRndtpTime(currentTime);
                 DataManager.savePlayerData(playerData);
                 if (ConfigValues.rndtp_delay == 0) {
-                    player.sendMessage(Methods.formatText("command.maessentials.rndtp.teleport", TextFormatting.WHITE));
+                    player.sendMessage(Methods.formatText("rndtp.maessentials.teleport", TextFormatting.WHITE));
                 } else {
-                    player.sendMessage(Methods.formatText("command.maessentials.rndtp.teleport.wait", TextFormatting.WHITE, ConfigValues.rndtp_delay));
+                    player.sendMessage(Methods.formatText("rndtp.maessentials.teleport.wait", TextFormatting.WHITE, ConfigValues.rndtp_delay));
                 }
                 Teleport.teleportPlayer(player, randomLocation, true, ConfigValues.rndtp_delay);
             } else {
-                long timeleft = playerData.getRndtpTime() + ConfigValues.rndtp_cooldown - currentTime;
-                player.sendMessage(Methods.formatText("command.maessentials.player.cooldown", TextFormatting.DARK_RED, timeleft));
+                player.sendMessage(Methods.formatText("maessentials.cooldown", TextFormatting.RED, cooldown));
             }
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.rndtp.nptfound", TextFormatting.DARK_RED));
+            player.sendMessage(Methods.formatText("rndtp.maessentials.not_found", TextFormatting.RED));
         }
         return Command.SINGLE_SUCCESS;
     }

@@ -1,9 +1,8 @@
 package com.maciej916.maessentials.commands;
 
-import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
-import com.maciej916.maessentials.libs.Log;
+import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -34,7 +33,7 @@ public class CommandSetHome {
 
     private static int setHomeArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String args = StringArgumentType.getString(context, "homeName").toString().toLowerCase();
+        String args = StringArgumentType.getString(context, "homeName").toLowerCase();
         handleSetHome(player, args);
         return Command.SINGLE_SUCCESS;
     }
@@ -43,9 +42,9 @@ public class CommandSetHome {
         PlayerData playerData = DataManager.getPlayerData(player);
         if ((playerData.getHomes().size() < ConfigValues.homes_limit)  || (playerData.getHomes().size() == ConfigValues.homes_limit && playerData.getHomes().get(homeName) != null)) {
             playerData.setHome(player, homeName);
-            player.sendMessage(new TranslationTextComponent("command.maessentials.sethome.set", homeName, true));
+            player.sendMessage(new TranslationTextComponent("sethome.maessentials.done", homeName, true));
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.sethome.max", TextFormatting.DARK_RED, ConfigValues.homes_limit));
+            player.sendMessage(Methods.formatText("sethome.maessentials.max_homes", TextFormatting.RED, ConfigValues.homes_limit));
        }
     }
 }

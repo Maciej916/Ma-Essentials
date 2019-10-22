@@ -32,9 +32,9 @@ public class CommandTpaccept {
             Teleport tpr = teleports.get(0);
             Teleport.acceptTeleport(tpr);
         } else if (teleports.size() > 1) {
-            player.sendMessage(Methods.formatText("command.maessentials.player.specify", TextFormatting.DARK_RED));
+            player.sendMessage(Methods.formatText("maessentials.specify.player", TextFormatting.RED));
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.tpr.no_request", TextFormatting.DARK_RED));
+            player.sendMessage(Methods.formatText("tpa.maessentials.no_request", TextFormatting.RED));
         }
         return Command.SINGLE_SUCCESS;
     }
@@ -46,7 +46,7 @@ public class CommandTpaccept {
         if (tpr != null) {
             Teleport.acceptTeleport(tpr);
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.tpr.not_found", TextFormatting.DARK_RED));
+            player.sendMessage(Methods.formatText("tpa.maessentials.not_found", TextFormatting.RED));
         }
         return Command.SINGLE_SUCCESS;
     }

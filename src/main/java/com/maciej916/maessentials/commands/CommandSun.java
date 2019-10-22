@@ -30,7 +30,7 @@ public class CommandSun {
         worldData.setThundering(false);
         worldData.setClearWeatherTime(10000);
         worldData.setRainTime(0);
-        player.sendMessage(Methods.formatText("command.maessentials.sun", TextFormatting.WHITE, worldData.getWorldName()));
+        player.sendMessage(Methods.formatText("sun.maessentials.success", TextFormatting.WHITE, worldData.getWorldName()));
         return Command.SINGLE_SUCCESS;
     }
 }

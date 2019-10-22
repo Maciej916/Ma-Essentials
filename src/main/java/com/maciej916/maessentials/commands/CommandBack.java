@@ -29,22 +29,22 @@ public class CommandBack {
         PlayerData playerData = DataManager.getPlayerData(player);
         Location lastLocation = playerData.getLastLocation();
         if (lastLocation != null) {
-            long currentTime = System.currentTimeMillis() / 1000;
-            if (Methods.delayCommand(playerData.getBacktime(), ConfigValues.back_cooldown)) {
+            long cooldown = Methods.delayCommand(playerData.getBacktime(), ConfigValues.back_cooldown);
+            if (cooldown == 0) {
+                long currentTime = System.currentTimeMillis() / 1000;
                 playerData.setBacktime(currentTime);
                 DataManager.savePlayerData(playerData);
-                if ( ConfigValues.back_delay == 0) {
-                    player.sendMessage(Methods.formatText("command.maessentials.back.success", TextFormatting.WHITE));
+                if (ConfigValues.back_delay == 0) {
+                    player.sendMessage(Methods.formatText("back.maessentials.success", TextFormatting.WHITE));
                 } else {
-                    player.sendMessage(Methods.formatText("command.maessentials.back.success.wait", TextFormatting.WHITE, ConfigValues.back_delay));
+                    player.sendMessage(Methods.formatText("back.maessentials.success.wait", TextFormatting.WHITE, ConfigValues.back_delay));
                 }
                 Teleport.teleportPlayer(player, lastLocation, true, ConfigValues.back_delay);
             } else {
-                long timeleft = playerData.getBacktime() + ConfigValues.back_cooldown - currentTime;
-                player.sendMessage(Methods.formatText("command.maessentials.player.cooldown", TextFormatting.DARK_RED, timeleft));
+                player.sendMessage(Methods.formatText("maessentials.cooldown", TextFormatting.RED, cooldown));
             }
         } else {
-            player.sendMessage(Methods.formatText("command.maessentials.back.failed", TextFormatting.DARK_RED));
+            player.sendMessage(Methods.formatText("back.maessentials.not_found", TextFormatting.RED));
         }
         return Command.SINGLE_SUCCESS;
     }

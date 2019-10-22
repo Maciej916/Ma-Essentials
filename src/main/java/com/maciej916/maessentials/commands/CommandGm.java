@@ -38,13 +38,13 @@ public class CommandGm {
 
     private static int gm(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(Methods.formatText("command.maessentials.player.provide", TextFormatting.DARK_RED));
+        player.sendMessage(Methods.formatText("maessentials.provide.player", TextFormatting.RED));
         return Command.SINGLE_SUCCESS;
     }
 
     private static int gmSelf(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String args = StringArgumentType.getString(context, "gamemode").toString().toLowerCase();
+        String args = StringArgumentType.getString(context, "gamemode").toLowerCase();
         gmManage(player, player, args);
         return Command.SINGLE_SUCCESS;
     }
@@ -52,7 +52,7 @@ public class CommandGm {
     private static int gmOthers(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-        String args = StringArgumentType.getString(context, "gamemode").toString().toLowerCase();
+        String args = StringArgumentType.getString(context, "gamemode").toLowerCase();
         gmManage(player, requestedPlayer, args);
         return Command.SINGLE_SUCCESS;
     }
@@ -85,15 +85,15 @@ public class CommandGm {
                 }
                 break;
             default :
-                player.sendMessage(Methods.formatText("command.maessentials.gm.invalid", TextFormatting.DARK_RED));
+                player.sendMessage(Methods.formatText("gm.maessentials.invalid", TextFormatting.RED));
         }
 
         if (newGm != null) {
             if (player == targetPlayer) {
-                player.sendMessage(Methods.formatText("command.maessentials.gm.set.self", TextFormatting.WHITE, newGm));
+                player.sendMessage(Methods.formatText("gm.maessentials.self", TextFormatting.WHITE, newGm));
             } else {
-                player.sendMessage(Methods.formatText("command.maessentials.gm.set.other", TextFormatting.WHITE, targetPlayer.getDisplayName(), newGm));
-                targetPlayer.sendMessage(Methods.formatText("command.maessentials.gm.set.self", TextFormatting.WHITE, newGm));
+                player.sendMessage(Methods.formatText("gm.maessentials.player", TextFormatting.WHITE, targetPlayer.getDisplayName(), newGm));
+                targetPlayer.sendMessage(Methods.formatText("gm.maessentials.self", TextFormatting.WHITE, newGm));
             }
         }
     }

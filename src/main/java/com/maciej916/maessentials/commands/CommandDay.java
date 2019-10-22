@@ -27,7 +27,7 @@ public class CommandDay {
         ServerPlayerEntity player = context.getSource().asPlayer();
         WorldInfo worldData = world.getWorldInfo();
         world.setDayTime(2000);
-        player.sendMessage(Methods.formatText("command.maessentials.day", TextFormatting.WHITE, worldData.getWorldName()));
+        player.sendMessage(Methods.formatText("day.maessentials.success", TextFormatting.WHITE, worldData.getWorldName()));
         return Command.SINGLE_SUCCESS;
     }
 }
