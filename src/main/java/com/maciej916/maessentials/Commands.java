@@ -88,6 +88,11 @@ public class Commands {
             CommandTop.register(dispatcher);
         }
 
+        // Kits
+        if (ConfigValues.kits_enable) {
+            CommandKit.register(dispatcher);
+        }
+
         // Server
         if (event.getServer().isDedicatedServer() || isDev()) {
             // TPA
@@ -104,5 +109,8 @@ public class Commands {
                 CommandUnmute.register(dispatcher);
             }
         }
+
+        // Reload
+        CommandMaeReload.register(dispatcher);
     }
 }

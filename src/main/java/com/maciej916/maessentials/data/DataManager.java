@@ -93,7 +93,20 @@ public class DataManager {
 
     public static void removeWarp(String name) {
         Log.debug("Removing warp: " + name);
-        File file = new File(Config.getMainCatalog()+"warps/" + name + ".json");
+        File file = new File(Config.getWorldCatalog()+"warps/" + name + ".json");
         file.delete();
     }
+
+    // Kits Data
+
+    private static KitsData kitsData = new KitsData();
+
+    public static void setKitsData(KitsData data) {
+        kitsData = data;
+    }
+
+    public static KitsData getKitsData() {
+        return kitsData;
+    }
+
 }

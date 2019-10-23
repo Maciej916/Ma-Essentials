@@ -43,6 +43,9 @@ public class PlayerData {
     @SerializedName("mute_reason")
     private String muteReason;
 
+    @SerializedName("kit_usage_time")
+    private HashMap<String, Long> kitUsage = new HashMap<>();
+
     public PlayerData() { }
 
     public UUID getPlayerUUID() {
@@ -167,6 +170,14 @@ public class PlayerData {
 
     public long getMuteTime() {
         return muteTime;
+    }
+
+    public Long getKitUsage(String kitName) {
+        return kitUsage.get(kitName);
+    }
+
+    public void setKitUsage(String kitName, long time) {
+        kitUsage.put(kitName, time);
     }
 }
 

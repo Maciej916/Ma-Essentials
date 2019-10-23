@@ -32,7 +32,6 @@ public class CommandWarp {
 
     private static int warp(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-
         Set<String> warps =  DataManager.getWarpData().getWarps().keySet();
         StringBuilder warpString = new StringBuilder();
         if (warps.size() != 0) {
@@ -47,7 +46,6 @@ public class CommandWarp {
         } else {
             warpString.append("-");
         }
-
         player.sendMessage(Methods.formatText("warp.maessentials.list", TextFormatting.WHITE, warps.size(), warpString));
         return Command.SINGLE_SUCCESS;
     }
@@ -55,7 +53,7 @@ public class CommandWarp {
     private static int warpArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         PlayerData playerData = DataManager.getPlayerData(player);
-        String warpName = StringArgumentType.getString(context, "warpName").toString().toLowerCase();
+        String warpName = StringArgumentType.getString(context, "warpName").toLowerCase();
         Location warpLocation = DataManager.getWarpData().getWarps().get(warpName);
         if (warpLocation != null) {
             long cooldown = Methods.delayCommand(playerData.getBacktime(), ConfigValues.warps_cooldown);

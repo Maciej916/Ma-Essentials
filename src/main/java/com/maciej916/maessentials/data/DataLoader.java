@@ -20,6 +20,7 @@ public class DataLoader {
         DataManager.cleanWarpData();
 
         loadModData(event);
+        loadKitsData();
         loadWarps();
 
         loadPlayerData();
@@ -29,7 +30,7 @@ public class DataLoader {
     }
 
     private static ArrayList<String> loadCatalog(String catalog) {
-        File folder = new File(Config.getMainCatalog() + catalog);
+        File folder = new File(Config.getWorldCatalog() + catalog);
         File[] listOfFiles = folder.listFiles();
         ArrayList<String> data = new ArrayList<>();
         if (listOfFiles != null) {
@@ -44,7 +45,7 @@ public class DataLoader {
     }
 
     private static void loadModData(FMLServerStartingEvent event) {
-        if (new File(Config.getMainCatalog() + "data.json").isFile()) {
+        if (new File(Config.getWorldCatalog() + "data.json").isFile()) {
             Log.debug("Loading mod data");
             ModData modData = new ModData();
             modData = (ModData) Json.load("data", modData);
@@ -54,6 +55,18 @@ public class DataLoader {
             Location spawnLocation = new Location(worldData.getSpawnX(), worldData.getSpawnY(), worldData.getSpawnZ(), 0);
             DataManager.getModData().setSpawnPoint(spawnLocation);
             DataManager.saveModData();
+        }
+    }
+
+    private static void loadKitsData() {
+        try {
+            Log.debug("Loading kits data");
+            KitsData kitsData = new KitsData();
+            kitsData = (KitsData) Json.load("kits", kitsData);
+            DataManager.setKitsData(kitsData);
+        } catch (Exception e) {
+            Log.err("Error while loading kits");
+            System.out.println(e);
         }
     }
 

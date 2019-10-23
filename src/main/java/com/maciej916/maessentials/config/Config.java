@@ -2,17 +2,26 @@ package com.maciej916.maessentials.config;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
+import com.maciej916.maessentials.MaEssentials;
 import com.maciej916.maessentials.libs.Log;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.loading.FMLPaths;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+
+import static org.apache.logging.log4j.core.util.Loader.getClassLoader;
 
 public class Config {
     private static final ForgeConfigSpec.Builder server = new ForgeConfigSpec.Builder();
     private static final ForgeConfigSpec config;
     private static String mainCatalog;
+    private static String worldCatalog;
     private final static int MAX = Integer.MAX_VALUE;
 
     // Spawn
@@ -78,6 +87,11 @@ public class Config {
 
     // Mute
     public static ForgeConfigSpec.BooleanValue mute_enable;
+
+    // Kits
+    public static ForgeConfigSpec.BooleanValue kits_enable;
+    public static ForgeConfigSpec.BooleanValue kits_starting;
+    public static ForgeConfigSpec.ConfigValue<String> kits_starting_name;
 
 
     static {
@@ -212,6 +226,15 @@ public class Config {
                 .comment("Enable commands: /mute, /unmute")
                 .define("enable", true);
         server.pop();
+
+        // Kits
+        server.push("kits");
+        kits_enable = server
+                .comment("Enable command: /kit")
+                .define("enable", true);
+        kits_starting = server.define("starting_kit", true);
+        kits_starting_name = server.define("starting_kit_name", "tools");
+        server.pop();
     }
 
     public static void loadConfig() {
@@ -227,21 +250,50 @@ public class Config {
 
     public static void setupMainCatalog(FMLServerStartingEvent event) {
         Log.debug("Creating main catalog");
+
+        mainCatalog = System.getProperty("user.dir") + "/ma-essentials/";
         if (event.getServer().isDedicatedServer()) {
             Log.debug("Mod is running on server");
-            mainCatalog = System.getProperty("user.dir") + "/ma-essentials/";
+            worldCatalog = mainCatalog;
         } else {
             Log.debug("Mod is running on client");
-            mainCatalog = System.getProperty("user.dir") + "/saves/" + event.getServer().getFolderName() + "/ma-essentials/";
+            worldCatalog = System.getProperty("user.dir") + "/saves/" + event.getServer().getFolderName() + "/ma-essentials/";
         }
         Log.debug("Main catalog is: " + mainCatalog);
-        new File(mainCatalog).mkdirs();
-        new File(mainCatalog + "homes").mkdirs();
-        new File(mainCatalog + "warps").mkdirs();
-        new File(mainCatalog + "players").mkdirs();
+
+        try {
+            Log.debug("Creating main catalogs and files");
+
+            new File(mainCatalog).mkdirs();
+            new File(worldCatalog).mkdirs();
+            new File(worldCatalog + "homes").mkdirs();
+            new File(worldCatalog + "warps").mkdirs();
+            new File(worldCatalog + "players").mkdirs();
+
+            File file = new File(MaEssentials.class.getClassLoader().getResource("default_kits.json").getFile());
+            File dest = new File(mainCatalog + "default_kits.json");
+            if (!dest.exists()) {
+                Log.debug("Creating default kit file");
+                Files.copy(file.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+
+            File destWorld = new File(worldCatalog + "kits.json");
+            if (!destWorld.exists()) {
+                Log.debug("Kit file not exist, creating");
+                Files.copy(dest.toPath(), destWorld.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+
+        } catch (Exception e) {
+            Log.debug("Error making files");
+            System.out.println(e);
+        }
     }
 
     public static String getMainCatalog() {
         return mainCatalog;
+    }
+
+    public static String getWorldCatalog() {
+        return worldCatalog;
     }
 }

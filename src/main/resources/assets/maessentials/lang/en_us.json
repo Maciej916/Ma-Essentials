@@ -149,6 +149,23 @@
   "teleport.maessentials.moved.target": "Player %s moved, teleport cancelled!",
 
 
+  "_comment": "Reload",
+  "maereload.maessentials.done": "Mod data reloaded, please keep in mind this command does not reload configuration!",
+
+
+  "_comment": "Kit",
+  "kit.maessentials.parse_error": "Failed to parse item for this kit. Please contact with server operator!",
+  "kit.maessentials.not_exist": "Kit \"%s\" does not exist!",
+  "kit.maessentials.wait": "You need to wait %s before taking this kit!",
+
+  "kit.maessentials.list": "Kits available: %s",
+  "kit.maessentials.received": "Received kit %s.",
+
+
+
+
+
+
 
 
 

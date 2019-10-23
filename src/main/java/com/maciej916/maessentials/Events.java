@@ -49,9 +49,15 @@ public class Events {
             playerData.setPlayerUUID(playerUUID);
             DataManager.savePlayerData(playerData);
 
-            Location spawnLocation = DataManager.getModData().getSpawnPoint();
-            if (spawnLocation != null) {
-                Teleport.doTeleport(player, DataManager.getModData().getSpawnPoint(), true);
+            if (ConfigValues.kits_starting) {
+                Methods.giveKit(player, ConfigValues.kits_starting_name);
+            }
+
+            if (player.getServer().isDedicatedServer()) {
+                Location spawnLocation = DataManager.getModData().getSpawnPoint();
+                if (spawnLocation != null) {
+                    Teleport.doTeleport(player, DataManager.getModData().getSpawnPoint(), true);
+                }
             }
         }
     }

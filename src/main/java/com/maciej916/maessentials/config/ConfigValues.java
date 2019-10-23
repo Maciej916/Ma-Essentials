@@ -65,6 +65,12 @@ public class ConfigValues {
     // Mute
     public static Boolean mute_enable;
 
+    // Kits
+    public static Boolean kits_enable;
+    public static Boolean kits_starting;
+    public static String kits_starting_name;
+
+
     public static void init() {
         // Spawn
         spawn_enable = Config.spawn_enable.get();
@@ -129,5 +135,10 @@ public class ConfigValues {
 
         // Mute
         mute_enable = Config.mute_enable.get();
+
+        // Kits
+        kits_enable = Config.kits_enable.get();
+        kits_starting = Config.kits_starting.get();
+        kits_starting_name = Config.kits_starting_name.get();
     }
 }

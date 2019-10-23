@@ -9,7 +9,7 @@ import java.io.*;
 public class Json {
 
     public static void save(Object saveClass, String fileName) {
-        try (Writer writer = new FileWriter(Config.getMainCatalog() + fileName + ".json")) {
+        try (Writer writer = new FileWriter(Config.getWorldCatalog() + fileName + ".json")) {
             Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
             gson.toJson(saveClass, writer);
         } catch (IOException ioe) {
@@ -19,7 +19,7 @@ public class Json {
 
     public static Object load(String fileName, Object object) {
         Gson gson = new Gson();
-        try (Reader reader = new FileReader(Config.getMainCatalog() + fileName + ".json")) {
+        try (Reader reader = new FileReader(Config.getWorldCatalog() + fileName + ".json")) {
             return gson.fromJson(reader, object.getClass());
         } catch (IOException e) {
             e.printStackTrace();
