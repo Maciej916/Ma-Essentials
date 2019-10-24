@@ -9,8 +9,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -249,20 +248,22 @@ public class Config {
     }
 
     public static void setupMainCatalog(FMLServerStartingEvent event) {
-        Log.debug("Creating main catalog");
+        Log.log("Creating main catalog");
 
         mainCatalog = System.getProperty("user.dir") + "/ma-essentials/";
         if (event.getServer().isDedicatedServer()) {
-            Log.debug("Mod is running on server");
+            Log.log("Mod is running on server");
             worldCatalog = mainCatalog;
         } else {
-            Log.debug("Mod is running on client");
+            Log.log("Mod is running on client");
             worldCatalog = System.getProperty("user.dir") + "/saves/" + event.getServer().getFolderName() + "/ma-essentials/";
         }
+
         Log.debug("Main catalog is: " + mainCatalog);
+        Log.debug("World catalog is: " + worldCatalog);
 
         try {
-            Log.debug("Creating main catalogs and files");
+            Log.log("Creating main catalogs and files");
 
             new File(mainCatalog).mkdirs();
             new File(worldCatalog).mkdirs();
@@ -270,21 +271,23 @@ public class Config {
             new File(worldCatalog + "warps").mkdirs();
             new File(worldCatalog + "players").mkdirs();
 
-            File file = new File(MaEssentials.class.getClassLoader().getResource("default_kits.json").getFile());
-            File dest = new File(mainCatalog + "default_kits.json");
-            if (!dest.exists()) {
-                Log.debug("Creating default kit file");
-                Files.copy(file.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            }
+            Log.log("Copy default copy default config");
+
+            InputStream initialStream = MaEssentials.class.getResourceAsStream("/default_kits.json");
+            byte[] buffer = new byte[initialStream.available()];
+            initialStream.read(buffer);
+            File targetFile = new File(mainCatalog + "default_kits.json");
+            OutputStream outStream = new FileOutputStream(targetFile);
+            outStream.write(buffer);
 
             File destWorld = new File(worldCatalog + "kits.json");
             if (!destWorld.exists()) {
-                Log.debug("Kit file not exist, creating");
-                Files.copy(dest.toPath(), destWorld.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                Log.log("Kit file not exist, creating from default");
+                Files.copy(targetFile.toPath(), destWorld.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
 
         } catch (Exception e) {
-            Log.debug("Error making files");
+            Log.log("Error making files");
             System.out.println(e);
         }
     }
