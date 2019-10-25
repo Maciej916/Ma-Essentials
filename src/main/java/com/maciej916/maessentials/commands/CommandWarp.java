@@ -56,7 +56,7 @@ public class CommandWarp {
         String warpName = StringArgumentType.getString(context, "warpName").toLowerCase();
         Location warpLocation = DataManager.getWarpData().getWarps().get(warpName);
         if (warpLocation != null) {
-            long cooldown = Methods.delayCommand(playerData.getBacktime(), ConfigValues.warps_cooldown);
+            long cooldown = Methods.delayCommand(playerData.getWarpTime(), ConfigValues.warps_cooldown);
             if (cooldown == 0) {
                 long currentTime = System.currentTimeMillis() / 1000;
                 playerData.setWarpTime(currentTime);

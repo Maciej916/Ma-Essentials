@@ -35,7 +35,7 @@ public class CommandSuicide {
     private static int suicide(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         PlayerData playerData = DataManager.getPlayerData(player);
-        long cooldown = Methods.delayCommand(playerData.getBacktime(), ConfigValues.suicide_player_cooldown);
+        long cooldown = Methods.delayCommand(playerData.getSuicideTime(), ConfigValues.suicide_player_cooldown);
         if (cooldown == 0) {
             long currentTime = System.currentTimeMillis() / 1000;
             playerData.setSuicideTime(currentTime);

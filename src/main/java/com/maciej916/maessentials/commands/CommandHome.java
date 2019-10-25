@@ -45,7 +45,7 @@ public class CommandHome {
         PlayerData playerData = DataManager.getPlayerData(player);
         Location homeLocation = playerData.getHomes().get(homeName);
         if (homeLocation != null) {
-            long cooldown = Methods.delayCommand(playerData.getBacktime(), ConfigValues.homes_cooldown);
+            long cooldown = Methods.delayCommand(playerData.getHomeTime(), ConfigValues.homes_cooldown);
             if (cooldown == 0) {
                 long currentTime = System.currentTimeMillis() / 1000;
                 playerData.setHomeTime(currentTime);

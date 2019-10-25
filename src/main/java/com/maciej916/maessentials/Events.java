@@ -30,7 +30,9 @@ public class Events {
                 player.sendMessage(Methods.formatText("back.maessentials.death", TextFormatting.WHITE));
                 Location deathLocation = new Location(player);
                 deathLocation.y++;
-                DataManager.getPlayerData(player).setLastLocation(deathLocation);
+                PlayerData playerData = DataManager.getPlayerData(player);
+                playerData.setLastLocation(deathLocation);
+                DataManager.savePlayerData(playerData);
             }
         }
     }
@@ -56,7 +58,7 @@ public class Events {
             if (player.getServer().isDedicatedServer()) {
                 Location spawnLocation = DataManager.getModData().getSpawnPoint();
                 if (spawnLocation != null) {
-                    Teleport.doTeleport(player, DataManager.getModData().getSpawnPoint(), true);
+                    Teleport.doTeleport(player, DataManager.getModData().getSpawnPoint(), true, false);
                 }
             }
         }
@@ -72,7 +74,7 @@ public class Events {
     @SubscribeEvent
     public static void opPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
-        Teleport.doTeleport(player, DataManager.getModData().getSpawnPoint(), true);
+        Teleport.doTeleport(player, DataManager.getModData().getSpawnPoint(), true, false);
     }
 
     @SubscribeEvent

@@ -38,7 +38,7 @@ public class CommandRndtp {
         PlayerData playerData = DataManager.getPlayerData(player);
         Location randomLocation = findRandomTp(world, player, 0);
         if (randomLocation != null) {
-            long cooldown = Methods.delayCommand(playerData.getBacktime(), ConfigValues.rndtp_cooldown);
+            long cooldown = Methods.delayCommand(playerData.getRndtpTime(), ConfigValues.rndtp_cooldown);
             if (cooldown == 0) {
                 long currentTime = System.currentTimeMillis() / 1000;
                 playerData.setRndtpTime(currentTime);

@@ -39,7 +39,7 @@ public class CommandTpa{
             Teleport tpr = Teleport.findTeleportRequest(player, player, requestedPlayer);
             if (tpr == null) {
                 PlayerData playerData = DataManager.getPlayerData(player);
-                long cooldown = Methods.delayCommand(playerData.getBacktime(), ConfigValues.tpa_cooldown);
+                long cooldown = Methods.delayCommand(playerData.getTeleportRequestTime(), ConfigValues.tpa_cooldown);
                 if (cooldown == 0) {
                     long currentTime = System.currentTimeMillis() / 1000;
                     playerData.setTeleportRequestTime(currentTime);

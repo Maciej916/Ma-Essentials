@@ -27,7 +27,7 @@ public class CommandSpawn {
     private static int spawn(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         PlayerData playerData = DataManager.getPlayerData(player);
-        long cooldown = Methods.delayCommand(playerData.getBacktime(), ConfigValues.homes_cooldown);
+        long cooldown = Methods.delayCommand(playerData.getSpawnTime(), ConfigValues.homes_cooldown);
         if (cooldown == 0) {
             long currentTime = System.currentTimeMillis() / 1000;
             playerData.setSpawnTime(currentTime);
