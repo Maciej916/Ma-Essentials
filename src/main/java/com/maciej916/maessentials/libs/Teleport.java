@@ -172,10 +172,6 @@ public class Teleport {
             DataManager.savePlayerData(playerData);
         }
 
-        if (player.dimension == DimensionType.THE_END && loc.getDimension() == DimensionType.OVERWORLD) {
-            player.queuedEndExit = true;
-        }
-
         ServerWorld worldDest = player.server.getWorld(loc.getDimension());
         if (exact) {
             player.teleport(worldDest, loc.x, loc.y, loc.z, loc.rotationYaw, loc.rotationPitch);

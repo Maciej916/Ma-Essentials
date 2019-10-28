@@ -72,9 +72,11 @@ public class Events {
     }
 
     @SubscribeEvent
-    public static void opPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-        ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
-        Teleport.doTeleport(player, DataManager.getModData().getSpawnPoint(), true, false);
+    public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        if (ConfigValues.spawn_force_on_death) {
+            ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
+            Teleport.doTeleport(player, DataManager.getModData().getSpawnPoint(), true, false);
+        }
     }
 
     @SubscribeEvent
@@ -104,5 +106,4 @@ public class Events {
             event.setCanceled(true);
         }
     }
-
 }

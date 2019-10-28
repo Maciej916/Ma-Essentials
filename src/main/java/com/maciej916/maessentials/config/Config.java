@@ -27,6 +27,7 @@ public class Config {
     public static ForgeConfigSpec.BooleanValue spawn_enable;
     public static ForgeConfigSpec.IntValue spawn_delay;
     public static ForgeConfigSpec.IntValue spawn_cooldown;
+    public static ForgeConfigSpec.BooleanValue spawn_force_on_death;
 
     // Homes
     public static ForgeConfigSpec.BooleanValue homes_enable;
@@ -109,6 +110,7 @@ public class Config {
                 .define("enable", true);
             spawn_delay = server.defineInRange("delay", 3, 0, MAX);
             spawn_cooldown = server.defineInRange("cooldown",	0, 0, MAX);
+            spawn_force_on_death = server.define("force_spawn_on_death", false);
         server.pop();
 
         // Homes
@@ -247,8 +249,33 @@ public class Config {
         ConfigValues.init();
     }
 
-    public static void setupMainCatalog(FMLServerStartingEvent event) {
-        Log.log("Creating main catalog");
+    public static void setupMainCatalog() {
+        Log.log("Setup main catalog");
+        mainCatalog = System.getProperty("user.dir") + "/ma-essentials/";
+        Log.debug("Main catalog is: " + mainCatalog);
+        try {
+            Log.log("Creating main catalogs and files");
+
+            new File(mainCatalog).mkdirs();
+
+            File targetFile = new File(mainCatalog + "default_kits.json");
+            if (!targetFile.exists()) {
+                Log.log("Creating default_kits.json in main catalog");
+
+                InputStream initialStream = MaEssentials.class.getResourceAsStream("/default_kits.json");
+                byte[] buffer = new byte[initialStream.available()];
+                initialStream.read(buffer);
+                OutputStream outStream = new FileOutputStream(targetFile);
+                outStream.write(buffer);
+            }
+        } catch (Exception e) {
+            Log.log("Error in setupMainCatalog");
+            System.out.println(e);
+        }
+    }
+
+    public static void setupWorldCatalog(FMLServerStartingEvent event) {
+        Log.log("Setup world catalog");
 
         mainCatalog = System.getProperty("user.dir") + "/ma-essentials/";
         if (event.getServer().isDedicatedServer()) {
@@ -259,35 +286,24 @@ public class Config {
             worldCatalog = System.getProperty("user.dir") + "/saves/" + event.getServer().getFolderName() + "/ma-essentials/";
         }
 
-        Log.debug("Main catalog is: " + mainCatalog);
         Log.debug("World catalog is: " + worldCatalog);
 
         try {
-            Log.log("Creating main catalogs and files");
+            Log.log("Creating world catalogs and files");
 
-            new File(mainCatalog).mkdirs();
             new File(worldCatalog).mkdirs();
             new File(worldCatalog + "homes").mkdirs();
             new File(worldCatalog + "warps").mkdirs();
             new File(worldCatalog + "players").mkdirs();
 
-            Log.log("Copy default copy default config");
-
-            InputStream initialStream = MaEssentials.class.getResourceAsStream("/default_kits.json");
-            byte[] buffer = new byte[initialStream.available()];
-            initialStream.read(buffer);
             File targetFile = new File(mainCatalog + "default_kits.json");
-            OutputStream outStream = new FileOutputStream(targetFile);
-            outStream.write(buffer);
-
             File destWorld = new File(worldCatalog + "kits.json");
             if (!destWorld.exists()) {
                 Log.log("Kit file not exist, creating from default");
                 Files.copy(targetFile.toPath(), destWorld.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
-
         } catch (Exception e) {
-            Log.log("Error making files");
+            Log.log("Error in setupWorldCatalog");
             System.out.println(e);
         }
     }

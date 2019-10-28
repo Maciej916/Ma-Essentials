@@ -5,6 +5,7 @@ public class ConfigValues {
     public static Boolean spawn_enable;
     public static Integer spawn_delay;
     public static Integer spawn_cooldown;
+    public static Boolean spawn_force_on_death;
 
     // Homes
     public static Boolean homes_enable;
@@ -76,6 +77,7 @@ public class ConfigValues {
         spawn_enable = Config.spawn_enable.get();
         spawn_delay = Config.spawn_delay.get();
         spawn_cooldown = Config.spawn_cooldown.get();
+        spawn_force_on_death = Config.spawn_force_on_death.get();
 
         // Homes
         homes_enable = Config.homes_enable.get();

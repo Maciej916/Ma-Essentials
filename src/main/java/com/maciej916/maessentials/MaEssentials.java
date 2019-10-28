@@ -30,11 +30,12 @@ public class MaEssentials
 
     private void setup(final FMLCommonSetupEvent event) {
         Config.loadConfig();
+        Config.setupMainCatalog();
     }
 
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
-        Config.setupMainCatalog(event);
+        Config.setupWorldCatalog(event);
         DataLoader.init(event);
     }
 }
