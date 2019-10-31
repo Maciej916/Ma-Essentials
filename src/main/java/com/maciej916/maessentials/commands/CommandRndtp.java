@@ -44,16 +44,16 @@ public class CommandRndtp {
                 playerData.setRndtpTime(currentTime);
                 DataManager.savePlayerData(playerData);
                 if (ConfigValues.rndtp_delay == 0) {
-                    player.sendMessage(Methods.formatText("rndtp.maessentials.teleport", TextFormatting.WHITE));
+                    player.sendMessage(Methods.formatText("rndtp.maessentials.teleport"));
                 } else {
-                    player.sendMessage(Methods.formatText("rndtp.maessentials.teleport.wait", TextFormatting.WHITE, ConfigValues.rndtp_delay));
+                    player.sendMessage(Methods.formatText("rndtp.maessentials.teleport.wait", ConfigValues.rndtp_delay));
                 }
                 Teleport.teleportPlayer(player, randomLocation, true, ConfigValues.rndtp_delay);
             } else {
-                player.sendMessage(Methods.formatText("maessentials.cooldown", TextFormatting.RED, cooldown));
+                player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
             }
         } else {
-            player.sendMessage(Methods.formatText("rndtp.maessentials.not_found", TextFormatting.RED));
+            player.sendMessage(Methods.formatText("rndtp.maessentials.not_found"));
         }
         return Command.SINGLE_SUCCESS;
     }

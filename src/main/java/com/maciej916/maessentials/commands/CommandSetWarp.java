@@ -32,11 +32,11 @@ public class CommandSetWarp {
 
     private static int warpArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String warpName = StringArgumentType.getString(context, "warpName").toString().toLowerCase();
+        String warpName = StringArgumentType.getString(context, "warpName").toLowerCase();
         if (DataManager.getWarpData().setWarp(player, warpName)) {
-            player.sendMessage(new TranslationTextComponent("setwarp.maessentials.success", warpName, true));
+            player.sendMessage(Methods.formatText("setwarp.maessentials.success", warpName));
         } else {
-            player.sendMessage(Methods.formatText("setwarp.maessentials.exist", TextFormatting.RED, warpName));
+            player.sendMessage(Methods.formatText("setwarp.maessentials.exist", warpName));
         }
         return Command.SINGLE_SUCCESS;
     }

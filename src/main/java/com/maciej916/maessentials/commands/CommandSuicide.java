@@ -42,7 +42,7 @@ public class CommandSuicide {
             DataManager.savePlayerData(playerData);
             doSuicide(player, player);
         } else {
-            player.sendMessage(Methods.formatText("maessentials.cooldown", TextFormatting.RED, cooldown));
+            player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
         }
         return Command.SINGLE_SUCCESS;
     }
@@ -57,13 +57,13 @@ public class CommandSuicide {
     private static void doSuicide(ServerPlayerEntity player, ServerPlayerEntity targerPlayer) {
         if (player == targerPlayer) {
             player.setHealth(0);
-            player.sendMessage(Methods.formatText("suicide.maessentials.self", TextFormatting.WHITE));
+            player.sendMessage(Methods.formatText("suicide.maessentials.self"));
             DataManager.getPlayerData(player).setLastLocation(new Location(player));
         } else {
             targerPlayer.setHealth(0);
             DataManager.getPlayerData(player).setLastLocation(new Location(player));
-            player.sendMessage(Methods.formatText("suicide.maessentials.player", TextFormatting.WHITE, targerPlayer.getDisplayName()));
-            targerPlayer.sendMessage(Methods.formatText("suicide.maessentials.player.target", TextFormatting.WHITE, player.getDisplayName()));
+            player.sendMessage(Methods.formatText("suicide.maessentials.player", targerPlayer.getDisplayName()));
+            targerPlayer.sendMessage(Methods.formatText("suicide.maessentials.player.target", player.getDisplayName()));
         }
     }
 }

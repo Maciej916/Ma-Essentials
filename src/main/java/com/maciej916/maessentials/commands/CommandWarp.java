@@ -15,7 +15,11 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.event.ClickEvent;
+import net.minecraft.util.text.event.HoverEvent;
 
 import java.util.Set;
 
@@ -33,20 +37,27 @@ public class CommandWarp {
     private static int warp(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         Set<String> warps =  DataManager.getWarpData().getWarps().keySet();
-        StringBuilder warpString = new StringBuilder();
+        TextComponent warpList = Methods.formatText("warp.maessentials.list", warps.size());
         if (warps.size() != 0) {
             int i = 1;
             for (String name : warps) {
-                warpString.append(name);
+                ClickEvent clickEvent = new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/warp " + name);
+                HoverEvent eventHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, Methods.formatText("warp.maessentials.list.warp", "/warp " + name));
+
+                TextComponent kit = Methods.formatText("warp.maessentials.list.warp", name);
+                kit.getStyle().setClickEvent(clickEvent);
+                kit.getStyle().setHoverEvent(eventHover);
+
+                warpList.appendSibling(kit);
                 if (warps.size() != i) {
-                    warpString.append(", ");
+                    warpList.appendSibling(new StringTextComponent(", "));
                     i++;
                 }
             }
         } else {
-            warpString.append("-");
+            warpList.appendSibling(new StringTextComponent("-"));
         }
-        player.sendMessage(Methods.formatText("warp.maessentials.list", TextFormatting.WHITE, warps.size(), warpString));
+        player.sendMessage(warpList);
         return Command.SINGLE_SUCCESS;
     }
 
@@ -62,16 +73,16 @@ public class CommandWarp {
                 playerData.setWarpTime(currentTime);
                 DataManager.savePlayerData(playerData);
                 if (ConfigValues.warps_delay == 0) {
-                    player.sendMessage(Methods.formatText("warp.maessentials.success", TextFormatting.WHITE, warpName));
+                    player.sendMessage(Methods.formatText("warp.maessentials.success", warpName));
                 } else {
-                    player.sendMessage(Methods.formatText("warp.maessentials.success.wait", TextFormatting.WHITE, warpName, ConfigValues.warps_delay));
+                    player.sendMessage(Methods.formatText("warp.maessentials.success.wait", warpName, ConfigValues.warps_delay));
                 }
                 Teleport.teleportPlayer(player, warpLocation, true, ConfigValues.warps_delay);
             } else {
-                player.sendMessage(Methods.formatText("maessentials.cooldown", TextFormatting.RED, cooldown));
+                player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
             }
         } else {
-            player.sendMessage(Methods.formatText("warp.maessentials.not_exist", TextFormatting.RED, warpName));
+            player.sendMessage(Methods.formatText("warp.maessentials.not_exist", warpName));
         }
         return Command.SINGLE_SUCCESS;
     }

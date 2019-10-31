@@ -2,7 +2,6 @@ package com.maciej916.maessentials.libs;
 
 import com.maciej916.maessentials.classes.KitItem;
 import com.maciej916.maessentials.classes.Location;
-import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.data.KitsData;
 import com.maciej916.maessentials.data.PlayerData;
@@ -13,12 +12,10 @@ import net.minecraft.command.arguments.ItemInput;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 
-import javax.xml.crypto.Data;
 import java.util.Optional;
 
 import static com.maciej916.maessentials.MaEssentials.MODID;
@@ -44,14 +41,8 @@ public class Methods {
         return version.equals("NONE");
     }
 
-    public static TextComponent formatText(String translationKey, TextFormatting color, Object... args) {
-        TextComponent msg;
-        if (args != null) {
-            msg = new TranslationTextComponent(translationKey, args);
-        } else {
-            msg = new TranslationTextComponent(translationKey);
-        }
-        msg.getStyle().setColor(color);
+    public static TextComponent formatText(String translationKey, Object... args) {
+        TextComponent msg = new TranslationTextComponent(translationKey, args);
         return msg;
     }
 
@@ -85,7 +76,7 @@ public class Methods {
             }
         } catch (Exception e) {
             Log.err("Failed to parse item for kit: "+ kitName);
-            player.sendMessage(Methods.formatText("kit.maessentials.parse_error", TextFormatting.RED));
+            player.sendMessage(Methods.formatText("kit.maessentials.parse_error"));
             System.out.println(e);
         }
 
@@ -93,7 +84,5 @@ public class Methods {
         playerData.setKitUsage(kitName, currentTime);
         DataManager.savePlayerData(playerData);
     }
-
-
 }
 

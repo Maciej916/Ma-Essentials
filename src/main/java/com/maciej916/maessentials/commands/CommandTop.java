@@ -48,7 +48,7 @@ public class CommandTop {
                     if (chunk.getBlockState(headPos).getMaterial().equals(Material.AIR)) {
                         Location topLocation = new Location(player.posX, y-2, player.posZ, player.rotationYaw, player.rotationPitch, player.dimension.getId());
                         Teleport.doTeleport(player, topLocation, true, true);
-                        player.sendMessage(Methods.formatText("top.maessentials.teleported", TextFormatting.WHITE));
+                        player.sendMessage(Methods.formatText("top.maessentials.teleported"));
                         break;
                     }
                 }

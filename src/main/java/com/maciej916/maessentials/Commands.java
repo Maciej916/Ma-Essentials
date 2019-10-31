@@ -93,6 +93,11 @@ public class Commands {
             CommandKit.register(dispatcher);
         }
 
+        // Speed
+        if (ConfigValues.speed_enable) {
+            CommandSpeed.register(dispatcher);
+        }
+
         // Server
         if (event.getServer().isDedicatedServer() || isDev()) {
             // TPA

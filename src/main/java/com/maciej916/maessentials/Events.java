@@ -15,6 +15,7 @@ import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.UUID;
@@ -27,7 +28,7 @@ public class Events {
         if (ConfigValues.back_death_enable) {
             if (event.getEntity() instanceof PlayerEntity) {
                 ServerPlayerEntity player = (ServerPlayerEntity) event.getEntity();
-                player.sendMessage(Methods.formatText("back.maessentials.death", TextFormatting.WHITE));
+                player.sendMessage(Methods.formatText("back.maessentials.death"));
                 Location deathLocation = new Location(player);
                 deathLocation.y++;
                 PlayerData playerData = DataManager.getPlayerData(player);
@@ -91,18 +92,19 @@ public class Events {
         }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onPlayerChat(ServerChatEvent event) {
         ServerPlayerEntity player = event.getPlayer();
         PlayerData playerData = DataManager.getPlayerData(player);
         if (playerData.isPlayerMuted()) {
             if (playerData.getMuteTime() == -1) {
-                player.sendMessage(Methods.formatText("mute.maessentials.success.perm.target", TextFormatting.RED, playerData.getMuteReason()));
+                player.sendMessage(Methods.formatText("mute.maessentials.success.perm.target"));
             } else {
                 long currentTime = System.currentTimeMillis() / 1000;
                 String displayTime = Time.formatDate(playerData.getMuteTime() - currentTime);
-                player.sendMessage(Methods.formatText("mute.maessentials.success.target", TextFormatting.RED, displayTime, playerData.getMuteReason()));
+                player.sendMessage(Methods.formatText("mute.maessentials.success.target", displayTime));
             }
+            player.sendMessage(Methods.formatText("mute.maessentials.success.target.reason", playerData.getMuteReason()));
             event.setCanceled(true);
         }
     }

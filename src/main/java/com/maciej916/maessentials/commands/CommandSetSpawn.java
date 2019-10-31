@@ -24,7 +24,7 @@ public class CommandSetSpawn {
     private static int setSpawn(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         DataManager.getModData().setSpawnPoint(new Location(player));
-        player.sendMessage(Methods.formatText("setspawn.maessentials.success", TextFormatting.GREEN));
+        player.sendMessage(Methods.formatText("setspawn.maessentials.success"));
         return Command.SINGLE_SUCCESS;
     }
 }

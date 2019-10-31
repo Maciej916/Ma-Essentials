@@ -51,16 +51,16 @@ public class CommandHome {
                 playerData.setHomeTime(currentTime);
                 DataManager.savePlayerData(playerData);
                 if (ConfigValues.homes_delay == 0) {
-                    player.sendMessage(Methods.formatText("home.maessentials.teleport", TextFormatting.WHITE, homeName));
+                    player.sendMessage(Methods.formatText("home.maessentials.teleport", homeName));
                 } else {
-                    player.sendMessage(Methods.formatText("home.maessentials.teleport.wait", TextFormatting.WHITE, homeName, ConfigValues.homes_delay));
+                    player.sendMessage(Methods.formatText("home.maessentials.teleport.wait", homeName, ConfigValues.homes_delay));
                 }
                 Teleport.teleportPlayer(player, homeLocation, true, ConfigValues.homes_delay);
             } else {
-                player.sendMessage(Methods.formatText("maessentials.cooldown", TextFormatting.RED, cooldown));
+                player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
             }
         } else {
-            player.sendMessage(Methods.formatText("home.maessentials.not_exist", TextFormatting.RED, homeName));
+            player.sendMessage(Methods.formatText("home.maessentials.not_exist", homeName));
         }
     }
 }

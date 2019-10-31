@@ -26,17 +26,17 @@ public class CommandDelWarp {
 
     private static int warp(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(Methods.formatText("warp.maessentials.specify_name", TextFormatting.RED));
+        player.sendMessage(Methods.formatText("warp.maessentials.specify_name"));
         return Command.SINGLE_SUCCESS;
     }
 
     private static int warpArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String warpName = StringArgumentType.getString(context, "warpName").toString().toLowerCase();
+        String warpName = StringArgumentType.getString(context, "warpName").toLowerCase();
         if (DataManager.getWarpData().delWarp(warpName)) {
-            player.sendMessage(Methods.formatText("delwarp.maessentials.success", TextFormatting.WHITE, warpName));
+            player.sendMessage(Methods.formatText("delwarp.maessentials.success", warpName));
         } else {
-            player.sendMessage(Methods.formatText("warp.maessentials.not_exist", TextFormatting.RED, warpName));
+            player.sendMessage(Methods.formatText("warp.maessentials.not_exist", warpName));
         }
         return Command.SINGLE_SUCCESS;
     }

@@ -10,9 +10,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.WorldInfo;
 
 public class CommandNight {
 
@@ -23,11 +21,13 @@ public class CommandNight {
     }
 
     private static int night(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        ServerWorld world = context.getSource().getWorld();
         ServerPlayerEntity player = context.getSource().asPlayer();
-        WorldInfo worldData = world.getWorldInfo();
-        world.setDayTime(20000);
-        player.sendMessage(Methods.formatText("night.maessentials.success", TextFormatting.WHITE, worldData.getWorldName()));
+
+        for (ServerWorld serverworld : context.getSource().getServer().getWorlds()) {
+            serverworld.setDayTime(20000);
+        }
+
+        player.sendMessage(Methods.formatText("night.maessentials.success"));
         return Command.SINGLE_SUCCESS;
     }
 }

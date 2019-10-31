@@ -34,16 +34,16 @@ public class CommandSpawn {
             DataManager.savePlayerData(playerData);
             doSpawn(player);
         } else {
-            player.sendMessage(Methods.formatText("maessentials.cooldown", TextFormatting.RED, cooldown));
+            player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
         }
         return Command.SINGLE_SUCCESS;
     }
 
     private static void doSpawn(ServerPlayerEntity player) {
         if (ConfigValues.spawn_delay == 0) {
-            player.sendMessage(Methods.formatText("spawn.maessentials.success", TextFormatting.WHITE));
+            player.sendMessage(Methods.formatText("spawn.maessentials.success"));
         } else {
-            player.sendMessage(Methods.formatText("spawn.maessentials.success.wait", TextFormatting.WHITE, ConfigValues.spawn_delay));
+            player.sendMessage(Methods.formatText("spawn.maessentials.success.wait", ConfigValues.spawn_delay));
         }
         Location spawnLocation = DataManager.getModData().getSpawnPoint();
         Teleport.teleportPlayer(player, spawnLocation, true, ConfigValues.spawn_delay);

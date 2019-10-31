@@ -36,17 +36,17 @@ public class CommandMute {
 
     private static int mute(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(Methods.formatText("maessentials.provide.player", TextFormatting.RED));
-        return Command.SINGLE_SUCCESS;
-    }
-
-    private static int mutePlayerTime(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(Methods.formatText("mute.maessentials.provide.time", TextFormatting.RED));
+        player.sendMessage(Methods.formatText("maessentials.provide.player"));
         return Command.SINGLE_SUCCESS;
     }
 
     private static int mutePlayer(CommandContext<CommandSource> context) throws CommandSyntaxException {
+        ServerPlayerEntity player = context.getSource().asPlayer();
+        player.sendMessage(Methods.formatText("mute.maessentials.provide.time"));
+        return Command.SINGLE_SUCCESS;
+    }
+
+    private static int mutePlayerTime(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
         String time = StringArgumentType.getString(context, "time");
@@ -77,18 +77,19 @@ public class CommandMute {
                 playerData.mute(mutetime, reason);
                 DataManager.savePlayerData(playerData);
                 if (mutetime == -1) {
-                    player.sendMessage(Methods.formatText("mute.maessentials.success.perm", TextFormatting.WHITE, target.getDisplayName(), reason));
-                    target.sendMessage(Methods.formatText("mute.maessentials.success.perm.target", TextFormatting.RED, reason));
+                    player.sendMessage(Methods.formatText("mute.maessentials.success.perm", target.getDisplayName(), reason));
+                    target.sendMessage(Methods.formatText("mute.maessentials.success.perm.target"));
                 } else {
                     String displayTime = Time.formatDate(mutetime - currentTime);
-                    player.sendMessage(Methods.formatText("mute.maessentials.success", TextFormatting.WHITE, target.getDisplayName(), displayTime, reason));
-                    target.sendMessage(Methods.formatText("mute.maessentials.success.target", TextFormatting.RED, displayTime, reason));
+                    player.sendMessage(Methods.formatText("mute.maessentials.success", target.getDisplayName(), displayTime, reason));
+                    target.sendMessage(Methods.formatText("mute.maessentials.success.target", displayTime));
                 }
+                target.sendMessage(Methods.formatText("mute.maessentials.success.target.reason", reason));
             } else {
-                player.sendMessage(Methods.formatText("mute.maessentials.already_muted", TextFormatting.RED, target.getDisplayName()));
+                player.sendMessage(Methods.formatText("mute.maessentials.already_muted", target.getDisplayName()));
             }
         } else {
-            player.sendMessage(Methods.formatText("maessentials.illegal_date", TextFormatting.RED));
+            player.sendMessage(Methods.formatText("maessentials.illegal_date"));
         }
     }
 }

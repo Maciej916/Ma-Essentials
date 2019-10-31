@@ -10,8 +10,6 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameType;
 
 public class CommandFly {
@@ -45,24 +43,24 @@ public class CommandFly {
                 targetPlayer.abilities.allowFlying = false;
                 targetPlayer.abilities.isFlying = false;
                 if (player == targetPlayer) {
-                    player.sendMessage(Methods.formatText("fly.maessentials.self.disabled", TextFormatting.WHITE));
+                    player.sendMessage(Methods.formatText("fly.maessentials.self.disabled"));
                 } else {
-                    player.sendMessage(Methods.formatText("fly.maessentials.player.disabled", TextFormatting.WHITE, targetPlayer.getDisplayName()));
-                    targetPlayer.sendMessage(Methods.formatText("fly.maessentials.self.disabled", TextFormatting.WHITE));
+                    player.sendMessage(Methods.formatText("fly.maessentials.player.disabled", targetPlayer.getDisplayName()));
+                    targetPlayer.sendMessage(Methods.formatText("fly.maessentials.self.disabled"));
                 }
             } else {
                 targetPlayer.abilities.allowFlying = true;
 
                 if (player == targetPlayer) {
-                    player.sendMessage(Methods.formatText("fly.maessentials.self.enabled", TextFormatting.WHITE));
+                    player.sendMessage(Methods.formatText("fly.maessentials.self.enabled"));
                 } else {
-                    player.sendMessage(Methods.formatText("fly.maessentials.player.enabled", TextFormatting.WHITE, targetPlayer.getDisplayName()));
-                    targetPlayer.sendMessage(Methods.formatText("fly.maessentials.self.enabled", TextFormatting.WHITE));
+                    player.sendMessage(Methods.formatText("fly.maessentials.player.enabled", targetPlayer.getDisplayName()));
+                    targetPlayer.sendMessage(Methods.formatText("fly.maessentials.self.enabled"));
                 }
             }
             targetPlayer.sendPlayerAbilities();
         } else {
-            player.sendMessage(Methods.formatText("maessentials.invaild_gamemode", TextFormatting.RED));
+            player.sendMessage(Methods.formatText("maessentials.invaild_gamemode.player", targetPlayer.getDisplayName()));
         }
     }
 }

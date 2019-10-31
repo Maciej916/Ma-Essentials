@@ -10,7 +10,6 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldInfo;
 
@@ -23,14 +22,17 @@ public class CommandThunder {
     }
 
     private static int rain(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        ServerWorld world = context.getSource().getWorld();
         ServerPlayerEntity player = context.getSource().asPlayer();
-        WorldInfo worldData = world.getWorldInfo();
-        worldData.setRaining(true);
-        worldData.setThundering(true);
-        worldData.setClearWeatherTime(0);
-        worldData.setRainTime(6000);
-        player.sendMessage(Methods.formatText("thunder.maessentials.success", TextFormatting.WHITE, worldData.getWorldName()));
+
+        for (ServerWorld serverworld : context.getSource().getServer().getWorlds()) {
+            WorldInfo worldData = serverworld.getWorldInfo();
+            worldData.setRaining(true);
+            worldData.setThundering(true);
+            worldData.setClearWeatherTime(0);
+            worldData.setRainTime(6000);
+        }
+
+        player.sendMessage(Methods.formatText("thunder.maessentials.success"));
         return Command.SINGLE_SUCCESS;
     }
 }

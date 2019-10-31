@@ -45,7 +45,7 @@ public class Teleport {
 
     public static void teleportPlayer(ServerPlayerEntity player, Location loc, boolean exact, int delay) {
         if (delay == 0) {
-            player.sendMessage(Methods.formatText("teleport.maessentials.teleported", TextFormatting.WHITE));
+            player.sendMessage(Methods.formatText("teleport.maessentials.teleported"));
             doTeleport(player, loc, exact, true);
         } else {
             long currentTime = System.currentTimeMillis() / 1000;
@@ -56,8 +56,8 @@ public class Teleport {
 
     public static void teleportRequest(ServerPlayerEntity creatorPlayer, ServerPlayerEntity tpPlayer, ServerPlayerEntity tpTargetPlayer, boolean exact) {
         if (ConfigValues.tpa_delay == 0) {
-            tpPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request", TextFormatting.WHITE, tpTargetPlayer.getDisplayName()));
-            tpTargetPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.target", TextFormatting.WHITE, tpPlayer.getDisplayName()));
+            tpPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request", tpTargetPlayer.getDisplayName()));
+            tpTargetPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.target", tpPlayer.getDisplayName()));
             doTeleport(tpPlayer, new Location(tpTargetPlayer), true, true);
         } else {
             long currentTime = System.currentTimeMillis() / 1000;
@@ -106,16 +106,16 @@ public class Teleport {
 
     public static void acceptTeleport(Teleport tpr) {
         long currentTime = System.currentTimeMillis() / 1000;
-        tpr.tpPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request.wait", TextFormatting.WHITE, ConfigValues.tpa_delay));
-        tpr.tpTargetPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.target.wait", TextFormatting.WHITE, tpr.tpPlayer.getDisplayName()));
+        tpr.tpPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request.wait", ConfigValues.tpa_delay));
+        tpr.tpTargetPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.target.wait", tpr.tpPlayer.getDisplayName()));
         tpr.loc = new Location(tpr.tpPlayer);
         tpr.time = currentTime + ConfigValues.tpa_delay;
         tpr.accepted = true;
     }
 
     public static void declineTrade(Teleport tpr) {
-        tpr.tpPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpdeny.request", TextFormatting.WHITE, tpr.tpTargetPlayer.getDisplayName()));
-        tpr.tpTargetPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpdeny.target", TextFormatting.WHITE, tpr.tpPlayer.getDisplayName()));
+        tpr.tpPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpdeny.request", tpr.tpTargetPlayer.getDisplayName()));
+        tpr.tpTargetPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpdeny.target", tpr.tpPlayer.getDisplayName()));
         activeTeleports.remove(tpr);
     }
 
@@ -127,12 +127,12 @@ public class Teleport {
                 Location playerLocation = new Location(tp.creatorPlayer);
                 if (Methods.isLocationSame(playerLocation, tp.loc)) {
                     if (tp.time <= currentTime) {
-                        tp.creatorPlayer.sendMessage(Methods.formatText("teleport.maessentials.teleported", TextFormatting.WHITE));
+                        tp.creatorPlayer.sendMessage(Methods.formatText("teleport.maessentials.teleported"));
                         doTeleport(tp.creatorPlayer, tp.dest, tp.exact, true);
                         delTp.add(tp);
                     }
                 } else {
-                    tp.creatorPlayer.sendMessage(Methods.formatText("teleport.maessentials.moved", TextFormatting.WHITE));
+                    tp.creatorPlayer.sendMessage(Methods.formatText("teleport.maessentials.moved"));
                     delTp.add(tp);
                 }
             } else {
@@ -140,21 +140,21 @@ public class Teleport {
                     if (tp.loc != null) {
                         Location playerLocation = new Location(tp.tpPlayer);
                         if (Methods.isLocationSame(playerLocation, tp.loc)) {
-                            if (tp.timeout <= currentTime) {
-                                tp.tpPlayer.sendMessage(Methods.formatText("teleport.maessentials.expired.target", TextFormatting.WHITE, tp.tpTargetPlayer.getDisplayName()));
-                                tp.tpTargetPlayer.sendMessage(Methods.formatText("teleport.maessentials.expired.request", TextFormatting.WHITE, tp.tpPlayer.getDisplayName()));
+                            if (tp.timeout <= currentTime && !tp.accepted) {
+                                tp.tpPlayer.sendMessage(Methods.formatText("teleport.maessentials.expired.target", tp.tpTargetPlayer.getDisplayName()));
+                                tp.tpTargetPlayer.sendMessage(Methods.formatText("teleport.maessentials.expired.request", tp.tpPlayer.getDisplayName()));
                                 delTp.add(tp);
                             } else {
                                 if (tp.time <= currentTime && tp.accepted) {
-                                    tp.tpPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request", TextFormatting.WHITE, tp.tpTargetPlayer.getDisplayName()));
-                                    tp.tpTargetPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.target", TextFormatting.WHITE, tp.tpPlayer.getDisplayName()));
+                                    tp.tpPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request", tp.tpTargetPlayer.getDisplayName()));
+                                    tp.tpTargetPlayer.sendMessage(Methods.formatText("teleport.maessentials.tpaccept.target", tp.tpPlayer.getDisplayName()));
                                     doTeleport(tp.tpPlayer, new Location(tp.tpTargetPlayer), tp.exact, true);
                                     delTp.add(tp);
                                 }
                             }
                         } else {
-                            tp.tpPlayer.sendMessage(Methods.formatText("teleport.maessentials.moved.request", TextFormatting.WHITE));
-                            tp.tpTargetPlayer.sendMessage(Methods.formatText("teleport.maessentials.moved.target", TextFormatting.WHITE, tp.tpPlayer.getDisplayName()));
+                            tp.tpPlayer.sendMessage(Methods.formatText("teleport.maessentials.moved.request"));
+                            tp.tpTargetPlayer.sendMessage(Methods.formatText("teleport.maessentials.moved.target", tp.tpPlayer.getDisplayName()));
                             delTp.add(tp);
                         }
                     }

@@ -71,6 +71,10 @@ public class ConfigValues {
     public static Boolean kits_starting;
     public static String kits_starting_name;
 
+    // Speed
+    public static Boolean speed_enable;
+    public static Integer speed_max_walk;
+    public static Integer speed_max_fly;
 
     public static void init() {
         // Spawn
@@ -142,5 +146,10 @@ public class ConfigValues {
         kits_enable = Config.kits_enable.get();
         kits_starting = Config.kits_starting.get();
         kits_starting_name = Config.kits_starting_name.get();
+
+        // Speed
+        speed_enable = Config.speed_enable.get();
+        speed_max_walk = Config.speed_max_walk.get();
+        speed_max_fly = Config.speed_max_fly.get();
     }
 }

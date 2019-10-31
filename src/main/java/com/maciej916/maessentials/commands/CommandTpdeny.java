@@ -32,9 +32,9 @@ public class CommandTpdeny {
             Teleport tpr = teleports.get(0);
             Teleport.declineTrade(tpr);
         } else if (teleports.size() > 1) {
-            player.sendMessage(Methods.formatText("maessentials.specify.player", TextFormatting.RED));
+            player.sendMessage(Methods.formatText("maessentials.specify.player"));
         } else {
-            player.sendMessage(Methods.formatText("tpa.maessentials.no_request", TextFormatting.RED));
+            player.sendMessage(Methods.formatText("tpa.maessentials.no_request"));
         }
         return Command.SINGLE_SUCCESS;
     }
@@ -46,7 +46,7 @@ public class CommandTpdeny {
         if (tpr != null) {
             Teleport.declineTrade(tpr);
         } else {
-            player.sendMessage(Methods.formatText("tpa.maessentials.not_found", TextFormatting.RED));
+            player.sendMessage(Methods.formatText("tpa.maessentials.not_found"));
         }
         return Command.SINGLE_SUCCESS;
     }

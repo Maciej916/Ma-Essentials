@@ -42,9 +42,9 @@ public class CommandSetHome {
         PlayerData playerData = DataManager.getPlayerData(player);
         if ((playerData.getHomes().size() < ConfigValues.homes_limit)  || (playerData.getHomes().size() == ConfigValues.homes_limit && playerData.getHomes().get(homeName) != null)) {
             playerData.setHome(player, homeName);
-            player.sendMessage(new TranslationTextComponent("sethome.maessentials.done", homeName, true));
+            player.sendMessage(Methods.formatText("sethome.maessentials.done", homeName));
         } else {
-            player.sendMessage(Methods.formatText("sethome.maessentials.max_homes", TextFormatting.RED, ConfigValues.homes_limit));
+            player.sendMessage(Methods.formatText("sethome.maessentials.max_homes", ConfigValues.homes_limit));
        }
     }
 }

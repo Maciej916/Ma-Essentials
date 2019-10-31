@@ -28,7 +28,7 @@ public class CommandTpahere {
 
     private static int tpahere(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(Methods.formatText("maessentials.provide.player", TextFormatting.RED));
+        player.sendMessage(Methods.formatText("maessentials.provide.player"));
         return Command.SINGLE_SUCCESS;
     }
 
@@ -44,19 +44,19 @@ public class CommandTpahere {
                     long currentTime = System.currentTimeMillis() / 1000;
                     playerData.setTeleportRequestTime(currentTime);
                     DataManager.savePlayerData(playerData);
-                    player.sendMessage(Methods.formatText("tpa.maessentials.request", TextFormatting.WHITE, requestedPlayer.getDisplayName()));
-                    requestedPlayer.sendMessage(Methods.formatText("tpahere.maessentials.request.target", TextFormatting.WHITE, player.getDisplayName()));
-                    requestedPlayer.sendMessage(Methods.formatText("tpa.maessentials.request.target.accept", TextFormatting.WHITE));
-                    requestedPlayer.sendMessage(Methods.formatText("tpa.maessentials.request.target.deny", TextFormatting.WHITE));
+                    player.sendMessage(Methods.formatText("tpa.maessentials.request", requestedPlayer.getDisplayName()));
+                    requestedPlayer.sendMessage(Methods.formatText("tpahere.maessentials.request.target", player.getDisplayName()));
+                    requestedPlayer.sendMessage(Methods.formatText("tpa.maessentials.request.target.accept"));
+                    requestedPlayer.sendMessage(Methods.formatText("tpa.maessentials.request.target.deny"));
                     Teleport.teleportRequest(player, requestedPlayer, player, true);
                 } else {
-                    player.sendMessage(Methods.formatText("maessentials.cooldown", TextFormatting.RED, cooldown));
+                    player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
                 }
             } else {
-                player.sendMessage(Methods.formatText("tpa.maessentials.exist", TextFormatting.RED, requestedPlayer.getDisplayName()));
+                player.sendMessage(Methods.formatText("tpa.maessentials.exist", requestedPlayer.getDisplayName()));
             }
         } else {
-            player.sendMessage(Methods.formatText("tpa.maessentials.self", TextFormatting.RED));
+            player.sendMessage(Methods.formatText("tpa.maessentials.self"));
         }
         return Command.SINGLE_SUCCESS;
     }

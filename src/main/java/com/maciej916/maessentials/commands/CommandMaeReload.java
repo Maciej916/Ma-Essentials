@@ -25,7 +25,7 @@ public class CommandMaeReload {
         ServerPlayerEntity player = context.getSource().asPlayer();
         Log.log("Call DataLoader");
         DataLoader.init(null);
-        player.sendMessage(Methods.formatText("maereload.maessentials.done", TextFormatting.GREEN));
+        player.sendMessage(Methods.formatText("maereload.maessentials.done"));
         return Command.SINGLE_SUCCESS;
     }
 }

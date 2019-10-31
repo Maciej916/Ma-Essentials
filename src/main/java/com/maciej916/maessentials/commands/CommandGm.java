@@ -3,7 +3,7 @@ package com.maciej916.maessentials.commands;
 import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -13,8 +13,7 @@ import net.minecraft.command.Commands;
 import net.minecraft.command.ISuggestionProvider;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.GameType;
 
 public class CommandGm {
@@ -26,74 +25,75 @@ public class CommandGm {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("gm").requires(source -> source.hasPermissionLevel(2));
         builder
-                .executes(context -> gm(context))
-                .then(Commands.argument("gamemode", StringArgumentType.word())
-                        .suggests(GM_SUGGEST)
-                        .executes(context -> gmSelf(context))
-                            .then(Commands.argument("targetPlayer", EntityArgument.players())
-                                    .executes(context -> gmOthers(context))));
+            .executes(context -> gm(context))
+                .then(Commands.argument("gamemode", IntegerArgumentType.integer())
+                    .suggests(GM_SUGGEST)
+                    .executes(context -> gmSelf(context))
+                        .then(Commands.argument("targetPlayer", EntityArgument.players())
+                                .executes(context -> gmOthers(context))));
 
         dispatcher.register(builder);
     }
 
     private static int gm(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(Methods.formatText("maessentials.provide.player", TextFormatting.RED));
+        player.sendMessage(Methods.formatText("maessentials.provide.player"));
         return Command.SINGLE_SUCCESS;
     }
 
     private static int gmSelf(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String args = StringArgumentType.getString(context, "gamemode").toLowerCase();
-        gmManage(player, player, args);
+        Integer gamemode = IntegerArgumentType.getInteger(context, "gamemode");
+        gmManage(player, player, gamemode);
         return Command.SINGLE_SUCCESS;
     }
 
     private static int gmOthers(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-        String args = StringArgumentType.getString(context, "gamemode").toLowerCase();
-        gmManage(player, requestedPlayer, args);
+        Integer gamemode = IntegerArgumentType.getInteger(context, "gamemode");
+        gmManage(player, requestedPlayer, gamemode);
         return Command.SINGLE_SUCCESS;
     }
 
-    private static void gmManage(ServerPlayerEntity player, ServerPlayerEntity targetPlayer, String gm) {
-        String newGm = null;
+    private static void gmManage(ServerPlayerEntity player, ServerPlayerEntity targetPlayer, Integer gm) {
+        boolean changed = false;
         switch (gm) {
-            case "0":
+            case 0:
                 if (targetPlayer.interactionManager.getGameType() != GameType.SURVIVAL) {
                     targetPlayer.setGameType(GameType.SURVIVAL);
-                    newGm = "survival";
+                    changed = true;
                 }
                 break;
-            case "1":
+            case 1:
                 if (targetPlayer.interactionManager.getGameType() != GameType.CREATIVE) {
                     targetPlayer.setGameType(GameType.CREATIVE);
-                    newGm = "creative";
+                    changed = true;
                 }
                 break;
-            case "2":
+            case 2:
                 if (targetPlayer.interactionManager.getGameType() != GameType.ADVENTURE) {
                     targetPlayer.setGameType(GameType.ADVENTURE);
-                    newGm = "adventure";
+                    changed = true;
                 }
                 break;
-            case "3":
+            case 3:
                 if (targetPlayer.interactionManager.getGameType() != GameType.SPECTATOR) {
                     targetPlayer.setGameType(GameType.SPECTATOR);
-                    newGm = "spectator";
+                    changed = true;
                 }
                 break;
             default :
-                player.sendMessage(Methods.formatText("gm.maessentials.invalid", TextFormatting.RED));
+                player.sendMessage(Methods.formatText("gm.maessentials.invalid"));
         }
 
-        if (newGm != null) {
+        if (changed) {
+            ITextComponent newGm = targetPlayer.interactionManager.getGameType().getDisplayName();
             if (player == targetPlayer) {
-                player.sendMessage(Methods.formatText("gm.maessentials.self", TextFormatting.WHITE, newGm));
+                player.sendMessage(Methods.formatText("gm.maessentials.self", newGm));
             } else {
-                player.sendMessage(Methods.formatText("gm.maessentials.player", TextFormatting.WHITE, targetPlayer.getDisplayName(), newGm));
-                targetPlayer.sendMessage(Methods.formatText("gm.maessentials.self", TextFormatting.WHITE, newGm));
+                player.sendMessage(Methods.formatText("gm.maessentials.player", targetPlayer.getDisplayName(), newGm));
+                targetPlayer.sendMessage(Methods.formatText("gm.maessentials.self", newGm));
             }
         }
     }

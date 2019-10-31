@@ -93,6 +93,10 @@ public class Config {
     public static ForgeConfigSpec.BooleanValue kits_starting;
     public static ForgeConfigSpec.ConfigValue<String> kits_starting_name;
 
+    // Speed
+    public static ForgeConfigSpec.BooleanValue speed_enable;
+    public static ForgeConfigSpec.IntValue speed_max_walk;
+    public static ForgeConfigSpec.IntValue speed_max_fly;
 
     static {
         setupConfig();
@@ -235,6 +239,15 @@ public class Config {
                 .define("enable", true);
         kits_starting = server.define("starting_kit", true);
         kits_starting_name = server.define("starting_kit_name", "tools");
+        server.pop();
+
+        // Speed
+        server.push("speed");
+        speed_enable = server
+                .comment("Enable command: /speed")
+                .define("enable", true);
+        speed_max_walk = server.defineInRange("max_walk_speed", 20, 0 , 50);
+        speed_max_fly = server.defineInRange("max_fly_speed", 20, 0 , 50);
         server.pop();
     }
 

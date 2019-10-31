@@ -9,10 +9,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.WorldInfo;
 
 public class CommandDay {
 
@@ -23,11 +20,13 @@ public class CommandDay {
     }
 
     private static int day(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        ServerWorld world = context.getSource().getWorld();
         ServerPlayerEntity player = context.getSource().asPlayer();
-        WorldInfo worldData = world.getWorldInfo();
-        world.setDayTime(2000);
-        player.sendMessage(Methods.formatText("day.maessentials.success", TextFormatting.WHITE, worldData.getWorldName()));
+
+        for (ServerWorld serverworld : context.getSource().getServer().getWorlds()) {
+            serverworld.setDayTime(2000);
+        }
+
+        player.sendMessage(Methods.formatText("day.maessentials.success"));
         return Command.SINGLE_SUCCESS;
     }
 }

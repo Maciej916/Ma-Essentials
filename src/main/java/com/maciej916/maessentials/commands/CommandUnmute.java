@@ -2,6 +2,7 @@ package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.data.PlayerData;
+import com.maciej916.maessentials.libs.Log;
 import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
@@ -28,7 +29,7 @@ public class CommandUnmute {
 
     private static int unmute(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(Methods.formatText("maessentials.provide.player", TextFormatting.RED));
+        player.sendMessage(Methods.formatText("maessentials.provide.player"));
         return Command.SINGLE_SUCCESS;
     }
 
@@ -38,13 +39,13 @@ public class CommandUnmute {
         PlayerData playerData = DataManager.getPlayerData(requestedPlayer);
 
         long currentTime = System.currentTimeMillis() / 1000;
-        if (playerData.getMuteTime() != -1 && playerData.getMuteTime() < currentTime) {
-            player.sendMessage(Methods.formatText("unmmute.maessentials.success", TextFormatting.WHITE, requestedPlayer.getDisplayName()));
-            requestedPlayer.sendMessage(Methods.formatText("unmmute.maessentials.success.target", TextFormatting.WHITE));
+        if (playerData.getMuteTime() == -1 || playerData.getMuteTime() > currentTime) {
+            player.sendMessage(Methods.formatText("unmmute.maessentials.success", requestedPlayer.getDisplayName()));
+            requestedPlayer.sendMessage(Methods.formatText("unmmute.maessentials.success.target"));
             playerData.unmute();
             DataManager.savePlayerData(playerData);
         } else {
-            player.sendMessage(Methods.formatText("unmmute.maessentials.not_muted", TextFormatting.RED, requestedPlayer.getDisplayName()));
+            player.sendMessage(Methods.formatText("unmmute.maessentials.not_muted", requestedPlayer.getDisplayName()));
         }
         return Command.SINGLE_SUCCESS;
     }

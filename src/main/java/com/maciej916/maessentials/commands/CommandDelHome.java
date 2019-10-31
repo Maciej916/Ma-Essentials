@@ -27,7 +27,7 @@ public class CommandDelHome {
 
     private static int delHome(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        player.sendMessage(Methods.formatText("delhome.maessentials.specify_name", TextFormatting.RED));
+        player.sendMessage(Methods.formatText("delhome.maessentials.specify_name"));
         return Command.SINGLE_SUCCESS;
     }
 
@@ -36,9 +36,9 @@ public class CommandDelHome {
         String homeName = StringArgumentType.getString(context, "homeName").toLowerCase();
         PlayerData playerData = DataManager.getPlayerData(player);
         if (playerData.delHome(homeName)) {
-            player.sendMessage(Methods.formatText("delhome.maessentials.done", TextFormatting.WHITE, homeName));
+            player.sendMessage(Methods.formatText("delhome.maessentials.done", homeName));
         } else {
-            player.sendMessage(Methods.formatText("home.maessentials.not_exist", TextFormatting.RED, homeName));
+            player.sendMessage(Methods.formatText("home.maessentials.not_exist", homeName));
         }
         return Command.SINGLE_SUCCESS;
     }

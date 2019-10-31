@@ -35,16 +35,16 @@ public class CommandBack {
                 playerData.setBacktime(currentTime);
                 DataManager.savePlayerData(playerData);
                 if (ConfigValues.back_delay == 0) {
-                    player.sendMessage(Methods.formatText("back.maessentials.success", TextFormatting.WHITE));
+                    player.sendMessage(Methods.formatText("back.maessentials.success"));
                 } else {
-                    player.sendMessage(Methods.formatText("back.maessentials.success.wait", TextFormatting.WHITE, ConfigValues.back_delay));
+                    player.sendMessage(Methods.formatText("back.maessentials.success.wait", ConfigValues.back_delay));
                 }
                 Teleport.teleportPlayer(player, lastLocation, true, ConfigValues.back_delay);
             } else {
-                player.sendMessage(Methods.formatText("maessentials.cooldown", TextFormatting.RED, cooldown));
+                player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
             }
         } else {
-            player.sendMessage(Methods.formatText("back.maessentials.not_found", TextFormatting.RED));
+            player.sendMessage(Methods.formatText("back.maessentials.not_found"));
         }
         return Command.SINGLE_SUCCESS;
     }
