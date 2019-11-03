@@ -34,6 +34,7 @@
 
 
   "_comment": "Home",
+  "home.maessentials.no_homes": "§cYou do not have any homes. Use §4/sethome <name> §cto set new home!",
   "home.maessentials.not_exist": "§cHome §4%s§c not exist",
 
   "delhome.maessentials.specify_name": "§cPlease specify home name",
@@ -145,7 +146,7 @@
   "teleport.maessentials.tpaccept.request": "You have been teleported to §c%s§r",
   "teleport.maessentials.tpaccept.request.wait": "Teleport accepted, please don't move for next §c%s§r seconds...",
 
-  "teleport.maessentials.tpaccept.target": "Player %s has been teleported to you",
+  "teleport.maessentials.tpaccept.target": "Player §c%s§r has been teleported to you",
   "teleport.maessentials.tpaccept.target.wait": "Teleport request from §c%s§r accepted, waiting for teleportation!",
 
   "teleport.maessentials.tpdeny.request": "Player §c%s§r declined your teleport request",

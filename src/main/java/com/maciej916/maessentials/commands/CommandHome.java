@@ -43,24 +43,28 @@ public class CommandHome {
 
     private static void handleHome(ServerPlayerEntity player, String homeName) {
         PlayerData playerData = DataManager.getPlayerData(player);
-        Location homeLocation = playerData.getHomes().get(homeName);
-        if (homeLocation != null) {
-            long cooldown = Methods.delayCommand(playerData.getHomeTime(), ConfigValues.homes_cooldown);
-            if (cooldown == 0) {
-                long currentTime = System.currentTimeMillis() / 1000;
-                playerData.setHomeTime(currentTime);
-                DataManager.savePlayerData(playerData);
-                if (ConfigValues.homes_delay == 0) {
-                    player.sendMessage(Methods.formatText("home.maessentials.teleport", homeName));
-                } else {
-                    player.sendMessage(Methods.formatText("home.maessentials.teleport.wait", homeName, ConfigValues.homes_delay));
-                }
-                Teleport.teleportPlayer(player, homeLocation, true, ConfigValues.homes_delay);
-            } else {
-                player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
-            }
+        if (playerData.getHomes().size() == 0) {
+            player.sendMessage(Methods.formatText("home.maessentials.no_homes"));
         } else {
-            player.sendMessage(Methods.formatText("home.maessentials.not_exist", homeName));
+            Location homeLocation = playerData.getHomes().get(homeName);
+            if (homeLocation != null) {
+                long cooldown = Methods.delayCommand(playerData.getHomeTime(), ConfigValues.homes_cooldown);
+                if (cooldown == 0) {
+                    long currentTime = System.currentTimeMillis() / 1000;
+                    playerData.setHomeTime(currentTime);
+                    DataManager.savePlayerData(playerData);
+                    if (ConfigValues.homes_delay == 0) {
+                        player.sendMessage(Methods.formatText("home.maessentials.teleport", homeName));
+                    } else {
+                        player.sendMessage(Methods.formatText("home.maessentials.teleport.wait", homeName, ConfigValues.homes_delay));
+                    }
+                    Teleport.teleportPlayer(player, homeLocation, true, ConfigValues.homes_delay);
+                } else {
+                    player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
+                }
+            } else {
+                player.sendMessage(Methods.formatText("home.maessentials.not_exist", homeName));
+            }
         }
     }
 }

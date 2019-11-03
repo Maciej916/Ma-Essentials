@@ -15,7 +15,10 @@ import net.minecraft.util.text.TextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
+import org.apache.commons.io.FilenameUtils;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static com.maciej916.maessentials.MaEssentials.MODID;
@@ -41,13 +44,28 @@ public class Methods {
         return version.equals("NONE");
     }
 
+    public static ArrayList<String> catalogFiles(String catalog) {
+        File folder = new File(catalog);
+        File[] listOfFiles = folder.listFiles();
+        ArrayList<String> data = new ArrayList<>();
+        if (listOfFiles != null) {
+            for (int i = 0; i < listOfFiles.length; i++) {
+                if (listOfFiles[i].isFile()) {
+                    String fileName = FilenameUtils.removeExtension(listOfFiles[i].getName());
+                    data.add(fileName);
+                }
+            }
+        }
+        return data;
+    }
+
     public static TextComponent formatText(String translationKey, Object... args) {
         TextComponent msg = new TranslationTextComponent(translationKey, args);
         return msg;
     }
 
     public static boolean isLocationSame(Location fistLocation, Location secoondLocation) {
-        if (fistLocation.x == secoondLocation.x && fistLocation.y == secoondLocation.y && fistLocation.z == secoondLocation.z && fistLocation.dimension == secoondLocation.dimension ) {
+        if (fistLocation.x == secoondLocation.x && fistLocation.y == secoondLocation.y && fistLocation.z == secoondLocation.z && fistLocation.dimension == secoondLocation.dimension) {
             return true;
         }
         return false;

@@ -2,7 +2,7 @@ package com.maciej916.maessentials.data;
 
 import com.maciej916.maessentials.classes.Homes;
 import com.maciej916.maessentials.classes.Location;
-import com.maciej916.maessentials.config.Config;
+import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.libs.Json;
 import com.maciej916.maessentials.libs.Log;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -93,7 +93,7 @@ public class DataManager {
 
     public static void removeWarp(String name) {
         Log.debug("Removing warp: " + name);
-        File file = new File(Config.getWorldCatalog()+"warps/" + name + ".json");
+        File file = new File(ConfigValues.worldCatalog + "warps/" + name + ".json");
         file.delete();
     }
 

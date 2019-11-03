@@ -1,25 +1,91 @@
 package com.maciej916.maessentials.data;
 
+import com.maciej916.maessentials.MaEssentials;
 import com.maciej916.maessentials.classes.Homes;
 import com.maciej916.maessentials.classes.Location;
-import com.maciej916.maessentials.config.Config;
+import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.libs.Json;
 import com.maciej916.maessentials.libs.Log;
+import com.maciej916.maessentials.libs.Methods;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.storage.WorldInfo;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
-import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class DataLoader {
-    public static void init(FMLServerStartingEvent event) {
+
+    public static void setupMain(FMLCommonSetupEvent event) {
+        try {
+            Log.log("Setup main");
+            ConfigValues.mainCatalog = System.getProperty("user.dir") + "/" + MaEssentials.MODID + "/";
+            Log.debug("Main catalog is: " + ConfigValues.mainCatalog);
+
+            new File(ConfigValues.mainCatalog).mkdirs();
+            File targetFile = new File(ConfigValues.mainCatalog + "default_kits.json");
+            if (!targetFile.exists()) {
+                Log.log("Creating default_kits.json in main catalog");
+                InputStream initialStream = MaEssentials.class.getResourceAsStream("/default_kits.json");
+                byte[] buffer = new byte[initialStream.available()];
+                initialStream.read(buffer);
+                OutputStream outStream = new FileOutputStream(targetFile);
+                outStream.write(buffer);
+            }
+        } catch (Exception e) {
+            Log.err("Error in setupMain");
+            throw new Error(e);
+        }
+    }
+
+    public static void setupWorld(FMLServerStartingEvent event) {
+        try {
+            Log.log("Setup world");
+            if (event.getServer().isDedicatedServer()) {
+                Log.log("Mod is running on server");
+                ConfigValues.worldCatalog = ConfigValues.mainCatalog;
+            } else {
+                Log.log("Mod is running on client");
+                ConfigValues.worldCatalog = System.getProperty("user.dir") + "/saves/" + event.getServer().getFolderName() + "/" + MaEssentials.MODID + "/";
+            }
+            Log.debug("World catalog is: " + ConfigValues.worldCatalog);
+
+            new File(ConfigValues.worldCatalog).mkdirs();
+            new File(ConfigValues.worldCatalog + "homes").mkdirs();
+            new File(ConfigValues.worldCatalog + "warps").mkdirs();
+            new File(ConfigValues.worldCatalog + "players").mkdirs();
+
+            if (!new File(ConfigValues.worldCatalog + "data.json").exists()) {
+                WorldInfo worldData = event.getServer().getWorld(DimensionType.getById(0)).getWorldInfo();
+                Location spawnLocation = new Location(worldData.getSpawnX(), worldData.getSpawnY(), worldData.getSpawnZ(), 0);
+                DataManager.getModData().setSpawnPoint(spawnLocation);
+                DataManager.saveModData();
+            }
+
+            File destWorld = new File(ConfigValues.worldCatalog + "kits.json");
+            if (!destWorld.exists()) {
+                File targetFile = new File(ConfigValues.mainCatalog + "default_kits.json");
+                Log.log("Kit file not exist, creating from default");
+                Files.copy(targetFile.toPath(), destWorld.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            }
+        } catch (Exception e) {
+            Log.err("Error in setupWorld");
+            throw new Error(e);
+        }
+    }
+
+    public static void load() {
         DataManager.cleanPlayerData();
         DataManager.cleanWarpData();
 
-        loadModData(event);
+        loadModData();
         loadKitsData();
         loadWarps();
 
@@ -29,33 +95,11 @@ public class DataLoader {
         Log.debug("Mod data loaded");
     }
 
-    private static ArrayList<String> loadCatalog(String catalog) {
-        File folder = new File(Config.getWorldCatalog() + catalog);
-        File[] listOfFiles = folder.listFiles();
-        ArrayList<String> data = new ArrayList<>();
-        if (listOfFiles != null) {
-            for (int i = 0; i < listOfFiles.length; i++) {
-                if (listOfFiles[i].isFile()) {
-                    String fileName = FilenameUtils.removeExtension(listOfFiles[i].getName());
-                    data.add(fileName);
-                }
-            }
-        }
-        return data;
-    }
-
-    private static void loadModData(FMLServerStartingEvent event) {
-        if (new File(Config.getWorldCatalog() + "data.json").isFile()) {
-            Log.debug("Loading mod data");
-            ModData modData = new ModData();
-            modData = (ModData) Json.load("data", modData);
-            DataManager.setModData(modData);
-        } else {
-            WorldInfo worldData = event.getServer().getWorld(DimensionType.getById(0)).getWorldInfo();
-            Location spawnLocation = new Location(worldData.getSpawnX(), worldData.getSpawnY(), worldData.getSpawnZ(), 0);
-            DataManager.getModData().setSpawnPoint(spawnLocation);
-            DataManager.saveModData();
-        }
+    private static void loadModData() {
+        Log.debug("Loading mod data");
+        ModData modData = new ModData();
+        modData = (ModData) Json.load("data", modData);
+        DataManager.setModData(modData);
     }
 
     private static void loadKitsData() {
@@ -71,7 +115,8 @@ public class DataLoader {
     }
 
     private static void loadWarps() {
-        ArrayList<String> data = loadCatalog("warps");
+        ArrayList<String> data = Methods.catalogFiles(ConfigValues.worldCatalog + "warps");
+
         for (String fileName : data) {
             Log.debug("Loading warp: " + fileName);
             try {
@@ -86,7 +131,8 @@ public class DataLoader {
     }
 
     private static void loadPlayerData() {
-        ArrayList<String> data = loadCatalog("players");
+        ArrayList<String> data = Methods.catalogFiles(ConfigValues.worldCatalog + "players");
+
         for (String fileName : data) {
             UUID playerUUID = UUID.fromString(fileName);
             Log.debug("Loading homes for player: " + playerUUID);
@@ -103,7 +149,8 @@ public class DataLoader {
     }
 
     private static void loadPlayerHomes() {
-        ArrayList<String> data = loadCatalog("homes");
+        ArrayList<String> data = Methods.catalogFiles(ConfigValues.worldCatalog + "homes");
+
         for (String fileName : data) {
             UUID playerUUID = UUID.fromString(fileName);
             Log.debug("Loading data for player: " + playerUUID);

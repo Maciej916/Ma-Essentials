@@ -24,7 +24,7 @@ public class CommandMaeReload {
     private static int reload(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         Log.log("Call DataLoader");
-        DataLoader.init(null);
+        DataLoader.load();
         player.sendMessage(Methods.formatText("maereload.maessentials.done"));
         return Command.SINGLE_SUCCESS;
     }
