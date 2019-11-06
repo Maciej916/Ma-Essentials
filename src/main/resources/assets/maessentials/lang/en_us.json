@@ -30,7 +30,7 @@
   "spawn.maessentials.success": "Teleporting to spawn...",
   "spawn.maessentials.success.wait": "Teleporting to spawn, please wait §c%s§r seconds...",
 
-  "setspawn.maessentials.success": "§aSpawn location set",
+  "setspawn.maessentials.success": "Spawn location set",
 
 
   "_comment": "Home",
@@ -97,9 +97,8 @@
 
 
   "_comment": "Suicide",
-  "suicide.maessentials.self": "You killed yourself. You can use §8/back§r to teleport to your death place!",
   "suicide.maessentials.player": "You just killed §c%s§r",
-  "suicide.maessentials.player.target": "You have been killed by §c%s§r. You can use §c/back§r to teleport to your death place!",
+  "suicide.maessentials.player.target": "You have been killed by §c%s§r.",
 
 
   "_comment": "Heal",
@@ -164,7 +163,7 @@
 
 
   "_comment": "Kit",
-  "kit.maessentials.parse_error": "§cFailed to parse item for this kit. Please contact with server operator!",
+  "kit.maessentials.parse_error": "§cFailed to get kit. Please contact with server operator!",
   "kit.maessentials.not_exist": "§cKit §4%s§c does not exist!",
   "kit.maessentials.wait": "§cYou need to wait §4%s§c before taking this kit!",
 

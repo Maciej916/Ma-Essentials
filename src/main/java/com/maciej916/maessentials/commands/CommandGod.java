@@ -19,8 +19,8 @@ public class CommandGod {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("god").requires(source -> source.hasPermissionLevel(2));
         builder
                 .executes(context -> god(context))
-                .then(Commands.argument("targetPlayer", EntityArgument.players())
-                        .executes(context -> godArgs(context)));
+                        .then(Commands.argument("targetPlayer", EntityArgument.players())
+                                .executes(context -> godArgs(context)));
 
         dispatcher.register(builder);
     }
@@ -33,34 +33,40 @@ public class CommandGod {
 
     private static int godArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-        godManage(player, requestedPlayer);
+        ServerPlayerEntity targetPlayer = EntityArgument.getPlayer(context, "targetPlayer");
+        godManage(player, targetPlayer);
         return Command.SINGLE_SUCCESS;
     }
 
-    private static void godManage(ServerPlayerEntity player, ServerPlayerEntity targetPlayer) {
-        if (targetPlayer.interactionManager.getGameType() == GameType.SURVIVAL || targetPlayer.interactionManager.getGameType() == GameType.ADVENTURE) {
-            if (targetPlayer.abilities.disableDamage) {
-                targetPlayer.abilities.disableDamage = false;
-                if (player == targetPlayer) {
-                    player.sendMessage(Methods.formatText("god.maessentials.self.disabled"));
-                } else {
-                    player.sendMessage(Methods.formatText("god.maessentials.player.disabled", targetPlayer.getDisplayName()));
-                    targetPlayer.sendMessage(Methods.formatText("god.maessentials.self.disabled"));
-                }
+    private static void godManage(ServerPlayerEntity player, ServerPlayerEntity target) {
+        if (target.interactionManager.getGameType() == GameType.CREATIVE || target.interactionManager.getGameType() == GameType.SPECTATOR) {
+            if (player == target) {
+                target.sendMessage(Methods.formatText("maessentials.invaild_gamemode"));
             } else {
-                targetPlayer.abilities.disableDamage = true;
-
-                if (player == targetPlayer) {
-                    player.sendMessage(Methods.formatText("god.maessentials.self.enabled"));
-                } else {
-                    player.sendMessage(Methods.formatText("god.maessentials.player.enabled", targetPlayer.getDisplayName()));
-                    targetPlayer.sendMessage(Methods.formatText("god.maessentials.self.enabled"));
-                }
+                target.sendMessage(Methods.formatText("maessentials.invaild_gamemode.player", target.getDisplayName()));
             }
-            targetPlayer.sendPlayerAbilities();
-        } else {
-            player.sendMessage(Methods.formatText("maessentials.invaild_gamemode.player", targetPlayer.getDisplayName()));
+            return;
         }
+
+        if (target.abilities.disableDamage) {
+            target.abilities.disableDamage = false;
+
+            if (player == target) {
+                player.sendMessage(Methods.formatText("god.maessentials.self.disabled"));
+            } else {
+                player.sendMessage(Methods.formatText("god.maessentials.player.disabled", target.getDisplayName()));
+                target.sendMessage(Methods.formatText("god.maessentials.self.disabled"));
+            }
+        } else {
+            target.abilities.disableDamage = true;
+
+            if (player == target) {
+                player.sendMessage(Methods.formatText("god.maessentials.self.enabled"));
+            } else {
+                player.sendMessage(Methods.formatText("god.maessentials.player.enabled", target.getDisplayName()));
+                target.sendMessage(Methods.formatText("god.maessentials.self.enabled"));
+            }
+        }
+        target.sendPlayerAbilities();
     }
 }

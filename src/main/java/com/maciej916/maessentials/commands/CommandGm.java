@@ -25,12 +25,12 @@ public class CommandGm {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("gm").requires(source -> source.hasPermissionLevel(2));
         builder
-            .executes(context -> gm(context))
-                .then(Commands.argument("gamemode", IntegerArgumentType.integer())
-                    .suggests(GM_SUGGEST)
-                    .executes(context -> gmSelf(context))
-                        .then(Commands.argument("targetPlayer", EntityArgument.players())
-                                .executes(context -> gmOthers(context))));
+                .executes(context -> gm(context))
+                        .then(Commands.argument("gamemode", IntegerArgumentType.integer())
+                                .suggests(GM_SUGGEST)
+                                .executes(context -> gmSelf(context))
+                                        .then(Commands.argument("targetPlayer", EntityArgument.players())
+                                                .executes(context -> gmOthers(context))));
 
         dispatcher.register(builder);
     }
@@ -50,9 +50,9 @@ public class CommandGm {
 
     private static int gmOthers(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
+        ServerPlayerEntity targetPlayer = EntityArgument.getPlayer(context, "targetPlayer");
         Integer gamemode = IntegerArgumentType.getInteger(context, "gamemode");
-        gmManage(player, requestedPlayer, gamemode);
+        gmManage(player, targetPlayer, gamemode);
         return Command.SINGLE_SUCCESS;
     }
 

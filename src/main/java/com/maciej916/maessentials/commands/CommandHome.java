@@ -1,9 +1,9 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.classes.player.EssentialPlayer;
 import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
-import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
@@ -15,7 +15,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.TextFormatting;
 
 public class CommandHome {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
@@ -30,41 +29,47 @@ public class CommandHome {
 
     private static int home(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        handleHome(player, "home");
+        doHome(player, "home");
         return Command.SINGLE_SUCCESS;
     }
 
     private static int homeArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        String args = StringArgumentType.getString(context, "homeName").toLowerCase();
-        handleHome(player, args);
+        String homeName = StringArgumentType.getString(context, "homeName").toLowerCase();
+        doHome(player, homeName);
         return Command.SINGLE_SUCCESS;
     }
 
-    private static void handleHome(ServerPlayerEntity player, String homeName) {
-        PlayerData playerData = DataManager.getPlayerData(player);
-        if (playerData.getHomes().size() == 0) {
+    private static void doHome(ServerPlayerEntity player, String name) {
+        EssentialPlayer eslPlayer = DataManager.getPlayer(player);
+
+        if (eslPlayer.getHomeData().getHomes().size() == 0) {
             player.sendMessage(Methods.formatText("home.maessentials.no_homes"));
-        } else {
-            Location homeLocation = playerData.getHomes().get(homeName);
-            if (homeLocation != null) {
-                long cooldown = Methods.delayCommand(playerData.getHomeTime(), ConfigValues.homes_cooldown);
-                if (cooldown == 0) {
-                    long currentTime = System.currentTimeMillis() / 1000;
-                    playerData.setHomeTime(currentTime);
-                    DataManager.savePlayerData(playerData);
-                    if (ConfigValues.homes_delay == 0) {
-                        player.sendMessage(Methods.formatText("home.maessentials.teleport", homeName));
-                    } else {
-                        player.sendMessage(Methods.formatText("home.maessentials.teleport.wait", homeName, ConfigValues.homes_delay));
-                    }
-                    Teleport.teleportPlayer(player, homeLocation, true, ConfigValues.homes_delay);
-                } else {
-                    player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
-                }
-            } else {
-                player.sendMessage(Methods.formatText("home.maessentials.not_exist", homeName));
-            }
+            return;
         }
+
+        Location location = eslPlayer.getHomeData().getHome(name);
+        if (location == null) {
+            player.sendMessage(Methods.formatText("home.maessentials.not_exist", name));
+            return;
+        }
+
+
+        long cooldown = eslPlayer.getUsage().getCommandCooldown("home", ConfigValues.homes_cooldown);
+        if (cooldown != 0) {
+            player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
+            return;
+        }
+
+        eslPlayer.getUsage().setCommandUsage("home");
+        eslPlayer.saveData();
+
+        if (ConfigValues.homes_delay == 0) {
+            player.sendMessage(Methods.formatText("home.maessentials.teleport", name));
+        } else {
+            player.sendMessage(Methods.formatText("home.maessentials.teleport.wait", name, ConfigValues.homes_delay));
+        }
+
+        Teleport.teleportPlayer(player, location, true, ConfigValues.homes_delay);
     }
 }

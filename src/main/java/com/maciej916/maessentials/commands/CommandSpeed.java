@@ -21,11 +21,11 @@ public class CommandSpeed {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("speed").requires(source -> source.hasPermissionLevel(2));
         builder
-            .executes(context -> speed(context))
-                .then(Commands.argument("speed", IntegerArgumentType.integer())
-                    .executes(context -> speedArgs(context))
-                        .then(Commands.argument("targetPlayer", EntityArgument.players())
-                            .executes(context -> speedArgsPlayer(context))));
+                .executes(context -> speed(context))
+                        .then(Commands.argument("speed", IntegerArgumentType.integer())
+                        .executes(context -> speedArgs(context))
+                                .then(Commands.argument("targetPlayer", EntityArgument.players())
+                                .executes(context -> speedArgsPlayer(context))));
 
         dispatcher.register(builder);
     }
@@ -38,49 +38,49 @@ public class CommandSpeed {
 
     private static int speedArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        Integer speed = IntegerArgumentType.getInteger(context, "speed");
-        speedManage(player, player, speed);
+        int speed = IntegerArgumentType.getInteger(context, "speed");
+        doSpeed(player, player, speed);
         return Command.SINGLE_SUCCESS;
     }
 
     private static int speedArgsPlayer(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-        Integer speed = IntegerArgumentType.getInteger(context, "speed");
-        speedManage(player, requestedPlayer, speed);
+        ServerPlayerEntity targetPlayer = EntityArgument.getPlayer(context, "targetPlayer");
+        int speed = IntegerArgumentType.getInteger(context, "speed");
+        doSpeed(player, targetPlayer, speed);
         return Command.SINGLE_SUCCESS;
     }
 
-    private static void speedManage(ServerPlayerEntity player, ServerPlayerEntity targetPlayer, float speed) {
-        if (targetPlayer.abilities.isFlying) {
+    private static void doSpeed(ServerPlayerEntity player, ServerPlayerEntity target, float speed) {
+        if (target.abilities.isFlying) {
             if (speed > ConfigValues.speed_max_fly) {
                 player.sendMessage(Methods.formatText("speed.maessentials.max_fly", ConfigValues.speed_max_fly));
             } else {
-                Float flySpeed = speed * flySpeedDefault;
-                targetPlayer.abilities.setFlySpeed(flySpeed);
+                float flySpeed = speed * flySpeedDefault;
+                target.abilities.setFlySpeed(flySpeed);
 
-                if (player == targetPlayer) {
+                if (player == target) {
                     player.sendMessage(Methods.formatText("speed.maessentials.fly.self", speed));
                 } else {
-                    player.sendMessage(Methods.formatText("speed.maessentials.fly.other", targetPlayer.getDisplayName(), speed));
-                    targetPlayer.sendMessage(Methods.formatText("speed.maessentials.fly.self", speed));
+                    player.sendMessage(Methods.formatText("speed.maessentials.fly.other", target.getDisplayName(), speed));
+                    target.sendMessage(Methods.formatText("speed.maessentials.fly.self", speed));
                 }
             }
         } else {
             if (speed > ConfigValues.speed_max_walk) {
                 player.sendMessage(Methods.formatText("speed.maessentials.max_walk", ConfigValues.speed_max_fly));
             } else {
-                Float walkSpeed = speed * walkSpeedDefault;
-                targetPlayer.abilities.setWalkSpeed(walkSpeed);
+                float walkSpeed = speed * walkSpeedDefault;
+                target.abilities.setWalkSpeed(walkSpeed);
 
-                if (player == targetPlayer) {
+                if (player == target) {
                     player.sendMessage(Methods.formatText("speed.maessentials.walk.self", speed));
                 } else {
-                    player.sendMessage(Methods.formatText("speed.maessentials.walk.other", targetPlayer.getDisplayName(), speed));
-                    targetPlayer.sendMessage(Methods.formatText("speed.maessentials.walk.self", speed));
+                    player.sendMessage(Methods.formatText("speed.maessentials.walk.other", target.getDisplayName(), speed));
+                    target.sendMessage(Methods.formatText("speed.maessentials.walk.self", speed));
                 }
             }
         }
-        targetPlayer.sendPlayerAbilities();
+        target.sendPlayerAbilities();
     }
 }

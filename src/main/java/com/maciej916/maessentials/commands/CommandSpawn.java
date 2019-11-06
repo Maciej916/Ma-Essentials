@@ -1,9 +1,9 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.classes.player.EssentialPlayer;
 import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
-import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
@@ -14,7 +14,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.TextFormatting;
 
 public class CommandSpawn {
 
@@ -26,26 +25,26 @@ public class CommandSpawn {
 
     private static int spawn(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        PlayerData playerData = DataManager.getPlayerData(player);
-        long cooldown = Methods.delayCommand(playerData.getSpawnTime(), ConfigValues.homes_cooldown);
-        if (cooldown == 0) {
-            long currentTime = System.currentTimeMillis() / 1000;
-            playerData.setSpawnTime(currentTime);
-            DataManager.savePlayerData(playerData);
-            doSpawn(player);
-        } else {
-            player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
-        }
-        return Command.SINGLE_SUCCESS;
-    }
+        EssentialPlayer eslPlayer = DataManager.getPlayer(player);
 
-    private static void doSpawn(ServerPlayerEntity player) {
+        long cooldown = eslPlayer.getUsage().getCommandCooldown("spawn", ConfigValues.spawn_cooldown);
+        if (cooldown != 0) {
+            player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
+            return Command.SINGLE_SUCCESS;
+        }
+
+        eslPlayer.getUsage().setCommandUsage("spawn");
+        eslPlayer.saveData();
+
         if (ConfigValues.spawn_delay == 0) {
             player.sendMessage(Methods.formatText("spawn.maessentials.success"));
         } else {
             player.sendMessage(Methods.formatText("spawn.maessentials.success.wait", ConfigValues.spawn_delay));
         }
-        Location spawnLocation = DataManager.getModData().getSpawnPoint();
-        Teleport.teleportPlayer(player, spawnLocation, true, ConfigValues.spawn_delay);
+
+        Location location = DataManager.getWorld().getSpawn();
+        Teleport.teleportPlayer(player, location, true, ConfigValues.spawn_delay);
+
+        return Command.SINGLE_SUCCESS;
     }
 }

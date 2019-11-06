@@ -1,9 +1,9 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.classes.player.EssentialPlayer;
 import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
-import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
@@ -16,7 +16,6 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
@@ -35,26 +34,30 @@ public class CommandRndtp {
     private static int rndtp(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerWorld world = context.getSource().getWorld();
         ServerPlayerEntity player = context.getSource().asPlayer();
-        PlayerData playerData = DataManager.getPlayerData(player);
-        Location randomLocation = findRandomTp(world, player, 0);
-        if (randomLocation != null) {
-            long cooldown = Methods.delayCommand(playerData.getRndtpTime(), ConfigValues.rndtp_cooldown);
-            if (cooldown == 0) {
-                long currentTime = System.currentTimeMillis() / 1000;
-                playerData.setRndtpTime(currentTime);
-                DataManager.savePlayerData(playerData);
-                if (ConfigValues.rndtp_delay == 0) {
-                    player.sendMessage(Methods.formatText("rndtp.maessentials.teleport"));
-                } else {
-                    player.sendMessage(Methods.formatText("rndtp.maessentials.teleport.wait", ConfigValues.rndtp_delay));
-                }
-                Teleport.teleportPlayer(player, randomLocation, true, ConfigValues.rndtp_delay);
-            } else {
-                player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
-            }
-        } else {
-            player.sendMessage(Methods.formatText("rndtp.maessentials.not_found"));
+        EssentialPlayer eslPlayer = DataManager.getPlayer(player);
+
+        long cooldown = eslPlayer.getUsage().getCommandCooldown("rndtp", ConfigValues.rndtp_cooldown);
+        if (cooldown != 0) {
+            player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
+            return Command.SINGLE_SUCCESS;
         }
+
+        Location location = findRandomTp(world, player, 0);
+        if (location == null) {
+            player.sendMessage(Methods.formatText("rndtp.maessentials.not_found"));
+            return Command.SINGLE_SUCCESS;
+        }
+
+        eslPlayer.getUsage().setCommandUsage("rndtp");
+        eslPlayer.saveData();
+
+        if (ConfigValues.rndtp_delay == 0) {
+            player.sendMessage(Methods.formatText("rndtp.maessentials.teleport"));
+        } else {
+            player.sendMessage(Methods.formatText("rndtp.maessentials.teleport.wait", ConfigValues.rndtp_delay));
+        }
+
+        Teleport.teleportPlayer(player, location, true, ConfigValues.rndtp_delay);
         return Command.SINGLE_SUCCESS;
     }
 
@@ -64,7 +67,7 @@ public class CommandRndtp {
         }
         count++;
 
-        Location spawnLocation = DataManager.getModData().getSpawnPoint();
+        Location spawnLocation = DataManager.getWorld().getSpawn();
         Random rand = new Random();
 
         int min = ConfigValues.rndtp_range_min;

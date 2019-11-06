@@ -1,5 +1,6 @@
 package com.maciej916.maessentials.commands;
 
+import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
@@ -11,16 +12,15 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class CommandSetWarp {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("setwarp").requires(source -> source.hasPermissionLevel(2));
         builder
-            .executes(context -> warp(context))
-            .then(Commands.argument("warpName", StringArgumentType.string())
-                    .executes(context -> warpArgs(context)));
+                .executes(context -> warp(context))
+                    .then(Commands.argument("warpName", StringArgumentType.string())
+                            .executes(context -> warpArgs(context)));
         dispatcher.register(builder);
     }
 
@@ -33,11 +33,13 @@ public class CommandSetWarp {
     private static int warpArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         String warpName = StringArgumentType.getString(context, "warpName").toLowerCase();
-        if (DataManager.getWarpData().setWarp(player, warpName)) {
+
+        if (DataManager.getWarp().setWarp(warpName, new Location(player))) {
             player.sendMessage(Methods.formatText("setwarp.maessentials.success", warpName));
         } else {
             player.sendMessage(Methods.formatText("setwarp.maessentials.exist", warpName));
         }
+
         return Command.SINGLE_SUCCESS;
     }
 }

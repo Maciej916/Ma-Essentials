@@ -1,6 +1,7 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.classes.world.WorldData;
 import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
@@ -11,7 +12,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.TextFormatting;
 
 public class CommandSetSpawn {
 
@@ -23,7 +23,11 @@ public class CommandSetSpawn {
 
     private static int setSpawn(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        DataManager.getModData().setSpawnPoint(new Location(player));
+
+        WorldData worldData = DataManager.getWorld();
+        worldData.setSpawn(new Location(player));
+        worldData.saveData();
+
         player.sendMessage(Methods.formatText("setspawn.maessentials.success"));
         return Command.SINGLE_SUCCESS;
     }

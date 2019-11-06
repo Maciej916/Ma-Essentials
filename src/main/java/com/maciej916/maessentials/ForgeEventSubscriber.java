@@ -40,7 +40,6 @@ public final class ForgeEventSubscriber {
     @SubscribeEvent
     public static void worldTick(TickEvent.WorldTickEvent event) {
         EventWorldTick.event(event);
-
     }
 
 }

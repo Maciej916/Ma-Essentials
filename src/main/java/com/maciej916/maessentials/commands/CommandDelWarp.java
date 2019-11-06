@@ -11,16 +11,15 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.TextFormatting;
 
 public class CommandDelWarp {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("delwarp").requires(source -> source.hasPermissionLevel(2));
         builder
-            .executes(context -> warp(context))
-            .then(Commands.argument("warpName", StringArgumentType.string())
-                .suggests(Methods.WARP_SUGGEST)
-                .executes(context -> warpArgs(context)));
+                .executes(context -> warp(context))
+                        .then(Commands.argument("warpName", StringArgumentType.string())
+                                .suggests(Methods.WARP_SUGGEST)
+                                .executes(context -> warpArgs(context)));
         dispatcher.register(builder);
     }
 
@@ -33,11 +32,13 @@ public class CommandDelWarp {
     private static int warpArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         String warpName = StringArgumentType.getString(context, "warpName").toLowerCase();
-        if (DataManager.getWarpData().delWarp(warpName)) {
+
+        if (DataManager.getWarp().delWarp(warpName)) {
             player.sendMessage(Methods.formatText("delwarp.maessentials.success", warpName));
         } else {
             player.sendMessage(Methods.formatText("warp.maessentials.not_exist", warpName));
         }
+
         return Command.SINGLE_SUCCESS;
     }
 }

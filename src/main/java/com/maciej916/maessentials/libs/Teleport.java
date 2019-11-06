@@ -1,12 +1,10 @@
 package com.maciej916.maessentials.libs;
 
 import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.classes.player.EssentialPlayer;
 import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
-import com.maciej916.maessentials.data.PlayerData;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.*;
@@ -166,10 +164,9 @@ public class Teleport {
 
     public static void doTeleport(ServerPlayerEntity player, Location loc, boolean exact, boolean saveLastLocation) {
         if (saveLastLocation) {
-            Location currentLocation = new Location(player);
-            PlayerData playerData = DataManager.getPlayerData(player);
-            playerData.setLastLocation(currentLocation);
-            DataManager.savePlayerData(playerData);
+            EssentialPlayer eslPlayer = DataManager.getPlayer(player);
+            eslPlayer.getData().setLastLocation(new Location(player));
+            eslPlayer.saveData();
         }
 
         ServerWorld worldDest = player.server.getWorld(loc.getDimension());

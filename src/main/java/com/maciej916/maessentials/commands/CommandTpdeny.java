@@ -19,9 +19,9 @@ public class CommandTpdeny {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("tpdeny").requires(source -> source.hasPermissionLevel(0));
         builder
-            .executes(context -> tpdeny(context))
-            .then(Commands.argument("targetPlayer", EntityArgument.players())
-                .executes(context -> tpdenyArgs(context)));
+                .executes(context -> tpdeny(context))
+                        .then(Commands.argument("targetPlayer", EntityArgument.players())
+                        .executes(context -> tpdenyArgs(context)));
         dispatcher.register(builder);
     }
 
@@ -41,8 +41,8 @@ public class CommandTpdeny {
 
     private static int tpdenyArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-        Teleport tpr = Teleport.findTeleportRequest(player, requestedPlayer);
+        ServerPlayerEntity targetPlayer = EntityArgument.getPlayer(context, "targetPlayer");
+        Teleport tpr = Teleport.findTeleportRequest(player, targetPlayer);
         if (tpr != null) {
             Teleport.declineTrade(tpr);
         } else {

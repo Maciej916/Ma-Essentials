@@ -1,112 +1,79 @@
 package com.maciej916.maessentials.data;
 
-import com.maciej916.maessentials.classes.Homes;
-import com.maciej916.maessentials.classes.Location;
-import com.maciej916.maessentials.config.ConfigValues;
-import com.maciej916.maessentials.libs.Json;
+import com.maciej916.maessentials.classes.kit.KitData;
+import com.maciej916.maessentials.classes.player.EssentialPlayer;
+import com.maciej916.maessentials.classes.world.WorldData;
+import com.maciej916.maessentials.classes.warp.WarpData;
 import com.maciej916.maessentials.libs.Log;
 import net.minecraft.entity.player.ServerPlayerEntity;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.UUID;
 
 public class DataManager {
 
-    // Mod Data
-
-    private static ModData modData = new ModData();
-
-    public static void setModData(ModData data) {
-        modData = data;
-    }
-
-    public static ModData getModData() {
-        return modData;
-    }
-
-    public static void saveModData() {
-        Log.debug("Saving mod data");
-        Json.save(modData, "data");
-    }
-
-    // Players Data
-
-    private static HashMap<UUID, PlayerData> playerData = new HashMap<>();
-
-    public static void cleanPlayerData() {
-        playerData.clear();
-    }
-
-    public static void setPlayerData(UUID uuid, PlayerData data) {
-        playerData.put(uuid, data);
-    }
-
-    public static boolean checkPlayerData(UUID playerUUID) {
-        return playerData.containsKey(playerUUID);
-    }
-
-    public static PlayerData getPlayerData(ServerPlayerEntity player) {
-        UUID playerUUID = player.getUniqueID();
-        return getPlayerData(playerUUID);
-    }
-
-    public static PlayerData getPlayerData(UUID playerUUID) {
-        if (playerData.containsKey(playerUUID)) {
-            return playerData.get(playerUUID);
-        } else {
-            PlayerData essentialPlayer = new PlayerData();
-            essentialPlayer.setPlayerUUID(playerUUID);
-            Log.debug("Creating player profile: " + playerUUID);
-            playerData.put(playerUUID, essentialPlayer);
-            savePlayerData(essentialPlayer);
-            return essentialPlayer;
-        }
-    }
-
-    public static void savePlayerData(PlayerData essentialPlayer) {
-        Log.debug("Saving player data for player: " + essentialPlayer.getPlayerUUID());
-        Json.save(essentialPlayer, "players/" + essentialPlayer.getPlayerUUID());
-    }
-
-    public static void savePlayerHome(UUID uuid, Homes homes) {
-        Log.debug("Saving homes for player: " + uuid);
-        Json.save(homes, "homes/" + uuid);
-    }
-
-    // Warp Data
-
+    private static WorldData worldData = new WorldData();
     private static WarpData warpData = new WarpData();
+    private static KitData kitData = new KitData();
+    private static HashMap<UUID, EssentialPlayer> playerData = new HashMap<>();
 
-    public static void cleanWarpData() {
-        warpData.cleanWarps();
+     public static void cleanData() {
+         worldData = new WorldData();
+         warpData = new WarpData();
+         kitData = new KitData();
+         playerData = new HashMap<>();
+     }
+
+    public static void setWorldData(WorldData worldData) {
+        DataManager.worldData = worldData;
     }
 
-    public static WarpData getWarpData() {
+    public static void setWarpData(WarpData warpData) {
+        DataManager.warpData = warpData;
+    }
+
+    public static void setKitData(KitData kitData) {
+        DataManager.kitData = kitData;
+    }
+
+    public static void setPlayerData(EssentialPlayer eslPlayer) {
+        DataManager.playerData.put(eslPlayer.getPlayerUUID(), eslPlayer);
+    }
+
+    public static WorldData getWorld() {
+        return worldData;
+    }
+
+    public static WarpData getWarp() {
         return warpData;
     }
 
-    public static void saveWarp(String name, Location location) {
-        Log.debug("Saving warp: " + name);
-        Json.save(location, "warps/" + name);
+    public static KitData getKit() {
+        return kitData;
     }
 
-    public static void removeWarp(String name) {
-        Log.debug("Removing warp: " + name);
-        File file = new File(ConfigValues.worldCatalog + "warps/" + name + ".json");
-        file.delete();
+    public static EssentialPlayer newPlayer(ServerPlayerEntity player) {
+        UUID playerUUID = player.getUniqueID();
+        if (playerData.containsKey(playerUUID)) {
+            return null;
+        }
+        Log.debug("Create profile for player: " + playerUUID.toString());
+        return getPlayer(playerUUID);
     }
 
-    // Kits Data
-
-    private static KitsData kitsData = new KitsData();
-
-    public static void setKitsData(KitsData data) {
-        kitsData = data;
+    public static EssentialPlayer getPlayer(ServerPlayerEntity player) {
+        UUID playerUUID = player.getUniqueID();
+        return getPlayer(playerUUID);
     }
 
-    public static KitsData getKitsData() {
-        return kitsData;
+    public static EssentialPlayer getPlayer(UUID playerUUID) {
+        if (playerData.containsKey(playerUUID)) {
+            return playerData.get(playerUUID);
+        } else {
+            EssentialPlayer eslPlayer = new EssentialPlayer(playerUUID);
+            playerData.put(playerUUID, eslPlayer);
+            eslPlayer.saveData();
+            return eslPlayer;
+        }
     }
-
 }

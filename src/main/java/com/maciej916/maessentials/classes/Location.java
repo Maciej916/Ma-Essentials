@@ -1,11 +1,12 @@
 package com.maciej916.maessentials.classes;
 
+import com.google.gson.internal.LinkedTreeMap;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.world.dimension.DimensionType;
 
 import java.io.Serializable;
 
-public final class Location implements Serializable {
+public class Location {
     public double x,y,z;
     public float rotationYaw,rotationPitch;
     public int dimension;

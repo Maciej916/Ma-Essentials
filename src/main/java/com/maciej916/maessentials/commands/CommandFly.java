@@ -18,8 +18,8 @@ public class CommandFly {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("fly").requires(source -> source.hasPermissionLevel(2));
         builder
                 .executes(context -> fly(context))
-                    .then(Commands.argument("targetPlayer", EntityArgument.players())
-                        .executes(context -> flyArgs(context)));
+                        .then(Commands.argument("targetPlayer", EntityArgument.players())
+                                .executes(context -> flyArgs(context)));
 
         dispatcher.register(builder);
     }
@@ -32,35 +32,41 @@ public class CommandFly {
 
     private static int flyArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-        flyManage(player, requestedPlayer);
+        ServerPlayerEntity targetPlayer = EntityArgument.getPlayer(context, "targetPlayer");
+        flyManage(player, targetPlayer);
         return Command.SINGLE_SUCCESS;
     }
 
-    private static void flyManage(ServerPlayerEntity player, ServerPlayerEntity targetPlayer) {
-        if (targetPlayer.interactionManager.getGameType() == GameType.SURVIVAL || targetPlayer.interactionManager.getGameType() == GameType.ADVENTURE) {
-            if (targetPlayer.abilities.allowFlying) {
-                targetPlayer.abilities.allowFlying = false;
-                targetPlayer.abilities.isFlying = false;
-                if (player == targetPlayer) {
-                    player.sendMessage(Methods.formatText("fly.maessentials.self.disabled"));
-                } else {
-                    player.sendMessage(Methods.formatText("fly.maessentials.player.disabled", targetPlayer.getDisplayName()));
-                    targetPlayer.sendMessage(Methods.formatText("fly.maessentials.self.disabled"));
-                }
+    private static void flyManage(ServerPlayerEntity player, ServerPlayerEntity target) {
+        if (target.interactionManager.getGameType() == GameType.CREATIVE || target.interactionManager.getGameType() == GameType.SPECTATOR) {
+            if (player == target) {
+                target.sendMessage(Methods.formatText("maessentials.invaild_gamemode"));
             } else {
-                targetPlayer.abilities.allowFlying = true;
-
-                if (player == targetPlayer) {
-                    player.sendMessage(Methods.formatText("fly.maessentials.self.enabled"));
-                } else {
-                    player.sendMessage(Methods.formatText("fly.maessentials.player.enabled", targetPlayer.getDisplayName()));
-                    targetPlayer.sendMessage(Methods.formatText("fly.maessentials.self.enabled"));
-                }
+                target.sendMessage(Methods.formatText("maessentials.invaild_gamemode.player", target.getDisplayName()));
             }
-            targetPlayer.sendPlayerAbilities();
-        } else {
-            player.sendMessage(Methods.formatText("maessentials.invaild_gamemode.player", targetPlayer.getDisplayName()));
+            return;
         }
+
+        if (target.abilities.allowFlying) {
+            target.abilities.allowFlying = false;
+            target.abilities.isFlying = false;
+
+            if (player == target) {
+                player.sendMessage(Methods.formatText("fly.maessentials.self.disabled"));
+            } else {
+                player.sendMessage(Methods.formatText("fly.maessentials.player.disabled", target.getDisplayName()));
+                target.sendMessage(Methods.formatText("fly.maessentials.self.disabled"));
+            }
+        } else {
+            target.abilities.allowFlying = true;
+
+            if (player == target) {
+                player.sendMessage(Methods.formatText("fly.maessentials.self.enabled"));
+            } else {
+                player.sendMessage(Methods.formatText("fly.maessentials.player.enabled", target.getDisplayName()));
+                target.sendMessage(Methods.formatText("fly.maessentials.self.enabled"));
+            }
+        }
+        target.sendPlayerAbilities();
     }
 }

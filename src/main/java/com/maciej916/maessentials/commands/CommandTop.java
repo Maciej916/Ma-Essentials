@@ -1,8 +1,6 @@
 package com.maciej916.maessentials.commands;
 
 import com.maciej916.maessentials.classes.Location;
-import com.maciej916.maessentials.data.DataManager;
-import com.maciej916.maessentials.data.PlayerData;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
@@ -15,7 +13,6 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.server.ServerWorld;
 
@@ -46,7 +43,7 @@ public class CommandTop {
                 if (chunk.getBlockState(legPos).getMaterial().equals(Material.AIR)) {
                     BlockPos headPos = new BlockPos(x, y, z);
                     if (chunk.getBlockState(headPos).getMaterial().equals(Material.AIR)) {
-                        Location topLocation = new Location(player.posX, y-2, player.posZ, player.rotationYaw, player.rotationPitch, player.dimension.getId());
+                        Location topLocation = new Location(player.posX, y-1, player.posZ, player.rotationYaw, player.rotationPitch, player.dimension.getId());
                         Teleport.doTeleport(player, topLocation, true, true);
                         player.sendMessage(Methods.formatText("top.maessentials.teleported"));
                         break;

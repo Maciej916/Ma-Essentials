@@ -19,9 +19,9 @@ public class CommandTpaccept {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("tpaccept").requires(source -> source.hasPermissionLevel(0));
         builder
-            .executes(context -> tpaccept(context))
-            .then(Commands.argument("targetPlayer", EntityArgument.players())
-                .executes(context -> tpacceptArgs(context)));
+                .executes(context -> tpaccept(context))
+                        .then(Commands.argument("targetPlayer", EntityArgument.players())
+                        .executes(context -> tpacceptArgs(context)));
         dispatcher.register(builder);
     }
 
@@ -41,8 +41,8 @@ public class CommandTpaccept {
 
     private static int tpacceptArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-        Teleport tpr = Teleport.findTeleportRequest(player, requestedPlayer);
+        ServerPlayerEntity targetPlayer = EntityArgument.getPlayer(context, "targetPlayer");
+        Teleport tpr = Teleport.findTeleportRequest(player, targetPlayer);
         if (tpr != null) {
             Teleport.acceptTeleport(tpr);
         } else {

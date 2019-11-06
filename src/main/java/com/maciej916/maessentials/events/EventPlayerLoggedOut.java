@@ -11,6 +11,6 @@ public class EventPlayerLoggedOut {
     public static void event(PlayerEvent.PlayerLoggedOutEvent event) {
         ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
         UUID playerUUID = player.getUniqueID();
-        Log.debug("Player " + player.getDisplayName() + " leave");
+        Log.debug("Player " + player.getDisplayName().toString() + " leave");
     }
 }

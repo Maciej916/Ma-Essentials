@@ -1,10 +1,17 @@
 package com.maciej916.maessentials.data;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 import com.maciej916.maessentials.MaEssentials;
-import com.maciej916.maessentials.classes.Homes;
 import com.maciej916.maessentials.classes.Location;
+import com.maciej916.maessentials.classes.home.HomeData;
+import com.maciej916.maessentials.classes.kit.KitData;
+import com.maciej916.maessentials.classes.player.EssentialPlayer;
+import com.maciej916.maessentials.classes.world.WorldData;
+import com.maciej916.maessentials.classes.warp.WarpData;
 import com.maciej916.maessentials.config.ConfigValues;
-import com.maciej916.maessentials.libs.Json;
+import com.maciej916.maessentials.data.old.OldPlayerData;
+import com.maciej916.maessentials.data.old.ProfileUpdater;
 import com.maciej916.maessentials.libs.Log;
 import com.maciej916.maessentials.libs.Methods;
 import net.minecraft.world.dimension.DimensionType;
@@ -18,8 +25,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+
+import static com.maciej916.maessentials.libs.Methods.fileExist;
 
 public class DataLoader {
 
@@ -62,18 +72,17 @@ public class DataLoader {
             new File(ConfigValues.worldCatalog + "warps").mkdirs();
             new File(ConfigValues.worldCatalog + "players").mkdirs();
 
-            if (!new File(ConfigValues.worldCatalog + "data.json").exists()) {
-                WorldInfo worldData = event.getServer().getWorld(DimensionType.getById(0)).getWorldInfo();
-                Location spawnLocation = new Location(worldData.getSpawnX(), worldData.getSpawnY(), worldData.getSpawnZ(), 0);
-                DataManager.getModData().setSpawnPoint(spawnLocation);
-                DataManager.saveModData();
+            if (!fileExist(ConfigValues.worldCatalog + "data.json")) {
+                WorldInfo worldInfo = event.getServer().getWorld(DimensionType.getById(0)).getWorldInfo();
+                Location spawnLocation = new Location(worldInfo.getSpawnX(), worldInfo.getSpawnY(), worldInfo.getSpawnZ(), 0);
+                DataManager.getWorld().setSpawn(spawnLocation);
+                DataManager.getWorld().saveData();
             }
 
-            File destWorld = new File(ConfigValues.worldCatalog + "kits.json");
-            if (!destWorld.exists()) {
-                File targetFile = new File(ConfigValues.mainCatalog + "default_kits.json");
-                Log.log("Kit file not exist, creating from default");
-                Files.copy(targetFile.toPath(), destWorld.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            if (!fileExist(ConfigValues.worldCatalog + "kits.json")) {
+                File def = new File(ConfigValues.mainCatalog + "default_kits.json");
+                File des = new File(ConfigValues.worldCatalog + "kits.json");
+                Files.copy(def.toPath(), des.toPath(), StandardCopyOption.REPLACE_EXISTING);
             }
         } catch (Exception e) {
             Log.err("Error in setupWorld");
@@ -82,86 +91,89 @@ public class DataLoader {
     }
 
     public static void load() {
-        DataManager.cleanPlayerData();
-        DataManager.cleanWarpData();
-
-        loadModData();
-        loadKitsData();
-        loadWarps();
-
-        loadPlayerData();
-        loadPlayerHomes();
-
-        Log.debug("Mod data loaded");
-    }
-
-    private static void loadModData() {
-        Log.debug("Loading mod data");
-        ModData modData = new ModData();
-        modData = (ModData) Json.load("data", modData);
-        DataManager.setModData(modData);
-    }
-
-    private static void loadKitsData() {
+        Log.log("Loading data");
         try {
-            Log.debug("Loading kits data");
-            KitsData kitsData = new KitsData();
-            kitsData = (KitsData) Json.load("kits", kitsData);
-            DataManager.setKitsData(kitsData);
+            Log.debug("Clean data");
+            DataManager.cleanData();
+            Log.debug("Loading world...");
+            loadWorld();
+            Log.debug("Loading warps...");
+            loadWarps();
+            Log.debug("Loading kits...");
+            loadKits();
+            Log.debug("Loading players...");
+            loadPlayers();
+            Log.debug("Loading homes...");
+            loadHomes();
+            Log.log("Data loaded");
         } catch (Exception e) {
-            Log.err("Error while loading kits");
-            System.out.println(e);
+            Log.err("Error while loading data!");
+            throw new Error(e);
         }
     }
 
-    private static void loadWarps() {
-        ArrayList<String> data = Methods.catalogFiles(ConfigValues.worldCatalog + "warps");
+    private static void loadWorld() throws Exception {
+        WorldData worldData = new Gson().fromJson(Methods.loadFile(ConfigValues.worldCatalog, "data"), WorldData.class);
+        DataManager.setWorldData(worldData);
+    }
 
-        for (String fileName : data) {
-            Log.debug("Loading warp: " + fileName);
+    private static void loadWarps() throws Exception {
+        Map<String, Location> data = new HashMap<>();
+        Methods.catalogFiles(ConfigValues.worldCatalog + "warps").forEach((n) -> {
             try {
-                Location warpLocation = new Location();
-                warpLocation = (Location) Json.load("warps/" + fileName, warpLocation);
-                DataManager.getWarpData().addWarp(fileName, warpLocation);
+                Location warp = new Gson().fromJson(Methods.loadFile(ConfigValues.worldCatalog + "warps/", n), Location.class);
+                data.put(n, warp);
             } catch (Exception e) {
-                Log.err("Error while loading warp: " + fileName);
-                System.out.println(e);
+                Log.err("Failed to load warp: " + n);
             }
+        });
+        WarpData warpData = new WarpData(data);
+        DataManager.setWarpData(warpData);
+    }
+
+    private static void loadKits() throws Exception {
+        try {
+            KitData kitData = new Gson().fromJson(Methods.loadFile(ConfigValues.worldCatalog, "kits"), KitData.class);
+            DataManager.setKitData(kitData);
+        } catch (JsonParseException ex) {
+            Log.err("Failed to load kits!");
+            Log.err(ex.toString());
         }
     }
 
-    private static void loadPlayerData() {
-        ArrayList<String> data = Methods.catalogFiles(ConfigValues.worldCatalog + "players");
-
-        for (String fileName : data) {
-            UUID playerUUID = UUID.fromString(fileName);
-            Log.debug("Loading homes for player: " + playerUUID);
+    private static void loadPlayers() throws Exception {
+        Methods.catalogFiles(ConfigValues.worldCatalog + "players").forEach((n) -> {
             try {
-                PlayerData playerData = new PlayerData();
-                playerData = (PlayerData) Json.load("players/" + fileName, playerData);
-                playerData.setPlayerUUID(playerUUID);
-                DataManager.setPlayerData(playerUUID, playerData);
+                try {
+                    EssentialPlayer eslPlayer = new Gson().fromJson(Methods.loadFile(ConfigValues.worldCatalog + "players/", n), EssentialPlayer.class);
+                    if (eslPlayer.getPlayerUUID() == null) {
+                        Log.debug("Failed to load using new player, fallback to old.");
+                        throw new Exception();
+                    }
+                    DataManager.setPlayerData(eslPlayer);
+                } catch (Exception e) {
+                    Log.log("Updading player profile: " + n);
+                    OldPlayerData oldProfile = new Gson().fromJson(Methods.loadFile(ConfigValues.worldCatalog + "players/", n), OldPlayerData.class);
+                    UUID playerUUID = UUID.fromString(n);
+                    EssentialPlayer eslPlayer = ProfileUpdater.updateProfie(playerUUID, oldProfile);
+                    eslPlayer.saveData();
+                    DataManager.setPlayerData(eslPlayer);
+                }
             } catch (Exception e) {
-                Log.err("Error while loading data for player: " + playerUUID);
-                System.out.println(e);
+                Log.err("Failed to load player: " + n);
             }
-        }
+        });
     }
 
-    private static void loadPlayerHomes() {
-        ArrayList<String> data = Methods.catalogFiles(ConfigValues.worldCatalog + "homes");
-
-        for (String fileName : data) {
-            UUID playerUUID = UUID.fromString(fileName);
-            Log.debug("Loading data for player: " + playerUUID);
+    private static void loadHomes() throws Exception {
+        Methods.catalogFiles(ConfigValues.worldCatalog + "homes").forEach((n) -> {
             try {
-                Homes homes = new Homes();
-                homes = (Homes) Json.load("homes/" + playerUUID, homes);
-                DataManager.getPlayerData(playerUUID).setHomes(homes);
+                HomeData homes = new Gson().fromJson(Methods.loadFile(ConfigValues.worldCatalog + "homes/", n), HomeData.class);
+                UUID playerUUID = UUID.fromString(n);
+                DataManager.getPlayer(playerUUID).setHomeData(homes);
             } catch (Exception e) {
-                Log.err("Error while loading homes for player: " + playerUUID);
-                System.out.println(e);
+                Log.err("Failed to load player homes: " + n);
             }
-        }
+        });
     }
 }
