@@ -83,6 +83,19 @@ public final class ConfigHelper {
 		ConfigValues.speed_enable = ConfigHolder.COMMON.speed_enable.get();
 		ConfigValues.speed_max_walk = ConfigHolder.COMMON.speed_max_walk.get();
 		ConfigValues.speed_max_fly = ConfigHolder.COMMON.speed_max_fly.get();
+
+		// Tpall
+		ConfigValues.tpall_enable = ConfigHolder.COMMON.tpall_enable.get();
+
+		// Kickall
+		ConfigValues.kickall_enable = ConfigHolder.COMMON.kickall_enable.get();
+
+		// Broadcast
+		ConfigValues.broadcast_enable = ConfigHolder.COMMON.broadcast_enable.get();
+
+		// Up
+		ConfigValues.up_enable = ConfigHolder.COMMON.up_enable.get();
+
 	}
 
 	public static void setValueAndSave(final ModConfig modConfig, final String path, final Object newValue) {

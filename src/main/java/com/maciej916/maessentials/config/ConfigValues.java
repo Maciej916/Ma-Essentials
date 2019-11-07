@@ -80,4 +80,17 @@ public final class ConfigValues {
 	public static Boolean speed_enable;
 	public static Integer speed_max_walk;
 	public static Integer speed_max_fly;
+
+	// Tpall
+	public static Boolean tpall_enable;
+
+	// Kickall
+	public static Boolean kickall_enable;
+
+	// Broadcast
+	public static Boolean broadcast_enable;
+
+	// Up
+	public static Boolean up_enable;
+
 }

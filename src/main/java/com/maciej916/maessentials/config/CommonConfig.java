@@ -80,6 +80,18 @@ final class CommonConfig {
 	final ForgeConfigSpec.IntValue speed_max_walk;
 	final ForgeConfigSpec.IntValue speed_max_fly;
 
+	// Tpall
+	final ForgeConfigSpec.BooleanValue tpall_enable;
+
+	// Kickall
+	final ForgeConfigSpec.BooleanValue kickall_enable;
+
+	// Broadcast
+	final ForgeConfigSpec.BooleanValue broadcast_enable;
+
+	// Up
+	final ForgeConfigSpec.BooleanValue up_enable;
+
 	CommonConfig(final ForgeConfigSpec.Builder builder) {
 		builder.comment("Command Config").push("Commands");
 
@@ -224,6 +236,34 @@ final class CommonConfig {
 				.define("enable", true);
 		speed_max_walk = builder.defineInRange("max_walk_speed", 20, 0 , 50);
 		speed_max_fly = builder.defineInRange("max_fly_speed", 20, 0 , 50);
+		builder.pop();
+
+		// Tpall
+		builder.push("tpall");
+		tpall_enable = builder
+				.comment("Enable command: /tpall")
+				.define("enable", true);
+		builder.pop();
+
+		// Kickall
+		builder.push("kickall");
+		kickall_enable = builder
+				.comment("Enable command: /kickall")
+				.define("enable", true);
+		builder.pop();
+
+		// Broadcast
+		builder.push("broadcast");
+		broadcast_enable = builder
+				.comment("Enable command: /broadcast")
+				.define("enable", true);
+		builder.pop();
+
+		// Up
+		builder.push("up");
+		up_enable = builder
+				.comment("Enable command: /up")
+				.define("enable", true);
 		builder.pop();
 	}
 }

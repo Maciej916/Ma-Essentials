@@ -6,6 +6,8 @@
   "maessentials.invaild_gamemode": "§cInvaild gamemode",
   "maessentials.invaild_gamemode.player": "§cPlayer §4%s§c have invaild gamemode",
   "maessentials.illegal_date": "§cInvaild gamemode",
+  "maessentials.invalid.location": "§cInvaild location",
+  "maessentials.provide.location": "§cPlease provide location",
 
 
   "_comment": "Back",
@@ -183,9 +185,22 @@
   "speed.maessentials.walk.other": "Walking speed changed for §c$s§r to §a%s§r",
 
 
+  "_comment": "Tpall",
+  "tpall.maessentials.teleported": "You have been teleported to §4%s§r",
+  "tpall.maessentials.success": "Teleported all players to you",
 
 
+  "_comment": "Kickall",
+  "kickall.maessentials.success": "Kicked all players from server",
 
+
+  "_comment": "Broadcast",
+  "broadcast.maessentials.no_message": "§cCannot broadcast empty message",
+  "broadcast.maessentials.success": "§5§l[Broadcast] §r§5%s",
+
+
+  "_comment": "Up",
+  "up.maessentials.success": "Teleported §c%s§r block(s) up",
 
 
 

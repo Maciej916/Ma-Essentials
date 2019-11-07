@@ -43,7 +43,7 @@ public class CommandGm {
 
     private static int gmSelf(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        Integer gamemode = IntegerArgumentType.getInteger(context, "gamemode");
+        int gamemode = IntegerArgumentType.getInteger(context, "gamemode");
         gmManage(player, player, gamemode);
         return Command.SINGLE_SUCCESS;
     }
@@ -51,12 +51,12 @@ public class CommandGm {
     private static int gmOthers(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity targetPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-        Integer gamemode = IntegerArgumentType.getInteger(context, "gamemode");
+        int gamemode = IntegerArgumentType.getInteger(context, "gamemode");
         gmManage(player, targetPlayer, gamemode);
         return Command.SINGLE_SUCCESS;
     }
 
-    private static void gmManage(ServerPlayerEntity player, ServerPlayerEntity targetPlayer, Integer gm) {
+    private static void gmManage(ServerPlayerEntity player, ServerPlayerEntity targetPlayer, int gm) {
         boolean changed = false;
         switch (gm) {
             case 0:

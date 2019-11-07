@@ -98,6 +98,16 @@ public class Commands {
             CommandSpeed.register(dispatcher);
         }
 
+        // Broadcast
+        if (ConfigValues.broadcast_enable) {
+            CommandBroadcast.register(dispatcher);
+        }
+
+        // Up
+        if (ConfigValues.up_enable) {
+            CommandUp.register(dispatcher);
+        }
+
         // Server
         if (event.getServer().isDedicatedServer() || isDev()) {
             // TPA
@@ -112,6 +122,16 @@ public class Commands {
             if (ConfigValues.mute_enable) {
                 CommandMute.register(dispatcher);
                 CommandUnmute.register(dispatcher);
+            }
+
+            // Tpall
+            if (ConfigValues.tpall_enable) {
+                CommandTpall.register(dispatcher);
+            }
+
+            // Kickall
+            if (ConfigValues.kickall_enable) {
+                CommandKickall.register(dispatcher);
             }
         }
 
