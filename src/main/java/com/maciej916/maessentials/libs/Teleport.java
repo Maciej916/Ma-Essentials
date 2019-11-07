@@ -2,6 +2,8 @@ package com.maciej916.maessentials.libs;
 
 import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.classes.player.EssentialPlayer;
+import com.maciej916.maessentials.classes.teleport.TeleportRequest;
+import com.maciej916.maessentials.classes.teleport.TeleportSimple;
 import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -12,6 +14,81 @@ import java.util.*;
 import static com.maciej916.maessentials.libs.Methods.isDev;
 
 public class Teleport {
+
+    private static ArrayList<TeleportSimple> simple_teleports = new ArrayList<>();
+    private static ArrayList<TeleportRequest> request_teleports = new ArrayList<>();
+
+    public static void doSimpleTeleport(TeleportSimple simple) {
+        if (simple.getDelay() == 0) {
+            simple.getPlayer().sendMessage(Methods.formatText("teleport.maessentials.teleported"));
+            doTeleport(simple.getPlayer(), simple.getDestination(), true, true);
+        } else {
+
+            // TODO
+            // Set player location
+
+            simple_teleports.add(simple);
+        }
+    }
+
+    public static void doRequetTeleport(TeleportRequest request) {
+        if (request.getDelay() == 0) {
+            request.getPlayer().sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request", request.getTargetName()));
+            request.getTarget().sendMessage(Methods.formatText("teleport.maessentials.tpaccept.target", request.getPlayerName()));
+            doTeleport(request.getPlayer(), request.getDestination(), true, true);
+        } else {
+            request_teleports.add(request);
+        }
+    }
+
+    public static void acceptRequest(TeleportRequest request) {
+        request.getPlayer().sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request.wait", ConfigValues.tpa_delay));
+        request.getTarget().sendMessage(Methods.formatText("teleport.maessentials.tpaccept.target.wait", request.getPlayerName()));
+        request.setAccepted();
+    }
+
+    public static void declineRequest(TeleportRequest request) {
+        request.getPlayer().sendMessage(Methods.formatText("teleport.maessentials.tpdeny.request", request.getTargetName()));
+        request.getTarget().sendMessage(Methods.formatText("teleport.maessentials.tpdeny.target", request.getPlayerName()));
+        request_teleports.remove(request);
+    }
+
+    public static void checkTeleports(String xxx) {
+        checkSimple();
+        checkRequest();
+    }
+
+    public static void checkSimple() {
+        // TODO
+    }
+
+    public static void checkRequest() {
+        // TODO
+    }
+
+    public static void doTeleport(ServerPlayerEntity player, Location loc, boolean exact, boolean saveLastLocation) {
+        if (saveLastLocation) {
+            EssentialPlayer eslPlayer = DataManager.getPlayer(player);
+            eslPlayer.getData().setLastLocation(new Location(player));
+            eslPlayer.saveData();
+        }
+
+        ServerWorld worldDest = player.server.getWorld(loc.getDimension());
+        if (exact) {
+            player.teleport(worldDest, loc.x, loc.y, loc.z, loc.rotationYaw, loc.rotationPitch);
+        } else {
+            player.teleport(worldDest, loc.x + 0.5, loc.y + 0.5, loc.z, player.rotationYaw, player.rotationPitch);
+        }
+    }
+
+
+
+
+
+
+
+    // TO REMOVE
+
     private static ArrayList<Teleport> activeTeleports = new ArrayList<>();
 
     private ServerPlayerEntity creatorPlayer;
@@ -162,18 +239,4 @@ public class Teleport {
         activeTeleports.removeAll(delTp);
     }
 
-    public static void doTeleport(ServerPlayerEntity player, Location loc, boolean exact, boolean saveLastLocation) {
-        if (saveLastLocation) {
-            EssentialPlayer eslPlayer = DataManager.getPlayer(player);
-            eslPlayer.getData().setLastLocation(new Location(player));
-            eslPlayer.saveData();
-        }
-
-        ServerWorld worldDest = player.server.getWorld(loc.getDimension());
-        if (exact) {
-            player.teleport(worldDest, loc.x, loc.y, loc.z, loc.rotationYaw, loc.rotationPitch);
-        } else {
-            player.teleport(worldDest, loc.x + 0.5, loc.y + 0.5, loc.z, player.rotationYaw, player.rotationPitch);
-        }
-    }
 }
