@@ -1,5 +1,6 @@
 package com.maciej916.maessentials.events;
 
+import com.maciej916.maessentials.libs.Afk;
 import com.maciej916.maessentials.libs.Teleport;
 import net.minecraftforge.event.TickEvent;
 
@@ -11,6 +12,7 @@ public class EventWorldTick {
         if (event.phase == TickEvent.Phase.END){
             if (tickCounter == 20) {
                 Teleport.checkTeleports();
+                Afk.checkAfk();
                 tickCounter = 0;
             } else {
                 tickCounter++;

@@ -2,6 +2,9 @@ package com.maciej916.maessentials.libs;
 
 import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.classes.kit.Kit;
+import com.maciej916.maessentials.classes.player.EssentialPlayer;
+import com.maciej916.maessentials.classes.teleport.TeleportRequest;
+import com.maciej916.maessentials.classes.teleport.TeleportSimple;
 import com.maciej916.maessentials.data.DataManager;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.minecraft.command.CommandSource;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import static com.maciej916.maessentials.MaEssentials.MODID;
+import static com.maciej916.maessentials.libs.Teleport.*;
 
 public class Methods {
 
@@ -86,6 +90,45 @@ public class Methods {
         return true;
     }
 
+    public static boolean simpleTeleport(ServerPlayerEntity player, Location location, String teleport, long delay) {
+        EssentialPlayer eslPlayer = DataManager.getPlayer(player);
+
+        if (eslPlayer.getTemp().isTeleportActive()) {
+            player.sendMessage(Methods.formatText("teleport.maessentials.active"));
+            return false;
+        }
+
+        if (delay == 0) {
+            player.sendMessage(Methods.formatText("teleport.maessentials.teleported"));
+            doTeleport(player, location, true, true);
+            return true;
+        }
+
+        eslPlayer.getTemp().setTeleportActive(new Location(player));
+        TeleportSimple tpS = new TeleportSimple(player, location, teleport, delay);
+        doSimpleTeleport(tpS);
+        return true;
+    }
+
+    public static boolean requestTeleport(ServerPlayerEntity creator, ServerPlayerEntity player, ServerPlayerEntity target, long delay) {
+        EssentialPlayer eslPlayer = DataManager.getPlayer(player);
+
+        if (eslPlayer.getTemp().isTeleportActive()) {
+            player.sendMessage(Methods.formatText("teleport.maessentials.active"));
+            return false;
+        }
+
+        TeleportRequest tpR = new TeleportRequest(creator, player, target, delay);
+        doRequetTeleport(tpR);
+        return true;
+    }
+
+    public static boolean checkLocation(Location first, Location second) {
+        if (first.x == second.x && first.y == second.y && first.z == second.z && first.dimension == second.dimension) {
+            return true;
+        }
+        return false;
+    }
 
 
 

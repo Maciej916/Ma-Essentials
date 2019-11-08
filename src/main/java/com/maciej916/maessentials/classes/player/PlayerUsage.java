@@ -9,6 +9,7 @@ public class PlayerUsage {
 
     private Map<String, Long> command = new HashMap<>();
     private Map<String, Long> kit = new HashMap<>();
+    private Map<String, Long> teleport = new HashMap<>();
     private Map<String, Long> other = new HashMap<>();
 
     public PlayerUsage() {
@@ -24,6 +25,10 @@ public class PlayerUsage {
 
     public void setCommandUsage(String command) {
         this.command.put(command, currentTimestamp());
+    }
+
+    public void setTeleportUsage(String teleport) {
+        this.teleport.put(teleport, currentTimestamp());
     }
 
     public void setCommandUsage(String command, long time) {
@@ -42,7 +47,11 @@ public class PlayerUsage {
         return getCooldown(this.kit, kit, cooldown);
     }
 
-    public long getOtherUssage(String other, long cooldown) {
+    public long getTeleportCooldown(String teleport, long cooldown) {
+        return getCooldown(this.teleport, teleport, cooldown);
+    }
+
+    public long getOtherCooldown(String other, long cooldown) {
         return getCooldown(this.other, other, cooldown);
     }
 

@@ -16,8 +16,8 @@ public class EssentialPlayer {
     private PlayerData data = new PlayerData();
     private PlayerUsage last_usage = new PlayerUsage();
     private PlayerRestrictions restrictions = new PlayerRestrictions();
+    private PlayerTemp temp_data = new PlayerTemp();
 
-    private Storage temp_data = new Storage();
     private Storage custom_data = new Storage();
 
     public void setHomeData(HomeData home_data) {
@@ -40,7 +40,7 @@ public class EssentialPlayer {
         return restrictions;
     }
 
-    public Storage getTempData() {
+    public PlayerTemp getTemp() {
         return temp_data;
     }
 

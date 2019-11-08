@@ -140,8 +140,8 @@
 
 
   "_comment": "Teleport",
-  "teleport.maessentials.active": "You have active teleport!",
-  "teleport.maessentials.moved": "You moved, teleport cancelled!",
+  "teleport.maessentials.active": "§cYou have active teleport!",
+  "teleport.maessentials.moved": "§cYou moved, teleport cancelled!",
   "teleport.maessentials.teleported": "Teleported!",
 
   "teleport.maessentials.tpaccept.request": "You have been teleported to §c%s§r",

@@ -15,6 +15,8 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 
+import static com.maciej916.maessentials.libs.Methods.simpleTeleport;
+
 public class CommandSpawn {
 
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
@@ -27,7 +29,7 @@ public class CommandSpawn {
         ServerPlayerEntity player = context.getSource().asPlayer();
         EssentialPlayer eslPlayer = DataManager.getPlayer(player);
 
-        long cooldown = eslPlayer.getUsage().getCommandCooldown("spawn", ConfigValues.spawn_cooldown);
+        long cooldown = eslPlayer.getUsage().getTeleportCooldown("spawn", ConfigValues.spawn_cooldown);
         if (cooldown != 0) {
             player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
             return Command.SINGLE_SUCCESS;
@@ -36,14 +38,14 @@ public class CommandSpawn {
         eslPlayer.getUsage().setCommandUsage("spawn");
         eslPlayer.saveData();
 
-        if (ConfigValues.spawn_delay == 0) {
-            player.sendMessage(Methods.formatText("spawn.maessentials.success"));
-        } else {
-            player.sendMessage(Methods.formatText("spawn.maessentials.success.wait", ConfigValues.spawn_delay));
-        }
-
         Location location = DataManager.getWorld().getSpawn();
-        Teleport.teleportPlayer(player, location, true, ConfigValues.spawn_delay);
+        if (simpleTeleport(player, location, "spawn", ConfigValues.spawn_delay)) {
+            if (ConfigValues.spawn_delay == 0) {
+                player.sendMessage(Methods.formatText("spawn.maessentials.success"));
+            } else {
+                player.sendMessage(Methods.formatText("spawn.maessentials.success.wait", ConfigValues.spawn_delay));
+            }
+        }
 
         return Command.SINGLE_SUCCESS;
     }

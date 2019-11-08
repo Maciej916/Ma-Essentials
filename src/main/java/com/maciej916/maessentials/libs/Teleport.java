@@ -11,55 +11,68 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.*;
 
-import static com.maciej916.maessentials.libs.Methods.isDev;
+import static com.maciej916.maessentials.libs.Methods.*;
 
 public class Teleport {
 
-    private static ArrayList<TeleportSimple> simple_teleports = new ArrayList<>();
-    private static ArrayList<TeleportRequest> request_teleports = new ArrayList<>();
+    private static ArrayList<TeleportSimple> teleportSimple = new ArrayList<>();
+    private static ArrayList<TeleportRequest> teleportRequests = new ArrayList<>();
 
     public static void doSimpleTeleport(TeleportSimple simple) {
-        if (simple.getDelay() == 0) {
-            simple.getPlayer().sendMessage(Methods.formatText("teleport.maessentials.teleported"));
-            doTeleport(simple.getPlayer(), simple.getDestination(), true, true);
-        } else {
-
-            // TODO
-            // Set player location
-
-            simple_teleports.add(simple);
-        }
+        teleportSimple.add(simple);
     }
 
     public static void doRequetTeleport(TeleportRequest request) {
+        teleportRequests.add(request);
+    }
+
+    public static void acceptRequest(TeleportRequest request) {
         if (request.getDelay() == 0) {
             request.getPlayer().sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request", request.getTargetName()));
             request.getTarget().sendMessage(Methods.formatText("teleport.maessentials.tpaccept.target", request.getPlayerName()));
             doTeleport(request.getPlayer(), request.getDestination(), true, true);
+            teleportRequests.remove(request);
         } else {
-            request_teleports.add(request);
+            request.getPlayer().sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request.wait", ConfigValues.tpa_delay));
+            request.getTarget().sendMessage(Methods.formatText("teleport.maessentials.tpaccept.target.wait", request.getPlayerName()));
+            request.setAccepted();
         }
-    }
-
-    public static void acceptRequest(TeleportRequest request) {
-        request.getPlayer().sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request.wait", ConfigValues.tpa_delay));
-        request.getTarget().sendMessage(Methods.formatText("teleport.maessentials.tpaccept.target.wait", request.getPlayerName()));
-        request.setAccepted();
     }
 
     public static void declineRequest(TeleportRequest request) {
         request.getPlayer().sendMessage(Methods.formatText("teleport.maessentials.tpdeny.request", request.getTargetName()));
         request.getTarget().sendMessage(Methods.formatText("teleport.maessentials.tpdeny.target", request.getPlayerName()));
-        request_teleports.remove(request);
+        teleportRequests.remove(request);
     }
 
-    public static void checkTeleports(String xxx) {
+    public static void checkTeleports() {
         checkSimple();
         checkRequest();
     }
 
     public static void checkSimple() {
-        // TODO
+        ArrayList<TeleportSimple> del = new ArrayList<>();
+        for (TeleportSimple tp : teleportSimple) {
+            ServerPlayerEntity player = tp.getPlayer();
+            EssentialPlayer eslPlayer = DataManager.getPlayer(player);
+            Location playerLocation = new Location(player);
+            Location tpLocation = eslPlayer.getTemp().getTeleportLocation();
+            if (checkLocation(playerLocation, tpLocation)) {
+                if (currentTimestamp() >= tp.getTeleportTime()) {
+                    player.sendMessage(Methods.formatText("teleport.maessentials.teleported"));
+                    eslPlayer.getTemp().setTeleportNotActive();
+                    eslPlayer.getUsage().setTeleportUsage(tp.getType());
+                    eslPlayer.saveData();
+                    doTeleport(player, tp.getDestination(), true, true);
+                    del.add(tp);
+                }
+            } else {
+                player.sendMessage(Methods.formatText("teleport.maessentials.moved"));
+                eslPlayer.getTemp().setTeleportNotActive();
+                del.add(tp);
+            }
+        }
+        teleportSimple.removeAll(del);
     }
 
     public static void checkRequest() {
@@ -194,7 +207,7 @@ public class Teleport {
         activeTeleports.remove(tpr);
     }
 
-    public static void checkTeleports() {
+    public static void checkTeleports(String old) {
         ArrayList<Teleport> delTp = new ArrayList<>();
         for (Teleport tp : activeTeleports) {
             long currentTime = System.currentTimeMillis() / 1000;

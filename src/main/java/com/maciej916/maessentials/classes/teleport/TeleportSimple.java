@@ -9,13 +9,13 @@ public class TeleportSimple {
 
     private ServerPlayerEntity player;
     private Location destination;
-    private long delay;
+    private String type;
     private long teleportTime;
 
-    public TeleportSimple(ServerPlayerEntity player, Location destination, long delay) {
+    public TeleportSimple(ServerPlayerEntity player, Location destination, String type, long delay) {
         this.player = player;
         this.destination = destination;
-        this.delay = delay;
+        this.type = type;
         this.teleportTime = currentTimestamp() + delay;
     }
 
@@ -27,8 +27,8 @@ public class TeleportSimple {
         return destination;
     }
 
-    public long getDelay() {
-        return delay;
+    public String getType() {
+        return type;
     }
 
     public long getTeleportTime() {
