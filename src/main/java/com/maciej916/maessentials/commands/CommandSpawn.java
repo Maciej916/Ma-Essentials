@@ -31,7 +31,7 @@ public class CommandSpawn {
 
         long cooldown = eslPlayer.getUsage().getTeleportCooldown("spawn", ConfigValues.spawn_cooldown);
         if (cooldown != 0) {
-            player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
+            player.sendMessage(Methods.formatText("maessentials.cooldown.teleport", cooldown));
             return Command.SINGLE_SUCCESS;
         }
 
