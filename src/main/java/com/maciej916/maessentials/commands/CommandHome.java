@@ -62,7 +62,7 @@ public class CommandHome {
             return;
         }
 
-        eslPlayer.getUsage().setTeleportUsage("home");
+        eslPlayer.getUsage().setCommandUsage("home");
         eslPlayer.saveData();
 
         if (simpleTeleport(player, location, "home", ConfigValues.homes_delay)) {

@@ -41,7 +41,7 @@ public class CommandBack {
             return Command.SINGLE_SUCCESS;
         }
 
-        eslPlayer.getUsage().setTeleportUsage("back");
+        eslPlayer.getUsage().setCommandUsage("back");
         eslPlayer.saveData();
 
         if (simpleTeleport(player, location, "back", ConfigValues.back_delay)) {
