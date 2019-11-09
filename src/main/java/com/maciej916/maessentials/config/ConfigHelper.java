@@ -96,6 +96,12 @@ public final class ConfigHelper {
 		// Up
 		ConfigValues.up_enable = ConfigHolder.COMMON.up_enable.get();
 
+		// AFK
+		ConfigValues.afk_auto = ConfigHolder.COMMON.afk_auto.get();
+		ConfigValues.afk_auto_kick = ConfigHolder.COMMON.afk_auto_kick.get();
+		ConfigValues.afk_auto_time = ConfigHolder.COMMON.afk_auto_time.get();
+		ConfigValues.afk_command = ConfigHolder.COMMON.afk_command.get();
+		ConfigValues.afk_command_cooldown = ConfigHolder.COMMON.afk_command_cooldown.get();
 	}
 
 	public static void setValueAndSave(final ModConfig modConfig, final String path, final Object newValue) {

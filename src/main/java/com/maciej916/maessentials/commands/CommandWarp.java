@@ -86,7 +86,7 @@ public class CommandWarp {
 
         long cooldown = eslPlayer.getUsage().getTeleportCooldown("warp", ConfigValues.warps_cooldown);
         if (cooldown != 0) {
-            player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
+            player.sendMessage(Methods.formatText("maessentials.cooldown.teleport", cooldown));
             return;
         }
 

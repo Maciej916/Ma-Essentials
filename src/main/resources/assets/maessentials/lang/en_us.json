@@ -1,7 +1,6 @@
 {
   "_comment": "Global",
   "maessentials.cooldown": "§cYou need to wait §4%s§c seconds before using this command again",
-  "maessentials.cooldown.teleport": "§cYou need to wait §4%s§c seconds before using this teleport again",
   "maessentials.provide.player": "§cPlease provide player name",
   "maessentials.specify.player": "§cPlease specify player name",
   "maessentials.invaild_gamemode": "§cInvaild gamemode",
@@ -141,8 +140,8 @@
 
 
   "_comment": "Teleport",
-  "teleport.maessentials.active": "§cYou have active teleport!",
-  "teleport.maessentials.moved": "§cYou moved, teleport cancelled!",
+  "teleport.maessentials.active": "You have active teleport!",
+  "teleport.maessentials.moved": "You moved, teleport cancelled!",
   "teleport.maessentials.teleported": "Teleported!",
 
   "teleport.maessentials.tpaccept.request": "You have been teleported to §c%s§r",
@@ -202,6 +201,16 @@
 
   "_comment": "Up",
   "up.maessentials.success": "Teleported §c%s§r block(s) up",
+
+
+  "_comment": "AFK",
+  "afk.maessentials.afk.true": "Player §c%s§r is AFK",
+  "afk.maessentials.afk.false": "Player §c%s§r is no longer AFK",
+
+
+  "_comment": "Kick",
+  "kick.maessentials.done": "§cPlayer §4%s§c has been kicked by §4%s§c. Reason: §4%s",
+
 
 
 

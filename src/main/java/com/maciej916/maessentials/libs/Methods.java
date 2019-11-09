@@ -1,3 +1,4 @@
+
 package com.maciej916.maessentials.libs;
 
 import com.maciej916.maessentials.classes.Location;
@@ -11,6 +12,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.ISuggestionProvider;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ModContainer;
@@ -129,7 +131,16 @@ public class Methods {
         return first.x == second.x && first.y == second.y && first.z == second.z && first.dimension == second.dimension;
     }
 
+    static boolean checkDetailedLocation(Location first, Location second) {
+        return first.x == second.x && first.y == second.y && first.z == second.z && first.dimension == second.dimension && first.rotationPitch == second.rotationPitch && first.rotationYaw == second.rotationYaw;
+    }
+
     public static TextComponent formatText(String translationKey, Object... args) {
         return new TranslationTextComponent(translationKey, args);
+    }
+
+    static void kickPlayer(ServerPlayerEntity player, StringTextComponent op, String reason) {
+        player.server.getPlayerList().sendMessage(formatText("kick.maessentials.done", player.getDisplayName(), op, reason));
+        player.connection.disconnect(new StringTextComponent(reason));
     }
 }

@@ -55,7 +55,7 @@ public class CommandTpahere {
 
         long cooldown = eslPlayer.getUsage().getTeleportCooldown("tpa", ConfigValues.tpa_cooldown);
         if (cooldown != 0) {
-            player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
+            player.sendMessage(Methods.formatText("maessentials.cooldown.teleport", cooldown));
             return;
         }
 

@@ -92,6 +92,13 @@ final class CommonConfig {
 	// Up
 	final ForgeConfigSpec.BooleanValue up_enable;
 
+	// AFK
+	final ForgeConfigSpec.BooleanValue afk_auto;
+	final ForgeConfigSpec.IntValue afk_auto_time;
+	final ForgeConfigSpec.IntValue afk_auto_kick;
+	final ForgeConfigSpec.BooleanValue afk_command;
+	final ForgeConfigSpec.IntValue afk_command_cooldown;
+
 	CommonConfig(final ForgeConfigSpec.Builder builder) {
 		builder.comment("Command Config").push("Commands");
 
@@ -264,6 +271,15 @@ final class CommonConfig {
 		up_enable = builder
 				.comment("Enable command: /up")
 				.define("enable", true);
+		builder.pop();
+
+		// AFK
+		builder.push("afk");
+		afk_auto = builder.define("auto", true);
+		afk_auto_time = builder.defineInRange("auto_time", 600, 1 , MAX);
+		afk_auto_kick = builder.defineInRange("auto_kick", 0, 0 , MAX);
+		afk_command = builder.define("command", true);
+		afk_command_cooldown = builder.defineInRange("cooldown",	30, 0, MAX);
 		builder.pop();
 	}
 }

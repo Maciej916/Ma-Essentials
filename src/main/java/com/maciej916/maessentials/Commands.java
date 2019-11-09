@@ -133,6 +133,11 @@ public class Commands {
             if (ConfigValues.kickall_enable) {
                 CommandKickall.register(dispatcher);
             }
+
+            // AFK
+            if (ConfigValues.afk_command) {
+                CommandAfk.register(dispatcher);
+            }
         }
 
         // Reload

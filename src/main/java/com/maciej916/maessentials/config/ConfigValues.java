@@ -93,4 +93,10 @@ public final class ConfigValues {
 	// Up
 	public static Boolean up_enable;
 
+	// AFK
+	public static Boolean afk_auto;
+	public static Integer afk_auto_time;
+	public static Integer afk_auto_kick;
+	public static Boolean afk_command;
+	public static Integer afk_command_cooldown;
 }

@@ -2,13 +2,37 @@ package com.maciej916.maessentials.classes.player;
 
 import com.maciej916.maessentials.classes.Location;
 
+import static com.maciej916.maessentials.libs.Methods.currentTimestamp;
+
 public class PlayerTemp {
 
     private Location location;
-    private long last_move_time;
+    private long lastMoveTime;
+    private boolean afk;
 
     private boolean teleportActive = false;
     private Location teleportLocation;
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+        this.lastMoveTime = currentTimestamp();
+    }
+
+    public long getLastMoveTime() {
+        return lastMoveTime;
+    }
+
+    public boolean isAfk() {
+        return afk;
+    }
+
+    public void setAfk(boolean afk) {
+        this.afk = afk;
+    }
 
     public boolean isTeleportActive() {
         return teleportActive;
