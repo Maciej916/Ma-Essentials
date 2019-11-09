@@ -15,6 +15,8 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 
+import static com.maciej916.maessentials.libs.Methods.simpleTeleport;
+
 public class CommandBack {
 
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
@@ -33,22 +35,23 @@ public class CommandBack {
             return Command.SINGLE_SUCCESS;
         }
 
-        long cooldown = eslPlayer.getUsage().getCommandCooldown("back", ConfigValues.back_cooldown);
+        long cooldown = eslPlayer.getUsage().getTeleportCooldown("back", ConfigValues.back_cooldown);
         if (cooldown != 0) {
             player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
             return Command.SINGLE_SUCCESS;
         }
 
-        eslPlayer.getUsage().setCommandUsage("back");
+        eslPlayer.getUsage().setTeleportUsage("back");
         eslPlayer.saveData();
 
-        if (ConfigValues.back_delay == 0) {
-            player.sendMessage(Methods.formatText("back.maessentials.success"));
-        } else {
-            player.sendMessage(Methods.formatText("back.maessentials.success.wait", ConfigValues.back_delay));
+        if (simpleTeleport(player, location, "back", ConfigValues.back_delay)) {
+            if (ConfigValues.back_delay == 0) {
+                player.sendMessage(Methods.formatText("back.maessentials.success"));
+            } else {
+                player.sendMessage(Methods.formatText("back.maessentials.success.wait", ConfigValues.back_delay));
+            }
         }
 
-        Teleport.teleportPlayer(player, location, true, ConfigValues.back_delay);
         return Command.SINGLE_SUCCESS;
     }
 }

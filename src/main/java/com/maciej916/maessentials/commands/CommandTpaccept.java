@@ -1,5 +1,6 @@
 package com.maciej916.maessentials.commands;
 
+import com.maciej916.maessentials.classes.teleport.TeleportRequest;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
@@ -27,11 +28,10 @@ public class CommandTpaccept {
 
     private static int tpaccept(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
-        ArrayList<Teleport> teleports = Teleport.getPlayerTeleports(player);
-        if (teleports.size() == 1) {
-            Teleport tpr = teleports.get(0);
-            Teleport.acceptTeleport(tpr);
-        } else if (teleports.size() > 1) {
+        ArrayList<TeleportRequest> requests = Teleport.findRequest(player);
+        if (requests.size() == 1) {
+            Teleport.acceptRequest(requests.get(0));
+        } else if (requests.size() > 1) {
             player.sendMessage(Methods.formatText("maessentials.specify.player"));
         } else {
             player.sendMessage(Methods.formatText("tpa.maessentials.no_request"));
@@ -42,9 +42,9 @@ public class CommandTpaccept {
     private static int tpacceptArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         ServerPlayerEntity targetPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-        Teleport tpr = Teleport.findTeleportRequest(player, targetPlayer);
-        if (tpr != null) {
-            Teleport.acceptTeleport(tpr);
+        TeleportRequest tpR = Teleport.findRequest(player, targetPlayer);
+        if (tpR != null) {
+            Teleport.acceptRequest(tpR);
         } else {
             player.sendMessage(Methods.formatText("tpa.maessentials.not_found"));
         }

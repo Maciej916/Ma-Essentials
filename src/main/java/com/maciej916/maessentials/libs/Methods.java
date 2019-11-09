@@ -27,11 +27,11 @@ import static com.maciej916.maessentials.libs.Teleport.*;
 
 public class Methods {
 
-    public static final SuggestionProvider<CommandSource> HOME_SUGGEST = (context, builder) -> ISuggestionProvider.suggest(DataManager.getPlayer(context.getSource().asPlayer()).getHomeData().getHomes().keySet().stream().toArray(String[]::new), builder);
+    public static final SuggestionProvider<CommandSource> HOME_SUGGEST = (context, builder) -> ISuggestionProvider.suggest(DataManager.getPlayer(context.getSource().asPlayer()).getHomeData().getHomes().keySet().toArray(new String[0]), builder);
 
-    public static final SuggestionProvider<CommandSource> WARP_SUGGEST = (context, builder) -> ISuggestionProvider.suggest(DataManager.getWarp().getWarps().keySet().stream().toArray(String[]::new), builder);
+    public static final SuggestionProvider<CommandSource> WARP_SUGGEST = (context, builder) -> ISuggestionProvider.suggest(DataManager.getWarp().getWarps().keySet().toArray(new String[0]), builder);
 
-    public static final SuggestionProvider<CommandSource> KIT_SUGGEST = (context, builder) -> ISuggestionProvider.suggest(DataManager.getKit().getKits().keySet().stream().toArray(String[]::new), builder);
+    public static final SuggestionProvider<CommandSource> KIT_SUGGEST = (context, builder) -> ISuggestionProvider.suggest(DataManager.getKit().getKits().keySet().toArray(new String[0]), builder);
 
     private static String getVersion() {
         Optional<? extends ModContainer> o = ModList.get().getModContainerById(MODID);
@@ -67,11 +67,7 @@ public class Methods {
 
     public static boolean fileExist(String fileName) {
         File file = new File(fileName);
-        if (file.exists()) {
-            return true;
-        } else {
-            return false;
-        }
+        return file.exists();
     }
 
     public static long currentTimestamp() {
@@ -118,35 +114,22 @@ public class Methods {
             return false;
         }
 
+        TeleportRequest existTpR = Teleport.findRequest(creator, player, target);
+        if (existTpR != null) {
+            player.sendMessage(Methods.formatText("tpa.maessentials.exist", target.getDisplayName()));
+            return false;
+        }
+
         TeleportRequest tpR = new TeleportRequest(creator, player, target, delay);
         doRequetTeleport(tpR);
         return true;
     }
 
-    public static boolean checkLocation(Location first, Location second) {
-        if (first.x == second.x && first.y == second.y && first.z == second.z && first.dimension == second.dimension) {
-            return true;
-        }
-        return false;
+    static boolean checkLocation(Location first, Location second) {
+        return first.x == second.x && first.y == second.y && first.z == second.z && first.dimension == second.dimension;
     }
-
-
-
-
-
-
-
 
     public static TextComponent formatText(String translationKey, Object... args) {
-        TextComponent msg = new TranslationTextComponent(translationKey, args);
-        return msg;
-    }
-
-    public static boolean isLocationSame(Location fistLocation, Location secoondLocation) {
-        if (fistLocation.x == secoondLocation.x && fistLocation.y == secoondLocation.y && fistLocation.z == secoondLocation.z && fistLocation.dimension == secoondLocation.dimension) {
-            return true;
-        }
-        return false;
+        return new TranslationTextComponent(translationKey, args);
     }
 }
-

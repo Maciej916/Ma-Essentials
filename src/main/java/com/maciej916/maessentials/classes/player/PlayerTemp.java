@@ -2,8 +2,6 @@ package com.maciej916.maessentials.classes.player;
 
 import com.maciej916.maessentials.classes.Location;
 
-import static com.maciej916.maessentials.libs.Methods.currentTimestamp;
-
 public class PlayerTemp {
 
     private Location location;
@@ -11,10 +9,6 @@ public class PlayerTemp {
 
     private boolean teleportActive = false;
     private Location teleportLocation;
-
-    public PlayerTemp() {
-
-    }
 
     public boolean isTeleportActive() {
         return teleportActive;

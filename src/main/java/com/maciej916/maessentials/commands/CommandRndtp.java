@@ -23,6 +23,8 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
+import static com.maciej916.maessentials.libs.Methods.simpleTeleport;
+
 public class CommandRndtp {
 
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
@@ -50,14 +52,14 @@ public class CommandRndtp {
 
         eslPlayer.getUsage().setCommandUsage("rndtp");
         eslPlayer.saveData();
-
-        if (ConfigValues.rndtp_delay == 0) {
-            player.sendMessage(Methods.formatText("rndtp.maessentials.teleport"));
-        } else {
-            player.sendMessage(Methods.formatText("rndtp.maessentials.teleport.wait", ConfigValues.rndtp_delay));
+        if (simpleTeleport(player, location, "rndtp", ConfigValues.rndtp_delay)) {
+            if (ConfigValues.rndtp_delay == 0) {
+                player.sendMessage(Methods.formatText("rndtp.maessentials.teleport"));
+            } else {
+                player.sendMessage(Methods.formatText("rndtp.maessentials.teleport.wait", ConfigValues.rndtp_delay));
+            }
         }
 
-        Teleport.teleportPlayer(player, location, true, ConfigValues.rndtp_delay);
         return Command.SINGLE_SUCCESS;
     }
 

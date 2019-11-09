@@ -16,6 +16,8 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 
+import static com.maciej916.maessentials.libs.Methods.simpleTeleport;
+
 public class CommandHome {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("home").requires(source -> source.hasPermissionLevel(0));
@@ -54,22 +56,21 @@ public class CommandHome {
             return;
         }
 
-
-        long cooldown = eslPlayer.getUsage().getCommandCooldown("home", ConfigValues.homes_cooldown);
+        long cooldown = eslPlayer.getUsage().getTeleportCooldown("home", ConfigValues.homes_cooldown);
         if (cooldown != 0) {
             player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
             return;
         }
 
-        eslPlayer.getUsage().setCommandUsage("home");
+        eslPlayer.getUsage().setTeleportUsage("home");
         eslPlayer.saveData();
 
-        if (ConfigValues.homes_delay == 0) {
-            player.sendMessage(Methods.formatText("home.maessentials.teleport", name));
-        } else {
-            player.sendMessage(Methods.formatText("home.maessentials.teleport.wait", name, ConfigValues.homes_delay));
+        if (simpleTeleport(player, location, "home", ConfigValues.homes_delay)) {
+            if (ConfigValues.homes_delay == 0) {
+                player.sendMessage(Methods.formatText("home.maessentials.teleport", name));
+            } else {
+                player.sendMessage(Methods.formatText("home.maessentials.teleport.wait", name, ConfigValues.homes_delay));
+            }
         }
-
-        Teleport.teleportPlayer(player, location, true, ConfigValues.homes_delay);
     }
 }

@@ -141,8 +141,6 @@ public class Time {
             if (now) timeString += " ";
             timeString += sec + " secoonds(s)";
         }
-
         return timeString;
     }
-
 }

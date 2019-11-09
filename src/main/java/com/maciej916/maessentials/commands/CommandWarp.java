@@ -22,6 +22,8 @@ import net.minecraft.util.text.event.HoverEvent;
 
 import java.util.Set;
 
+import static com.maciej916.maessentials.libs.Methods.simpleTeleport;
+
 public class CommandWarp {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("warp").requires(source -> source.hasPermissionLevel(0));
@@ -82,7 +84,7 @@ public class CommandWarp {
             return;
         }
 
-        long cooldown = eslPlayer.getUsage().getCommandCooldown("warp", ConfigValues.warps_cooldown);
+        long cooldown = eslPlayer.getUsage().getTeleportCooldown("warp", ConfigValues.warps_cooldown);
         if (cooldown != 0) {
             player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
             return;
@@ -91,12 +93,12 @@ public class CommandWarp {
         eslPlayer.getUsage().setCommandUsage("warp");
         eslPlayer.saveData();
 
-        if (ConfigValues.warps_delay == 0) {
-            player.sendMessage(Methods.formatText("warp.maessentials.success", name));
-        } else {
-            player.sendMessage(Methods.formatText("warp.maessentials.success.wait", name, ConfigValues.warps_delay));
+        if (simpleTeleport(player, location, "warp", ConfigValues.warps_delay)) {
+            if (ConfigValues.warps_delay == 0) {
+                player.sendMessage(Methods.formatText("warp.maessentials.success", name));
+            } else {
+                player.sendMessage(Methods.formatText("warp.maessentials.success.wait", name, ConfigValues.warps_delay));
+            }
         }
-
-        Teleport.teleportPlayer(player, location, true, ConfigValues.warps_delay);
     }
 }

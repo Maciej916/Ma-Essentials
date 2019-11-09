@@ -17,19 +17,19 @@ public class CommandBroadcast {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("broadcast").requires(source -> source.hasPermissionLevel(2));
         builder
-                .executes(context -> roadcast(context))
+                .executes(context -> broadcast(context))
                         .then(Commands.argument("message", MessageArgument.message())
-                                .executes(context -> roadcastArgs(context)));
+                                .executes(context -> broadcastArgs(context)));
         dispatcher.register(builder);
     }
 
-    private static int roadcast(CommandContext<CommandSource> context) throws CommandSyntaxException {
+    private static int broadcast(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         player.sendMessage(Methods.formatText("broadcast.maessentials.no_message"));
         return Command.SINGLE_SUCCESS;
     }
 
-    private static int roadcastArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
+    private static int broadcastArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().asPlayer();
         ITextComponent reason = MessageArgument.getMessage(context, "message");
         player.server.getPlayerList().sendMessage(Methods.formatText("broadcast.maessentials.success", reason));

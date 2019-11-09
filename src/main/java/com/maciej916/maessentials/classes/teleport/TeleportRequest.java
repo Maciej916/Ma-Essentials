@@ -34,7 +34,7 @@ public class TeleportRequest {
     }
 
     public ITextComponent getPlayerName() {
-        return target.getDisplayName();
+        return player.getDisplayName();
     }
 
     public ServerPlayerEntity getTarget() {
@@ -57,7 +57,7 @@ public class TeleportRequest {
         return delay;
     }
 
-    public boolean getAccepted() {
+    public boolean isAccepted() {
         return accepted;
     }
 
