@@ -18,7 +18,7 @@ public class EventPlayerLoggedIn {
         EssentialPlayer eslPlayer = DataManager.newPlayer(player);
 
         if (eslPlayer != null) {
-            Log.debug("New player " + player.getDisplayName() + " joined");
+            Log.debug("New player " + player.getDisplayName().getString() + " joined");
 
             if (player.getServer().isDedicatedServer()) {
                 // Add variable spawn force new
@@ -36,7 +36,7 @@ public class EventPlayerLoggedIn {
                 }
             }
         } else {
-            Log.debug("Player " + player.getDisplayName().toString() + " joined");
+            Log.debug("Player " + player.getDisplayName().getString() + " joined");
         }
     }
 }

@@ -64,6 +64,10 @@ public class EssentialPlayer {
         this.custom_data = custom_data;
     }
 
+    public void cleanTemp() {
+       temp_data = new PlayerTemp();
+    }
+
     public void saveData() {
         Json.save(ConfigValues.worldCatalog + "players/", playerUUID.toString(), this);
     }
