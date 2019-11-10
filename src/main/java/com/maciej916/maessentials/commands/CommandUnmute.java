@@ -53,7 +53,7 @@ public class CommandUnmute {
         eslTargetPlayer.getRestrictions().unMute();
         eslTargetPlayer.saveData();
 
-        player.sendMessage(Methods.formatText("unmmute.maessentials.success", target.getDisplayName()));
+        player.server.getPlayerList().sendMessage(Methods.formatText("unmmute.maessentials.success", target.getDisplayName()));
         target.sendMessage(Methods.formatText("unmmute.maessentials.success.target"));
     }
 }

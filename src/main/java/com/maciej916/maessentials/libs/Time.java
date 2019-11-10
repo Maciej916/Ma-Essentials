@@ -112,32 +112,32 @@ public class Time {
           now = true;
           timeString += yr + " year(s)";
         }
-        if (now || mn > 0) {
+        if (mn > 0) {
             if (now) timeString += " ";
             now = true;
             timeString += mn + " month(s)";
         }
-        if (now || wk > 0) {
+        if (wk > 0) {
             if (now) timeString += " ";
             now = true;
             timeString += wk + " week(s)";
         }
-        if (now || dy > 0) {
+        if (dy > 0) {
             if (now) timeString += " ";
             now = true;
             timeString += dy + " day(s)";
         }
-        if (now || hr > 0) {
+        if (hr > 0) {
             if (now) timeString += " ";
             now = true;
             timeString += hr + " hour(s)";
         }
-        if (now || min > 0) {
+        if (min > 0) {
             if (now) timeString += " ";
             now = true;
             timeString += min + " minute(s)";
         }
-        if (now || sec > 0) {
+        if (sec > 0) {
             if (now) timeString += " ";
             timeString += sec + " secoonds(s)";
         }

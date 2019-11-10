@@ -18,7 +18,9 @@ public class EventWorldTick {
             if (tickCounter == 20) {
                 Teleport.checkTeleports();
                 if ((event.world.getServer().isDedicatedServer() && ConfigValues.afk_auto) || isDev()) {
-                    Afk.checkAfk(Objects.requireNonNull(event.world.getServer()).getPlayerList());
+                    if (event.world.getServer().getPlayerList().getPlayers().size() > 0) {
+                        Afk.checkAfk(event.world.getServer().getPlayerList());
+                    }
                 }
                 tickCounter = 0;
             } else {

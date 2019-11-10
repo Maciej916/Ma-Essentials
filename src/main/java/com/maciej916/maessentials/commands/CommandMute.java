@@ -88,11 +88,11 @@ public class CommandMute {
         eslTargetPlayer.saveData();
 
         if (mutetime == -1) {
-            player.sendMessage(Methods.formatText("mute.maessentials.success.perm", target.getDisplayName(), reason));
+            player.server.getPlayerList().sendMessage(Methods.formatText("mute.maessentials.success.perm", target.getDisplayName(), player.getDisplayName(), reason));
             target.sendMessage(Methods.formatText("mute.maessentials.success.perm.target"));
         } else {
             String displayTime = Time.formatDate(mutetime - currentTimestamp());
-            player.sendMessage(Methods.formatText("mute.maessentials.success", target.getDisplayName(), displayTime, reason));
+            player.server.getPlayerList().sendMessage(Methods.formatText("mute.maessentials.success", target.getDisplayName(), player.getDisplayName(), displayTime, reason));
             target.sendMessage(Methods.formatText("mute.maessentials.success.target", displayTime));
         }
 

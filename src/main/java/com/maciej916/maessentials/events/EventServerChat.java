@@ -24,6 +24,7 @@ public class EventServerChat {
                     String displayTime = Time.formatDate(mute.getTime() - currentTimestamp());
                     player.sendMessage(Methods.formatText("mute.maessentials.success.target", displayTime));
                 }
+                player.sendMessage(Methods.formatText("mute.maessentials.success.target.reason", mute.getReason()));
                 event.setCanceled(true);
             }
         }
