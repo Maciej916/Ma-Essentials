@@ -20,20 +20,14 @@ public class Kit {
         return duration;
     }
 
-    public ArrayList<ItemStack> getItems() {
-        try {
-            ArrayList<ItemStack> items = new ArrayList<>();
-            for (KitItem item : this.items) {
-                ItemInput itemInput = item.getInput();
-                ItemStack itemstack = itemInput.createStack(item.getQuantity(), true);
-                items.add(itemstack);
-            }
-            return items;
-        } catch (Exception e) {
-            Log.err("Failed to get itemstack for kit!");
-            System.out.println(e);
-            return null;
+    public ArrayList<ItemStack> getItems() throws Exception {
+        ArrayList<ItemStack> items = new ArrayList<>();
+        for (KitItem item : this.items) {
+            ItemInput itemInput = item.getInput();
+            ItemStack itemstack = itemInput.createStack(item.getQuantity(), true);
+            items.add(itemstack);
         }
+        return items;
     }
 
 }

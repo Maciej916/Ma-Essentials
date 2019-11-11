@@ -77,15 +77,16 @@ public class Methods {
     }
 
     public static boolean giveKit(ServerPlayerEntity player, Kit kit) {
-        if (kit.getItems() == null) {
+        try {
+            ArrayList<ItemStack> items = kit.getItems();
+            for (ItemStack item : items) {
+                player.inventory.addItemStackToInventory(item);
+            }
+            return true;
+        } catch (Exception e) {
             player.sendMessage(Methods.formatText("kit.maessentials.parse_error"));
             return false;
         }
-
-        for (ItemStack item : kit.getItems()) {
-            player.inventory.addItemStackToInventory(item);
-        }
-        return true;
     }
 
     public static boolean simpleTeleport(ServerPlayerEntity player, Location location, String teleport, long delay) {

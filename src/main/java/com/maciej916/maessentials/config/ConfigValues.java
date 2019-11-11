@@ -99,4 +99,10 @@ public final class ConfigValues {
 	public static Integer afk_auto_kick;
 	public static Boolean afk_command;
 	public static Integer afk_command_cooldown;
+
+	// Endc
+	public static Boolean endc_enable;
+
+	// Trash
+	public static Boolean trash_enable;
 }

@@ -108,6 +108,19 @@ public class Commands {
             CommandUp.register(dispatcher);
         }
 
+        // Endc
+        if (ConfigValues.endc_enable) {
+            CommandEndc.register(dispatcher);
+        }
+
+        // Trash
+        if (ConfigValues.trash_enable) {
+            CommandTrash.register(dispatcher);
+        }
+
+        // Nick
+//        CommandNick.register(dispatcher);
+
         // Server
         if (event.getServer().isDedicatedServer() || isDev()) {
             // TPA

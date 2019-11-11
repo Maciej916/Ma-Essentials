@@ -99,6 +99,13 @@ final class CommonConfig {
 	final ForgeConfigSpec.BooleanValue afk_command;
 	final ForgeConfigSpec.IntValue afk_command_cooldown;
 
+	// Endc
+	final ForgeConfigSpec.BooleanValue endc_enable;
+
+	// Trash
+	final ForgeConfigSpec.BooleanValue trash_enable;
+
+
 	CommonConfig(final ForgeConfigSpec.Builder builder) {
 		builder.comment("Command Config").push("Commands");
 
@@ -280,6 +287,20 @@ final class CommonConfig {
 		afk_auto_kick = builder.defineInRange("auto_kick", 0, 0 , MAX);
 		afk_command = builder.define("command", true);
 		afk_command_cooldown = builder.defineInRange("cooldown",	30, 0, MAX);
+		builder.pop();
+
+		// Endc
+		builder.push("endc");
+		endc_enable = builder
+				.comment("Enable command: /endc")
+				.define("enable", true);
+		builder.pop();
+
+		// Trash
+		builder.push("trash");
+		trash_enable = builder
+				.comment("Enable command: /trash")
+				.define("enable", true);
 		builder.pop();
 	}
 }

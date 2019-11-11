@@ -27,10 +27,10 @@ public class CommandGm {
         builder
                 .executes(context -> gm(context))
                         .then(Commands.argument("gamemode", IntegerArgumentType.integer())
-                                .suggests(GM_SUGGEST)
-                                .executes(context -> gmSelf(context))
-                                        .then(Commands.argument("targetPlayer", EntityArgument.players())
-                                                .executes(context -> gmOthers(context))));
+                        .suggests(GM_SUGGEST)
+                        .executes(context -> gmSelf(context))
+                                .then(Commands.argument("targetPlayer", EntityArgument.players())
+                                .executes(context -> gmOthers(context))));
 
         dispatcher.register(builder);
     }

@@ -102,6 +102,12 @@ public final class ConfigHelper {
 		ConfigValues.afk_auto_time = ConfigHolder.COMMON.afk_auto_time.get();
 		ConfigValues.afk_command = ConfigHolder.COMMON.afk_command.get();
 		ConfigValues.afk_command_cooldown = ConfigHolder.COMMON.afk_command_cooldown.get();
+
+		// Endc
+		ConfigValues.endc_enable = ConfigHolder.COMMON.endc_enable.get();
+
+		// Trash
+		ConfigValues.trash_enable = ConfigHolder.COMMON.trash_enable.get();
 	}
 
 	public static void setValueAndSave(final ModConfig modConfig, final String path, final Object newValue) {
