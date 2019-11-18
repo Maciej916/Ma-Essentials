@@ -10,8 +10,8 @@ issueTrackerURL="https://github.com/Maciej916/Ma-Essentials/issues"
     displayURL="https://www.curseforge.com/minecraft/mc-mods/maessentials"
     logoFile="ma-essentials.png"
     credits=""
-    authors="Maciej916"
-    description="This mod adds commands like /sethome, /tpa, /spawn, /day ect."
+    authors="Statywek (Maciej916)"
+    description="This mod adds useful commands, homes, kits, warps, server utilities and more..."
 
     [[dependencies.maessentials]]
         modId="forge"

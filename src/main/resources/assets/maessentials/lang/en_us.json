@@ -141,6 +141,7 @@
 
 
   "_comment": "Teleport",
+  "teleport.maessentials.teleport.failed": "§cFailed to perform teleportation!",
   "teleport.maessentials.active": "You have active teleport!",
   "teleport.maessentials.moved": "You moved, teleport cancelled!",
   "teleport.maessentials.teleported": "Teleported!",
@@ -221,6 +222,16 @@
   "trash.maessentials.open": "Trash",
 
 
+  "_comment": "Tempban",
+  "unban.maessentials.not_banned": "§cPlayer §4%s§c is not banned",
+  "unban.maessentials.success": "Player §c%s§r has been unbanned",
+
+  "tempban.maessentials.already_banned": "§cPlayer §4%s§c is already banned",
+  "tempban.maessentials.provide.time": "§cPlease provide ban time",
+  "tempban.maessentials.success": "§cPlayer §4%s§c has been banned by §4%s§c for §4%s§c. Reason: §4%s§r",
+  "tempban.maessentials.success.perm": "§cPlayer §4%s§c has been permanently banned by §4%s§c. Reason: §4%s§c",
+  "tempban.maessentials.success.target": "§cYou been banned by §4%s§c for §4%s§c. Reason: §4%s§r",
+  "tempban.maessentials.success.perm.target": "§cYou been permanently banned by §4%s§c. Reason: §4%s§r",
 
 
 

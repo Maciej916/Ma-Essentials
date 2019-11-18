@@ -3,13 +3,18 @@ package com.maciej916.maessentials.events;
 import com.maciej916.maessentials.classes.Location;
 import com.maciej916.maessentials.classes.kit.Kit;
 import com.maciej916.maessentials.classes.player.EssentialPlayer;
+import com.maciej916.maessentials.classes.player.PlayerRestriction;
+import com.maciej916.maessentials.classes.player.PlayerRestrictions;
 import com.maciej916.maessentials.config.ConfigValues;
 import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.libs.Log;
 import com.maciej916.maessentials.libs.Methods;
 import com.maciej916.maessentials.libs.Teleport;
+import com.maciej916.maessentials.libs.Time;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+
+import static com.maciej916.maessentials.libs.Methods.currentTimestamp;
 
 public class EventPlayerLoggedIn {
 
@@ -36,6 +41,16 @@ public class EventPlayerLoggedIn {
                 }
             }
         } else {
+            EssentialPlayer eslPlayerExisted = DataManager.getPlayer(player);
+            PlayerRestriction ban = eslPlayerExisted.getRestrictions().getBan();
+            if (ban != null) {
+                if (ban.getTime() == -1) {
+                    player.connection.disconnect(Methods.formatText("tempban.maessentials.success.perm.target", player.getDisplayName(), ban.getReason()));
+                } else {
+                    String displayTime = Time.formatDate(ban.getTime() - currentTimestamp());
+                    player.connection.disconnect(Methods.formatText("tempban.maessentials.success.target", player.getDisplayName(), displayTime, ban.getReason()));
+                }
+            }
             Log.debug("Player " + player.getDisplayName().getString() + " joined");
         }
     }

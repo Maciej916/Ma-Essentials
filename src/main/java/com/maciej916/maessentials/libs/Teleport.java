@@ -144,17 +144,22 @@ public class Teleport {
     }
 
     public static void doTeleport(ServerPlayerEntity player, Location loc, boolean exact, boolean saveLastLocation) {
-        if (saveLastLocation) {
-            EssentialPlayer eslPlayer = DataManager.getPlayer(player);
-            eslPlayer.getData().setLastLocation(new Location(player));
-            eslPlayer.saveData();
-        }
+        try {
+            if (saveLastLocation) {
+                EssentialPlayer eslPlayer = DataManager.getPlayer(player);
+                eslPlayer.getData().setLastLocation(new Location(player));
+                eslPlayer.saveData();
+            }
 
-        ServerWorld worldDest = player.server.getWorld(loc.getDimension());
-        if (exact) {
-            player.teleport(worldDest, loc.x, loc.y, loc.z, loc.rotationYaw, loc.rotationPitch);
-        } else {
-            player.teleport(worldDest, loc.x + 0.5, loc.y + 0.5, loc.z, player.rotationYaw, player.rotationPitch);
+            ServerWorld worldDest = player.server.getWorld(loc.getDimension());
+            if (exact) {
+                player.teleport(worldDest, loc.x, loc.y, loc.z, loc.rotationYaw, loc.rotationPitch);
+            } else {
+                player.teleport(worldDest, loc.x + 0.5, loc.y + 0.5, loc.z, player.rotationYaw, player.rotationPitch);
+            }
+        } catch (Exception e) {
+            Log.err("Failed to do teleport for player " + player.getDisplayName().getString() + ". Error: " + e.getMessage());
+            player.sendMessage(Methods.formatText("teleport.maessentials.teleport.failed"));
         }
     }
 }

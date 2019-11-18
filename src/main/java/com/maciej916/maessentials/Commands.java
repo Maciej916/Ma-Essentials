@@ -151,6 +151,12 @@ public class Commands {
             if (ConfigValues.afk_command) {
                 CommandAfk.register(dispatcher);
             }
+
+            // Tempban
+            if (ConfigValues.tempban_enable) {
+                CommandTempban.register(dispatcher);
+                CommandUnban.register(dispatcher);
+            }
         }
 
         // Reload

@@ -105,6 +105,9 @@ final class CommonConfig {
 	// Trash
 	final ForgeConfigSpec.BooleanValue trash_enable;
 
+	// Tempban
+	final ForgeConfigSpec.BooleanValue tempban_enable;
+
 
 	CommonConfig(final ForgeConfigSpec.Builder builder) {
 		builder.comment("Command Config").push("Commands");
@@ -300,6 +303,13 @@ final class CommonConfig {
 		builder.push("trash");
 		trash_enable = builder
 				.comment("Enable command: /trash")
+				.define("enable", true);
+		builder.pop();
+
+		// Tempban
+		builder.push("tempban");
+		tempban_enable = builder
+				.comment("Enable commands: /tempban, /unban")
 				.define("enable", true);
 		builder.pop();
 	}

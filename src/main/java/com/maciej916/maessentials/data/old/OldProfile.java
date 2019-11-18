@@ -4,7 +4,7 @@ import com.maciej916.maessentials.classes.Location;
 
 import java.util.HashMap;
 
-public class OldPlayerData {
+public class OldProfile {
 
     public Location last_location;
     public long spawn_time;

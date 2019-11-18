@@ -10,7 +10,8 @@ import com.maciej916.maessentials.classes.player.EssentialPlayer;
 import com.maciej916.maessentials.classes.world.WorldData;
 import com.maciej916.maessentials.classes.warp.WarpData;
 import com.maciej916.maessentials.config.ConfigValues;
-import com.maciej916.maessentials.data.old.OldPlayerData;
+import com.maciej916.maessentials.data.old.OldProfile;
+import com.maciej916.maessentials.data.old.OldWorld;
 import com.maciej916.maessentials.data.old.ProfileUpdater;
 import com.maciej916.maessentials.libs.Log;
 import com.maciej916.maessentials.libs.Methods;
@@ -113,8 +114,19 @@ public class DataLoader {
     }
 
     private static void loadWorld() throws Exception {
-        WorldData worldData = new Gson().fromJson(Methods.loadFile(ConfigValues.worldCatalog, "data"), WorldData.class);
-        DataManager.setWorldData(worldData);
+        try {
+            WorldData worldData = new Gson().fromJson(Methods.loadFile(ConfigValues.worldCatalog, "data"), WorldData.class);
+            if (worldData.getSpawn() == null) {
+                Log.debug("Failed to load new world data, fallback to old.");
+                throw new Exception();
+            }
+            DataManager.setWorldData(worldData);
+        } catch (Exception e) {
+            Log.log("Updading world data.");
+            OldWorld oldWorld = new Gson().fromJson(Methods.loadFile(ConfigValues.worldCatalog, "data"), OldWorld.class);
+            DataManager.getWorld().setSpawn(oldWorld.spawnLocation);
+            DataManager.getWorld().saveData();
+        }
     }
 
     private static void loadWarps() throws Exception {
@@ -153,7 +165,7 @@ public class DataLoader {
                     DataManager.setPlayerData(eslPlayer);
                 } catch (Exception e) {
                     Log.log("Updading player profile: " + n);
-                    OldPlayerData oldProfile = new Gson().fromJson(Methods.loadFile(ConfigValues.worldCatalog + "players/", n), OldPlayerData.class);
+                    OldProfile oldProfile = new Gson().fromJson(Methods.loadFile(ConfigValues.worldCatalog + "players/", n), OldProfile.class);
                     UUID playerUUID = UUID.fromString(n);
                     EssentialPlayer eslPlayer = ProfileUpdater.updateProfie(playerUUID, oldProfile);
                     eslPlayer.saveData();

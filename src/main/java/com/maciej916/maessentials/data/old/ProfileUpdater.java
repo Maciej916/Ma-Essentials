@@ -1,14 +1,13 @@
 package com.maciej916.maessentials.data.old;
 
 import com.maciej916.maessentials.classes.player.EssentialPlayer;
-import com.maciej916.maessentials.libs.Log;
 
 import java.util.Map;
 import java.util.UUID;
 
 public class ProfileUpdater {
 
-    public static EssentialPlayer updateProfie(UUID playerUUID, OldPlayerData old) {
+    public static EssentialPlayer updateProfie(UUID playerUUID, OldProfile old) {
         EssentialPlayer eslPlayer = new EssentialPlayer(playerUUID);
 
         if (old.last_location != null) {

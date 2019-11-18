@@ -105,4 +105,7 @@ public final class ConfigValues {
 
 	// Trash
 	public static Boolean trash_enable;
+
+	// Tempban
+	public static Boolean tempban_enable;
 }
