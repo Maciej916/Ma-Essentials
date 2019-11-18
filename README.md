@@ -1,6 +1,6 @@
 # Ma Essentials [![](http://cf.way2muchnoise.eu/345135.svg) ![](https://cf.way2muchnoise.eu/packs/maessentials.svg) ![](http://cf.way2muchnoise.eu/versions/345135.svg)](https://www.curseforge.com/minecraft/mc-mods/maessentials)
 
-This plugins adds usefoul commands like /sethome, /tpa, /spawn, /day ect. to the Minecraft Forge for both single and multiplayer servers.
+This mod adds useful commands, homes, kits, warps, server utilities and more to the Minecraft Forge for both single and multiplayer servers.
 
 ## Links and Downloads
 - [CurseForge](https://www.curseforge.com/minecraft/mc-mods/maessentials) (downloads and more information)
