@@ -30,7 +30,7 @@ public class CommandKit {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("kit").requires(source -> source.hasPermissionLevel(0));
         builder
                 .executes(context -> kit(context))
-                .then(Commands.argument("kitName", StringArgumentType.string())
+                .then(Commands.argument("kitName", StringArgumentType.word())
                         .suggests(Methods.KIT_SUGGEST)
                         .executes(context -> kitArgs(context)));
         dispatcher.register(builder);

@@ -1,5 +1,7 @@
 package com.maciej916.maessentials.classes.player;
 
+import static com.maciej916.maessentials.libs.Methods.currentTimestamp;
+
 public class PlayerRestrictions {
 
     private PlayerRestriction mute;
@@ -28,4 +30,9 @@ public class PlayerRestrictions {
     public void unMute() {
         this.mute = null;
     }
+
+    public boolean isRestricted(PlayerRestriction restriction) {
+        return restriction != null && (currentTimestamp() < restriction.getTime() || restriction.getTime() == -1);
+    }
+
 }

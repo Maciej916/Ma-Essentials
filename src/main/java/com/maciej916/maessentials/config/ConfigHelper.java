@@ -109,9 +109,11 @@ public final class ConfigHelper {
 		// Trash
 		ConfigValues.trash_enable = ConfigHolder.COMMON.trash_enable.get();
 
-
 		// Tempban
 		ConfigValues.tempban_enable = ConfigHolder.COMMON.tempban_enable.get();
+
+		// Check
+		ConfigValues.check_enable = ConfigHolder.COMMON.check_enable.get();
 	}
 
 	public static void setValueAndSave(final ModConfig modConfig, final String path, final Object newValue) {

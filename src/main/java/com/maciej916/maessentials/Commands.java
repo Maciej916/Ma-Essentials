@@ -118,9 +118,6 @@ public class Commands {
             CommandTrash.register(dispatcher);
         }
 
-        // Nick
-//        CommandNick.register(dispatcher);
-
         // Server
         if (event.getServer().isDedicatedServer() || isDev()) {
             // TPA
@@ -156,6 +153,11 @@ public class Commands {
             if (ConfigValues.tempban_enable) {
                 CommandTempban.register(dispatcher);
                 CommandUnban.register(dispatcher);
+            }
+
+            // Check
+            if (ConfigValues.check_enable) {
+                CommandCheck.register(dispatcher);
             }
         }
 

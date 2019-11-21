@@ -12,20 +12,12 @@ public class HomeData {
     public HomeData() {
     }
 
-    public boolean setHome(String name, Location location) {
-        if (!homes.containsKey(name)) {
-            homes.put(name, location);
-            return true;
-        }
-        return false;
+    public void setHome(String name, Location location) {
+        homes.put(name, location);
     }
 
-    public boolean delHome(String name) {
-        if (homes.containsKey(name)) {
-            homes.remove(name);
-            return true;
-        }
-        return false;
+    public void delHome(String name) {
+        homes.remove(name);
     }
 
     public Location getHome(String name) {

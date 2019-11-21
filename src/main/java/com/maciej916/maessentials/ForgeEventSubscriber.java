@@ -1,13 +1,9 @@
 package com.maciej916.maessentials;
 
 import com.maciej916.maessentials.events.*;
-import com.maciej916.maessentials.libs.Log;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

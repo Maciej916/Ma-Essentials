@@ -108,4 +108,7 @@ public final class ConfigValues {
 
 	// Tempban
 	public static Boolean tempban_enable;
+
+	// Check
+	public static Boolean check_enable;
 }

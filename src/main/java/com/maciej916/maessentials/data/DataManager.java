@@ -76,4 +76,8 @@ public class DataManager {
             return eslPlayer;
         }
     }
+
+    public static HashMap<UUID, EssentialPlayer> getPlayers() {
+        return playerData;
+    }
 }

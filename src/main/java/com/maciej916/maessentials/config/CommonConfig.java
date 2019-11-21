@@ -108,6 +108,8 @@ final class CommonConfig {
 	// Tempban
 	final ForgeConfigSpec.BooleanValue tempban_enable;
 
+	// Tempban
+	final ForgeConfigSpec.BooleanValue check_enable;
 
 	CommonConfig(final ForgeConfigSpec.Builder builder) {
 		builder.comment("Command Config").push("Commands");
@@ -310,6 +312,13 @@ final class CommonConfig {
 		builder.push("tempban");
 		tempban_enable = builder
 				.comment("Enable commands: /tempban, /unban")
+				.define("enable", true);
+		builder.pop();
+
+		// Check
+		builder.push("tempban");
+		check_enable = builder
+				.comment("Enable command: /check")
 				.define("enable", true);
 		builder.pop();
 	}
