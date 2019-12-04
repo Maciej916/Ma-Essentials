@@ -23,8 +23,8 @@ public class CommandCheck {
 
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(Commands.literal("check").requires((source) -> source.hasPermissionLevel(2))
-            .then(Commands.literal("bans").executes((cmd) -> bansCheck(cmd.getSource())))
-            .then(Commands.literal("mutes").executes((cmd) -> mutesCheck(cmd.getSource())))
+            .then(Commands.literal("bans").executes((context) -> bansCheck(context.getSource())))
+            .then(Commands.literal("mutes").executes((context) -> mutesCheck(context.getSource())))
 //            .then(Commands.literal("player").then(Commands.argument("targetPlayer", EntityArgument.players()).executes((cmd) -> playerCheck(cmd.getSource()))))
         );
     }

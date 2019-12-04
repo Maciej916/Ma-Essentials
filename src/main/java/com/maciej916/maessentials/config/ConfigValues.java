@@ -111,4 +111,7 @@ public final class ConfigValues {
 
 	// Check
 	public static Boolean check_enable;
+
+	// Head
+	public static Boolean head_enable;
 }

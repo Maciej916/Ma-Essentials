@@ -246,5 +246,8 @@
   "check.maessentials.player.muted": "- §c%s§r: §a%s§r. Reason: §8%s§r",
 
 
+  "_comment": "Head",
+  "head.maessentials.done": "Received §c%s's§r head",
+
   "test.maessentials.test": "%s"
 }

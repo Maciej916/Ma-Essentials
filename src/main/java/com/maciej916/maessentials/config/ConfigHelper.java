@@ -114,6 +114,9 @@ public final class ConfigHelper {
 
 		// Check
 		ConfigValues.check_enable = ConfigHolder.COMMON.check_enable.get();
+
+		// Head
+		ConfigValues.head_enable = ConfigHolder.COMMON.head_enable.get();
 	}
 
 	public static void setValueAndSave(final ModConfig modConfig, final String path, final Object newValue) {

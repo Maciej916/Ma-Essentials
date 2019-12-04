@@ -118,6 +118,11 @@ public class Commands {
             CommandTrash.register(dispatcher);
         }
 
+        // Head
+        if (ConfigValues.head_enable) {
+            CommandHead.register(dispatcher);
+        }
+
         // Server
         if (event.getServer().isDedicatedServer() || isDev()) {
             // TPA
