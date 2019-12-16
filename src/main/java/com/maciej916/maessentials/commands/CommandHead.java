@@ -25,12 +25,6 @@ public class CommandHead {
         );
     }
 
-    private static int head(CommandSource source) throws CommandSyntaxException {
-        ServerPlayerEntity player = source.asPlayer();
-        player.sendMessage(Methods.formatText("maessentials.provide.player"));
-        return Command.SINGLE_SUCCESS;
-    }
-
     private static int head(CommandSource source, String targetPlayer) throws CommandSyntaxException {
         ServerPlayerEntity player = source.asPlayer();
         giveHead(player, targetPlayer, 1);

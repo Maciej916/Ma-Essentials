@@ -9,7 +9,7 @@
   "maessentials.illegal_date": "§cInvaild gamemode",
   "maessentials.invalid.location": "§cInvaild location",
   "maessentials.provide.location": "§cPlease provide location",
-
+  "maessentials.only.single": "§cThis command is currently only available in single player",
 
   "_comment": "Back",
   "back.maessentials.not_found": "§cBack location not found",

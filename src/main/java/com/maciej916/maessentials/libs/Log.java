@@ -1,6 +1,5 @@
 package com.maciej916.maessentials.libs;
 
-import com.maciej916.maessentials.config.ConfigValues;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
