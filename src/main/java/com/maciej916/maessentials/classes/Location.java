@@ -29,9 +29,9 @@ public class Location {
     }
 
     public Location(ServerPlayerEntity player) {
-        this.x = player.posX;
-        this.y = player.posY;
-        this.z = player.posZ;
+        this.x = player.func_226277_ct_();
+        this.y = player.func_226278_cu_();
+        this.z = player.func_226281_cx_();
         this.rotationYaw = player.rotationYaw;
         this.rotationPitch = player.rotationPitch;
         this.dimension = player.dimension.getId();

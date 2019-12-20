@@ -28,11 +28,11 @@ public class CommandTop {
         ServerWorld world = context.getSource().getWorld();
         ServerPlayerEntity player = context.getSource().asPlayer();
 
-        int x = (int) player.posX;
+        int x = (int) player.func_226277_ct_();
         int y = world.getMaxHeight();
-        int z = (int) player.posZ;
+        int z = (int) player.func_226281_cx_();
 
-        Chunk chunk = world.getChunk((int) player.posX >> 4, (int)player.posZ >> 4);
+        Chunk chunk = world.getChunk((int) player.func_226277_ct_() >> 4, (int)player.func_226281_cx_() >> 4);
 
         while (y > 0) {
             y--;
@@ -43,7 +43,7 @@ public class CommandTop {
                 if (chunk.getBlockState(legPos).getMaterial().equals(Material.AIR)) {
                     BlockPos headPos = new BlockPos(x, y, z);
                     if (chunk.getBlockState(headPos).getMaterial().equals(Material.AIR)) {
-                        Location topLocation = new Location(player.posX, y-1, player.posZ, player.rotationYaw, player.rotationPitch, player.dimension.getId());
+                        Location topLocation = new Location(player.func_226277_ct_(), y-1, player.func_226281_cx_(), player.rotationYaw, player.rotationPitch, player.dimension.getId());
                         Teleport.doTeleport(player, topLocation, true, true);
                         player.sendMessage(Methods.formatText("top.maessentials.teleported"));
                         break;

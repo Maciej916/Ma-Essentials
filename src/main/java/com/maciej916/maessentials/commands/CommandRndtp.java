@@ -80,8 +80,8 @@ public class CommandRndtp {
         int z = (int) Math.round(spawnLocation.z) + rand.nextInt(max + min) - min;
 
         Chunk chunk = world.getChunk(x >> 4, z >> 4);
-        Biome biome = world.getBiome(new BlockPos(x, y, z));
 
+        Biome biome = world.func_225523_d_().func_226836_a_(new BlockPos(x, y, z));
         if (biome.getCategory().getName().equals("ocean")) {
             return findRandomTp(world, player, count);
         }
