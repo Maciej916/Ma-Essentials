@@ -6,8 +6,6 @@ import com.maciej916.maessentials.libs.Teleport;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
@@ -19,29 +17,27 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.server.ServerWorld;
 
 public class CommandUp {
+
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
-        LiteralArgumentBuilder<CommandSource> builder = Commands.literal("up").requires(source -> source.hasPermissionLevel(2));
-        builder
-                .executes(context -> up(context))
-                .then(Commands.argument("number", IntegerArgumentType.integer())
-                        .executes(context -> upArgs(context)));
-        dispatcher.register(builder);
+        dispatcher.register(Commands.literal("up").requires((source) -> source.hasPermissionLevel(2))
+                .executes((context) -> up(context.getSource()))
+                .then(Commands.argument("number", IntegerArgumentType.integer()).executes((context) -> up(context.getSource(), IntegerArgumentType.getInteger(context, "number"))))
+        );
     }
 
-    private static int up(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        ServerPlayerEntity player = context.getSource().asPlayer();
+    private static int up(CommandSource source) throws CommandSyntaxException {
+        ServerPlayerEntity player = source.asPlayer();
         player.sendMessage(Methods.formatText("maessentials.provide.location"));
         return Command.SINGLE_SUCCESS;
     }
 
-    private static int upArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        ServerWorld world = context.getSource().getWorld();
-        ServerPlayerEntity player = context.getSource().asPlayer();
-        int number = IntegerArgumentType.getInteger(context, "number");
+    private static int up(CommandSource source, int number) throws CommandSyntaxException {
+        ServerPlayerEntity player = source.asPlayer();
+        ServerWorld world = source.getWorld();
 
-        int x = (int) player.func_226277_ct_() - 1;
+        int x = (int) player.func_226277_ct_();
         int y = (int) player.func_226278_cu_() + number - 1;
-        int z = (int) player.func_226281_cx_() - 1;
+        int z = (int) player.func_226281_cx_();
 
         Chunk chunk = world.getChunk((int) player.func_226277_ct_() >> 4, (int)player.func_226281_cx_() >> 4);
         boolean tp = false;
@@ -61,11 +57,17 @@ public class CommandUp {
         }
 
         if (tp) {
-            player.sendMessage(Methods.formatText("up.maessentials.success", number));
+            if (number > 0) {
+                player.sendMessage(Methods.formatText("up.maessentials.success.up", number));
+            } else {
+                number = number * -1;
+                player.sendMessage(Methods.formatText("up.maessentials.success.down", number));
+            }
         } else {
             player.sendMessage(Methods.formatText("maessentials.invalid.location"));
         }
 
         return Command.SINGLE_SUCCESS;
     }
+
 }

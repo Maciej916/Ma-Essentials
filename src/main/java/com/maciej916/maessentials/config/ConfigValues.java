@@ -114,4 +114,7 @@ public final class ConfigValues {
 
 	// Head
 	public static Boolean head_enable;
+
+	// Invsee
+	public static Boolean invsee_enable;
 }

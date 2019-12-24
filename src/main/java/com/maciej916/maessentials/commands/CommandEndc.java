@@ -44,7 +44,7 @@ public class CommandEndc {
     private static void doEndc(ServerPlayerEntity player, ServerPlayerEntity target) {
         TextComponent endc = field_220115_d;
         if (player != target) {
-            endc = Methods.formatText("endc.maessentials.open", target.getDisplayName().getString(), endc);
+            endc = Methods.formatText("inv.maessentials.open", target.getDisplayName().getString(), endc);
         }
 
         player.openContainer(new SimpleNamedContainerProvider((id, inv, items) -> {

@@ -164,6 +164,11 @@ public class Commands {
             if (ConfigValues.check_enable) {
                 CommandCheck.register(dispatcher);
             }
+
+            // Invsee
+            if (ConfigValues.invsee_enable) {
+                CommandInvsee.register(dispatcher);
+            }
         }
 
         // Reload
