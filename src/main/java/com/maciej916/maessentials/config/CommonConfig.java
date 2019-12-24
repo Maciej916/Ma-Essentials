@@ -114,6 +114,9 @@ final class CommonConfig {
 	// Head
 	final ForgeConfigSpec.BooleanValue head_enable;
 
+	// Invsee
+	final ForgeConfigSpec.BooleanValue invsee_enable;
+
 	CommonConfig(final ForgeConfigSpec.Builder builder) {
 		builder.comment("Command Config").push("Commands");
 
@@ -329,6 +332,13 @@ final class CommonConfig {
 		builder.push("head");
 		head_enable = builder
 				.comment("Enable command: /head")
+				.define("enable", true);
+		builder.pop();
+
+		// Invsee
+		builder.push("invsee");
+		invsee_enable = builder
+				.comment("Enable command: /invsee")
 				.define("enable", true);
 		builder.pop();
 	}

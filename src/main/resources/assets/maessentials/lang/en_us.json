@@ -137,7 +137,7 @@
 
 
   "_comment": "Top",
-  "top.maessentials.teleported": "Teleported to highest location!",
+  "top.maessentials.teleported": "Teleported to highest location",
 
 
   "_comment": "Teleport",
@@ -202,7 +202,8 @@
 
 
   "_comment": "Up",
-  "up.maessentials.success": "Teleported §c%s§r block(s) up",
+  "up.maessentials.success.up": "Teleported §c%s§r block(s) up",
+  "up.maessentials.success.down": "Teleported §c%s§r block(s) down",
 
 
   "_comment": "AFK",
@@ -215,7 +216,7 @@
 
 
   "_comment": "Endc",
-  "endc.maessentials.open": "%s's %s",
+  "inv.maessentials.open": "%s's %s",
 
 
   "_comment": "Trash",
@@ -248,6 +249,11 @@
 
   "_comment": "Head",
   "head.maessentials.done": "Received §c%s's§r head",
+
+
+  "_comment": "Invsee",
+  "invsee.maessentials.self": "§cYou can not invsee your own inventory",
+
 
   "test.maessentials.test": "%s"
 }

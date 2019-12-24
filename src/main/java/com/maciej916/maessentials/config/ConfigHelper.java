@@ -117,6 +117,9 @@ public final class ConfigHelper {
 
 		// Head
 		ConfigValues.head_enable = ConfigHolder.COMMON.head_enable.get();
+
+		// Invsee
+		ConfigValues.invsee_enable = ConfigHolder.COMMON.invsee_enable.get();
 	}
 
 	public static void setValueAndSave(final ModConfig modConfig, final String path, final Object newValue) {
