@@ -17,6 +17,7 @@ public final class ConfigValues {
 	public static Integer homes_delay;
 	public static Integer homes_cooldown;
 	public static Integer homes_limit;
+	public static Integer homes_limit_op;
 
 	// Warps
 	public static Boolean warps_enable;
@@ -28,6 +29,7 @@ public final class ConfigValues {
 	public static Integer back_delay;
 	public static Integer back_cooldown;
 	public static Boolean back_death_enable;
+	public static Integer back_death_custom_cooldown;
 
 	// TPA
 	public static Boolean tpa_enable;

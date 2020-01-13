@@ -40,4 +40,8 @@ public class Location {
     public DimensionType getDimension() {
         return DimensionType.getById(dimension);
     }
+
+    public int getDimensionID() {
+        return dimension;
+    }
 }

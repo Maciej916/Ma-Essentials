@@ -9,6 +9,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
+import static com.maciej916.maessentials.libs.Methods.currentTimestamp;
+
 public class EventLivingDeath {
 
     public static void event(LivingDeathEvent event) {
@@ -22,6 +24,9 @@ public class EventLivingDeath {
 
                 EssentialPlayer eslPlayer = DataManager.getPlayer(player);
                 eslPlayer.getData().setLastLocation(location);
+                eslPlayer.getData().addDeathCount();
+                eslPlayer.getData().setLastDeath(currentTimestamp());
+
                 eslPlayer.saveData();
             }
         }

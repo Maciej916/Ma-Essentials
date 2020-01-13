@@ -5,8 +5,6 @@ import com.maciej916.maessentials.libs.Afk;
 import com.maciej916.maessentials.libs.Teleport;
 import net.minecraftforge.event.TickEvent;
 
-import java.util.Objects;
-
 import static com.maciej916.maessentials.libs.Methods.isDev;
 
 public class EventWorldTick {

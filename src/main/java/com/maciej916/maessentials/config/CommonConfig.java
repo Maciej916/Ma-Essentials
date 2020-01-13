@@ -16,6 +16,7 @@ final class CommonConfig {
 	final ForgeConfigSpec.IntValue homes_delay;
 	final ForgeConfigSpec.IntValue homes_cooldown;
 	final ForgeConfigSpec.IntValue homes_limit;
+	final ForgeConfigSpec.IntValue homes_limit_op;
 
 	// Warps
 	final ForgeConfigSpec.BooleanValue warps_enable;
@@ -27,6 +28,7 @@ final class CommonConfig {
 	final ForgeConfigSpec.IntValue back_delay;
 	final ForgeConfigSpec.IntValue back_cooldown;
 	final ForgeConfigSpec.BooleanValue back_death_enable;
+	final ForgeConfigSpec.IntValue back_death_custom_cooldown;
 
 	// TPA
 	final ForgeConfigSpec.BooleanValue tpa_enable;
@@ -138,6 +140,7 @@ final class CommonConfig {
 		homes_delay = builder.defineInRange("delay", 3, 0, MAX);
 		homes_cooldown = builder.defineInRange("cooldown",	0, 0, MAX);
 		homes_limit = builder.defineInRange("limit",	3, 1, MAX);
+		homes_limit_op = builder.defineInRange("limit_op",	5, 1, MAX);
 		builder.pop();
 
 		// Warps
@@ -157,6 +160,7 @@ final class CommonConfig {
 		back_death_enable = builder.define("enable_on_death", true);
 		back_delay = builder.defineInRange("delay", 3, 0, MAX);
 		back_cooldown = builder.defineInRange("cooldown",	0, 0, MAX);
+		back_death_custom_cooldown = builder.defineInRange("death_custom_cooldown",	0, 0, MAX);
 		builder.pop();
 
 		// TPA

@@ -40,12 +40,18 @@ public class CommandSetHome {
 
     private static void doSetHome(ServerPlayerEntity player, String name) {
         EssentialPlayer eslPlayer = DataManager.getPlayer(player);
-        if ((eslPlayer.getHomeData().getHomes().size() < ConfigValues.homes_limit)  || (eslPlayer.getHomeData().getHomes().size() == ConfigValues.homes_limit && eslPlayer.getHomeData().getHome(name) != null)) {
+
+        int homes_limit = ConfigValues.homes_limit;
+        if (player.hasPermissionLevel(1)) {
+            homes_limit = ConfigValues.homes_limit_op;
+        }
+
+        if ((eslPlayer.getHomeData().getHomes().size() < homes_limit)  || (eslPlayer.getHomeData().getHomes().size() == homes_limit && eslPlayer.getHomeData().getHome(name) != null)) {
             eslPlayer.getHomeData().setHome(name, new Location(player));
             eslPlayer.saveHomes();
             player.sendMessage(Methods.formatText("sethome.maessentials.done", name));
         } else {
-            player.sendMessage(Methods.formatText("sethome.maessentials.max_homes", ConfigValues.homes_limit));
+            player.sendMessage(Methods.formatText("sethome.maessentials.max_homes", homes_limit));
        }
     }
 }
