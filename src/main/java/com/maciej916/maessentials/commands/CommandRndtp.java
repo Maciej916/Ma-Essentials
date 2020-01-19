@@ -26,7 +26,7 @@ import static com.maciej916.maessentials.libs.Methods.simpleTeleport;
 public class CommandRndtp {
 
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
-        dispatcher.register(Commands.literal("rndtp").requires((source) -> source.hasPermissionLevel(4))
+        dispatcher.register(Commands.literal("rndtp").requires((source) -> source.hasPermissionLevel(0))
                 .executes((context) -> rndtp(context.getSource()))
         );
     }
