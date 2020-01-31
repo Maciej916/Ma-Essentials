@@ -35,6 +35,10 @@ public class PlayerUsage {
         this.command.put(command, time);
     }
 
+    public void setTeleportUsage(String teleport, long time) {
+        this.teleport.put(teleport, time);
+    }
+
     public void setOtherUssage(String other) {
         this.other.put(other, currentTimestamp());
     }

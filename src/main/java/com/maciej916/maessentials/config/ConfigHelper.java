@@ -20,6 +20,7 @@ public final class ConfigHelper {
 		ConfigValues.homes_delay = ConfigHolder.COMMON.homes_delay.get();
 		ConfigValues.homes_cooldown = ConfigHolder.COMMON.homes_cooldown.get();
 		ConfigValues.homes_limit = ConfigHolder.COMMON.homes_limit.get();
+		ConfigValues.homes_limit_op = ConfigHolder.COMMON.homes_limit_op.get();
 
 		// Warps
 		ConfigValues.warps_enable = ConfigHolder.COMMON.warps_enable.get();
@@ -31,6 +32,7 @@ public final class ConfigHelper {
 		ConfigValues.back_delay = ConfigHolder.COMMON.back_delay.get();
 		ConfigValues.back_cooldown = ConfigHolder.COMMON.back_cooldown.get();
 		ConfigValues.back_death_enable = ConfigHolder.COMMON.back_death_enable.get();
+		ConfigValues.back_death_custom_cooldown = ConfigHolder.COMMON.back_death_custom_cooldown.get();
 
 		// TPA
 		ConfigValues.tpa_enable = ConfigHolder.COMMON.tpa_enable.get();

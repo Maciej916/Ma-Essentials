@@ -71,7 +71,7 @@ public class CommandSuicide {
         target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, target.getHealth());
 
         ServerWorld world = (ServerWorld) player.world;
-        LightningBoltEntity entity = new LightningBoltEntity(world, player.func_226277_ct_(), player.func_226278_cu_(), player.func_226281_cx_(), true);
+        LightningBoltEntity entity = new LightningBoltEntity(world, player.getPosX(), player.getPosY(), player.getPosZ(), true);
         world.addLightningBolt(entity);
 
         if (player != target) {

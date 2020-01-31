@@ -21,9 +21,9 @@ public class CommandSpeed {
 
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(Commands.literal("speed").requires((source) -> source.hasPermissionLevel(2))
-                .then(Commands.argument("speed", IntegerArgumentType.integer()).executes((context) -> speed(context.getSource(), IntegerArgumentType.getInteger(context, "speed")))
-                        .then(Commands.argument("targetPlayer", EntityArgument.players()).executes((context) -> speed(context.getSource(), IntegerArgumentType.getInteger(context, "speed"), EntityArgument.getPlayer(context, "targetPlayer"))))
-                )
+            .then(Commands.argument("speed", IntegerArgumentType.integer()).executes((context) -> speed(context.getSource(), IntegerArgumentType.getInteger(context, "speed")))
+                    .then(Commands.argument("targetPlayer", EntityArgument.players()).executes((context) -> speed(context.getSource(), IntegerArgumentType.getInteger(context, "speed"), EntityArgument.getPlayer(context, "targetPlayer"))))
+            )
         );
     }
 

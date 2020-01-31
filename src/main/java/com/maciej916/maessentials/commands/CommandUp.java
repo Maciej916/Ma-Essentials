@@ -35,11 +35,11 @@ public class CommandUp {
         ServerPlayerEntity player = source.asPlayer();
         ServerWorld world = source.getWorld();
 
-        int x = (int) player.func_226277_ct_();
-        int y = (int) player.func_226278_cu_() + number - 1;
-        int z = (int) player.func_226281_cx_();
+        int x = (int) player.getPosX();
+        int y = (int) player.getPosX() + number - 1;
+        int z = (int) player.getPosZ();
 
-        Chunk chunk = world.getChunk((int) player.func_226277_ct_() >> 4, (int)player.func_226281_cx_() >> 4);
+        Chunk chunk = world.getChunk((int) player.getPosX() >> 4, (int)player.getPosZ() >> 4);
         boolean tp = false;
 
         BlockPos headPos = new BlockPos(x, y+2, z);

@@ -13,14 +13,14 @@ issueTrackerURL="https://github.com/Maciej916/Ma-Essentials/issues"
     authors="Statywek (Maciej916)"
     description="This mod adds useful commands, homes, kits, warps, server utilities and more..."
 
-    [[dependencies.maessentials]]
+    [[dependencies.ma-essentials]]
         modId="forge"
         mandatory=true
         versionRange="[30.0.14,)"
         ordering="NONE"
         side="BOTH"
 
-    [[dependencies.maessentials]]
+    [[dependencies.ma-essentials]]
         modId="minecraft"
         mandatory=true
         versionRange="[1.15.1]"
