@@ -36,7 +36,7 @@ public class CommandUp {
         ServerWorld world = source.getWorld();
 
         int x = (int) player.getPosX();
-        int y = (int) player.getPosX() + number - 1;
+        int y = (int) player.getPosY() + number - 1;
         int z = (int) player.getPosZ();
 
         Chunk chunk = world.getChunk((int) player.getPosX() >> 4, (int)player.getPosZ() >> 4);
