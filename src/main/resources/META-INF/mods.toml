@@ -1,12 +1,12 @@
 modLoader="javafml"
-loaderVersion="[30,)"
+loaderVersion="[31,)"
 issueTrackerURL="https://github.com/Maciej916/Ma-Essentials/issues"
 
 [[mods]]
     modId="ma-essentials"
     version="${file.jarVersion}"
     displayName="Ma Essentials"
-    updateJSONURL="https://raw.githubusercontent.com/Maciej916/Ma-Essentials/1.15.1/update.json"
+    updateJSONURL="https://raw.githubusercontent.com/Maciej916/Ma-Essentials/1.15.2/update.json"
     displayURL="https://www.curseforge.com/minecraft/mc-mods/maessentials"
     logoFile="ma-essentials.png"
     credits=""
@@ -16,13 +16,13 @@ issueTrackerURL="https://github.com/Maciej916/Ma-Essentials/issues"
     [[dependencies.ma-essentials]]
         modId="forge"
         mandatory=true
-        versionRange="[30.0.14,)"
+        versionRange="[31.0.1,)"
         ordering="NONE"
         side="BOTH"
 
     [[dependencies.ma-essentials]]
         modId="minecraft"
         mandatory=true
-        versionRange="[1.15.1]"
+        versionRange="[1.15.2]"
         ordering="NONE"
         side="BOTH"
