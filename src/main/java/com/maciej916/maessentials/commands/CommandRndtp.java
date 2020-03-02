@@ -36,7 +36,7 @@ public class CommandRndtp {
         ServerPlayerEntity player = source.asPlayer();
         EssentialPlayer eslPlayer = DataManager.getPlayer(player);
 
-        long cooldown = eslPlayer.getUsage().getCommandCooldown("rndtp", ConfigValues.rndtp_cooldown);
+        long cooldown = eslPlayer.getUsage().getTeleportCooldown("rndtp", ConfigValues.rndtp_cooldown);
         if (cooldown != 0) {
             player.sendMessage(Methods.formatText("maessentials.cooldown", cooldown));
             return Command.SINGLE_SUCCESS;

@@ -13,27 +13,29 @@ import static com.maciej916.maessentials.libs.Methods.*;
 public class Afk {
 
     public static void checkAfk(PlayerList players) {
-        for (ServerPlayerEntity player : players.getPlayers()) {
-            EssentialPlayer eslPlayer = DataManager.getPlayer(player);
-            Location playerLocation = new Location(player);
-            Location lastLocation = eslPlayer.getTemp().getLocation();
-            if (lastLocation != null && checkDetailedLocation(playerLocation, lastLocation)) {
-                if (!eslPlayer.getTemp().isAfk()) {
-                    if (currentTimestamp() - ConfigValues.afk_auto_time  >= eslPlayer.getTemp().getLastMoveTime()) {
-                        players.sendMessage(Methods.formatText("afk.maessentials.afk.true", player.getDisplayName()));
-                        eslPlayer.getTemp().setAfk(true);
+        if (players != null && players.getPlayers().size() > 0) {
+            for (ServerPlayerEntity player : players.getPlayers()) {
+                EssentialPlayer eslPlayer = DataManager.getPlayer(player);
+                Location playerLocation = new Location(player);
+                Location lastLocation = eslPlayer.getTemp().getLocation();
+                if (lastLocation != null && checkDetailedLocation(playerLocation, lastLocation)) {
+                    if (!eslPlayer.getTemp().isAfk()) {
+                        if (currentTimestamp() - ConfigValues.afk_auto_time  >= eslPlayer.getTemp().getLastMoveTime()) {
+                            players.sendMessage(Methods.formatText("afk.maessentials.afk.true", player.getDisplayName()));
+                            eslPlayer.getTemp().setAfk(true);
+                        }
+                    } else {
+                        if (ConfigValues.afk_auto_kick != 0 && currentTimestamp() - ConfigValues.afk_auto_kick  >= eslPlayer.getTemp().getLastMoveTime()) {
+                            kickPlayer(player, new StringTextComponent("Server"), "Being afk for too long!");
+                        }
                     }
                 } else {
-                    if (ConfigValues.afk_auto_kick != 0 && currentTimestamp() - ConfigValues.afk_auto_kick  >= eslPlayer.getTemp().getLastMoveTime()) {
-                        kickPlayer(player, new StringTextComponent("Server"), "Being afk for too long!");
+                    if (eslPlayer.getTemp().isAfk()) {
+                        players.sendMessage(Methods.formatText("afk.maessentials.afk.false", player.getDisplayName()));
+                        eslPlayer.getTemp().setAfk(false);
                     }
+                    eslPlayer.getTemp().setLocation(playerLocation);
                 }
-            } else {
-                if (eslPlayer.getTemp().isAfk()) {
-                    players.sendMessage(Methods.formatText("afk.maessentials.afk.false", player.getDisplayName()));
-                    eslPlayer.getTemp().setAfk(false);
-                }
-                eslPlayer.getTemp().setLocation(playerLocation);
             }
         }
     }
