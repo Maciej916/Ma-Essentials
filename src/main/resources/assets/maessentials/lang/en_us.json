@@ -136,7 +136,7 @@
   "rndtp.maessentials.not_found": "§cCouldn't find a safe place to teleport",
   "rndtp.maessentials.dimension": "§cYou need to be in spawn dimension to use random teleport",
   "rndtp.maessentials.teleport": "Teleporting you to random location...",
-  "rndtp.maessentials.teleport.wait": "Teleporting you to random location, plase wait §c%s§r seconds...",
+  "rndtp.maessentials.teleport.wait": "Teleporting you to random location, please wait §c%s§r seconds...",
 
 
   "_comment": "Top",
