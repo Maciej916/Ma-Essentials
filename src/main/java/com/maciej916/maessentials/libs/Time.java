@@ -108,6 +108,7 @@ public class Time {
         boolean now = false;
         String timeString = "";
 
+
         if (yr > 0) {
           now = true;
           timeString += yr + " year(s)";
@@ -139,7 +140,7 @@ public class Time {
         }
         if (sec > 0) {
             if (now) timeString += " ";
-            timeString += sec + " secoonds(s)";
+            timeString += sec + " seconds(s)";
         }
         return timeString;
     }

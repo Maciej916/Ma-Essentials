@@ -84,63 +84,76 @@ public class Teleport {
     }
 
     private static void checkSimple() {
-        ArrayList<TeleportSimple> del = new ArrayList<>();
-        for (TeleportSimple tp : teleportSimple) {
-            ServerPlayerEntity player = tp.getPlayer();
-            EssentialPlayer eslPlayer = DataManager.getPlayer(player);
-            Location playerLocation = new Location(player);
-            Location tpLocation = eslPlayer.getTemp().getTeleportLocation();
-            if (checkLocation(playerLocation, tpLocation)) {
-                if (currentTimestamp() >= tp.getTeleportTime()) {
-                    player.sendMessage(Methods.formatText("teleport.maessentials.teleported"));
-                    eslPlayer.getTemp().setTeleportNotActive();
-                    eslPlayer.getUsage().setTeleportUsage(tp.getType());
-                    eslPlayer.saveData();
-                    doTeleport(player, tp.getDestination(), true, true);
-                    del.add(tp);
-                }
-            } else {
-                player.sendMessage(Methods.formatText("teleport.maessentials.moved"));
-                eslPlayer.getTemp().setTeleportNotActive();
-                del.add(tp);
-            }
-        }
-        teleportSimple.removeAll(del);
-    }
-
-    private static void checkRequest() {
-        ArrayList<TeleportRequest> del = new ArrayList<>();
-        for (TeleportRequest tp : teleportRequests) {
-            if (tp.isAccepted()) {
+        try {
+            ArrayList<TeleportSimple> del = new ArrayList<>();
+            for (TeleportSimple tp : teleportSimple) {
                 ServerPlayerEntity player = tp.getPlayer();
                 EssentialPlayer eslPlayer = DataManager.getPlayer(player);
                 Location playerLocation = new Location(player);
                 Location tpLocation = eslPlayer.getTemp().getTeleportLocation();
                 if (checkLocation(playerLocation, tpLocation)) {
                     if (currentTimestamp() >= tp.getTeleportTime()) {
-                        tp.getPlayer().sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request", tp.getTargetName()));
-                        tp.getTarget().sendMessage(Methods.formatText("teleport.maessentials.tpaccept.target", tp.getPlayerName()));
+                        player.sendMessage(Methods.formatText("teleport.maessentials.teleported"));
                         eslPlayer.getTemp().setTeleportNotActive();
-                        eslPlayer.getUsage().setTeleportUsage("tpa");
+                        eslPlayer.getUsage().setTeleportUsage(tp.getType());
                         eslPlayer.saveData();
-                        doTeleport(tp.getPlayer(), new Location(tp.getTarget()), true, true);
+                        doTeleport(player, tp.getDestination(), true, true);
                         del.add(tp);
                     }
                 } else {
-                    tp.getPlayer().sendMessage(Methods.formatText("teleport.maessentials.moved.request"));
-                    tp.getTarget().sendMessage(Methods.formatText("teleport.maessentials.moved.target", tp.getPlayerName()));
+                    player.sendMessage(Methods.formatText("teleport.maessentials.moved"));
                     eslPlayer.getTemp().setTeleportNotActive();
                     del.add(tp);
                 }
-            } else {
-                if (currentTimestamp() >= tp.getTimeout()) {
-                    tp.getPlayer().sendMessage(Methods.formatText("teleport.maessentials.expired.target", tp.getTargetName()));
-                    tp.getTarget().sendMessage(Methods.formatText("teleport.maessentials.expired.request", tp.getPlayerName()));
-                    del.add(tp);
+            }
+            teleportSimple.removeAll(del);
+        } catch(Exception e) {
+            System.out.println("checkSimple error:");
+            System.out.println(e);
+        }
+    }
+
+    private static void checkRequest() {
+        try {
+            ArrayList<TeleportRequest> del = new ArrayList<>();
+            for (TeleportRequest tp : teleportRequests) {
+                if (tp.isAccepted()) {
+                    ServerPlayerEntity player = tp.getPlayer();
+
+                    if (player == null) continue;
+
+                    EssentialPlayer eslPlayer = DataManager.getPlayer(player);
+                    Location playerLocation = new Location(player);
+                    Location tpLocation = eslPlayer.getTemp().getTeleportLocation();
+                    if (checkLocation(playerLocation, tpLocation)) {
+                        if (currentTimestamp() >= tp.getTeleportTime()) {
+                            tp.getPlayer().sendMessage(Methods.formatText("teleport.maessentials.tpaccept.request", tp.getTargetName()));
+                            tp.getTarget().sendMessage(Methods.formatText("teleport.maessentials.tpaccept.target", tp.getPlayerName()));
+                            eslPlayer.getTemp().setTeleportNotActive();
+                            eslPlayer.getUsage().setTeleportUsage("tpa");
+                            eslPlayer.saveData();
+                            doTeleport(tp.getPlayer(), new Location(tp.getTarget()), true, true);
+                            del.add(tp);
+                        }
+                    } else {
+                        tp.getPlayer().sendMessage(Methods.formatText("teleport.maessentials.moved.request"));
+                        tp.getTarget().sendMessage(Methods.formatText("teleport.maessentials.moved.target", tp.getPlayerName()));
+                        eslPlayer.getTemp().setTeleportNotActive();
+                        del.add(tp);
+                    }
+                } else {
+                    if (currentTimestamp() >= tp.getTimeout()) {
+                        tp.getPlayer().sendMessage(Methods.formatText("teleport.maessentials.expired.target", tp.getTargetName()));
+                        tp.getTarget().sendMessage(Methods.formatText("teleport.maessentials.expired.request", tp.getPlayerName()));
+                        del.add(tp);
+                    }
                 }
             }
+            teleportRequests.removeAll(del);
+        } catch(Exception e) {
+            System.out.println("checkRequest error:");
+            System.out.println(e);
         }
-        teleportRequests.removeAll(del);
     }
 
     public static void doTeleport(ServerPlayerEntity player, Location loc, boolean exact, boolean saveLastLocation) {
