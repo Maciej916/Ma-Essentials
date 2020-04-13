@@ -44,7 +44,7 @@
   "delhome.maessentials.done": "已删除家 §a%s§r ",
 
   "home.maessentials.teleport": "正在传送到家 §a%s§r...",
-  "home.maessentials.teleport.wait": "正在传送到家e §a%s§r, 请等待 §c%s§r 秒...",
+  "home.maessentials.teleport.wait": "正在传送到家 §a%s§r, 请等待 §c%s§r 秒...",
 
   "sethome.maessentials.max_homes": "§c你不能设置超过 §4%s§c 个家",
   "sethome.maessentials.done": "已设置家 §a%s§r ",
