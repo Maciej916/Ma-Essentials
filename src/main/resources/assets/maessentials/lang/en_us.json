@@ -5,6 +5,7 @@
   "maessentials.provide.player": "§cPlease provide player name",
   "maessentials.provide.player.new": "§cPlease provide new player name",
   "maessentials.specify.player": "§cPlease specify player name",
+  "maessentials.not_found.player": "§cPlayer §4%s§c has not been found",
   "maessentials.invaild_gamemode": "§cInvaild gamemode",
   "maessentials.invaild_gamemode.player": "§cPlayer §4%s§c have invaild gamemode",
   "maessentials.illegal_date": "§cInvaild gamemode",
@@ -241,13 +242,13 @@
   "_comment": "Check",
   "check.maessentials.player.banned.list": "Players ban list:",
   "check.maessentials.player.banned.empty": "§cPlayers ban list is empty!",
-  "check.maessentials.player.banned.perm": "- §c%s§r: §aperm§r. Reason: §8%s§r",
-  "check.maessentials.player.banned": "- §c%s§r: §a%s§r. Reason: §8%s§r",
+  "check.maessentials.player.banned.perm": "- §c%s§r (§9%s§r): §aperm§r. Reason: §8%s§r",
+  "check.maessentials.player.banned": "- §c%s§r (§9%s§r): §a%s§r. Reason: §8%s§r",
 
   "check.maessentials.player.muted.list": "Players mute list:",
   "check.maessentials.player.muted.empty": "§cPlayers mute list is empty!",
-  "check.maessentials.player.muted.perm": "- §c%s§r: §aperm§r. Reason: §8%s§r",
-  "check.maessentials.player.muted": "- §c%s§r: §a%s§r. Reason: §8%s§r",
+  "check.maessentials.player.muted.perm": "- §c%s§r (§9%s§r): §aperm§r. Reason: §8%s§r",
+  "check.maessentials.player.muted": "- §c%s§r (§9%s§r): §a%s§r. Reason: §8%s§r",
 
 
   "_comment": "Head",

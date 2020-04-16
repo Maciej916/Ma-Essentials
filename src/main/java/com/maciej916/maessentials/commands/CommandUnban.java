@@ -6,53 +6,46 @@ import com.maciej916.maessentials.data.DataManager;
 import com.maciej916.maessentials.libs.Methods;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
-import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
 
 import static com.maciej916.maessentials.libs.Methods.currentTimestamp;
 
 public class CommandUnban {
-
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
-        LiteralArgumentBuilder<CommandSource> builder = Commands.literal("unban").requires(source -> source.hasPermissionLevel(2));
-        builder
-                .executes(context -> unban(context))
-                        .then(Commands.argument("targetPlayer", EntityArgument.players())
-                                .executes(context -> unbanArgs(context)));
-
-        dispatcher.register(builder);
+        dispatcher.register(Commands.literal("unban").requires((source) -> source.hasPermissionLevel(2))
+                .executes((context) -> unban(context.getSource()))
+                .then(Commands.argument("targetPlayer", StringArgumentType.word()).executes((context) -> unban(context.getSource(), StringArgumentType.getString(context, "targetPlayer"))))
+        );
     }
 
-    private static int unban(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        ServerPlayerEntity player = context.getSource().asPlayer();
+    private static int unban(CommandSource source) throws CommandSyntaxException {
+        ServerPlayerEntity player = source.asPlayer();
         player.sendMessage(Methods.formatText("maessentials.provide.player"));
         return Command.SINGLE_SUCCESS;
     }
 
-    private static int unbanArgs(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        ServerPlayerEntity player = context.getSource().asPlayer();
-        ServerPlayerEntity requestedPlayer = EntityArgument.getPlayer(context, "targetPlayer");
-        doUnban(player, requestedPlayer);
-        return Command.SINGLE_SUCCESS;
-    }
+    private static int unban(CommandSource source, String targetPlayer) throws CommandSyntaxException {
+        ServerPlayerEntity player = source.asPlayer();
+        EssentialPlayer eslTargetPlayer = DataManager.getPlayer(targetPlayer);
 
-    private static void doUnban(ServerPlayerEntity player, ServerPlayerEntity target) {
-        EssentialPlayer eslTargetPlayer = DataManager.getPlayer(target);
-        PlayerRestriction ban = eslTargetPlayer.getRestrictions().getBan();
+        if (eslTargetPlayer == null) {
+            player.sendMessage(Methods.formatText("maessentials.not_found.player", targetPlayer));
+        } else {
+            PlayerRestriction ban = eslTargetPlayer.getRestrictions().getBan();
 
-        if (ban == null || (currentTimestamp() > ban.getTime() && ban.getTime() != -1)) {
-            player.sendMessage(Methods.formatText("unban.maessentials.not_banned", target.getDisplayName()));
-            return;
+            if (ban == null || (currentTimestamp() > ban.getTime() && ban.getTime() != -1)) {
+                player.sendMessage(Methods.formatText("unban.maessentials.not_banned", eslTargetPlayer.getUsername()));
+            } else {
+                eslTargetPlayer.getRestrictions().unBan();
+                eslTargetPlayer.saveData();
+                player.server.getPlayerList().sendMessage(Methods.formatText("unban.maessentials.success", eslTargetPlayer.getUsername()));
+            }
         }
 
-        eslTargetPlayer.getRestrictions().unBan();
-        eslTargetPlayer.saveData();
-
-        player.server.getPlayerList().sendMessage(Methods.formatText("unban.maessentials.success", target.getDisplayName()));
+        return Command.SINGLE_SUCCESS;
     }
 }

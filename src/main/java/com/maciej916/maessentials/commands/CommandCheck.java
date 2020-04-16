@@ -37,17 +37,18 @@ public class CommandCheck {
             EssentialPlayer eslPlayer = entry.getValue();
             PlayerRestriction restriction = eslPlayer.getRestrictions().getBan();
             if (eslPlayer.getRestrictions().isRestricted(restriction)) {
-                restrictions.add(restriction);
+                String display = eslPlayer.getUsername() == null ? "-" : eslPlayer.getUsername();
+                restrictions.add(new PlayerRestriction(display, eslPlayer.getPlayerUUID(), restriction));
             }
         }
         if (restrictions.size() > 0) {
             player.sendMessage(Methods.formatText("check.maessentials.player.banned.list"));
             for (PlayerRestriction restriction : restrictions) {
                 if (restriction.getTime() == -1) {
-                    player.sendMessage(Methods.formatText("check.maessentials.player.banned.perm", player.getDisplayName(), restriction.getReason()));
+                    player.sendMessage(Methods.formatText("check.maessentials.player.banned.perm", restriction.getUsername(), restriction.getPlayerUUID(), restriction.getReason()));
                 } else {
                     String displayTime = Time.formatDate(restriction.getTime() - currentTimestamp());
-                    player.sendMessage(Methods.formatText("check.maessentials.player.banned", player.getDisplayName(), displayTime, restriction.getReason()));
+                    player.sendMessage(Methods.formatText("check.maessentials.player.banned", restriction.getUsername(), restriction.getPlayerUUID(), displayTime, restriction.getReason()));
                 }
             }
         } else {
@@ -64,17 +65,18 @@ public class CommandCheck {
             EssentialPlayer eslPlayer = entry.getValue();
             PlayerRestriction restriction = eslPlayer.getRestrictions().getMute();
             if (eslPlayer.getRestrictions().isRestricted(restriction)) {
-                restrictions.add(restriction);
+                String display = eslPlayer.getUsername() == null ? "-" : eslPlayer.getUsername();
+                restrictions.add(new PlayerRestriction(display, eslPlayer.getPlayerUUID(), restriction));
             }
         }
         if (restrictions.size() > 0) {
             player.sendMessage(Methods.formatText("check.maessentials.player.muted.list"));
             for (PlayerRestriction restriction : restrictions) {
                 if (restriction.getTime() == -1) {
-                    player.sendMessage(Methods.formatText("check.maessentials.player.muted.perm", player.getDisplayName(), restriction.getReason()));
+                    player.sendMessage(Methods.formatText("check.maessentials.player.muted.perm", restriction.getUsername(), restriction.getPlayerUUID(), restriction.getReason()));
                 } else {
                     String displayTime = Time.formatDate(restriction.getTime() - currentTimestamp());
-                    player.sendMessage(Methods.formatText("check.maessentials.player.muted", player.getDisplayName(), displayTime, restriction.getReason()));
+                    player.sendMessage(Methods.formatText("check.maessentials.player.muted", restriction.getUsername(), restriction.getPlayerUUID(), displayTime, restriction.getReason()));
                 }
             }
         } else {

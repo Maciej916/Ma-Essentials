@@ -13,6 +13,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.server.ServerWorld;
 
@@ -35,11 +36,11 @@ public class CommandUp {
         ServerPlayerEntity player = source.asPlayer();
         ServerWorld world = source.getWorld();
 
-        int x = (int) player.getPosX();
-        int y = (int) player.getPosY() + number - 1;
-        int z = (int) player.getPosZ();
+        int x = MathHelper.floor(player.getPosX());
+        int y = MathHelper.floor(player.getPosY()) + number - 1;
+        int z = MathHelper.floor(player.getPosZ());
 
-        Chunk chunk = world.getChunk((int) player.getPosX() >> 4, (int)player.getPosZ() >> 4);
+        Chunk chunk = world.getChunk(x >> 4, z >> 4);
         boolean tp = false;
 
         BlockPos headPos = new BlockPos(x, y+2, z);

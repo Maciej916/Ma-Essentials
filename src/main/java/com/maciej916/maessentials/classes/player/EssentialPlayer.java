@@ -11,6 +11,7 @@ import java.util.UUID;
 @JsonAdapter(EssentialPlayerSD.class)
 public class EssentialPlayer {
     private UUID playerUUID;
+    private String username;
     private HomeData home_data = new HomeData();
 
     private PlayerData data = new PlayerData();
@@ -24,8 +25,16 @@ public class EssentialPlayer {
         this.home_data = home_data;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public UUID getPlayerUUID() {
         return playerUUID;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public PlayerData getData() {
@@ -56,8 +65,9 @@ public class EssentialPlayer {
         this.playerUUID = playerUUID;
     }
 
-    public EssentialPlayer (UUID playerUUID, PlayerData data, PlayerRestrictions restrictions, PlayerUsage last_usage, Storage custom_data) {
+    public EssentialPlayer (UUID playerUUID, String username, PlayerData data, PlayerRestrictions restrictions, PlayerUsage last_usage, Storage custom_data) {
         this.playerUUID = playerUUID;
+        this.username = username;
         this.data = data;
         this.restrictions = restrictions;
         this.last_usage = last_usage;

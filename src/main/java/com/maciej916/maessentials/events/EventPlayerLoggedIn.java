@@ -47,11 +47,17 @@ public class EventPlayerLoggedIn {
                 if (ban.getTime() == -1) {
                     player.connection.disconnect(Methods.formatText("tempban.maessentials.success.perm.target", player.getDisplayName(), ban.getReason()));
                 } else {
-                    String displayTime = Time.formatDate(ban.getTime() - currentTimestamp());
-                    player.connection.disconnect(Methods.formatText("tempban.maessentials.success.target", player.getDisplayName(), displayTime, ban.getReason()));
+                   if (ban.getTime() > currentTimestamp()) {
+                       String displayTime = Time.formatDate(ban.getTime() - currentTimestamp());
+                       player.connection.disconnect(Methods.formatText("tempban.maessentials.success.target", player.getDisplayName(), displayTime, ban.getReason()));
+                   }
                 }
             }
             Log.debug("Player " + player.getDisplayName().getString() + " joined");
         }
+
+        EssentialPlayer eslPlayerNew = DataManager.getPlayer(player);
+        eslPlayerNew.setUsername(player.getDisplayName().getString());
+        eslPlayerNew.saveData();
     }
 }

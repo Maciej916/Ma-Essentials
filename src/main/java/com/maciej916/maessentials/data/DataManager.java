@@ -8,6 +8,7 @@ import com.maciej916.maessentials.libs.Log;
 import net.minecraft.entity.player.ServerPlayerEntity;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class DataManager {
@@ -75,6 +76,16 @@ public class DataManager {
             eslPlayer.saveData();
             return eslPlayer;
         }
+    }
+
+    public static EssentialPlayer getPlayer(String findPlayer) {
+        for(Map.Entry<UUID, EssentialPlayer> entry : playerData.entrySet()) {
+            EssentialPlayer eslPlayer = entry.getValue();
+            if ((eslPlayer.getUsername() != null && eslPlayer.getUsername().equals(findPlayer)) || eslPlayer.getPlayerUUID().toString().equals(findPlayer)) {
+                return eslPlayer;
+            }
+        }
+        return null;
     }
 
     public static HashMap<UUID, EssentialPlayer> getPlayers() {
