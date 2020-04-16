@@ -241,13 +241,13 @@
   "_comment": "Check",
   "check.maessentials.player.banned.list": "Список заблокированных игроков:",
   "check.maessentials.player.banned.empty": "§cСписок пуст!",
-  "check.maessentials.player.banned.perm": "- §c%s§r: §aнавсегда§r. Причина: §8%s§r",
-  "check.maessentials.player.banned": "- §c%s§r: §a%s§r. Причина: §8%s§r",
+  "check.maessentials.player.banned.perm": "- §c%s§r (§9%s§r): §aнавсегда§r. Причина: §8%s§r",
+  "check.maessentials.player.banned": "- §c%s§r (§9%s§r): §a%s§r. Причина: §8%s§r",
 
   "check.maessentials.player.muted.list": "Список игроков в муте:",
   "check.maessentials.player.muted.empty": "§cСписок игроков в муте пустой!",
-  "check.maessentials.player.muted.perm": "- §c%s§r: §aнавсегда§r. Причина: §8%s§r",
-  "check.maessentials.player.muted": "- §c%s§r: §a%s§r. Причина: §8%s§r",
+  "check.maessentials.player.muted.perm": "- §c%s§r (§9%s§r): §aнавсегда§r. Причина: §8%s§r",
+  "check.maessentials.player.muted": "- §c%s§r (§9%s§r): §a%s§r. Причина: §8%s§r",
 
 
   "_comment": "Head",
