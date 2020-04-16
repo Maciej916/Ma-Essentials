@@ -1,0 +1,262 @@
+{
+  "_comment": "Global",
+  "maessentials.cooldown": "§cВы должны подождать §4%s§c сек. перед использованием этой команды снова",
+  "maessentials.cooldown.teleport": "§cВы должны подождать §4%s§c сек. перед использованием телепортации снова",
+  "maessentials.provide.player": "§cУкажите имя игрока",
+  "maessentials.provide.player.new": "§cУкажите новое имя игрока",
+  "maessentials.specify.player": "§cУкажите имя игрока",
+  "maessentials.invaild_gamemode": "§cНедопустимый режим игры",
+  "maessentials.invaild_gamemode.player": "§cИгрок §4%s§c находится в недопустимом режиме игры",
+  "maessentials.illegal_date": "§cНедопустимый режим игры",
+  "maessentials.invalid.location": "§cНедопустимое местоположение",
+  "maessentials.provide.location": "§cУкажите местоположение",
+  "maessentials.only.single": "§cЭта команда в настоящее время доступна только в одиночной игре",
+
+  "_comment": "Back",
+  "back.maessentials.not_found": "§cПредыдущее местоположение не найдено",
+
+  "back.maessentials.success": "Телепортация на предыдущее местоположение...",
+  "back.maessentials.success.wait": "Телепортация на предыдущее местоположение, подождите §c%s§r сек...",
+
+  "back.maessentials.death": "Вы погибли, введите в чат команду §8/back§r чтобы вернуться на ваше место смерти",
+  "back.maessentials.cooldown.teleport": "§cВы недавно умерли, вам нужно подождать §4%s§c сек. перед использованием этой команды",
+
+  "_comment": "Time",
+  "day.maessentials.success": "Установлено время на ДЕНЬ",
+  "night.maessentials.success": "Установлено время на НОЧЬ",
+
+
+  "_comment": "Weather",
+  "sun.maessentials.success": "Установлена солнечная погода",
+  "rain.maessentials.success": "Установлена дождливая погода",
+  "thunder.maessentials.success": "Установлена грозовая погода",
+
+  "_comment": "Spawn",
+  "spawn.maessentials.success": "Телепортация на спавн...",
+  "spawn.maessentials.success.wait": "Телепортация на спавн, подождите §c%s§r сек...",
+
+  "setspawn.maessentials.success": "Место спавна установлено",
+
+
+  "_comment": "Home",
+  "home.maessentials.no_homes": "§cУ вас нет домов. Используйте команду §4/sethome <name>§c, чтобы установить новый дом!",
+  "home.maessentials.not_exist": "§cДом §4%s§c не существует",
+
+  "delhome.maessentials.specify_name": "§cУкажите имя дома",
+  "delhome.maessentials.done": "Дом §a%s§r удалён",
+
+  "home.maessentials.teleport": "Телепортация к дому §a%s§r...",
+  "home.maessentials.teleport.wait": "Телепортация к дому §a%s§r, подождите §c%s§r сек...",
+
+  "sethome.maessentials.max_homes": "§cВы не можете установить домов, больше §4%s§c",
+  "sethome.maessentials.done": "Дом §a%s§r установлен",
+
+
+  "_comment": "Warp",
+  "warp.maessentials.not_exist": "§cВарпа §4%s§c не существует",
+  "warp.maessentials.specify_name": "§cУкажите имя варпа",
+
+  "delwarp.maessentials.success": "Варп §a%s§r удалён",
+
+  "warp.maessentials.list": "Текущие варпы (§c%s§r): ",
+  "warp.maessentials.list.warp": "§a%s§r",
+
+  "warp.maessentials.success": "Телепортация к варпу §a%s§r...",
+  "warp.maessentials.success.wait": "Телепортация к варпу §a%s§r, подождите §c%s§r сек...",
+
+  "setwarp.maessentials.success": "Варп §a%s§r установлен",
+  "setwarp.maessentials.exist": "§cВарп §4%s§c уже существует",
+
+
+  "_comment": "Teleport request",
+  "tpa.maessentials.exist": "§cУ вас уже есть ожидающий запрос на телепорт к §4%s§r",
+  "tpa.maessentials.self": "§cВы не можете запросить телепорт к себе",
+  "tpa.maessentials.not_found": "§cЗапрос на телепортацию не найден",
+  "tpa.maessentials.no_request": "§cУ вас нет никаких ожидающих запросов на телепортацию",
+
+  "tpa.maessentials.request": "Запрос телепортации к §c%s§r отправлен",
+  "tpa.maessentials.request.target": "Игрок §c%s§r хочет телепортироваться к вам",
+
+  "tpa.maessentials.request.target.accept.hover": "§a%s§r",
+  "tpa.maessentials.request.target.deny.hover": "§c%s§r",
+
+
+  "tpa.maessentials.request.target.accept": "Чтобы телепортироваться, введите §a%s§r",
+  "tpa.maessentials.request.target.deny": "Чтобы отклонить этот запрос, введите §c%s§r",
+
+  "tpahere.maessentials.request.target": "Игрок §c%s§r хочет телепортировать вас к себе",
+
+
+  "_comment": "Mute",
+  "unmmute.maessentials.not_muted": "§cУ игрока §4%s§c нет мута",
+  "unmmute.maessentials.success": "Игроку §c%s§r отключен мут",
+  "unmmute.maessentials.success.target": "Вам отключили мут",
+
+  "mute.maessentials.already_muted": "§cИгроку §4%s§c включен мут",
+  "mute.maessentials.provide.time": "§cУкажите время мута",
+  "mute.maessentials.success": "§cИгроку §4%s§c включен мут от §4%s§c на §4%s§c. Причина: §4%s§r",
+  "mute.maessentials.success.target": "§cВам дали мут на §4%s§c.",
+  "mute.maessentials.success.target.reason": "§cПричина: §4%s§r",
+  "mute.maessentials.success.perm": "§cИгроку §4%s§c навсегда включен мут от §4%s§c. Причина: §4%s§c",
+  "mute.maessentials.success.perm.target": "§cВам навсегда дали мут.",
+
+
+  "_comment": "Suicide",
+  "suicide.maessentials.player": "Вы убили §c%s§r",
+  "suicide.maessentials.player.target": "Вы были убиты §c%s§r.",
+
+
+  "_comment": "Heal",
+  "heal.maessentials.self": "Вы исцелились",
+  "heal.maessentials.player": "Вы исцелили §c%s§r",
+  "heal.maessentials.player.target": "Вас исцелил §c%s§r",
+
+
+  "_comment": "GM",
+  "gm.maessentials.invalid": "§cУказан недопустимый режим игры",
+  "gm.maessentials.self": "Ваш режим игры изменён на §8%s§r",
+  "gm.maessentials.player": "Вы изменили режим игры игроку §c%s§r на §8%s§r",
+
+
+  "_comment": "Fly",
+  "fly.maessentials.self.enabled": "Вы теперь можете летать",
+  "fly.maessentials.self.disabled": "Режим полёта выключен",
+  "fly.maessentials.player.enabled": "Игроку §c%s§r включен режим полёта",
+  "fly.maessentials.player.disabled": "Игроку §c%s§r выключен режим полёта",
+
+
+  "_comment": "God",
+  "god.maessentials.self.enabled": "Режим бога включен",
+  "god.maessentials.self.disabled": "Режим бога выключен",
+  "god.maessentials.player.enabled": "Игроку §c%s§r включен режим бога",
+  "god.maessentials.player.disabled": "Игроку §c%s§r выключен режим бога",
+
+
+  "_comment": "RNDTP",
+  "rndtp.maessentials.not_found": "§cНе удалось найти безопасное место для телепортации",
+  "rndtp.maessentials.dimension": "§cВы должны быть в измерении со спавном, чтобы использовать случайный телепорт",
+  "rndtp.maessentials.teleport": "Вы телепортируетесь в случайное место...",
+  "rndtp.maessentials.teleport.wait": "Вы телепортируетесь в случайное место, подождите §c%s§r сек...",
+
+
+  "_comment": "Top",
+  "top.maessentials.teleported": "Выполнена телепортация на самое высокое место",
+
+
+  "_comment": "Teleport",
+  "teleport.maessentials.teleport.failed": "§cНе удалось выполнить телепортацию!",
+  "teleport.maessentials.active": "У вас есть активная телепортация!",
+  "teleport.maessentials.moved": "Телепортация отменена, так как вы начали двигаться!",
+  "teleport.maessentials.teleported": "Телепортация успешно выполнена!",
+
+  "teleport.maessentials.tpaccept.request": "Вы были телепортированы к §c%s§r",
+  "teleport.maessentials.tpaccept.request.wait": "Запрос на телепортация принят, не двигайтесь §c%s§r сек...",
+
+  "teleport.maessentials.tpaccept.target": "Игрок §c%s§r был телепортирован к вам",
+  "teleport.maessentials.tpaccept.target.wait": "Запрос на телепортацию от §c%s§r принят, ждите телепортации!",
+
+  "teleport.maessentials.tpdeny.request": "Игрок §c%s§r отклонил ваш запрос на телепортация",
+  "teleport.maessentials.tpdeny.target": "Запрос на телепортацию от игрока §c%s§r отклонён",
+
+  "teleport.maessentials.expired.target": "Запрос на телепортацию к игроку §c%s§r истёк",
+  "teleport.maessentials.expired.request": "Запрос телепортации от §c%s§r истёк",
+
+  "teleport.maessentials.moved.request": "§cТелепортация отменена, вы начали двигаться!",
+  "teleport.maessentials.moved.target": "§cТелепортация отменена, игрок §4%s§c начал двигаться!",
+
+
+  "_comment": "Reload",
+  "maereload.maessentials.done": "§aДанные мода перезагружены",
+
+
+  "_comment": "Kit",
+  "kit.maessentials.parse_error": "§cНеудачное получение набора. Свяжитесь с оператором сервера!",
+  "kit.maessentials.not_exist": "§cНабора §4%s§c не существует!",
+  "kit.maessentials.wait": "§cПодождите §4%s§c перед получением этого набора!",
+
+  "kit.maessentials.list": "Доступные наборы: ",
+  "kit.maessentials.list.kit": "§a%s§r",
+  "kit.maessentials.received": "Получен набор §a%s§r",
+
+
+  "_comment": "Speed",
+  "speed.maessentials.max_fly": "§cМаксимальная скорость полёта §4%s§r",
+  "speed.maessentials.max_walk": "§cМаксимальная скорость ходьбы §4%s§r",
+
+  "speed.maessentials.fly.self": "Скорость поёлта изменена на §a%s§r",
+  "speed.maessentials.fly.other": "Скорость поёлта изменена для §c$s§r на §a%s§r",
+
+  "speed.maessentials.walk.self": "Скорость ходьбы изменена на §a%s§r",
+  "speed.maessentials.walk.other": "Скорость ходьбы изменена для §c$s§r на §a%s§r",
+
+
+  "_comment": "Tpall",
+  "tpall.maessentials.teleported": "Вы были телепортированы к §4%s§r",
+  "tpall.maessentials.success": "Все игроки телепортированы к вам",
+
+
+  "_comment": "Kickall",
+  "kickall.maessentials.success": "Все игроки были кикнуты с сервера",
+
+
+  "_comment": "Broadcast",
+  "broadcast.maessentials.no_message": "§cНевозможно передать пустое сообщение",
+  "broadcast.maessentials.success": "§5§l[Радиосообщение] §r§5%s",
+
+
+  "_comment": "Up",
+  "up.maessentials.success.up": "Выполнена телепортация на §c%s§r блока выше",
+  "up.maessentials.success.down": "Выполнена телепортация на §c%s§r блока ниже",
+
+
+  "_comment": "AFK",
+  "afk.maessentials.afk.true": "Игрок §c%s§r находится в АФК",
+  "afk.maessentials.afk.false": "Игрок §c%s§r больше не в АФК",
+
+
+  "_comment": "Kick",
+  "kick.maessentials.done": "§cИгрок §4%s§c был кикнут §4%s§c. Причина: §4%s",
+
+
+  "_comment": "Endc",
+  "inv.maessentials.open": "%s's %s",
+
+
+  "_comment": "Trash",
+  "trash.maessentials.open": "Мусор",
+
+
+  "_comment": "Tempban",
+  "unban.maessentials.not_banned": "§cИгрок §4%s§c не забанен",
+  "unban.maessentials.success": "Игрок §c%s§r разбанен",
+
+  "tempban.maessentials.already_banned": "§cИгрок §4%s§c уже забанен",
+  "tempban.maessentials.provide.time": "§cУкажите время бана",
+  "tempban.maessentials.success": "§cИгрок §4%s§c получил бан от §4%s§c на §4%s§c. Причина: §4%s§r",
+  "tempban.maessentials.success.perm": "§cИгрок §4%s§c забанен на всегда от §4%s§c. Причина: §4%s§r",
+  "tempban.maessentials.success.target": "§c§4%s§c заблокировал вас на §4%s§c. Причина: §4%s§r",
+  "tempban.maessentials.success.perm.target": "§c§4%s§c заблокировал вас навсегда. Причина: §4%s§r",
+
+
+  "_comment": "Check",
+  "check.maessentials.player.banned.list": "Список заблокированных игроков:",
+  "check.maessentials.player.banned.empty": "§cСписок пуст!",
+  "check.maessentials.player.banned.perm": "- §c%s§r (§9%s§r): §aнавсегда§r. Причина: §8%s§r",
+  "check.maessentials.player.banned": "- §c%s§r (§9%s§r): §a%s§r. Причина: §8%s§r",
+
+  "check.maessentials.player.muted.list": "Список игроков в муте:",
+  "check.maessentials.player.muted.empty": "§cСписок игроков в муте пустой!",
+  "check.maessentials.player.muted.perm": "- §c%s§r (§9%s§r): §aнавсегда§r. Причина: §8%s§r",
+  "check.maessentials.player.muted": "- §c%s§r (§9%s§r): §a%s§r. Причина: §8%s§r",
+
+
+  "_comment": "Head",
+  "head.maessentials.done": "Получена голова §c%s",
+
+
+  "_comment": "Invsee",
+  "invsee.maessentials.self": "§cВы не можете использовать invsee на своём инвентаре",
+
+
+  "test.maessentials.test": "%s"
+}
