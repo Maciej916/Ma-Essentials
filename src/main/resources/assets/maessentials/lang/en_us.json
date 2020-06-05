@@ -42,8 +42,8 @@
   "_comment": "Home",
   "home.maessentials.no_homes": "§cYou do not have any homes. Use §4/sethome <name> §cto set new home!",
   "home.maessentials.not_exist": "§cHome §4%s§c not exist",
+  "home.maessentials.specify_name": "§cPlease specify home name",
 
-  "delhome.maessentials.specify_name": "§cPlease specify home name",
   "delhome.maessentials.done": "Home §a%s§r deleted",
 
   "home.maessentials.teleport": "Teleporting to home §a%s§r...",
@@ -217,11 +217,13 @@
 
   "_comment": "Kick",
   "kick.maessentials.done": "§cPlayer §4%s§c has been kicked by §4%s§c. Reason: §4%s",
+  "kick.maessentials.server": "Server",
+  "kick.maessentials.player": "Being afk for too long!",
 
 
   "_comment": "Endc",
-  "inv.maessentials.open": "%s's %s",
-
+  "endc.maessentials.open": "%s's Enderchest",
+  "inv.maessentials.open": "%s's Inventory",
 
   "_comment": "Trash",
   "trash.maessentials.open": "Trash",
@@ -257,6 +259,11 @@
 
   "_comment": "Invsee",
   "invsee.maessentials.self": "§cYou can not invsee your own inventory",
+
+  "_comment": "Repair",
+  "repair.maessentials.done": "Repaired item in your hand",
+  "repair.maessentials.error": "Item in your hand can not be repaired",
+
 
 
   "test.maessentials.test": "%s"

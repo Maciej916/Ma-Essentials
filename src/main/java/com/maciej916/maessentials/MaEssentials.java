@@ -1,12 +1,14 @@
 package com.maciej916.maessentials;
 
-import com.maciej916.maessentials.config.ConfigHolder;
-import com.maciej916.maessentials.data.DataLoader;
-import com.maciej916.maessentials.network.Networking;
-import com.maciej916.maessentials.proxy.ClientProxy;
-import com.maciej916.maessentials.proxy.IProxy;
-import com.maciej916.maessentials.proxy.ServerProxy;
+import com.maciej916.maessentials.common.config.ConfigHolder;
+import com.maciej916.maessentials.common.data.DataLoader;
+import com.maciej916.maessentials.common.network.Networking;
+import com.maciej916.maessentials.common.proxy.ClientProxy;
+import com.maciej916.maessentials.common.proxy.IProxy;
+import com.maciej916.maessentials.common.proxy.ServerProxy;
+import com.maciej916.maessentials.common.register.ModCommands;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -18,21 +20,24 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(MaEssentials.MODID)
 public class MaEssentials {
-    public static final String MODID = "ma-essentials";
-    public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
+    public static final String MODID = "maessentials";
+    public static final IProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+
 
     public MaEssentials() {
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         final ModLoadingContext modLoadingContext = ModLoadingContext.get();
+
+        modEventBus.addListener(this::onCommonSetup);
         modLoadingContext.registerConfig(ModConfig.Type.COMMON, ConfigHolder.COMMON_SPEC, MODID + ".toml");
 
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onCommonSetup);
-        MinecraftForge.EVENT_BUS.register(Commands.class);
+        MinecraftForge.EVENT_BUS.register(ModCommands.class);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void onCommonSetup(final FMLCommonSetupEvent event) {
-        Networking.registerMessages();
-        proxy.init();
+        PROXY.init();
+        Networking.setup();
         DataLoader.setupMain(event);
     }
 
@@ -41,4 +46,5 @@ public class MaEssentials {
         DataLoader.setupWorld(event);
         DataLoader.load();
     }
+
 }

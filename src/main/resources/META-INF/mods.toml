@@ -3,24 +3,24 @@ loaderVersion="[31,)"
 issueTrackerURL="https://github.com/Maciej916/Ma-Essentials/issues"
 
 [[mods]]
-    modId="ma-essentials"
+    modId="maessentials"
     version="${file.jarVersion}"
     displayName="Ma Essentials"
     updateJSONURL="https://raw.githubusercontent.com/Maciej916/Ma-Essentials/1.15.2/update.json"
     displayURL="https://www.curseforge.com/minecraft/mc-mods/maessentials"
     logoFile="ma-essentials.png"
     credits=""
-    authors="Statywek (Maciej916)"
+    authors="Maciej916"
     description="This mod adds useful commands, homes, kits, warps, server utilities and more..."
 
-    [[dependencies.ma-essentials]]
+    [[dependencies.maessentials]]
         modId="forge"
         mandatory=true
         versionRange="[31.0.1,)"
         ordering="NONE"
         side="BOTH"
 
-    [[dependencies.ma-essentials]]
+    [[dependencies.maessentials]]
         modId="minecraft"
         mandatory=true
         versionRange="[1.15.2]"
