@@ -29,16 +29,7 @@ public class HomeCommand extends BaseCommand {
 
     private int execute(CommandSource source) throws CommandSyntaxException {
         ServerPlayerEntity player = source.asPlayer();
-        EssentialPlayer eslPlayer = DataManager.getPlayer(player);
-
-        if (eslPlayer.getHomeData().getHomes().size() == 1) {
-            doHome(player, eslPlayer.getHomeData().getHomes().entrySet().iterator().next().getKey());
-        } else if (eslPlayer.getHomeData().getHomes().size() > 1) {
-            sendMessage(player, "home.maessentials.specify_name");
-        } else {
-            sendMessage(player, "home.maessentials.no_homes");
-        }
-
+        doHome(player, "home");
         return Command.SINGLE_SUCCESS;
     }
 

@@ -25,6 +25,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +39,20 @@ public class DataLoader {
     public static void setupMain(FMLCommonSetupEvent event) {
         try {
             LogUtils.log("Setup main");
-            ModConfig.mainCatalog = System.getProperty("user.dir") + "/" + MaEssentials.MODID + "/";
+            ModConfig.mainCatalog = System.getProperty("user.dir") + "/ma-essentials/";
+
+            Path source = Paths.get(System.getProperty("user.dir") + "/maessentials/");
+            if (Files.exists(source)) {
+                File dir = new File(System.getProperty("user.dir") + "/maessentials/");
+                File newName = new File(ModConfig.mainCatalog);
+                if (dir.isDirectory()) {
+                    dir.renameTo(newName);
+                } else {
+                    dir.mkdir();
+                    dir.renameTo(newName);
+                }
+            }
+
             LogUtils.debug("Main catalog is: " + ModConfig.mainCatalog);
 
             new File(ModConfig.mainCatalog).mkdirs();
@@ -64,7 +79,20 @@ public class DataLoader {
                 ModConfig.worldCatalog = ModConfig.mainCatalog;
             } else {
                 LogUtils.log("Mod is running on client");
-                ModConfig.worldCatalog = System.getProperty("user.dir") + "/saves/" + event.getServer().getFolderName() + "/" + MaEssentials.MODID + "/";
+                ModConfig.worldCatalog = System.getProperty("user.dir") + "/saves/" + event.getServer().getFolderName() + "/ma-essentials/";
+
+                // Try to copy files from bugged name to correct one
+                Path source = Paths.get(System.getProperty("user.dir") + "/saves/" + event.getServer().getFolderName() + "/maessentials/");
+                if (Files.exists(source)) {
+                    File dir = new File(System.getProperty("user.dir") + "/saves/" + event.getServer().getFolderName() + "/maessentials/");
+                    File newName = new File(ModConfig.worldCatalog);
+                    if (dir.isDirectory()) {
+                        dir.renameTo(newName);
+                    } else {
+                        dir.mkdir();
+                        dir.renameTo(newName);
+                    }
+                }
             }
             LogUtils.debug("World catalog is: " + ModConfig.worldCatalog);
 

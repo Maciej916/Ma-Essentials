@@ -122,4 +122,7 @@ public final class ModConfig {
 
 	// Repair
 	public static Boolean repair_enable;
+
+	// Hat
+	public static Boolean hat_enable;
 }

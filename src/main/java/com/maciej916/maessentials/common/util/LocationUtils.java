@@ -15,7 +15,7 @@ import java.util.Random;
 public final class LocationUtils {
 
     public static boolean checkLocation(Location first, Location second) {
-        return first.x == second.x && first.y == second.y && first.z == second.z && first.dimension == second.dimension;
+        return (int)first.x == (int)second.x && (int)first.y == (int)second.y && (int)first.z == (int)second.z && first.dimension == second.dimension;
     }
 
     public static boolean checkDetailedLocation(Location first, Location second) {

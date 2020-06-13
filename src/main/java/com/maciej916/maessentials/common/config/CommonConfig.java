@@ -122,6 +122,9 @@ final class CommonConfig {
 	// Repair
 	final ForgeConfigSpec.BooleanValue repair_enable;
 
+	// Hat
+	final ForgeConfigSpec.BooleanValue hat_enable;
+
 	CommonConfig(final ForgeConfigSpec.Builder builder) {
 
 		// Auto AFK
@@ -358,6 +361,13 @@ final class CommonConfig {
 		builder.push("repair");
 		repair_enable = builder
 				.comment("Enable command: /repair")
+				.define("enable", true);
+		builder.pop();
+
+		// Repair
+		builder.push("hat");
+		hat_enable = builder
+				.comment("Enable command: /hat")
 				.define("enable", true);
 		builder.pop();
 	}

@@ -123,6 +123,9 @@ public final class ConfigHelper {
 
 		// Repair
 		ModConfig.repair_enable = ConfigHolder.COMMON.repair_enable.get();
+
+		// Hat
+		ModConfig.hat_enable = ConfigHolder.COMMON.hat_enable.get();
 	}
 
 	public static void setValueAndSave(final net.minecraftforge.fml.config.ModConfig modConfig, final String path, final Object newValue) {

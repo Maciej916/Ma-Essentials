@@ -262,8 +262,11 @@
 
   "_comment": "Repair",
   "repair.maessentials.done": "Repaired item in your hand",
-  "repair.maessentials.error": "Item in your hand can not be repaired",
+  "repair.maessentials.error": "§cItem in your hand can not be repaired!",
 
+  "_comment": "Hat",
+  "hat.maessentials.error": "§cAir can not be set as hat!",
+  "hat.maessentials.success": "Enjoy your new hat!",
 
 
   "test.maessentials.test": "%s"
