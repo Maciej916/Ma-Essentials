@@ -1,5 +1,6 @@
 package com.maciej916.maessentials.client.interfaces;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -27,8 +28,10 @@ public interface IGuiWrapper {
     }
 
     default void displayTooltips(List<ITextComponent> components, int xAxis, int yAxis, int maxWidth) {
-        List<String> toolTips = components.stream().map(ITextComponent::getFormattedText).collect(Collectors.toList());
-        GuiUtils.drawHoveringText(toolTips, xAxis, yAxis, getWidth(), getHeight(), maxWidth, getFont());
+        MatrixStack sss = new MatrixStack();
+        sss.push();
+//        List<String> toolTips = components.stream().map(ITextComponent::getFormattedText).collect(Collectors.toList());
+//        GuiUtils.drawHoveringText(toolTips, xAxis, yAxis, getWidth(), getHeight(), maxWidth, getFont());
     }
 
     default int getLeft() {
@@ -47,14 +50,14 @@ public interface IGuiWrapper {
 
     default int getWidth() {
         if (this instanceof ContainerScreen) {
-            return ((ContainerScreen<?>) this).width;
+            return ((ContainerScreen<?>) this).getXSize();
         }
         return 0;
     }
 
     default int getHeight() {
         if (this instanceof ContainerScreen) {
-            return ((ContainerScreen<?>) this).height;
+            return ((ContainerScreen<?>) this).getYSize();
         }
         return 0;
     }

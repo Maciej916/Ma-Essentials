@@ -29,7 +29,7 @@ public class TopCommand extends BaseCommand {
         ServerWorld world = source.getWorld();
 
         int x = (int) player.getPosX();
-        int y = world.getMaxHeight();
+        int y = world.getHeight();
         int z = (int) player.getPosZ();
 
         Chunk chunk = world.getChunk((int) player.getPosX() >> 4, (int)player.getPosZ()>> 4);
@@ -43,7 +43,7 @@ public class TopCommand extends BaseCommand {
                 if (chunk.getBlockState(legPos).getMaterial().equals(Material.AIR)) {
                     BlockPos headPos = new BlockPos(x, y, z);
                     if (chunk.getBlockState(headPos).getMaterial().equals(Material.AIR)) {
-                        Location topLocation = new Location(player.getPosX(), y-1, player.getPosZ(), player.rotationYaw, player.rotationPitch, player.dimension.getId());
+                        Location topLocation = new Location(player.getPosX(), y-1, player.getPosZ(), player.rotationYaw, player.rotationPitch, player.getServerWorld().func_234923_W_());
                         TeleportUtils.doTeleport(player, topLocation, true, true);
                         sendMessage(player, "top.maessentials.teleported");
                         break;

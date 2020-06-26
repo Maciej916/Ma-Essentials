@@ -15,11 +15,11 @@ public class EndcGui extends ModGui<EndcContainer> {
         this.ySize = 181;
     }
 
-    @Override
-    protected void drawGuiTitleText() {
-        drawString(this.title, 8, 6, 0x404040);
-        drawString(this.playerInventory.getDisplayName(), 8, 87, 0x404040);
-    }
+//    @Override
+//    protected void drawGuiTitleText() {
+//        drawString(this.title, 8, 6, 0x404040);
+//        drawString(this.playerInventory.getDisplayName(), 8, 87, 0x404040);
+//    }
 
     @Override
     protected ResourceLocation getGuiLocation() {

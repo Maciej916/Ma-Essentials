@@ -24,7 +24,7 @@ public class BroadcastCommand extends BaseCommand {
 
     private int execute(CommandSource source, ITextComponent message) throws CommandSyntaxException {
         ServerPlayerEntity player = source.asPlayer();
-        sendGlobalMessage(player.server.getPlayerList(), new TranslationTextComponent("broadcast.maessentials.success", message).getFormattedText());
+        sendGlobalMessage(player.server.getPlayerList(), new TranslationTextComponent("broadcast.maessentials.success", message).getString());
         return Command.SINGLE_SUCCESS;
     }
 

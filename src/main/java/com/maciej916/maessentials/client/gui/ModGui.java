@@ -2,6 +2,7 @@ package com.maciej916.maessentials.client.gui;
 
 import com.maciej916.maessentials.client.gui.base.GuiElement;
 import com.maciej916.maessentials.client.interfaces.IGuiWrapper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -20,24 +21,40 @@ public abstract class ModGui<CONTAINER extends Container> extends ContainerScree
     }
 
     @Override
+    protected void func_230450_a_(MatrixStack p_230450_1_, float p_230450_2_, int p_230450_3_, int p_230450_4_) {
+
+    }
+
+    @Override
     public int getStringWidth(ITextComponent component) {
-        return getStringWidth(component.getFormattedText());
+//        return getStringWidth(component.getFormattedText())
+        return 0;
     }
 
     @Override
     public int getStringWidth(String text) {
-        return font.getStringWidth(text);
+        return getFont().getStringWidth(text);
     }
 
     @Override
     public int drawString(ITextComponent component, int x, int y, int color) {
-        return drawString(component.getFormattedText(), x, y, color);
+        return 0;
     }
 
     @Override
     public int drawString(String text, int x, int y, int color) {
-        return font.drawString(text, x, y, color);
+        return 0;
     }
+
+//    @Override
+//    public int drawString(ITextComponent component, int x, int y, int color) {
+//        return drawString(component.getFormattedText(), x, y, color);
+//    }
+
+//    @Override
+//    public int drawString(String text, int x, int y, int color) {
+//        return getFont().drawString(text, x, y, color);
+//    }
 
     @Override
     public void drawCenteredText(ITextComponent component, int leftMargin, int y, int color) {
@@ -53,8 +70,13 @@ public abstract class ModGui<CONTAINER extends Container> extends ContainerScree
 
     @Override
     public void renderScaledText(ITextComponent component, int x, int y, int color, int maxX) {
-        renderScaledText(component.getFormattedText(), x, y, color, maxX);
+
     }
+//
+//    @Override
+//    public void renderScaledText(ITextComponent component, int x, int y, int color, int maxX) {
+//        renderScaledText(component.getFormattedText(), x, y, color, maxX);
+//    }
 
     @Override
     public void renderScaledText(String text, int x, int y, int color, int maxX) {
@@ -76,52 +98,62 @@ public abstract class ModGui<CONTAINER extends Container> extends ContainerScree
         Minecraft.getInstance().textureManager.bindTexture(texture);
     }
 
-    protected void drawGuiTitleText() {
-        drawCenteredText(this.title, 0, getXSize(), 6 , 0x404040);
-        drawString(this.playerInventory.getDisplayName(), 8, getYSize() - 96 + 2, 0x404040);
-    }
+//    protected void drawGuiTitleText() {
+//        drawCenteredText(this.title, 0, getXSize(), 6 , 0x404040);
+//        drawString(this.playerInventory.getDisplayName(), 8, getYSize() - 96 + 2, 0x404040);
+//    }
 
-    @Override
-    protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
-        drawGuiTitleText();
+//    @Override
+//    protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY) {
+//        drawGuiTitleText();
+//
+//        int xAxis = mouseX - getGuiLeft();
+//        int yAxis = mouseY - getGuiTop();
 
-        int xAxis = mouseX - getGuiLeft();
-        int yAxis = mouseY - getGuiTop();
+//        for (Widget widget : this.buttons) {
+//            if (widget instanceof GuiElement) {
+//                ((GuiElement) widget).renderForeground(mouseX, mouseY, xAxis, yAxis);
+//            }
+//        }
+//    }
 
-        for (Widget widget : this.buttons) {
-            if (widget instanceof GuiElement) {
-                ((GuiElement) widget).renderForeground(mouseX, mouseY, xAxis, yAxis);
-            }
-        }
-    }
-
-    @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        bindTexture(getGuiLocation());
-        drawRect(getGuiLeft(), getGuiTop(), 0, 0, getXSize(), getYSize());
-    }
-
-    @Override
-    public FontRenderer getFont() {
-        return font;
-    }
-
-    @Override
-    public void render(int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground();
-        super.render(mouseX, mouseY, partialTicks);
-        this.renderHoveredToolTip(mouseX, mouseY);
-    }
+//    @Override
+//    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+//        bindTexture(getGuiLocation());
+//        drawRect(getGuiLeft(), getGuiTop(), 0, 0, getXSize(), getYSize());
+//    }
 
     @Override
     public void drawRect(int x, int y, int textureX, int textureY, int width, int height) {
-        blit(x, y, textureX, textureY, width, height);
+
     }
 
     @Override
     public void drawRectFromIcon(int x, int y, TextureAtlasSprite icon, int width, int height) {
-        blit(x, y, getBlitOffset(), width, height, icon);
+
     }
+
+    @Override
+    public FontRenderer getFont() {
+        return Minecraft.getInstance().fontRenderer;
+    }
+
+//    @Override
+//    public void render(int mouseX, int mouseY, float partialTicks) {
+//        this.renderBackground();
+//        super.render(mouseX, mouseY, partialTicks);
+//        this.renderHoveredToolTip(mouseX, mouseY);
+//    }
+//
+//    @Override
+//    public void drawRect(int x, int y, int textureX, int textureY, int width, int height) {
+//        blit(x, y, textureX, textureY, width, height);
+//    }
+//
+//    @Override
+//    public void drawRectFromIcon(int x, int y, TextureAtlasSprite icon, int width, int height) {
+//        blit(x, y, getBlitOffset(), width, height, icon);
+//    }
 
     protected abstract ResourceLocation getGuiLocation();
 

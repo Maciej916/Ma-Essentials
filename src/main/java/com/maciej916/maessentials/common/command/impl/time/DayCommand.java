@@ -23,7 +23,7 @@ public class DayCommand extends BaseCommand {
         ServerPlayerEntity player = source.asPlayer();
 
         for (ServerWorld serverworld : player.getServer().getWorlds()) {
-            serverworld.setDayTime(2000);
+//            serverworld.setDayTime(2000);
         }
 
         sendMessage(player, "day.maessentials.success");

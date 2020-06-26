@@ -44,7 +44,8 @@ public class EndcCommand extends BaseCommand {
             endc = new TranslationTextComponent("endc.maessentials.open", targetPlayer.getDisplayName().getString(), endc);
         }
         NetworkHooks.openGui(player, new ContainerProvider(
-                endc.getFormattedText(), (i, inv, playerEntity) -> new EndcContainer(i, inv, targetPlayer)
+//                endc.getFormattedText(), (i, inv, playerEntity) -> new EndcContainer(i, inv, targetPlayer)
+                endc.getString(), (i, inv, playerEntity) -> new EndcContainer(i, inv, targetPlayer)
         ), buf -> buf.writeUniqueId(targetPlayer.getUniqueID()));
     }
 

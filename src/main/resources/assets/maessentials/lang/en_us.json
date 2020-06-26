@@ -145,6 +145,8 @@
 
 
   "_comment": "Teleport",
+  "teleport.maessentials.teleport.invalid": "§cInvalid world or dimension!",
+
   "teleport.maessentials.teleport.failed": "§cFailed to perform teleportation!",
   "teleport.maessentials.active": "You have active teleport!",
   "teleport.maessentials.moved": "You moved, teleport cancelled!",

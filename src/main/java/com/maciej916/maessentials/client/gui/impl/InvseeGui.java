@@ -14,11 +14,11 @@ public class InvseeGui extends ModGui<InvseeContainer> {
         this.ySize = 202;
     }
 
-    @Override
-    protected void drawGuiTitleText() {
-        drawString(this.title, 8, 6, 0x404040);
-        drawString(this.playerInventory.getDisplayName(), 8, 109, 0x404040);
-    }
+//    @Override
+//    protected void drawGuiTitleText() {
+//        drawString(this.title, 8, 6, 0x404040);
+//        drawString(this.playerInventory.getDisplayName(), 8, 109, 0x404040);
+//    }
 
     @Override
     protected ResourceLocation getGuiLocation() {

@@ -15,11 +15,11 @@ import java.util.Random;
 public final class LocationUtils {
 
     public static boolean checkLocation(Location first, Location second) {
-        return (int)first.x == (int)second.x && (int)first.y == (int)second.y && (int)first.z == (int)second.z && first.dimension == second.dimension;
+        return (int)first.x == (int)second.x && (int)first.y == (int)second.y && (int)first.z == (int)second.z && first.getWorld() == second.getWorld();
     }
 
     public static boolean checkDetailedLocation(Location first, Location second) {
-        return first.x == second.x && first.y == second.y && first.z == second.z && first.dimension == second.dimension && first.rotationPitch == second.rotationPitch && first.rotationYaw == second.rotationYaw;
+        return first.x == second.x && first.y == second.y && first.z == second.z && first.getWorld() == second.getWorld() && first.rotationPitch == second.rotationPitch && first.rotationYaw == second.rotationYaw;
     }
 
     public static Location findRandomTp(World world, Location spawnLocation, ServerPlayerEntity player, int count) {
@@ -34,7 +34,7 @@ public final class LocationUtils {
         int max = ModConfig.rndtp_range_max;
 
         int x = (int) Math.round(spawnLocation.x) + rand.nextInt(max + min) - min;
-        int y = world.getMaxHeight();
+        int y = world.getHeight();
         int z = (int) Math.round(spawnLocation.z) + rand.nextInt(max + min) - min;
 
         Chunk chunk = world.getChunk(x >> 4, z >> 4);
@@ -52,7 +52,7 @@ public final class LocationUtils {
                 if (chunk.getBlockState(legPos).getMaterial().equals(Material.AIR)) {
                     BlockPos headPos = new BlockPos(x, y, z);
                     if (chunk.getBlockState(headPos).getMaterial().equals(Material.AIR)) {
-                        return new Location(x + 0.5, y, z+ 0.5, 0, 0, spawnLocation.getDimensionID());
+                        return new Location(x + 0.5, y, z+ 0.5, 0, 0, spawnLocation.getWorld());
                     }
                 }
             }

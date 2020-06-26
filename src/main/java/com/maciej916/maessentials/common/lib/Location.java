@@ -1,31 +1,32 @@
 package com.maciej916.maessentials.common.lib;
 
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.world.World;
 
 public class Location {
     public double x,y,z;
     public float rotationYaw,rotationPitch;
-    public int dimension;
+    public RegistryKey<World> world;
 
     public Location() {}
 
-    public Location(int posX, int posY, int posZ, int dimension) {
+    public Location(int posX, int posY, int posZ, RegistryKey<World> worldRegistryKey) {
         this.x = posX;
         this.y = posY;
         this.z = posZ;
         this.rotationYaw = 0;
         this.rotationPitch = 0;
-        this.dimension = dimension;
+        this.world = worldRegistryKey;
     }
 
-    public Location(double posX, double posY, double posZ, float rotationYaw, float rotationPitch, int dimension) {
+    public Location(double posX, double posY, double posZ, float rotationYaw, float rotationPitch, RegistryKey<World> worldRegistryKey) {
         this.x = posX;
         this.y = posY;
         this.z = posZ;
         this.rotationYaw = rotationYaw;
         this.rotationPitch = rotationPitch;
-        this.dimension = dimension;
+        this.world = worldRegistryKey;
     }
 
     public Location(ServerPlayerEntity player) {
@@ -34,14 +35,10 @@ public class Location {
         this.z = player.getPosZ();
         this.rotationYaw = player.rotationYaw;
         this.rotationPitch = player.rotationPitch;
-        this.dimension = player.dimension.getId();
+        this.world = player.getServerWorld().getWorld().func_234923_W_();
     }
 
-    public DimensionType getDimension() {
-        return DimensionType.getById(dimension);
-    }
-
-    public int getDimensionID() {
-        return dimension;
+    public RegistryKey<World> getWorld() {
+        return this.world;
     }
 }

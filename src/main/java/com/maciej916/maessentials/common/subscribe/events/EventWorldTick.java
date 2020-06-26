@@ -55,7 +55,8 @@ public class EventWorldTick {
                                 }
                             } else {
                                 if (ModConfig.afk_auto_kick != 0 && currentTimestamp() - ModConfig.afk_auto_kick  >= eslPlayer.getTemp().getLastMoveTime()) {
-                                    kickPlayer(player, new TranslationTextComponent("kick.maessentials.server"), new TranslationTextComponent("kick.maessentials.player").getFormattedText());
+//                                    kickPlayer(player, new TranslationTextComponent("kick.maessentials.server"), new TranslationTextComponent("kick.maessentials.player").getFormattedText());
+                                    kickPlayer(player, new TranslationTextComponent("kick.maessentials.server"), new TranslationTextComponent("kick.maessentials.player").getString());
                                 }
                             }
                         } else {

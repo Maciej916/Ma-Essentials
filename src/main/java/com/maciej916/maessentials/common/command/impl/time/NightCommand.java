@@ -29,7 +29,7 @@ public class NightCommand extends BaseCommand {
         ServerPlayerEntity player = source.asPlayer();
 
         for (ServerWorld serverworld : player.getServer().getWorlds()) {
-            serverworld.setDayTime(20000);
+//            serverworld.setDayTime(20000);
         }
 
         sendMessage(player, "night.maessentials.success");

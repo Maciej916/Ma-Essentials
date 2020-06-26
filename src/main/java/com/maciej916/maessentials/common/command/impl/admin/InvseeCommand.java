@@ -30,7 +30,7 @@ public class InvseeCommand extends BaseCommand {
             sendMessage(player, "invsee.maessentials.self");
         } else {
             NetworkHooks.openGui(player, new ContainerProvider(
-                    new TranslationTextComponent("inv.maessentials.open", targetPlayer.getDisplayName().getFormattedText()).getFormattedText(), (i, inv, playerEntity) -> new InvseeContainer(i, inv, targetPlayer)
+                    new TranslationTextComponent("inv.maessentials.open", targetPlayer.getDisplayName().getString()).getString(), (i, inv, playerEntity) -> new InvseeContainer(i, inv, targetPlayer)
             ), buf -> buf.writeUniqueId(targetPlayer.getUniqueID()));
         }
         return Command.SINGLE_SUCCESS;

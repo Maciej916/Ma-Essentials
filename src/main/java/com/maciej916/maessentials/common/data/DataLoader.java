@@ -15,10 +15,15 @@ import com.maciej916.maessentials.common.data.old.OldWorld;
 import com.maciej916.maessentials.common.data.old.ProfileUpdater;
 import com.maciej916.maessentials.common.util.FileUtils;
 import com.maciej916.maessentials.common.util.LogUtils;
-import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.world.storage.WorldInfo;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.Dimension;
+import net.minecraft.world.DimensionType;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.storage.IWorldInfo;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,19 +45,6 @@ public class DataLoader {
         try {
             LogUtils.log("Setup main");
             ModConfig.mainCatalog = System.getProperty("user.dir") + "/ma-essentials/";
-
-            Path source = Paths.get(System.getProperty("user.dir") + "/maessentials/");
-            if (Files.exists(source)) {
-                File dir = new File(System.getProperty("user.dir") + "/maessentials/");
-                File newName = new File(ModConfig.mainCatalog);
-                if (dir.isDirectory()) {
-                    dir.renameTo(newName);
-                } else {
-                    dir.mkdir();
-                    dir.renameTo(newName);
-                }
-            }
-
             LogUtils.debug("Main catalog is: " + ModConfig.mainCatalog);
 
             new File(ModConfig.mainCatalog).mkdirs();
@@ -79,20 +71,10 @@ public class DataLoader {
                 ModConfig.worldCatalog = ModConfig.mainCatalog;
             } else {
                 LogUtils.log("Mod is running on client");
-                ModConfig.worldCatalog = System.getProperty("user.dir") + "/saves/" + event.getServer().getFolderName() + "/ma-essentials/";
+                
+                String path = "test";
 
-                // Try to copy files from bugged name to correct one
-                Path source = Paths.get(System.getProperty("user.dir") + "/saves/" + event.getServer().getFolderName() + "/maessentials/");
-                if (Files.exists(source)) {
-                    File dir = new File(System.getProperty("user.dir") + "/saves/" + event.getServer().getFolderName() + "/maessentials/");
-                    File newName = new File(ModConfig.worldCatalog);
-                    if (dir.isDirectory()) {
-                        dir.renameTo(newName);
-                    } else {
-                        dir.mkdir();
-                        dir.renameTo(newName);
-                    }
-                }
+                ModConfig.worldCatalog = System.getProperty("user.dir") + "/saves/" + path + "/ma-essentials/";
             }
             LogUtils.debug("World catalog is: " + ModConfig.worldCatalog);
 
@@ -102,8 +84,10 @@ public class DataLoader {
             new File(ModConfig.worldCatalog + "players").mkdirs();
 
             if (!fileExist(ModConfig.worldCatalog + "data.json")) {
-                WorldInfo worldInfo = event.getServer().getWorld(DimensionType.getById(0)).getWorldInfo();
-                Location spawnLocation = new Location(worldInfo.getSpawnX(), worldInfo.getSpawnY(), worldInfo.getSpawnZ(), 0);
+                ServerWorld world = event.getServer().func_241755_D_();
+                IWorldInfo worldInfo = world.getWorldInfo();
+
+                Location spawnLocation = new Location(worldInfo.getSpawnX(), worldInfo.getSpawnY(), worldInfo.getSpawnZ(), world.func_234923_W_());
                 DataManager.getWorld().setSpawn(spawnLocation);
                 DataManager.getWorld().saveData();
             }

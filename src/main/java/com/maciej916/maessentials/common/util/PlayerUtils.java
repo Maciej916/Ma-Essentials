@@ -1,6 +1,7 @@
 package com.maciej916.maessentials.common.util;
 
 import com.maciej916.maessentials.common.data.DataManager;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.DamageSource;
@@ -29,8 +30,12 @@ public final class PlayerUtils {
         target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, target.getHealth());
 
         ServerWorld world = (ServerWorld) player.world;
-        LightningBoltEntity entity = new LightningBoltEntity(world, player.getPosX(), player.getPosY(), player.getPosZ(), true);
-        world.addLightningBolt(entity);
+
+//        LightningBoltEntity bolt = new LightningBoltEntity(EntityType.LIGHTNING_BOLT, world);
+//        world.addEntity(bolt);
+
+//        LightningBoltEntity entity = new LightningBoltEntity(world, player.getPosX(), player.getPosY(), player.getPosZ(), true);
+//        world.addLightningBolt(entity);
 
         if (player != target) {
             TextUtils.sendMessage(player, "suicide.maessentials.player", target.getDisplayName());
@@ -46,20 +51,20 @@ public final class PlayerUtils {
             int i = 1;
             for (String name : warps) {
                 ClickEvent clickEvent = new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/warp " + name);
-                HoverEvent eventHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("warp.maessentials.list.warp", "/warp " + name));
+                HoverEvent eventHover = new HoverEvent(HoverEvent.Action.field_230550_a_, new TranslationTextComponent("warp.maessentials.list.warp", "/warp " + name));
 
                 TextComponent kit = new TranslationTextComponent("warp.maessentials.list.warp", name);
-                kit.getStyle().setClickEvent(clickEvent);
-                kit.getStyle().setHoverEvent(eventHover);
+                kit.getStyle().func_240715_a_(clickEvent);
+                kit.getStyle().func_240716_a_(eventHover);
 
-                warpList.appendSibling(kit);
+                warpList.func_230529_a_(kit);
                 if (warps.size() != i) {
-                    warpList.appendSibling(new StringTextComponent(", "));
+                    warpList.func_230529_a_(new StringTextComponent(", "));
                     i++;
                 }
             }
         } else {
-            warpList.appendSibling(new StringTextComponent("-"));
+            warpList.func_230529_a_(new StringTextComponent("-"));
         }
 
         TextUtils.sendMessage(player, warpList);

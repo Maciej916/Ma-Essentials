@@ -213,7 +213,11 @@ public final class TeleportUtils {
                 eslPlayer.saveData();
             }
 
-            ServerWorld worldDest = player.server.getWorld(loc.getDimension());
+            ServerWorld worldDest = player.server.getWorld(loc.getWorld());
+            if (worldDest == null) {
+                TextUtils.sendMessage(player, "teleport.maessentials.teleport.invalid");
+            }
+
             if (exact) {
                 player.teleport(worldDest, loc.x, loc.y, loc.z, loc.rotationYaw, loc.rotationPitch);
             } else {

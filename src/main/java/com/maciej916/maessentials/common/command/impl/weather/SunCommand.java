@@ -7,7 +7,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.WorldInfo;
 
 public class SunCommand extends BaseCommand {
 
@@ -24,11 +23,7 @@ public class SunCommand extends BaseCommand {
         ServerPlayerEntity player = source.asPlayer();
 
         for (ServerWorld serverworld : source.getServer().getWorlds()) {
-            WorldInfo worldData = serverworld.getWorldInfo();
-            worldData.setRaining(false);
-            worldData.setThundering(false);
-            worldData.setClearWeatherTime(10000);
-            worldData.setRainTime(0);
+            serverworld.func_241113_a_(0, 0, false, false);
         }
 
         sendMessage(player, "sun.maessentials.success");

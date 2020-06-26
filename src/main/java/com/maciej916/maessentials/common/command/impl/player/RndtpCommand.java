@@ -38,7 +38,7 @@ public class RndtpCommand extends BaseCommand {
         }
 
         Location spawnLocation = DataManager.getWorld().getSpawn();
-        if (spawnLocation.getDimensionID() != player.dimension.getId()) {
+        if (spawnLocation.getWorld() != player.getServerWorld().func_234923_W_()) {
             sendMessage(player, "rndtp.maessentials.dimension");
             return Command.SINGLE_SUCCESS;
         }
