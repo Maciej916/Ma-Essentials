@@ -7,9 +7,6 @@ import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.text.TextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-
-import java.awt.*;
 
 public abstract class BaseCommand {
 
@@ -34,15 +31,15 @@ public abstract class BaseCommand {
     }
 
     public void sendMessage(ServerPlayerEntity player, String translationKey, Object... args) {
-        TextUtils.sendMessage(player, translationKey, args);
+        TextUtils.sendChatMessage(player, translationKey, args);
     }
 
     public void sendMessage(ServerPlayerEntity player, TextComponent textComponent) {
-        TextUtils.sendMessage(player, textComponent);
+        TextUtils.sendChatMessage(player, textComponent);
     }
 
     public void sendGlobalMessage(PlayerList players, String translationKey, Object... args) {
-        TextUtils.sendGlobalMessage(players, translationKey, args);
+        TextUtils.sendGlobalChatMessage(players, translationKey, args);
     }
 
 }

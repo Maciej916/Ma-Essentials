@@ -22,7 +22,7 @@ public class EventLivingDeath {
         if (ModConfig.back_death_enable) {
             if (event.getEntity() instanceof PlayerEntity) {
                 ServerPlayerEntity player = (ServerPlayerEntity) event.getEntity();
-                TextUtils.sendMessage(player, "back.maessentials.death");
+                TextUtils.sendChatMessage(player, "back.maessentials.death");
 
                 Location location = new Location(player);
                 location.y++;

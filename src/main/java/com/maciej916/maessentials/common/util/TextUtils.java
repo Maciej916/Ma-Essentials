@@ -7,23 +7,54 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 public final class TextUtils {
 
-    public static void sendMessage(ServerPlayerEntity player, String translationKey, Object... args) {
-//        player.sendMessage(new TranslationTextComponent(translationKey, args));
-        player.sendMessage(new TranslationTextComponent(translationKey, args), player.getUniqueID());
+    private static void sendMessage(ServerPlayerEntity player, TextComponent textComponent, boolean actionBar) {
+        player.sendStatusMessage(textComponent, actionBar);
     }
 
-    public static void sendMessage(ServerPlayerEntity player, TextComponent textComponent) {
-//        player.sendMessage(textComponent);
-        player.sendMessage(textComponent, player.getUniqueID());
-    }
-
-    public static void sendGlobalMessage(PlayerList players, String translationKey, Object... args) {
+    private static void sendGlobalMessage(PlayerList players, TextComponent textComponent, boolean actionBar) {
         for(int i = 0; i < players.getPlayers().size(); ++i) {
-            ServerPlayerEntity serverplayerentity = players.getPlayers().get(i);
-            serverplayerentity.sendMessage(new TranslationTextComponent(translationKey, args), serverplayerentity.getUniqueID());
+            ServerPlayerEntity player = players.getPlayers().get(i);
+            sendMessage(player, textComponent, actionBar);
         }
-
-//        players.sendMessage(new TranslationTextComponent(translationKey, args));
     }
 
+    // Chat msg
+
+    public static void sendChatMessage(ServerPlayerEntity player, TextComponent textComponent) {
+        sendMessage(player, textComponent, false);
+    }
+
+    public static void sendChatMessage(ServerPlayerEntity player, String translationKey, Object... args) {
+        sendMessage(player, new TranslationTextComponent(translationKey, args), false);
+    }
+
+    // Action Bar
+
+    public static void sendActionMessage(ServerPlayerEntity player, TextComponent textComponent) {
+        sendMessage(player, textComponent, true);
+    }
+
+    public static void sendActionMessage(ServerPlayerEntity player, String translationKey, Object... args) {
+        sendMessage(player, new TranslationTextComponent(translationKey, args), true);
+    }
+
+    // Global msg
+
+    public static void sendGlobalActionMessage(PlayerList players, String translationKey, Object... args) {
+        sendGlobalMessage(players, new TranslationTextComponent(translationKey, args), true);
+    }
+
+    public static void sendGlobalActionMessage(PlayerList players, TextComponent textComponent) {
+        sendGlobalMessage(players, textComponent, true);
+    }
+
+    // Global Action Bar
+
+    public static void sendGlobalChatMessage(PlayerList players, String translationKey, Object... args) {
+        sendGlobalMessage(players, new TranslationTextComponent(translationKey, args), false);
+    }
+
+    public static void sendGlobalChatMessage(PlayerList players, TextComponent textComponent) {
+        sendGlobalMessage(players, textComponent, false);
+    }
 }

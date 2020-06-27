@@ -44,19 +44,9 @@ public class DataLoader {
     public static void setupMain(FMLCommonSetupEvent event) {
         try {
             LogUtils.log("Setup main");
-            ModConfig.mainCatalog = System.getProperty("user.dir") + "/ma-essentials/";
+            ModConfig.mainCatalog = System.getProperty("user.dir") + "/" + MaEssentials.MODID + "/";
             LogUtils.debug("Main catalog is: " + ModConfig.mainCatalog);
-
             new File(ModConfig.mainCatalog).mkdirs();
-            File targetFile = new File(ModConfig.mainCatalog + "default_kits.json");
-            if (!targetFile.exists()) {
-                LogUtils.log("Creating default_kits.json in main catalog");
-                InputStream initialStream = MaEssentials.class.getResourceAsStream("/default_kits.json");
-                byte[] buffer = new byte[initialStream.available()];
-                initialStream.read(buffer);
-                OutputStream outStream = new FileOutputStream(targetFile);
-                outStream.write(buffer);
-            }
         } catch (Exception e) {
             LogUtils.err("Error in setupMain");
             throw new Error(e);
@@ -71,10 +61,8 @@ public class DataLoader {
                 ModConfig.worldCatalog = ModConfig.mainCatalog;
             } else {
                 LogUtils.log("Mod is running on client");
-                
-                String path = "test";
-
-                ModConfig.worldCatalog = System.getProperty("user.dir") + "/saves/" + path + "/ma-essentials/";
+                String worldName = event.getServer().func_240793_aU_().getWorldName();
+                ModConfig.worldCatalog = System.getProperty("user.dir") + "/saves/" + worldName + "/" + MaEssentials.MODID + "/";
             }
             LogUtils.debug("World catalog is: " + ModConfig.worldCatalog);
 
@@ -87,15 +75,35 @@ public class DataLoader {
                 ServerWorld world = event.getServer().func_241755_D_();
                 IWorldInfo worldInfo = world.getWorldInfo();
 
-                Location spawnLocation = new Location(worldInfo.getSpawnX(), worldInfo.getSpawnY(), worldInfo.getSpawnZ(), world.func_234923_W_());
+                Location spawnLocation = new Location(worldInfo.getSpawnX(), worldInfo.getSpawnY(), worldInfo.getSpawnZ(), world.func_234923_W_().func_240901_a_());
                 DataManager.getWorld().setSpawn(spawnLocation);
                 DataManager.getWorld().saveData();
             }
 
             if (!fileExist(ModConfig.worldCatalog + "kits.json")) {
-                File def = new File(ModConfig.mainCatalog + "default_kits.json");
-                File des = new File(ModConfig.worldCatalog + "kits.json");
-                Files.copy(def.toPath(), des.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                File targetFile = new File(ModConfig.worldCatalog + "kits.json");
+                File targetFileDefault = new File(ModConfig.mainCatalog + "default_kits.json");
+
+                InputStream initialStream = MaEssentials.class.getResourceAsStream("/default_kits.json");
+                byte[] buffer = new byte[initialStream.available()];
+                initialStream.read(buffer);
+
+                if (event.getServer().isDedicatedServer()) {
+                    LogUtils.debug("Need to create default_kits.json, creating kits.json only!");
+                    OutputStream outStream = new FileOutputStream(targetFile);
+                    outStream.write(buffer);
+                } else {
+                    if (!targetFileDefault.exists()) {
+                        LogUtils.debug("Creating default_kits.json!");
+                        OutputStream outStream = new FileOutputStream(targetFileDefault);
+                        outStream.write(buffer);
+                    } else {
+                        LogUtils.debug("Copy data from default_kits.json to kits.json!");
+                    }
+                    File def = new File(ModConfig.mainCatalog + "default_kits.json");
+                    File des = new File(ModConfig.worldCatalog + "kits.json");
+                    Files.copy(def.toPath(), des.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                }
             }
         } catch (Exception e) {
             LogUtils.err("Error in setupWorld");

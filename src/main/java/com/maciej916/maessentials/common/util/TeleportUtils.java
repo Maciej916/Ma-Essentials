@@ -24,12 +24,12 @@ public final class TeleportUtils {
         EssentialPlayer eslPlayer = DataManager.getPlayer(player);
 
         if (eslPlayer.getTemp().isTeleportActive()) {
-            TextUtils.sendMessage(player, "teleport.maessentials.active");
+            TextUtils.sendChatMessage(player, "teleport.maessentials.active");
             return false;
         }
 
         if (delay == 0) {
-            TextUtils.sendMessage(player, "teleport.maessentials.teleported");
+            TextUtils.sendChatMessage(player, "teleport.maessentials.teleported");
             doTeleport(player, location, true, true);
             return true;
         }
@@ -44,13 +44,13 @@ public final class TeleportUtils {
         EssentialPlayer eslPlayer = DataManager.getPlayer(player);
 
         if (eslPlayer.getTemp().isTeleportActive()) {
-            TextUtils.sendMessage(player, "teleport.maessentials.active");
+            TextUtils.sendChatMessage(player, "teleport.maessentials.active");
             return false;
         }
 
         TeleportRequest existTpR = TeleportUtils.findRequest(creator, player, target);
         if (existTpR != null) {
-            TextUtils.sendMessage(player, "tpa.maessentials.exist", target.getDisplayName());
+            TextUtils.sendChatMessage(player, "tpa.maessentials.exist", target.getDisplayName());
             return false;
         }
 
@@ -97,14 +97,14 @@ public final class TeleportUtils {
 
     public static void acceptRequest(TeleportRequest request) {
         if (request.getDelay() == 0) {
-            TextUtils.sendMessage(request.getPlayer(), "teleport.maessentials.tpaccept.request", request.getTargetName());
-            TextUtils.sendMessage(request.getTarget(), "teleport.maessentials.tpaccept.target", request.getPlayerName());
+            TextUtils.sendChatMessage(request.getPlayer(), "teleport.maessentials.tpaccept.request", request.getTargetName());
+            TextUtils.sendChatMessage(request.getTarget(), "teleport.maessentials.tpaccept.target", request.getPlayerName());
 
             doTeleport(request.getPlayer(), request.getDestination(), true, true);
             teleportRequests.remove(request);
         } else {
-            TextUtils.sendMessage(request.getPlayer(), "teleport.maessentials.tpaccept.request.wait", ModConfig.tpa_delay);
-            TextUtils.sendMessage(request.getTarget(), "teleport.maessentials.tpaccept.target.wait", request.getPlayerName());
+            TextUtils.sendChatMessage(request.getPlayer(), "teleport.maessentials.tpaccept.request.wait", ModConfig.tpa_delay);
+            TextUtils.sendChatMessage(request.getTarget(), "teleport.maessentials.tpaccept.target.wait", request.getPlayerName());
 
             EssentialPlayer eslPlayer = DataManager.getPlayer(request.getPlayer());
             eslPlayer.getTemp().setTeleportActive(new Location(request.getPlayer()));
@@ -113,8 +113,8 @@ public final class TeleportUtils {
     }
 
     public static void declineRequest(TeleportRequest request) {
-        TextUtils.sendMessage(request.getPlayer(), "teleport.maessentials.tpdeny.request", request.getTargetName());
-        TextUtils.sendMessage(request.getTarget(), "teleport.maessentials.tpdeny.target", request.getPlayerName());
+        TextUtils.sendChatMessage(request.getPlayer(), "teleport.maessentials.tpdeny.request", request.getTargetName());
+        TextUtils.sendChatMessage(request.getTarget(), "teleport.maessentials.tpdeny.target", request.getPlayerName());
 
         teleportRequests.remove(request);
     }
@@ -137,7 +137,7 @@ public final class TeleportUtils {
                 Location tpLocation = eslPlayer.getTemp().getTeleportLocation();
                 if (checkLocation(playerLocation, tpLocation)) {
                     if (currentTimestamp() >= tp.getTeleportTime()) {
-                        TextUtils.sendMessage(player, "teleport.maessentials.teleported");
+                        TextUtils.sendChatMessage(player, "teleport.maessentials.teleported");
 
                         eslPlayer.getTemp().setTeleportNotActive();
                         eslPlayer.getUsage().setTeleportUsage(tp.getType());
@@ -146,7 +146,7 @@ public final class TeleportUtils {
                         del.add(tp);
                     }
                 } else {
-                    TextUtils.sendMessage(player, "teleport.maessentials.moved");
+                    TextUtils.sendChatMessage(player, "teleport.maessentials.moved");
 
                     eslPlayer.getTemp().setTeleportNotActive();
                     del.add(tp);
@@ -173,8 +173,8 @@ public final class TeleportUtils {
                     Location tpLocation = eslPlayer.getTemp().getTeleportLocation();
                     if (checkLocation(playerLocation, tpLocation)) {
                         if (currentTimestamp() >= tp.getTeleportTime()) {
-                            TextUtils.sendMessage(tp.getPlayer(), "teleport.maessentials.tpaccept.request", tp.getTargetName());
-                            TextUtils.sendMessage(tp.getTarget(), "teleport.maessentials.tpaccept.target", tp.getPlayerName());
+                            TextUtils.sendChatMessage(tp.getPlayer(), "teleport.maessentials.tpaccept.request", tp.getTargetName());
+                            TextUtils.sendChatMessage(tp.getTarget(), "teleport.maessentials.tpaccept.target", tp.getPlayerName());
 
                             eslPlayer.getTemp().setTeleportNotActive();
                             eslPlayer.getUsage().setTeleportUsage("tpa");
@@ -183,16 +183,16 @@ public final class TeleportUtils {
                             del.add(tp);
                         }
                     } else {
-                        TextUtils.sendMessage(tp.getPlayer(), "teleport.maessentials.moved.request");
-                        TextUtils.sendMessage(tp.getTarget(), "teleport.maessentials.moved.target", tp.getPlayerName());
+                        TextUtils.sendChatMessage(tp.getPlayer(), "teleport.maessentials.moved.request");
+                        TextUtils.sendChatMessage(tp.getTarget(), "teleport.maessentials.moved.target", tp.getPlayerName());
 
                         eslPlayer.getTemp().setTeleportNotActive();
                         del.add(tp);
                     }
                 } else {
                     if (currentTimestamp() >= tp.getTimeout()) {
-                        TextUtils.sendMessage(tp.getPlayer(), "teleport.maessentials.expired.target", tp.getTargetName());
-                        TextUtils.sendMessage(tp.getTarget(), "teleport.maessentials.expired.request", tp.getPlayerName());
+                        TextUtils.sendChatMessage(tp.getPlayer(), "teleport.maessentials.expired.target", tp.getTargetName());
+                        TextUtils.sendChatMessage(tp.getTarget(), "teleport.maessentials.expired.request", tp.getPlayerName());
 
                         del.add(tp);
                     }
@@ -215,7 +215,7 @@ public final class TeleportUtils {
 
             ServerWorld worldDest = player.server.getWorld(loc.getWorld());
             if (worldDest == null) {
-                TextUtils.sendMessage(player, "teleport.maessentials.teleport.invalid");
+                TextUtils.sendChatMessage(player, "teleport.maessentials.teleport.invalid");
             }
 
             if (exact) {
@@ -225,7 +225,7 @@ public final class TeleportUtils {
             }
         } catch (Exception e) {
             LogUtils.err("Failed to do teleport for player " + player.getDisplayName().getString() + ". Error: " + e.getMessage());
-            TextUtils.sendMessage(player, "teleport.maessentials.teleport.failed");
+            TextUtils.sendChatMessage(player, "teleport.maessentials.teleport.failed");
         }
     }
 }

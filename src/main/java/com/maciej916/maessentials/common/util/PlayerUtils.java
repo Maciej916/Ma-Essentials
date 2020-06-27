@@ -3,8 +3,13 @@ package com.maciej916.maessentials.common.util;
 import com.maciej916.maessentials.common.data.DataManager;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.LightningBoltEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -13,6 +18,7 @@ import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.world.GameType;
 import net.minecraft.world.server.ServerWorld;
 
+import java.util.Random;
 import java.util.Set;
 
 public final class PlayerUtils {
@@ -20,9 +26,9 @@ public final class PlayerUtils {
     public static void doSuicide(ServerPlayerEntity player, ServerPlayerEntity target) {
         if (target.interactionManager.getGameType() == GameType.CREATIVE || target.interactionManager.getGameType() == GameType.SPECTATOR) {
             if (player == target) {
-                TextUtils.sendMessage(target, "maessentials.invaild_gamemode");
+                TextUtils.sendChatMessage(target, "maessentials.invaild_gamemode");
             } else {
-                TextUtils.sendMessage(target, "maessentials.invaild_gamemode.player", target.getDisplayName());
+                TextUtils.sendChatMessage(target, "maessentials.invaild_gamemode.player", target.getDisplayName());
             }
             return;
         }
@@ -31,15 +37,15 @@ public final class PlayerUtils {
 
         ServerWorld world = (ServerWorld) player.world;
 
-//        LightningBoltEntity bolt = new LightningBoltEntity(EntityType.LIGHTNING_BOLT, world);
-//        world.addEntity(bolt);
-
-//        LightningBoltEntity entity = new LightningBoltEntity(world, player.getPosX(), player.getPosY(), player.getPosZ(), true);
-//        world.addLightningBolt(entity);
+        LightningBoltEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(world);
+        BlockPos pos = new BlockPos(player.getPosX(), player.getPosY(), player.getPosZ());
+        lightningboltentity.func_233576_c_(Vector3d.func_237492_c_(pos));
+        lightningboltentity.func_233623_a_(true);
+        world.addEntity(lightningboltentity);
 
         if (player != target) {
-            TextUtils.sendMessage(player, "suicide.maessentials.player", target.getDisplayName());
-            TextUtils.sendMessage(target, "suicide.maessentials.player.target", player.getDisplayName());
+            TextUtils.sendChatMessage(player, "suicide.maessentials.player", target.getDisplayName());
+            TextUtils.sendChatMessage(target, "suicide.maessentials.player.target", player.getDisplayName());
         }
     }
 
@@ -67,7 +73,7 @@ public final class PlayerUtils {
             warpList.func_230529_a_(new StringTextComponent("-"));
         }
 
-        TextUtils.sendMessage(player, warpList);
+        TextUtils.sendChatMessage(player, warpList);
     }
 
 

@@ -47,13 +47,13 @@ public final class ModUtils {
             }
             return true;
         } catch (Exception e) {
-            TextUtils.sendMessage(player, "kit.maessentials.parse_error");
+            TextUtils.sendChatMessage(player, "kit.maessentials.parse_error");
             return false;
         }
     }
 
     public static void kickPlayer(ServerPlayerEntity player, TranslationTextComponent op, String reason) {
-        TextUtils.sendGlobalMessage(player.server.getPlayerList(), "kick.maessentials.done", player.getDisplayName(), op, reason);
+        TextUtils.sendGlobalChatMessage(player.server.getPlayerList(), "kick.maessentials.done", player.getDisplayName(), op, reason);
         player.connection.disconnect(new StringTextComponent(reason));
     }
 }

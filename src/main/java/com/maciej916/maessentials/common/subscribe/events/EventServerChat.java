@@ -25,12 +25,12 @@ public class EventServerChat {
         if (mute != null) {
             if (mute.getTime() == -1 || mute.getTime() > currentTimestamp()) {
                 if (mute.getTime() == -1) {
-                    TextUtils.sendMessage(player, "mute.maessentials.success.perm.target");
+                    TextUtils.sendChatMessage(player, "mute.maessentials.success.perm.target");
                 } else {
                     String displayTime = TimeUtils.formatDate(mute.getTime() - currentTimestamp());
-                    TextUtils.sendMessage(player, "mute.maessentials.success.target", displayTime);
+                    TextUtils.sendChatMessage(player, "mute.maessentials.success.target", displayTime);
                 }
-                TextUtils.sendMessage(player, "mute.maessentials.success.target.reason", mute.getReason());
+                TextUtils.sendChatMessage(player, "mute.maessentials.success.target.reason", mute.getReason());
                 event.setCanceled(true);
             }
         }

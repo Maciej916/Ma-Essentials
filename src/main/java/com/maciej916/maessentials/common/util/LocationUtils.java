@@ -52,7 +52,7 @@ public final class LocationUtils {
                 if (chunk.getBlockState(legPos).getMaterial().equals(Material.AIR)) {
                     BlockPos headPos = new BlockPos(x, y, z);
                     if (chunk.getBlockState(headPos).getMaterial().equals(Material.AIR)) {
-                        return new Location(x + 0.5, y, z+ 0.5, 0, 0, spawnLocation.getWorld());
+                        return new Location(x + 0.5, y, z+ 0.5, 0, 0, spawnLocation.getWorld().func_240901_a_());
                     }
                 }
             }

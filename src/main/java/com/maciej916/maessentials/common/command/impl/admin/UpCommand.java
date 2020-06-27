@@ -47,7 +47,7 @@ public class UpCommand extends BaseCommand {
                 if (chunk.getBlockState(groundPos).getMaterial().equals(Material.AIR)) {
                     world.setBlockState(groundPos, Blocks.GLASS.getDefaultState(), 2);
                 }
-                Location location = new Location(x + 0.5, y+1, z + 0.5, player.rotationYaw, player.rotationPitch, player.getServerWorld().func_234923_W_());
+                Location location = new Location(x + 0.5, y+1, z + 0.5, player.rotationYaw, player.rotationPitch, player.getServerWorld().func_234923_W_().func_240901_a_());
                 TeleportUtils.doTeleport(player, location, true, true);
                 tp = true;
             }

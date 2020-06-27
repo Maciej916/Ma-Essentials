@@ -6,6 +6,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
 
 public class DayCommand extends BaseCommand {
@@ -23,7 +24,7 @@ public class DayCommand extends BaseCommand {
         ServerPlayerEntity player = source.asPlayer();
 
         for (ServerWorld serverworld : player.getServer().getWorlds()) {
-//            serverworld.setDayTime(2000);
+            serverworld.func_241114_a_(2000);
         }
 
         sendMessage(player, "day.maessentials.success");

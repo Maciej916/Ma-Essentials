@@ -50,7 +50,7 @@ public class EventWorldTick {
                         if (lastLocation != null && checkDetailedLocation(playerLocation, lastLocation)) {
                             if (!eslPlayer.getTemp().isAfk()) {
                                 if (currentTimestamp() - ModConfig.afk_auto_time  >= eslPlayer.getTemp().getLastMoveTime()) {
-                                    TextUtils.sendGlobalMessage(players, "afk.maessentials.afk.true", player.getDisplayName());
+                                    TextUtils.sendGlobalChatMessage(players, "afk.maessentials.afk.true", player.getDisplayName());
                                     eslPlayer.getTemp().setAfk(true);
                                 }
                             } else {
@@ -61,7 +61,7 @@ public class EventWorldTick {
                             }
                         } else {
                             if (eslPlayer.getTemp().isAfk()) {
-                                TextUtils.sendGlobalMessage(players, "afk.maessentials.afk.false", player.getDisplayName());
+                                TextUtils.sendGlobalChatMessage(players, "afk.maessentials.afk.false", player.getDisplayName());
                                 eslPlayer.getTemp().setAfk(false);
                             }
                             eslPlayer.getTemp().setLocation(playerLocation);

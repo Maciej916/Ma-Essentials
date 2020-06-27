@@ -43,7 +43,7 @@ public class TopCommand extends BaseCommand {
                 if (chunk.getBlockState(legPos).getMaterial().equals(Material.AIR)) {
                     BlockPos headPos = new BlockPos(x, y, z);
                     if (chunk.getBlockState(headPos).getMaterial().equals(Material.AIR)) {
-                        Location topLocation = new Location(player.getPosX(), y-1, player.getPosZ(), player.rotationYaw, player.rotationPitch, player.getServerWorld().func_234923_W_());
+                        Location topLocation = new Location(player.getPosX(), y-1, player.getPosZ(), player.rotationYaw, player.rotationPitch, player.getServerWorld().func_234923_W_().func_240901_a_());
                         TeleportUtils.doTeleport(player, topLocation, true, true);
                         sendMessage(player, "top.maessentials.teleported");
                         break;

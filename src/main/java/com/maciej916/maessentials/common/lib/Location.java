@@ -2,31 +2,34 @@ package com.maciej916.maessentials.common.lib;
 
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 public class Location {
     public double x,y,z;
     public float rotationYaw,rotationPitch;
-    public RegistryKey<World> world;
+    public ResourceLocation world = Registry.field_239699_ae_.func_240901_a_();
+    public ResourceLocation dimension;
 
     public Location() {}
 
-    public Location(int posX, int posY, int posZ, RegistryKey<World> worldRegistryKey) {
+    public Location(int posX, int posY, int posZ, ResourceLocation dimension) {
         this.x = posX;
         this.y = posY;
         this.z = posZ;
         this.rotationYaw = 0;
         this.rotationPitch = 0;
-        this.world = worldRegistryKey;
+        this.dimension = dimension;
     }
 
-    public Location(double posX, double posY, double posZ, float rotationYaw, float rotationPitch, RegistryKey<World> worldRegistryKey) {
+    public Location(double posX, double posY, double posZ, float rotationYaw, float rotationPitch, ResourceLocation dimension) {
         this.x = posX;
         this.y = posY;
         this.z = posZ;
         this.rotationYaw = rotationYaw;
         this.rotationPitch = rotationPitch;
-        this.world = worldRegistryKey;
+        this.dimension = dimension;
     }
 
     public Location(ServerPlayerEntity player) {
@@ -35,10 +38,10 @@ public class Location {
         this.z = player.getPosZ();
         this.rotationYaw = player.rotationYaw;
         this.rotationPitch = player.rotationPitch;
-        this.world = player.getServerWorld().getWorld().func_234923_W_();
+        this.dimension = player.getServerWorld().getWorld().func_234923_W_().func_240901_a_();
     }
 
     public RegistryKey<World> getWorld() {
-        return this.world;
+        return RegistryKey.func_240903_a_(RegistryKey.func_240904_a_(this.world), this.dimension);
     }
 }
