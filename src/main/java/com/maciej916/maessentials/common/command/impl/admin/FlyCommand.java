@@ -1,6 +1,10 @@
 package com.maciej916.maessentials.common.command.impl.admin;
 
 import com.maciej916.maessentials.common.command.BaseCommand;
+import com.maciej916.maessentials.common.data.DataManager;
+import com.maciej916.maessentials.common.lib.player.EssentialPlayer;
+import com.maciej916.maessentials.common.util.PlayerUtils;
+import com.maciej916.maessentials.common.util.TextUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -43,27 +47,10 @@ public class FlyCommand extends BaseCommand {
             return;
         }
 
-        if (target.abilities.allowFlying) {
-            target.abilities.allowFlying = false;
-            target.abilities.isFlying = false;
-
-            if (player == target) {
-                sendMessage(target,"fly.maessentials.self.disabled");
-            } else {
-                sendMessage(player,"fly.maessentials.player.disabled", target.getDisplayName());
-                sendMessage(target,"fly.maessentials.self.disabled");
-            }
-        } else {
-            target.abilities.allowFlying = true;
-
-            if (player == target) {
-                sendMessage(player,"fly.maessentials.self.enabled");
-            } else {
-                sendMessage(player,"fly.maessentials.player.enabled", target.getDisplayName());
-                sendMessage(target,"fly.maessentials.self.enabled");
-            }
-        }
-        target.sendPlayerAbilities();
+        EssentialPlayer eslTargetPlayer = DataManager.getPlayer(target);
+        eslTargetPlayer.getData().setFlyEnabled(!target.abilities.allowFlying);
+        eslTargetPlayer.saveData();
+        PlayerUtils.setFlying(player, target, !target.abilities.allowFlying, true);
     }
 
 }

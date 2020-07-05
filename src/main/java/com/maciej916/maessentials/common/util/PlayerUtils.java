@@ -76,6 +76,73 @@ public final class PlayerUtils {
         TextUtils.sendChatMessage(player, warpList);
     }
 
+    public static void setFlying(ServerPlayerEntity player, boolean enable) {
+        setFlying(player, player, enable, enable);
+    }
+
+    public static void setFlying(ServerPlayerEntity player, ServerPlayerEntity target, boolean enable, boolean message) {
+        if (target.interactionManager.getGameType() != GameType.CREATIVE && target.interactionManager.getGameType() == GameType.SPECTATOR) {
+            if (enable) {
+                target.abilities.allowFlying = true;
+                target.abilities.isFlying = true;
+
+                if (message) {
+                    if (player == target) {
+                        TextUtils.sendChatMessage(player, "fly.maessentials.self.enabled");
+                    } else {
+                        TextUtils.sendChatMessage(player, "fly.maessentials.player.enabled", target.getDisplayName());
+                        TextUtils.sendChatMessage(target, "fly.maessentials.self.enabled");
+                    }
+                }
+            } else {
+                target.abilities.allowFlying = false;
+                target.abilities.isFlying = false;
+
+                if (message) {
+                    if (player == target) {
+                        TextUtils.sendChatMessage(target, "fly.maessentials.self.disabled");
+                    } else {
+                        TextUtils.sendChatMessage(player, "fly.maessentials.player.disabled", target.getDisplayName());
+                        TextUtils.sendChatMessage(target, "fly.maessentials.self.disabled");
+                    }
+                }
+            }
+            target.sendPlayerAbilities();
+        }
+    }
+
+    public static void setGod(ServerPlayerEntity player, boolean enable) {
+        setGod(player, player, enable, enable);
+    }
+
+    public static void setGod(ServerPlayerEntity player, ServerPlayerEntity target, boolean enable, boolean message) {
+        if (target.interactionManager.getGameType() != GameType.CREATIVE && target.interactionManager.getGameType() == GameType.SPECTATOR) {
+            if (enable) {
+                target.abilities.disableDamage = true;
+
+                if (message) {
+                    if (player == target) {
+                        TextUtils.sendChatMessage(player, "god.maessentials.self.enabled");
+                    } else {
+                        TextUtils.sendChatMessage(player, "god.maessentials.player.enabled", target.getDisplayName());
+                        TextUtils.sendChatMessage(target, "god.maessentials.self.enabled");
+                    }
+                }
+            } else {
+                target.abilities.disableDamage = false;
+
+                if (message) {
+                    if (player == target) {
+                        TextUtils.sendChatMessage(player, "god.maessentials.self.disabled");
+                    } else {
+                        TextUtils.sendChatMessage(player, "god.maessentials.player.disabled", target.getDisplayName());
+                        TextUtils.sendChatMessage(target, "god.maessentials.self.disabled");
+                    }
+                }
+            }
+            target.sendPlayerAbilities();
+        }
+    }
 
 
 }

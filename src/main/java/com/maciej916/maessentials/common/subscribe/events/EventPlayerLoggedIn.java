@@ -4,13 +4,11 @@ import com.maciej916.maessentials.MaEssentials;
 import com.maciej916.maessentials.common.lib.Location;
 import com.maciej916.maessentials.common.lib.kit.Kit;
 import com.maciej916.maessentials.common.lib.player.EssentialPlayer;
+import com.maciej916.maessentials.common.lib.player.PlayerData;
 import com.maciej916.maessentials.common.lib.player.PlayerRestriction;
 import com.maciej916.maessentials.common.config.ModConfig;
 import com.maciej916.maessentials.common.data.DataManager;
-import com.maciej916.maessentials.common.util.LogUtils;
-import com.maciej916.maessentials.common.util.ModUtils;
-import com.maciej916.maessentials.common.util.TeleportUtils;
-import com.maciej916.maessentials.common.util.TimeUtils;
+import com.maciej916.maessentials.common.util.*;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -59,6 +57,11 @@ public class EventPlayerLoggedIn {
                    }
                 }
             }
+
+            PlayerData playerData = eslPlayerExisted.getData();
+            PlayerUtils.setFlying(player, playerData.getFlyEnabled());
+            PlayerUtils.setGod(player, playerData.getGodEnabled());
+
             LogUtils.debug("Player " + player.getDisplayName().getString() + " joined");
         }
 

@@ -1,6 +1,9 @@
 package com.maciej916.maessentials.common.command.impl.admin;
 
 import com.maciej916.maessentials.common.command.BaseCommand;
+import com.maciej916.maessentials.common.data.DataManager;
+import com.maciej916.maessentials.common.lib.player.EssentialPlayer;
+import com.maciej916.maessentials.common.util.PlayerUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -42,26 +45,10 @@ public class GodCommand extends BaseCommand {
             return;
         }
 
-        if (target.abilities.disableDamage) {
-            target.abilities.disableDamage = false;
-
-            if (player == target) {
-                sendMessage(player, "god.maessentials.self.disabled");
-            } else {
-                sendMessage(player, "god.maessentials.player.disabled", target.getDisplayName());
-                sendMessage(target, "god.maessentials.self.disabled");
-            }
-        } else {
-            target.abilities.disableDamage = true;
-
-            if (player == target) {
-                sendMessage(player, "god.maessentials.self.enabled");
-            } else {
-                sendMessage(player, "god.maessentials.player.enabled", target.getDisplayName());
-                sendMessage(target, "god.maessentials.self.enabled");
-            }
-        }
-        target.sendPlayerAbilities();
+        EssentialPlayer eslTargetPlayer = DataManager.getPlayer(target);
+        eslTargetPlayer.getData().setGodEnabled(!target.abilities.disableDamage);
+        eslTargetPlayer.saveData();
+        PlayerUtils.setGod(player, target, !target.abilities.disableDamage, true);
     }
 
 }

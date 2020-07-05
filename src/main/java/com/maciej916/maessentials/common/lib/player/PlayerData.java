@@ -9,6 +9,9 @@ public class PlayerData {
     private long last_death;
     private int death_count;
 
+    private boolean fly_enabled = false;
+    private boolean god_enabled = false;
+
     public void setLastLocation(Location location) {
         this.last_location = location;
     }
@@ -31,5 +34,21 @@ public class PlayerData {
 
     public int getDeathCount() {
         return death_count;
+    }
+
+    public void setFlyEnabled(boolean fly_enabled) {
+        this.fly_enabled = fly_enabled;
+    }
+
+    public boolean getFlyEnabled() {
+        return fly_enabled;
+    }
+
+    public void setGodEnabled(boolean god_enabled) {
+        this.god_enabled = god_enabled;
+    }
+
+    public boolean getGodEnabled() {
+        return god_enabled;
     }
 }
