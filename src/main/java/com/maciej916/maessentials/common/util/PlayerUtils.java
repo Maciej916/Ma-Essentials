@@ -57,11 +57,11 @@ public final class PlayerUtils {
             int i = 1;
             for (String name : warps) {
                 ClickEvent clickEvent = new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/warp " + name);
-                HoverEvent eventHover = new HoverEvent(HoverEvent.Action.field_230550_a_, new TranslationTextComponent("warp.maessentials.list.warp", "/warp " + name));
+                HoverEvent eventHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("warp.maessentials.list.warp", "/warp " + name));
 
                 TextComponent kit = new TranslationTextComponent("warp.maessentials.list.warp", name);
-                kit.getStyle().func_240715_a_(clickEvent);
-                kit.getStyle().func_240716_a_(eventHover);
+                kit.getStyle().setClickEvent(clickEvent);
+                kit.getStyle().setHoverEvent(eventHover);
 
                 warpList.func_230529_a_(kit);
                 if (warps.size() != i) {

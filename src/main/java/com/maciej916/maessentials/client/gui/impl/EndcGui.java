@@ -18,8 +18,8 @@ public class EndcGui extends ModGui<EndcContainer> {
 
     @Override
     protected void func_230451_b_(MatrixStack matrixStack, int mouseX, int mouseY) {
-        this.field_230712_o_.func_238422_b_(matrixStack, this.field_230704_d_, 8, 6, 4210752);
-        this.field_230712_o_.func_238422_b_(matrixStack, this.playerInventory.getDisplayName(), 8, 87, 4210752);
+        this.getFont().func_238422_b_(matrixStack, this.title, 8, 6, 4210752);
+        this.getFont().func_238422_b_(matrixStack, this.playerInventory.getDisplayName(), 8, 87, 4210752);
     }
 
     @Override

@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 public class Location {
     public double x,y,z;
     public float rotationYaw,rotationPitch;
-    public ResourceLocation world = Registry.field_239699_ae_.func_240901_a_();
+    public ResourceLocation world = Registry.WORLD_KEY.func_240901_a_();
     public ResourceLocation dimension;
 
     public Location() {}

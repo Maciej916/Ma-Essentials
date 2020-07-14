@@ -15,18 +15,16 @@ public abstract class GuiElement extends Widget {
         this.guiObj = gui;
     }
 
-    public void renderForeground(int mouseX, int mouseY, int xAxis, int yAxis) {
+//    public void renderForeground(int mouseX, int mouseY, int xAxis, int yAxis) {
 //        if (isMouseOver(mouseX, mouseY)) {
-        if (func_231047_b_(mouseX, mouseY)) {
 //            renderToolTip(xAxis, yAxis);
-        }
-    }
+//        }
+//    }
 
     @Override
-//    public void playDownSound(SoundHandler soundHandler) {
-    public void func_230988_a_(SoundHandler soundHandler) {
+    public void playDownSound(SoundHandler soundHandler) {
         if (playClickSound) {
-            super.func_230988_a_(soundHandler);
+            super.playDownSound(soundHandler);
         }
     }
 

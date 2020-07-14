@@ -114,8 +114,9 @@ public final class ModCommands {
         commands.add(new CheckCommand("check", 2, ModConfig.check_enable));
         commands.add(new HeadCommand("head", 2, ModConfig.head_enable));
         commands.add(new RepairCommand("repair", 2, ModConfig.repair_enable));
-
         commands.add(new HatCommand("hat", 2, ModConfig.hat_enable));
+
+        commands.add(new AdminKitCommand("kit", 2, ModConfig.kits_enable));
 
         commands.add(new ReloadCommand("maereload", 4, true));
 

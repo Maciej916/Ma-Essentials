@@ -19,22 +19,22 @@ public abstract class ModGui<CONTAINER extends Container> extends ContainerScree
 
     @Override
     public void bindTexture(ResourceLocation texture) {
-        this.field_230706_i_.getTextureManager().bindTexture(texture);
+        this.getMinecraft().getTextureManager().bindTexture(texture);
     }
 
     @Override
     public void draw(MatrixStack matrixStack, int x, int y, int textureX, int textureY, int width, int height) {
-        this.func_238474_b_(matrixStack, x, y, textureX, textureY, width, height);
+        this.blit(matrixStack, x, y, textureX, textureY, width, height);
     }
 
     @Override
     public void draw(MatrixStack matrixStack, int x, int y, TextureAtlasSprite icon, int width, int height, int ss) {
-        this.func_238470_a_(matrixStack, x, y, width, height, ss, icon);
+        this.blit(matrixStack, x, y, width, height, ss, icon);
     }
 
     @Override
     public FontRenderer getFont() {
-        return field_230706_i_.fontRenderer;
+        return getMinecraft().fontRenderer;
     }
 
     protected void updateData() {
@@ -42,15 +42,15 @@ public abstract class ModGui<CONTAINER extends Container> extends ContainerScree
     }
 
     @Override
-    public void func_231023_e_() {
-        super.func_231023_e_();
+    public void tick() {
+        super.tick();
         updateData();
     }
 
     @Override
-    public void func_230430_a_(MatrixStack matrixStack, int p_230430_2_, int p_230430_3_, float p_230430_4_) {
-        this.func_230446_a_(matrixStack);
-        super.func_230430_a_(matrixStack, p_230430_2_, p_230430_3_, p_230430_4_);
+    public void render(MatrixStack matrixStack, int p_230430_2_, int p_230430_3_, float p_230430_4_) {
+        this.renderBackground(matrixStack);
+        super.render(matrixStack, p_230430_2_, p_230430_3_, p_230430_4_);
         this.func_230459_a_(matrixStack, p_230430_2_, p_230430_3_);
     }
 

@@ -35,11 +35,11 @@ public class KitsCommand extends BaseCommand {
             int i = 1;
             for (String name : kits) {
                 ClickEvent clickEvent = new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/kit " + name);
-                HoverEvent eventHover = new HoverEvent(HoverEvent.Action.field_230550_a_, new TranslationTextComponent("kit.maessentials.list.kit", "/kit " + name));
+                HoverEvent eventHover = new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("kit.maessentials.list.kit", "/kit " + name));
 
                 TextComponent kit = new TranslationTextComponent("kit.maessentials.list.kit", name);
-                kit.getStyle().func_240715_a_(clickEvent);
-                kit.getStyle().func_240716_a_(eventHover);
+                kit.getStyle().setClickEvent(clickEvent);
+                kit.getStyle().setHoverEvent(eventHover);
 
                 kitList.func_230529_a_(kit);
                 if (kits.size() != i) {
