@@ -7,7 +7,10 @@ import com.maciej916.maessentials.common.proxy.ClientProxy;
 import com.maciej916.maessentials.common.proxy.IProxy;
 import com.maciej916.maessentials.common.proxy.ServerProxy;
 import com.maciej916.maessentials.common.register.ModCommands;
+import com.mojang.brigadier.CommandDispatcher;
+import net.minecraft.command.CommandSource;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -31,7 +34,6 @@ public class MaEssentials {
         modEventBus.addListener(this::onCommonSetup);
         modLoadingContext.registerConfig(ModConfig.Type.COMMON, ConfigHolder.COMMON_SPEC, MODID + ".toml");
 
-        MinecraftForge.EVENT_BUS.register(ModCommands.class);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -45,6 +47,11 @@ public class MaEssentials {
     public void onServerStarting(FMLServerStartingEvent event) {
         DataLoader.setupWorld(event);
         DataLoader.load();
+    }
+
+    @SubscribeEvent
+    public void onCommandsRegister(RegisterCommandsEvent event) {
+        ModCommands.registerCommands(event);
     }
 
 }

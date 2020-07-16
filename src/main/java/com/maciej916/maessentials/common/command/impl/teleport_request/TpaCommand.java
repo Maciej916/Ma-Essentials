@@ -3,7 +3,10 @@ package com.maciej916.maessentials.common.command.impl.teleport_request;
 import com.maciej916.maessentials.common.command.BaseCommand;
 import com.maciej916.maessentials.common.config.ModConfig;
 import com.maciej916.maessentials.common.data.DataManager;
+import com.maciej916.maessentials.common.enums.EnumColor;
+import com.maciej916.maessentials.common.enums.EnumLang;
 import com.maciej916.maessentials.common.lib.player.EssentialPlayer;
+import com.maciej916.maessentials.common.util.TextUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -41,7 +44,7 @@ public class TpaCommand extends BaseCommand {
 
         long cooldown = eslPlayer.getUsage().getTeleportCooldown("tpa", ModConfig.tpa_cooldown);
         if (cooldown != 0) {
-            sendMessage(player, "maessentials.cooldown.teleport", cooldown);
+            TextUtils.sendChatMessage(player, EnumLang.TELEPORT_COOLDOWN.translateColored(EnumColor.DARK_RED, EnumLang.GENERIC.translateColored(EnumColor.RED, cooldown)));
             return Command.SINGLE_SUCCESS;
         }
 

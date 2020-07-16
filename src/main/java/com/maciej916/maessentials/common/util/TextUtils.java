@@ -2,16 +2,17 @@ package com.maciej916.maessentials.common.util;
 
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.management.PlayerList;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.TextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public final class TextUtils {
 
-    private static void sendMessage(ServerPlayerEntity player, TextComponent textComponent, boolean actionBar) {
+    private static void sendMessage(ServerPlayerEntity player, IFormattableTextComponent textComponent, boolean actionBar) {
         player.sendStatusMessage(textComponent, actionBar);
     }
 
-    private static void sendGlobalMessage(PlayerList players, TextComponent textComponent, boolean actionBar) {
+    private static void sendGlobalMessage(PlayerList players, IFormattableTextComponent textComponent, boolean actionBar) {
         for(int i = 0; i < players.getPlayers().size(); ++i) {
             ServerPlayerEntity player = players.getPlayers().get(i);
             sendMessage(player, textComponent, actionBar);
@@ -20,7 +21,7 @@ public final class TextUtils {
 
     // Chat msg
 
-    public static void sendChatMessage(ServerPlayerEntity player, TextComponent textComponent) {
+    public static void sendChatMessage(ServerPlayerEntity player, IFormattableTextComponent textComponent) {
         sendMessage(player, textComponent, false);
     }
 
@@ -30,7 +31,7 @@ public final class TextUtils {
 
     // Action Bar
 
-    public static void sendActionMessage(ServerPlayerEntity player, TextComponent textComponent) {
+    public static void sendActionMessage(ServerPlayerEntity player, IFormattableTextComponent textComponent) {
         sendMessage(player, textComponent, true);
     }
 
@@ -44,7 +45,7 @@ public final class TextUtils {
         sendGlobalMessage(players, new TranslationTextComponent(translationKey, args), true);
     }
 
-    public static void sendGlobalActionMessage(PlayerList players, TextComponent textComponent) {
+    public static void sendGlobalActionMessage(PlayerList players, IFormattableTextComponent textComponent) {
         sendGlobalMessage(players, textComponent, true);
     }
 

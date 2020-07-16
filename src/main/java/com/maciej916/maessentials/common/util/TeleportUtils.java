@@ -1,5 +1,7 @@
 package com.maciej916.maessentials.common.util;
 
+import com.maciej916.maessentials.common.enums.EnumColor;
+import com.maciej916.maessentials.common.enums.EnumLang;
 import com.maciej916.maessentials.common.lib.Location;
 import com.maciej916.maessentials.common.lib.player.EssentialPlayer;
 import com.maciej916.maessentials.common.lib.teleport.TeleportRequest;
@@ -24,12 +26,12 @@ public final class TeleportUtils {
         EssentialPlayer eslPlayer = DataManager.getPlayer(player);
 
         if (eslPlayer.getTemp().isTeleportActive()) {
-            TextUtils.sendChatMessage(player, "teleport.maessentials.active");
+            TextUtils.sendChatMessage(player, EnumLang.TELEPORT_ACTIVE.translateColored(EnumColor.RED));
             return false;
         }
 
         if (delay == 0) {
-            TextUtils.sendChatMessage(player, "teleport.maessentials.teleported");
+            TextUtils.sendChatMessage(player, EnumLang.TELEPORT_DONE.translateColored(EnumColor.DARK_GREEN));
             doTeleport(player, location, true, true);
             return true;
         }
@@ -44,13 +46,13 @@ public final class TeleportUtils {
         EssentialPlayer eslPlayer = DataManager.getPlayer(player);
 
         if (eslPlayer.getTemp().isTeleportActive()) {
-            TextUtils.sendChatMessage(player, "teleport.maessentials.active");
+            TextUtils.sendChatMessage(player, EnumLang.TELEPORT_ACTIVE.translateColored(EnumColor.RED));
             return false;
         }
 
         TeleportRequest existTpR = TeleportUtils.findRequest(creator, player, target);
         if (existTpR != null) {
-            TextUtils.sendChatMessage(player, "tpa.maessentials.exist", target.getDisplayName());
+            TextUtils.sendChatMessage(player, EnumLang.TPA_EXIST.translateColored(EnumColor.RED, EnumLang.GENERIC.translateColored(EnumColor.DARK_RED, target.getDisplayName())));
             return false;
         }
 
@@ -97,14 +99,14 @@ public final class TeleportUtils {
 
     public static void acceptRequest(TeleportRequest request) {
         if (request.getDelay() == 0) {
-            TextUtils.sendChatMessage(request.getPlayer(), "teleport.maessentials.tpaccept.request", request.getTargetName());
-            TextUtils.sendChatMessage(request.getTarget(), "teleport.maessentials.tpaccept.target", request.getPlayerName());
+            TextUtils.sendChatMessage(request.getPlayer(), EnumLang.TPACCEPT_REQUEST.translate(EnumLang.GENERIC.translateColored(EnumColor.AQUA, request.getTargetName())));
+            TextUtils.sendChatMessage(request.getTarget(), EnumLang.TPACCEPT_TARGET.translate(EnumLang.GENERIC.translateColored(EnumColor.AQUA, request.getPlayerName())));
 
             doTeleport(request.getPlayer(), request.getDestination(), true, true);
             teleportRequests.remove(request);
         } else {
-            TextUtils.sendChatMessage(request.getPlayer(), "teleport.maessentials.tpaccept.request.wait", ModConfig.tpa_delay);
-            TextUtils.sendChatMessage(request.getTarget(), "teleport.maessentials.tpaccept.target.wait", request.getPlayerName());
+            TextUtils.sendChatMessage(request.getPlayer(), EnumLang.TPACCEPT_REQUEST_WAIT.translate(EnumLang.GENERIC.translateColored(EnumColor.RED, ModConfig.tpa_delay)));
+            TextUtils.sendChatMessage(request.getTarget(), EnumLang.TPACCEPT_TARGET_WAIT.translate(EnumLang.GENERIC.translateColored(EnumColor.AQUA, request.getPlayerName())));
 
             EssentialPlayer eslPlayer = DataManager.getPlayer(request.getPlayer());
             eslPlayer.getTemp().setTeleportActive(new Location(request.getPlayer()));
@@ -113,9 +115,8 @@ public final class TeleportUtils {
     }
 
     public static void declineRequest(TeleportRequest request) {
-        TextUtils.sendChatMessage(request.getPlayer(), "teleport.maessentials.tpdeny.request", request.getTargetName());
-        TextUtils.sendChatMessage(request.getTarget(), "teleport.maessentials.tpdeny.target", request.getPlayerName());
-
+        TextUtils.sendChatMessage(request.getPlayer(), EnumLang.TPDENY_REQUEST.translate(EnumLang.GENERIC.translateColored(EnumColor.AQUA, request.getTargetName())));
+        TextUtils.sendChatMessage(request.getTarget(), EnumLang.TPDENY_TARGET.translate(EnumLang.GENERIC.translateColored(EnumColor.AQUA, request.getPlayerName())));
         teleportRequests.remove(request);
     }
 
@@ -137,16 +138,21 @@ public final class TeleportUtils {
                 Location tpLocation = eslPlayer.getTemp().getTeleportLocation();
                 if (checkLocation(playerLocation, tpLocation)) {
                     if (currentTimestamp() >= tp.getTeleportTime()) {
-                        TextUtils.sendChatMessage(player, "teleport.maessentials.teleported");
+                        TextUtils.sendChatMessage(player, EnumLang.TELEPORT_DONE.translateColored(EnumColor.DARK_GREEN));
+                        TextUtils.sendActionMessage(player, EnumLang.TELEPORT_DONE.translateColored(EnumColor.DARK_GREEN));
 
                         eslPlayer.getTemp().setTeleportNotActive();
                         eslPlayer.getUsage().setTeleportUsage(tp.getType());
                         eslPlayer.saveData();
                         doTeleport(player, tp.getDestination(), true, true);
                         del.add(tp);
+                    } else {
+//                        player.getServerWorld().playSound(null, new BlockPos(player.getPositionVec()), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.5F, 1.0F);
+                        TextUtils.sendActionMessage(player, EnumLang.TELEPORT_IN.translateColored(EnumColor.YELLOW, tp.getTeleportTime() - currentTimestamp()));
                     }
                 } else {
-                    TextUtils.sendChatMessage(player, "teleport.maessentials.moved");
+                    TextUtils.sendChatMessage(player, EnumLang.TELEPORT_MOVED.translateColored(EnumColor.RED));
+                    TextUtils.sendActionMessage(player, EnumLang.TELEPORT_MOVED.translateColored(EnumColor.RED));
 
                     eslPlayer.getTemp().setTeleportNotActive();
                     del.add(tp);
@@ -173,8 +179,8 @@ public final class TeleportUtils {
                     Location tpLocation = eslPlayer.getTemp().getTeleportLocation();
                     if (checkLocation(playerLocation, tpLocation)) {
                         if (currentTimestamp() >= tp.getTeleportTime()) {
-                            TextUtils.sendChatMessage(tp.getPlayer(), "teleport.maessentials.tpaccept.request", tp.getTargetName());
-                            TextUtils.sendChatMessage(tp.getTarget(), "teleport.maessentials.tpaccept.target", tp.getPlayerName());
+                            TextUtils.sendChatMessage(tp.getPlayer(), EnumLang.TPACCEPT_REQUEST.translate(EnumLang.GENERIC.translateColored(EnumColor.AQUA, tp.getTargetName())));
+                            TextUtils.sendChatMessage(tp.getTarget(), EnumLang.TPACCEPT_TARGET.translate(EnumLang.GENERIC.translateColored(EnumColor.AQUA, tp.getPlayerName())));
 
                             eslPlayer.getTemp().setTeleportNotActive();
                             eslPlayer.getUsage().setTeleportUsage("tpa");
@@ -183,17 +189,15 @@ public final class TeleportUtils {
                             del.add(tp);
                         }
                     } else {
-                        TextUtils.sendChatMessage(tp.getPlayer(), "teleport.maessentials.moved.request");
-                        TextUtils.sendChatMessage(tp.getTarget(), "teleport.maessentials.moved.target", tp.getPlayerName());
-
+                        TextUtils.sendChatMessage(tp.getPlayer(), EnumLang.TPA_MOVED_TARGET.translateColored(EnumColor.RED));
+                        TextUtils.sendChatMessage(tp.getTarget(), EnumLang.TPA_MOVED_REQUEST.translateColored(EnumColor.RED, EnumLang.GENERIC.translateColored(EnumColor.DARK_RED, tp.getPlayerName())));
                         eslPlayer.getTemp().setTeleportNotActive();
                         del.add(tp);
                     }
                 } else {
                     if (currentTimestamp() >= tp.getTimeout()) {
-                        TextUtils.sendChatMessage(tp.getPlayer(), "teleport.maessentials.expired.target", tp.getTargetName());
-                        TextUtils.sendChatMessage(tp.getTarget(), "teleport.maessentials.expired.request", tp.getPlayerName());
-
+                        TextUtils.sendChatMessage(tp.getPlayer(), EnumLang.TPA_EXPIRED_TARGET.translate(EnumLang.GENERIC.translateColored(EnumColor.AQUA, tp.getTargetName())));
+                        TextUtils.sendChatMessage(tp.getTarget(), EnumLang.TPA_EXPIRED_REQUEST.translate(EnumLang.GENERIC.translateColored(EnumColor.AQUA, tp.getPlayerName())));
                         del.add(tp);
                     }
                 }
@@ -215,7 +219,7 @@ public final class TeleportUtils {
 
             ServerWorld worldDest = player.server.getWorld(loc.getWorld());
             if (worldDest == null) {
-                TextUtils.sendChatMessage(player, "teleport.maessentials.teleport.invalid");
+                TextUtils.sendChatMessage(player, EnumLang.TELEPORT_INVALID.translateColored(EnumColor.DARK_RED));
             }
 
             if (exact) {
@@ -225,7 +229,7 @@ public final class TeleportUtils {
             }
         } catch (Exception e) {
             LogUtils.err("Failed to do teleport for player " + player.getDisplayName().getString() + ". Error: " + e.getMessage());
-            TextUtils.sendChatMessage(player, "teleport.maessentials.teleport.failed");
+            TextUtils.sendChatMessage(player, EnumLang.TELEPORT_FAILED.translateColored(EnumColor.DARK_RED));
         }
     }
 }

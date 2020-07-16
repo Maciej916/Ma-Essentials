@@ -3,8 +3,11 @@ package com.maciej916.maessentials.common.command.impl.spawn;
 import com.maciej916.maessentials.common.command.BaseCommand;
 import com.maciej916.maessentials.common.config.ModConfig;
 import com.maciej916.maessentials.common.data.DataManager;
+import com.maciej916.maessentials.common.enums.EnumColor;
+import com.maciej916.maessentials.common.enums.EnumLang;
 import com.maciej916.maessentials.common.lib.Location;
 import com.maciej916.maessentials.common.lib.player.EssentialPlayer;
+import com.maciej916.maessentials.common.util.TextUtils;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -30,7 +33,7 @@ public class SpawnCommand extends BaseCommand {
 
         long cooldown = eslPlayer.getUsage().getTeleportCooldown("spawn", ModConfig.spawn_cooldown);
         if (cooldown != 0) {
-            sendMessage(player, "maessentials.cooldown.teleport", cooldown);
+            TextUtils.sendChatMessage(player, EnumLang.TELEPORT_COOLDOWN.translateColored(EnumColor.DARK_RED, EnumLang.GENERIC.translateColored(EnumColor.RED, cooldown)));
             return Command.SINGLE_SUCCESS;
         }
 
@@ -40,7 +43,7 @@ public class SpawnCommand extends BaseCommand {
         Location location = DataManager.getWorld().getSpawn();
         if (simpleTeleport(player, location, "spawn", ModConfig.spawn_delay)) {
             if (ModConfig.spawn_delay == 0) {
-                sendMessage(player, "spawn.maessentials.success");
+                TextUtils.sendChatMessage(player, EnumLang.TELEPORT_DONE.translateColored(EnumColor.DARK_GREEN));
             } else {
                 sendMessage(player, "spawn.maessentials.success.wait", ModConfig.spawn_delay);
             }

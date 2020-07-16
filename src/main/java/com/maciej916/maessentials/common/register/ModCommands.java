@@ -7,6 +7,7 @@ import com.maciej916.maessentials.common.command.impl.home.HomeCommand;
 import com.maciej916.maessentials.common.command.impl.home.SetHomeCommand;
 import com.maciej916.maessentials.common.command.impl.kit.KitCommand;
 import com.maciej916.maessentials.common.command.impl.kit.KitsCommand;
+import com.maciej916.maessentials.common.command.impl.player.*;
 import com.maciej916.maessentials.common.command.impl.spawn.SetSpawnCommand;
 import com.maciej916.maessentials.common.command.impl.spawn.SpawnCommand;
 import com.maciej916.maessentials.common.command.impl.teleport_request.TpaCommand;
@@ -22,12 +23,10 @@ import com.maciej916.maessentials.common.command.impl.warp.WarpsCommand;
 import com.maciej916.maessentials.common.command.impl.weather.RainCommand;
 import com.maciej916.maessentials.common.command.impl.weather.SunCommand;
 import com.maciej916.maessentials.common.command.impl.weather.ThunderCommand;
-import com.maciej916.maessentials.common.command.impl.player.*;
 import com.maciej916.maessentials.common.config.ModConfig;
 import com.mojang.brigadier.CommandDispatcher;
 import net.minecraft.command.CommandSource;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.event.RegisterCommandsEvent;
 
 import java.util.ArrayList;
 
@@ -35,9 +34,8 @@ public final class ModCommands {
 
     private static final ArrayList<BaseCommand> commands = new ArrayList<>();
 
-    @SubscribeEvent
-    public static void onServerStarting(FMLServerStartingEvent event) {
-        CommandDispatcher<CommandSource> dispatcher = event.getCommandDispatcher();
+    public static void registerCommands(RegisterCommandsEvent event) {
+        CommandDispatcher<CommandSource> dispatcher = event.getDispatcher();
 
         // Time
 
