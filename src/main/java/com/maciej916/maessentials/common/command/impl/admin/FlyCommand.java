@@ -50,6 +50,7 @@ public class FlyCommand extends BaseCommand {
         EssentialPlayer eslTargetPlayer = DataManager.getPlayer(target);
         eslTargetPlayer.getData().setFlyEnabled(!target.abilities.allowFlying);
         eslTargetPlayer.saveData();
+
         PlayerUtils.setFlying(player, target, !target.abilities.allowFlying, true);
     }
 
