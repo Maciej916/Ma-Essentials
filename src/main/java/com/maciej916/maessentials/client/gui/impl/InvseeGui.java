@@ -17,8 +17,8 @@ public class InvseeGui extends ModGui<InvseeContainer> {
 
     @Override
     protected void func_230451_b_(MatrixStack matrixStack, int mouseX, int mouseY) {
-        this.getFont().func_238422_b_(matrixStack, this.title, 8, 6, 4210752);
-        this.getFont().func_238422_b_(matrixStack, this.playerInventory.getDisplayName(), 8, 109, 4210752);
+        this.getFont().func_243246_a(matrixStack, this.title, 8, 6, 4210752);
+        this.getFont().func_243246_a(matrixStack, this.playerInventory.getDisplayName(), 8, 109, 4210752);
     }
 
     @Override

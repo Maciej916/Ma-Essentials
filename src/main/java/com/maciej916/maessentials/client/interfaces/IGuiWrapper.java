@@ -21,7 +21,7 @@ public interface IGuiWrapper {
     }
 
     default void displayTooltips(MatrixStack matrixStack, List<ITextComponent> components, int xAxis, int yAxis, int maxWidth) {
-        GuiUtils.drawHoveringText(matrixStack, components, xAxis, yAxis, getXSize(), getYSize(), maxWidth, getFont());
+//        GuiUtils.drawHoveringText(matrixStack, components, xAxis, yAxis, getXSize(), getYSize(), maxWidth, getFont());
     }
 
     int getGuiLeft();
