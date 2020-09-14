@@ -83,6 +83,10 @@ public final class PlayerUtils {
     }
 
     public static void setFlying(ServerPlayerEntity player, ServerPlayerEntity target, boolean enable, boolean message) {
+        if (target.interactionManager.getGameType() == GameType.CREATIVE || target.interactionManager.getGameType() == GameType.SPECTATOR) {
+            return;
+        }
+
         if (enable) {
             target.abilities.allowFlying = true;
 
@@ -121,6 +125,10 @@ public final class PlayerUtils {
     }
 
     public static void setGod(ServerPlayerEntity player, ServerPlayerEntity target, boolean enable, boolean message) {
+        if (target.interactionManager.getGameType() == GameType.CREATIVE || target.interactionManager.getGameType() == GameType.SPECTATOR) {
+            return;
+        }
+
         if (enable) {
             target.abilities.disableDamage = true;
 
