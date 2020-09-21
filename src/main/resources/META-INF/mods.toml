@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[33,)"
+loaderVersion="[34,)"
 issueTrackerURL="https://github.com/Maciej916/Ma-Essentials/issues"
 license="GNU LESSER GENERAL PUBLIC LICENSE"
 
@@ -17,13 +17,13 @@ license="GNU LESSER GENERAL PUBLIC LICENSE"
     [[dependencies.maessentials]]
         modId="forge"
         mandatory=true
-        versionRange="[33.0.0,)"
+        versionRange="[34.0.0,)"
         ordering="NONE"
         side="BOTH"
 
     [[dependencies.maessentials]]
         modId="minecraft"
         mandatory=true
-        versionRange="[1.16.2]"
+        versionRange="[1.16.3]"
         ordering="NONE"
         side="BOTH"
